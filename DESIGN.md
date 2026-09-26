@@ -187,14 +187,18 @@ container  position rel/abs; width W; height h; overflow hidden
            border-radius 3px
            padding 0 ~40px 0 ~16px   (room for the title and the bands)
            display flex; align-items center
-           background: cover                      ← FLAT. No gradient (§7).
-           box-shadow: inset 0 0 0 1px coverDark,  (bound cover-board edge)
-                       0 12px 20px -14px rgba(20,40,30,.6)
+           background: cover                      ← FLAT. No gradient (§6).
+           box-shadow:                            ← volume is ALL shadow, no gradient
+             inset 0 0 0 1px coverDark,                    (bound board edge)
+             inset 0 3px 5px -3px rgba(255,255,255,.35),   (lit top curve)
+             inset 0 -4px 6px -3px rgba(0,0,0,.32),        (shadowed bottom curve)
+             0 2px 3px -1px rgba(20,40,30,.35),            (contact shadow onto book below)
+             0 16px 24px -12px rgba(20,40,30,.55)          (drop)
 
 edgeTop    absolute; left 0; right 0; top 0; height 1px
-           background rgba(255,255,255,.14)        (board highlight)
+           background rgba(255,255,255,.30)        (crisp catch-light)
 edgeBottom absolute; left 0; right 0; bottom 0; height 1px
-           background rgba(20,40,30,.16)           (board shade)
+           background coverDark                    (base board line)
 
 bandA/B    absolute; right 30/23px; top 24%; bottom 24%; width 2px; radius 1px
            background band                         (two raised spine bands)
@@ -207,15 +211,25 @@ label      position relative; z-index 2
             11px floor — the spine label is decoration and sits under it)
 
 selected   box-shadow: inset 0 0 0 1px coverDark,
-                       0 0 0 2px #E9B44C, 0 13px 20px -12px rgba(20,40,30,.7)
+                       inset 0 3px 5px -3px rgba(255,255,255,.35),
+                       inset 0 -4px 6px -3px rgba(0,0,0,.32),
+                       0 0 0 2px #E9B44C, 0 15px 22px -12px rgba(20,40,30,.6)
 ```
+
+The floating hero book's spine slab gets the same idea on its long axis:
+`inset 2px 0 3px -1px rgba(255,255,255,.20), inset -3px 0 5px -2px rgba(0,0,0,.28)`
+over its flat cover, plus its existing drop shadow.
 
 **Three things that are easy to get wrong here:**
 
-1. **The fill is flat cover colour — no gradient, no page block.** The spine is
-   one solid colour bounded by the 1px `coverDark` inset ring; the old cream
-   page-block and the left-hand spine strip are both gone. Kateryna asked for
-   the gradients off the spines explicitly.
+1. **The fill is flat cover colour — no gradient, no page block. Volume comes
+   from shadow, not colour.** The spine is one solid colour; the sense of a
+   rounded, lit spine is built entirely from box-shadows — a `coverDark` inset
+   ring, an inset white highlight along the top, an inset dark shadow along the
+   bottom, a tight contact shadow onto the book below, and the drop. This is the
+   distinction Kateryna drew: she removed the 90° colour bevel but asked for
+   volume "with shadows" — so the volume is shadow, and the colour stays flat.
+   The old cream page-block and left-hand spine strip are gone.
 2. **Title ink is chosen for contrast, not brand.** Cream on the dark covers,
    charcoal on coral and mustard, deep emerald on sage. Do not reflexively put
    cream on coral — it is the magazine masthead treatment and fails contrast on
@@ -449,10 +463,13 @@ Kept so they are not re-litigated or re-broken.
   spine face is long enough to hold the title, which is what forced the old
   page-block workaround; that reason is gone. *(Kateryna's call, made
   explicitly: "make books in the stack … spikes [spines] view, face to user.")*
-- **Spines are flat — no gradient.** The old `linear-gradient(90deg, coverDark
-  → cover → coverDark)` bevel on every spine (closed books and the floating
-  book) was removed at Kateryna's request. Definition now comes from a 1px
-  `coverDark` inset ring plus two subtle raised bands, not a gradient.
+- **Spines are flat-coloured; volume is shadow, not gradient.** The old
+  `linear-gradient(90deg, coverDark → cover → coverDark)` bevel on every spine
+  (closed books and the floating book) was removed at Kateryna's request. The
+  fill stays a single flat cover colour; the rounded, lit-spine *volume* she
+  then asked for is built entirely from box-shadows (inset highlight top, inset
+  shadow bottom, contact + drop) plus the `coverDark` ring and two raised bands
+  — never by reintroducing a colour gradient. See §2.2.
 - **`/about` scrolls** (1260px) — not forced to the uniform 960.
 - **Even thickness, ≥ 16px** (§2), one canonical set everywhere.
 - **Magazine renamed "My Projects."**
