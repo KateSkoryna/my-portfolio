@@ -36,17 +36,20 @@ replaced by `quiet` and `muted`. The same bug still exists in the live
 
 ### 1.2 Page background
 
-Not a flat fill. Two radial washes over the base:
+**A single flat fill: `#F3EFE4`.** Every route uses it, desktop and mobile,
+including `/about` (the newspaper prints on the same paper as the rest of the
+site — it reads as a newspaper through its rules and columns, not a different
+stock).
 
-```css
-background:
-  radial-gradient(1200px 700px at 12% -14%, #F0ECE0 0%, transparent 60%),
-  radial-gradient(1000px 800px at 108% 116%, #EEF3EE 0%, transparent 55%),
-  #F3EFE4;
-```
+An earlier version layered two radial washes (a warm `#F0ECE0` top-left, a
+cool `#EEF3EE` bottom-right). On large flat pages the two tints met in the
+middle and read as a diagonal two-tone split — it looked like a broken screen.
+Removed. Do not reintroduce a multi-stop background; if depth is wanted, a
+single very subtle one-direction wash is the most that is acceptable.
 
-Scale the radii down proportionally on mobile (roughly 500px/460px at 390px
-viewport width).
+**Book/paper interiors are all `#FFF7ED` (`cream`)** — resume, handbook and
+journal pages alike. The journal once used a green-tinted stock (`#F3F8F4 →
+#E8F0EA`); unified to cream so every opened book matches.
 
 ### 1.3 Type
 
@@ -102,18 +105,25 @@ and edge-on.
 
 | # | Item | Route | Object | Cover | Back cover | Thickness |
 |---|---|---|---|---|---|---|
-| 01 | Resume | `/resume` | Hardcover book | `#1F6F5F` | `#103C33` | 26px |
-| 02 | Selected Work | `/projects` | Glossy magazine | `#FF6F61` | `#B8453A` | **34px** |
-| 03 | Dev Journal | `/journal` | Softcover notebook | `#DCE9E2` | `#8FAE9F` | 19px |
-| 04 | Off the Clock | `/about` | Folded newspaper | `#E9B44C` | `#A97C22` | 14px |
-| 05 | Prompting Handbook | `/handbook` | Field guide | `#155246` | `#08241E` | 22px |
+| 01 | Resume | `/resume` | Hardcover book | `#1F6F5F` | `#103C33` | 28px |
+| 02 | My Projects | `/projects` | Glossy magazine | `#FF6F61` | `#B8453A` | **36px** |
+| 03 | Dev Journal | `/journal` | Softcover notebook | `#DCE9E2` | `#8FAE9F` | 20px |
+| 04 | Off the Clock | `/about` | Folded newspaper | `#E9B44C` | `#A97C22` | 16px |
+| 05 | Prompting Handbook | `/handbook` | Field guide | `#155246` | `#08241E` | 24px |
 
 **Thickness is editorial weight, not page count.** The projects magazine is
 the thickest because it is what most visitors come for. The CV is second.
 This ordering is deliberate and was corrected from an earlier version that
 made the CV thickest.
 
-Titles ("Resume", "Dev Journal") are placeholders Kateryna may rename.
+**All thickness values are even and ≥ 16px** (Kateryna's call). Thickness is
+the bar height of the spine-out slab (§2.2), so it is the only thing that
+carries hierarchy edge-on — never hardcode a slab height per item, read it from
+`thickness`. This set is canonical across the pile, the shelf, the closed row
+and the colophon; earlier the surfaces disagreed.
+
+Item names: **"My Projects"** is set (was "Selected Work"). "Resume",
+"Dev Journal" and "Off the Clock" are still placeholders Kateryna may rename.
 
 ### 2.1 Cover construction (face-on)
 
@@ -158,89 +168,104 @@ Per-object cover art, at 216 × 260:
 ### 2.2 Closed-book construction (edge-on) — the important one
 
 This is the object that appears in the landing pile, the `/shelf` bottom row
-and the `/colophon` edge row. It went through three wrong versions. The rules:
+and the `/colophon` edge row. **It is spine-out: the book faces the viewer
+spine-first**, like a stack of books you read the spines of — not fore-edge or
+top-edge on. (This reverses an earlier decision; see the note below and §6.)
+The whole slab is the spine face. Its long dimension (`W`, roughly the book's
+height) is horizontal; its short dimension (bar height) is `thickness`, so a
+thicker book is a taller bar and the pile still shows its hierarchy.
 
 Given `h` = thickness, `cover`, `coverDark`:
 
 ```
-spineWidth = h < 18 ? 17 : 23
-lip        = max(2, round(h * 0.085))
+ink   = cover ∈ {#1F6F5F, #155246} → #FFF7ED   (cream, on the dark covers)
+        cover = #DCE9E2            → #155246   (deep emerald, on sage)
+        otherwise (#FF6F61,#E9B44C) → #232323   (charcoal, on coral & mustard)
+band  = dark cover → rgba(255,247,237,.32)   light cover → rgba(35,35,35,.20)
 
-container  position relative; width W; height h; overflow hidden
-           border-radius 4px 2px 2px 4px
-           padding-left (spineWidth + 13)px
+container  position rel/abs; width W; height h; overflow hidden
+           border-radius 3px
+           padding 0 ~40px 0 ~16px   (room for the title and the bands)
            display flex; align-items center
-           background:
-             repeating-linear-gradient(180deg,
-               rgba(58,74,70,.20) 0 1px, transparent 1px 3px),
-             linear-gradient(180deg, #FFFFFF 0%, #FDFAF4 50%, #F1EBDE 100%)
-           box-shadow 0 10px 18px -14px rgba(20,40,30,.6)
+           background: cover                      ← FLAT. No gradient (§7).
+           box-shadow: inset 0 0 0 1px coverDark,  (bound cover-board edge)
+                       0 12px 20px -14px rgba(20,40,30,.6)
 
-spine      absolute; left 0; top 0; bottom 0; width spineWidth
-           border-radius 4px 1px 1px 4px
-           background linear-gradient(90deg,
-             coverDark 0%, cover 38%, cover 64%, coverDark 100%)
+edgeTop    absolute; left 0; right 0; top 0; height 1px
+           background rgba(255,255,255,.14)        (board highlight)
+edgeBottom absolute; left 0; right 0; bottom 0; height 1px
+           background rgba(20,40,30,.16)           (board shade)
 
-hinge      absolute; left spineWidth; top 0; bottom 0; width 3px
-           background linear-gradient(90deg,
-             rgba(52,68,62,.22), transparent)
-
-lipTop     absolute; left (spineWidth - 1); right 0; top 0; height lip
-           background coverDark
-lipBottom  absolute; left (spineWidth - 1); right 0; bottom 0; height lip
-           background coverDark
+bandA/B    absolute; right 30/23px; top 24%; bottom 24%; width 2px; radius 1px
+           background band                         (two raised spine bands)
 
 label      position relative; z-index 2
-           Manrope 800 / (h < 18 ? 7px : 8px) / letter-spacing .18em
-           uppercase / labelInk (#46524C)
+           Manrope 800 / (h < 18 ? 7.5px : 8.5–9px) / letter-spacing .16–.18em
+           uppercase / ink / white-space nowrap + ellipsis
+           (the title now reads straight off the spine; it also shows larger on
+            the standing cover above and in the description; see §5 on the
+            11px floor — the spine label is decoration and sits under it)
 
-selected   box-shadow 0 0 0 2px #E9B44C, 0 13px 20px -12px rgba(20,40,30,.7)
+selected   box-shadow: inset 0 0 0 1px coverDark,
+                       0 0 0 2px #E9B44C, 0 13px 20px -12px rgba(20,40,30,.7)
 ```
 
-**Four things that are easy to get wrong here:**
+**Three things that are easy to get wrong here:**
 
-1. **The colour belongs on the spine, not in horizontal bands.** An earlier
-   version filled the top 26% and bottom 18% with cover colour and left cream
-   between. It read as a hamburger. The mass of colour must be vertical and at
-   one end.
-2. **Both cover lips are `coverDark`.** They were once different colours (lit
-   top, shadowed bottom). At 2–3px there is not enough surface for that to
-   read as lighting — it just looks like a book with two differently coloured
-   boards.
-3. **The page block is white, and the *lines* carry the texture.** A darkened
-   cream fill looks like a second-hand paperback. New stock = white with a
-   crisp top highlight, plus cool-toned (`rgba(58,74,70,…)`), tightly spaced
-   (every 3px) lines. Age comes from warm, heavy, low-frequency texture;
-   newness from cool, light, high-frequency texture.
-4. **Titles are printed on the page block, not the spine.** Physically wrong,
-   but a 14px spine cannot hold legible type and legibility wins.
+1. **The fill is flat cover colour — no gradient, no page block.** The spine is
+   one solid colour bounded by the 1px `coverDark` inset ring; the old cream
+   page-block and the left-hand spine strip are both gone. Kateryna asked for
+   the gradients off the spines explicitly.
+2. **Title ink is chosen for contrast, not brand.** Cream on the dark covers,
+   charcoal on coral and mustard, deep emerald on sage. Do not reflexively put
+   cream on coral — it is the magazine masthead treatment and fails contrast on
+   a thin spine.
+3. **Thickness is the only hierarchy signal edge-on.** Bar height = `thickness`.
+   Do not normalise the heights "for tidiness" or the pile goes flat.
 
 ### 2.3 Known weakness
 
-**The newspaper is the weakest object edge-on.** At 14px with a 17px spine it
-is nearly square, and a folded newspaper does not have a spine at all. It was
-made wider than the others at one point to compensate, which broke column
-alignment on `/shelf` and was reverted. If it still reads badly once built,
-the correct fix is that `/about` should not be a newspaper — not more tweaking
-of the slab.
+**The newspaper is still the odd object edge-on.** A folded newspaper does not
+have a spine at all, so a 16px spine-out bar for `/about` is a polite fiction —
+though at spine-out it reads far better than the old near-square top-edge slab,
+because a thin, wide bar still holds a title cleanly. It was once made wider
+than the others to compensate, which broke column alignment on `/shelf` and was
+reverted. If it still reads badly once built, the correct fix is that `/about`
+should not be a newspaper — not more tweaking of the slab.
 
 ---
 
 ## 3. Routes
 
+Every route is now designed on the canvas, desktop **and** mobile. "Designed"
+= a static mockup exists; the build still implements it fluid (see §6).
+
 | Route | Page | Rendering | Designed? |
 |---|---|---|---|
-| `/` | The stack. One item floats, four in the pile. | Static | **Yes** |
-| `/shelf` | All five side by side, plus the closed row. | Static | **Yes** |
-| `/resume` | The book opened, two spreads. | Static | **Yes** |
-| `/colophon` | How the site was built: objects, palette, type. | Static | **Yes** |
-| `/projects` | The magazine. Live GitHub repo data. | **ISR, 3600s** | No |
-| `/journal` | The notebook. MDX entries. | Static | No |
-| `/about` | The newspaper. | Static | No |
-| `/handbook` | The existing flip-book, ported. | Static | No (exists as `index.html`) |
+| `/` | The stack. One item floats, four in the pile. | Static | **Yes** (+ mobile) |
+| `/shelf` | Five covers + the closed row (desktop); a vertical list (mobile). | Static | **Yes** (+ mobile) |
+| `/resume` | The book opened. Two spreads (desktop); one page at a time (mobile). | Static | **Yes** (+ mobile) |
+| `/projects` | The magazine. Live GitHub repo data. | **ISR, 3600s** | **Yes** (+ mobile) |
+| `/journal` | The notebook. MDX entries, entry index + open entry. | Static | **Yes** (+ mobile) |
+| `/about` | The newspaper. Multi-column (desktop); single column (mobile). | Static | **Yes** (+ mobile) |
+| `/handbook` | The existing flip-book, ported. Spread (desktop); one page (mobile). | Static | **Yes** (+ mobile) |
+| `/colophon` | How the site was built: objects, palette, type. Scrolls (1300px). | Static | **Yes** (desktop only) |
 | `/keystatic` | Admin UI. | Client | N/A — library-provided |
 
-Four routes still need designing. They are **not** blockers for Phases 0–3.
+**Per-breakpoint content differences (not just reflow) the build must honour:**
+
+- `/shelf` — desktop shows covers **and** the closed edge-on row; mobile shows
+  a vertical list of covers **only** (five covers can't be legible side by side
+  at 390px, and the pile already lives on the mobile landing).
+- `/resume`, `/handbook` — desktop is a two-page spread; mobile is one page at
+  a time, so the indicator counts pages ("Page 2 of 5"), not spreads.
+- `/about` — desktop is multi-column with a centre fold; mobile is single
+  column, no fold.
+
+Reachability: `/colophon` is **not** header chrome. It is linked once, in
+context, from the `/projects` footer note ("This site is a project too — see
+how it was built"). A recruiter never has to open it; a developer who wants to
+can.
 
 ---
 
@@ -252,13 +277,16 @@ Three-column layout at 1440 × 900: identity block left (x 80, w 340), the
 floating item centred (x 596, y 150, 268 × 340), the description panel right
 (x 1040, w 320). Circular 56px arrow buttons at x 472 and x 932, y 292.
 
-- `→` advances. The floating item **drops to the bottom of the pile** and the
-  next rises into its place. `←` reverses.
+- `→` advances to the next item, `←` reverses. **The carousel simply reorders
+  to the new selection** — a cross-fade / reflow, not a physical animation.
 - The pile below shows the other four, offset in x, rotated ±0.6–1.4°, each
   3px below the previous, tallest at the top of the stack.
 - A suspension shadow — a 216 × 24 radial ellipse at 30% opacity — sits
   between the floating item and the pile. This is what sells "suspended".
-- Clicking any closed book in the pile brings it to the front.
+- **Each book in the pile is a direct link to its own route.** Clicking a pile
+  book navigates straight to that page — no "bring to front, then click again".
+  The floating item also links to its route. This is the one-click-to-content
+  path; the arrows are for browsing covers, not the only way in.
 - A leader line runs from the floating item's top-right corner to the
   description panel: `M7 50 L56 50 C78 50 76 12 98 12 L178 12`, emerald
   1.4px, with a 3.6px coral dot at the book end.
@@ -266,10 +294,12 @@ floating item centred (x 596, y 150, 268 × 340), the description panel right
   earlier version drew keycap hints next to the visible arrow buttons and it
   read as a second, broken set of controls.
 
-**The hard part is the return trip.** The item leaving the floating slot must
-not appear to pass *through* the pile. The sequence: the pile lifts a few
-pixels, the returning item slides in underneath from the front, the pile
-settles. 420ms total on `cubic-bezier(.2,.72,.18,1)`.
+**DECIDED: the "drop to the bottom of the pile" return-trip animation will NOT
+be built.** An earlier spec described the floating item travelling down and
+sliding in under the pile without passing through it — 420ms of hard,
+risky motion on the critical path to content. Kateryna dropped it. The advance
+is a plain reorder. This removes the single most failure-prone piece of the
+build; do not reinstate it.
 
 ### 4.2 Shelf (`/shelf`)
 
@@ -292,7 +322,53 @@ correspondence is the point of the page; do not let the two rows drift.
 Two 500 × 640 pages side by side with inset spine shadows facing each other
 (`inset ∓16px 0 26px -18px rgba(0,0,0,.4)`). 56px arrows at x 112 and x 1272,
 y 442. Arrows **disable at the ends** — a book does not loop, unlike the
-carousel. Indicator below: `Spread 1 of 2 · pages 2–3`, plus clickable dots.
+carousel.
+
+**Indicator: dots only, no counter text.** Every book/carousel indicator on the
+site (`/`, `/resume`, `/journal`, `/handbook`, mobile) is a bare dot row — the
+active dot widens to coral, the rest are sage. The "Spread 1 of 2" / "Entry 2
+of 4" text labels were removed for a cleaner look. **Consequence for the build:
+put `aria-current="true"` (or `aria-current="page"`) on the active dot** so a
+screen-reader user still gets a position cue; each dot already carries an
+`aria-label` ("Go to spread 2"). Dots are `<button>`s with a ≥44px hit area
+(12px vertical padding around an 8px dot).
+
+`/resume` and `/handbook` are interactive in the mockup: the dots and the
+page-arrows drive one shared `sel` state, and the folio numbers track it.
+
+### 4.4 Shared page chrome (every route)
+
+One header and footer structure on all 15 route boards, desktop and mobile.
+
+- **Header, two rows.** Row 1 (top): the **language toggle**, alone, pinned
+  right. Row 2 (below): back-arrow left, route label centred, the page's own
+  action right (e.g. "Go to shelf", or the `/resume` "Download PDF" which sits
+  above the book's top-right corner). The two rows separate a site-wide setting
+  (language) from where-you-are navigation. They were once one cramped row.
+- **Language toggle.** A sage pill track (`rgba(220,233,226,.55)`) with a soft
+  drop shadow and a 1px inner top highlight, holding the **selected** language
+  as a filled emerald **circle** (30px desktop / 26px mobile) with the
+  nav-button shadow, and the other language as plain muted text beside it. Both
+  are real `<button>`s with `aria-label`.
+- **Buttons carry volume.** The circular nav arrows and the CTA pills already
+  had shadows; the language toggle and its selected knob now match. Flat
+  outlined bars (back / go-to-shelf) and underlined text links stay flat by
+  intent — a shadow on a text link looks wrong.
+- **Footer** on every route: `© 2026 Kateryna Skoryna · All rights reserved`,
+  centred, Manrope 700 / 10px / `quiet`. Sequential prev/next links (where a
+  page has them) sit on the row above it. The top back-arrow is the escape
+  hatch; the bottom links are the reading order — do not duplicate "back to the
+  stack" in both.
+
+### 4.5 Fold / page height
+
+One-screen routes are a uniform **1440 × 960** (1920×1080 minus browser chrome
+— the most common EU desktop). Long-form routes keep their natural height and
+scroll: `/projects` 960 (fits), `/journal` 960, `/about` **1260 (scrolls — a
+newspaper is allowed to run long)**, `/colophon` 1300. Every route's core lands
+above ~744px (the 1536×864 laptop fold) — verified per page. Do **not** add a
+visible fold guide to the artboards; a coral one was tried and read as a pink
+screen-glitch.
 
 ---
 
@@ -304,16 +380,25 @@ Non-negotiable. This is a build gate.
    its ratio recorded. New colours must be measured before use.
 2. **Real elements.** `<button>` and `<a href>`. Never `role`/`onClick` on a
    `div` or `span` — Tab skips it. Icon-only controls carry `aria-label`.
-3. **Touch targets ≥ 44px.** *The prototype's pagination dots are 32px and
-   are wrong.* Fix in the build.
-4. **`prefers-reduced-motion: reduce` disables every transform** — carousel,
+3. **Touch targets ≥ 44px.** The mockup still has sub-44px controls: the
+   pagination dots (give them a 44px hit area, done via padding), the language
+   toggle circles (30/26px), and thin closed-book edges. Widen all of these in
+   the build with transparent hit-areas — do not shrink the visible art.
+4. **Minimum 11px for any text that carries information.** The mockup was swept
+   so every informational run — route labels, data labels, dates, percentages,
+   section eyebrows, captions — is ≥ 11px. Text below 11px is **decoration
+   only**: book-cover kickers, closed-book spine labels, and the newspaper's
+   mock column rules. Each of those duplicates its information at a readable
+   size elsewhere (the title is 27–42px, the route is in the description). Never
+   put unique information below 11px.
+5. **`prefers-reduced-motion: reduce` disables every transform** — carousel,
    hover scale, page turns, selection transitions.
-5. **Keyboard.** Arrow keys drive the carousel and page turns. Visible
+6. **Keyboard.** Arrow keys drive the carousel and page turns. Visible
    `:focus-visible` ring on every interactive element — mustard, 3px, 2px
    offset.
-6. **Colours that must be distinguished also differ in lightness**, not hue
+7. **Colours that must be distinguished also differ in lightness**, not hue
    alone.
-7. **axe-core: zero violations** across all routes in CI.
+8. **axe-core: zero violations** across all routes in CI.
 
 ---
 
@@ -350,21 +435,62 @@ Kept so they are not re-litigated or re-broken.
   reads thin. AI drafting an entry that lands as a PR for human review is
   defensible, safe, and demonstrates judgement about where automation belongs.
 
+### Decisions locked in a second design pass
+
+- **The carousel stays the primary landing view** — this is a portfolio, not an
+  app. The earlier note that the shelf "is arguably better" is an observation,
+  not a plan; the carousel is the landing, `/shelf` is secondary.
+- **Pile books link straight to their routes** (§4.1) — the one-click path.
+- **Return-trip animation dropped** (§4.1) — the carousel just reorders.
+- **Closed books are spine-out** (§2.2). *Reverses the earlier "titles on the
+  page block" decision.* The pile, the shelf's closed row and the colophon's
+  edge row now show each book spine-first — a flat cover-coloured bar with the
+  title along the spine — instead of top-edge on with a cream page block. The
+  spine face is long enough to hold the title, which is what forced the old
+  page-block workaround; that reason is gone. *(Kateryna's call, made
+  explicitly: "make books in the stack … spikes [spines] view, face to user.")*
+- **Spines are flat — no gradient.** The old `linear-gradient(90deg, coverDark
+  → cover → coverDark)` bevel on every spine (closed books and the floating
+  book) was removed at Kateryna's request. Definition now comes from a 1px
+  `coverDark` inset ring plus two subtle raised bands, not a gradient.
+- **`/about` scrolls** (1260px) — not forced to the uniform 960.
+- **Even thickness, ≥ 16px** (§2), one canonical set everywhere.
+- **Magazine renamed "My Projects."**
+- **Single flat background `#F3EFE4`, all book interiors `#FFF7ED`** (§1.2).
+- **Dots-only indicators** with `aria-current` on the active dot (§4.3).
+- **11px floor for informational text** (§5.4); sub-11px is decoration only.
+- **Build fluid, not fixed-pixel.** The mockup is two fixed breakpoints
+  (1440 / 390) by necessity. The build must be genuinely fluid — `clamp()`,
+  CSS grid/flex, container queries — so 1280 laptops and tablets are not
+  stranded between the two. The mockup is a spec of intent, not of implementation.
+- **Accessibility-first** is the build's top priority, not a final polish pass.
+
 ### Open, for Kateryna
 
 - **The repo name.** `github.io/prompting-handbook/resume` undercuts a
   portfolio link on a CV. A repo named `kateskoryna.github.io`, or a custom
   domain on Vercel, fixes it. Build with relative paths so the move is free.
-- **Item names** — *Off the Clock*, *Dev Journal*, *Selected Work* are
-  invented. Rename them.
-- **Every `[BRACKET]`** is waiting on real content.
+- **Item names** — *Off the Clock* and *Dev Journal* are still invented
+  ("My Projects" is now set). Rename if you want.
+- **Every `[BRACKET]`** is waiting on real content. **This is now the critical
+  path**: the design is essentially done and the site is still empty. A
+  recruiter hires for what the page *says*; start with `/resume` (experience +
+  "what I'm looking for") and the three project descriptions.
 - **"What I am looking for"** on `/resume` page 5 is the section hiring
   managers actually read and the one that cannot be drafted for her.
+- **Which repos have a live demo.** The project cards link "Live demo" to
+  `#demo` placeholders. Drop the link for any repo that is not actually
+  deployed — a dead demo link costs more trust than its absence.
 
 ---
 
-## 7. Not yet designed
+## 7. Design status
 
-`/projects`, `/journal`, `/about`, `/handbook` interiors. Mobile layouts for
-everything except the landing page. Dark mode (not currently planned — the
-paper metaphor argues against it; decide before Phase 2 rather than retrofitting).
+All eight content routes are designed on the canvas, desktop and mobile
+(`/colophon` desktop only). The prototype lives on a Claude Design canvas;
+this file is the authoritative written extraction — build from it, and correct
+it here if the two ever disagree.
+
+**Not designed / deferred:** the `/keystatic` admin UI (library-provided, no
+custom design needed) and **dark mode** (not planned — the paper metaphor
+argues against it; decide before Phase 2 rather than retrofitting).
