@@ -1,0 +1,175 @@
+/**
+ * Design tokens for the portfolio.
+ *
+ * Single source of truth — see DESIGN.md §1. Never hardcode a colour, size,
+ * radius, shadow or duration in a component. If a value is missing here, add
+ * it here first.
+ *
+ * Contrast ratios in comments are measured against the stated background and
+ * must be preserved. Any new text colour is measured before use.
+ */
+
+export const color = {
+  emerald: '#1F6F5F',
+  emeraldDeep: '#155246',
+  coral: '#FF6F61',
+  mustard: '#E9B44C',
+  sage: '#DCE9E2',
+  cream: '#FFF7ED',
+  paper: '#F3EFE4',
+  charcoal: '#232323',
+  ink: '#2B2B2B',
+
+  /** Long-form paragraph text on cream. */
+  bodyText: '#485349',
+  /** Secondary text. 4.86:1 on `paper`. */
+  muted: '#5C6B64',
+  /** Tertiary text, URLs, captions. 4.93:1 on `paper`. */
+  quiet: '#6F6656',
+  /** `[BRACKETED]` placeholder labels. 5.22:1 on `paper`. */
+  placeholder: '#6F6244',
+  /** Titles printed on closed-book page blocks. 7.6:1 on white. */
+  labelInk: '#46524C',
+} as const;
+
+/**
+ * Inherited from the published handbook and BANNED — both fail WCAG AA on
+ * `paper`. Exported only so a lint rule or review can catch reintroduction.
+ */
+export const bannedColors = {
+  /** 2.68:1 on `paper`. Replaced by `color.quiet`. */
+  legacyHint: '#9A9284',
+  /** 3.91:1 on `paper`. Replaced by `color.muted`. */
+  legacyMuted: '#6D7A72',
+} as const;
+
+/** Page background — two radial washes over the base. DESIGN.md §1.2 */
+export const pageBackground = {
+  desktop: [
+    'radial-gradient(1200px 700px at 12% -14%, #F0ECE0 0%, transparent 60%)',
+    'radial-gradient(1000px 800px at 108% 116%, #EEF3EE 0%, transparent 55%)',
+    color.paper,
+  ].join(', '),
+  mobile: [
+    'radial-gradient(500px 400px at 10% -8%, #F0ECE0 0%, transparent 62%)',
+    'radial-gradient(460px 460px at 112% 108%, #EEF3EE 0%, transparent 58%)',
+    color.paper,
+  ].join(', '),
+} as const;
+
+export const font = {
+  /** Headings, cover titles, page numbers, counters. */
+  display: 'var(--font-bricolage)',
+  /** Every paragraph, label, chip, button. */
+  body: 'var(--font-manrope)',
+  /** Margin notes and asides ONLY — never for text a reader must read. */
+  hand: 'var(--font-caveat)',
+} as const;
+
+/** Recurring type patterns. DESIGN.md §1.3 */
+export const type = {
+  eyebrow: {
+    fontFamily: font.body,
+    fontWeight: 800,
+    fontSize: '10px',
+    letterSpacing: '.24em',
+    textTransform: 'uppercase',
+  },
+  sectionLabel: {
+    fontFamily: font.body,
+    fontWeight: 800,
+    fontSize: '9.5px',
+    letterSpacing: '.2em',
+    textTransform: 'uppercase',
+  },
+  h1: {
+    fontFamily: font.display,
+    fontWeight: 800,
+    fontSize: '38px',
+    lineHeight: 1,
+    letterSpacing: '-.025em',
+  },
+  h2: {
+    fontFamily: font.display,
+    fontWeight: 800,
+    fontSize: '34px',
+    lineHeight: 1.02,
+    letterSpacing: '-.02em',
+  },
+  cardTitle: { fontFamily: font.display, fontWeight: 800, fontSize: '16px' },
+  body: { fontFamily: font.body, fontWeight: 400, fontSize: '13px', lineHeight: 1.6 },
+  caption: { fontFamily: font.body, fontWeight: 700, fontSize: '11.5px' },
+  route: {
+    fontFamily: font.body,
+    fontWeight: 700,
+    fontSize: '11.5px',
+    letterSpacing: '.04em',
+  },
+  marginNote: { fontFamily: font.hand, fontWeight: 600, fontSize: '19px' },
+} as const;
+
+export const radius = {
+  pill: '24px',
+  card: '12px',
+  /** Face-on cover: sharp at the spine, rounded at the fore-edge. */
+  book: '2px 9px 9px 2px',
+  /** Edge-on closed book. */
+  closed: '4px 2px 2px 4px',
+} as const;
+
+export const shadow = {
+  rest: '0 18px 32px -22px rgba(20,40,30,.45)',
+  raised: '0 30px 46px -20px rgba(20,40,30,.6)',
+  closed: '0 10px 18px -14px rgba(20,40,30,.6)',
+  button: '0 10px 20px -10px rgba(31,111,95,.7)',
+  /** Cast by the floating item onto the pile — what sells "suspended". */
+  suspension: 'radial-gradient(closest-side, rgba(28,52,42,.3), transparent)',
+} as const;
+
+export const motion = {
+  ease: 'cubic-bezier(.2,.72,.18,1)',
+  /** Carousel advance and page turn. */
+  turn: 420,
+  /** Selection change. */
+  select: 320,
+  /** Hover scale. */
+  hover: 300,
+  /** Hover scale factor on /shelf covers. */
+  hoverScale: 1.2,
+} as const;
+
+/**
+ * Closed-book geometry. DESIGN.md §2.2.
+ *
+ * Derive from thickness — never hardcode per item, or the five objects drift
+ * apart as values are tweaked.
+ */
+export const closedBook = {
+  spineWidth: (thickness: number): number => (thickness < 18 ? 17 : 23),
+  /** Cover boards overhanging the page block. */
+  lip: (thickness: number): number => Math.max(2, Math.round(thickness * 0.085)),
+  labelSize: (thickness: number): string => (thickness < 18 ? '7px' : '8px'),
+  hingeWidth: 3,
+  /** Gap between the spine and the printed title. */
+  labelInset: 13,
+  /**
+   * White stock with cool, tightly spaced lines. Age reads as warm, heavy,
+   * low-frequency texture; newness as cool, light, high-frequency.
+   */
+  pageBlock: [
+    'repeating-linear-gradient(180deg, rgba(58,74,70,.2) 0 1px, transparent 1px 3px)',
+    'linear-gradient(180deg, #FFFFFF 0%, #FDFAF4 50%, #F1EBDE 100%)',
+  ].join(', '),
+  hinge: 'linear-gradient(90deg, rgba(52,68,62,.22), transparent)',
+  selectedRing: `0 0 0 2px ${color.mustard}, 0 13px 20px -12px rgba(20,40,30,.7)`,
+} as const;
+
+/** Accessibility constants. Enforced, not aspirational. DESIGN.md §5 */
+export const a11y = {
+  /** Minimum touch/click target. The prototype's 32px dots are non-compliant. */
+  minTargetPx: 44,
+  minContrastBody: 4.5,
+  minContrastLarge: 3,
+  focusRing: `0 0 0 3px ${color.mustard}`,
+  focusRingOffset: '2px',
+} as const;
