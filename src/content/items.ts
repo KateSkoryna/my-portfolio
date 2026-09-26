@@ -38,7 +38,7 @@ export interface PortfolioItem {
   chips: readonly string[];
   /** Call-to-action label. "Open the book", "Open the magazine"… */
   cta: string;
-  /** Front cover colour. Also the centre of the spine gradient. */
+  /** Front cover colour. Also the flat spine fill — see DESIGN.md §2.2. */
   cover: string;
   /** Back cover colour. Both cover lips use this — see DESIGN.md §2.2. */
   coverDark: string;
@@ -69,7 +69,7 @@ export const items: readonly PortfolioItem[] = [
     cta: 'Open the book',
     cover: '#1F6F5F',
     coverDark: '#103C33',
-    thickness: 26,
+    thickness: 28,
     published: false,
   },
   {
@@ -77,11 +77,10 @@ export const items: readonly PortfolioItem[] = [
     n: '02',
     kind: 'magazine',
     kindLabel: 'Magazine',
-    // [RENAME? "Selected Work" is a placeholder title.]
-    title: 'Selected Work',
+    title: 'My Projects',
     route: '/projects',
     coverKicker: 'Issue 01 · Projects',
-    coverTitle: 'Selected Work',
+    coverTitle: 'My Projects',
     coverFoot: 'Updated hourly from GitHub',
     blurb:
       'An issue-per-project magazine. Stars, language split and last-commit dates arrive live from the GitHub API on the server and refresh every hour, so it never goes stale.',
@@ -90,7 +89,7 @@ export const items: readonly PortfolioItem[] = [
     cta: 'Open the magazine',
     cover: '#FF6F61',
     coverDark: '#B8453A',
-    thickness: 34,
+    thickness: 36,
     published: false,
   },
   {
@@ -111,7 +110,7 @@ export const items: readonly PortfolioItem[] = [
     cta: 'Open the notebook',
     cover: '#DCE9E2',
     coverDark: '#8FAE9F',
-    thickness: 19,
+    thickness: 20,
     published: false,
   },
   {
@@ -132,7 +131,7 @@ export const items: readonly PortfolioItem[] = [
     cta: 'Open the paper',
     cover: '#E9B44C',
     coverDark: '#A97C22',
-    thickness: 14,
+    thickness: 16,
     published: false,
   },
   {
@@ -152,7 +151,7 @@ export const items: readonly PortfolioItem[] = [
     cta: 'Open the handbook',
     cover: '#155246',
     coverDark: '#08241E',
-    thickness: 22,
+    thickness: 24,
     published: true,
   },
 ] as const;

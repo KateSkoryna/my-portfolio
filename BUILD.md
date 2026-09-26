@@ -67,9 +67,11 @@ Primitives every later phase consumes. Build these before any page.
   width as a prop), `<Chip>`, `<PillButton>`, `<ArrowButton>`, `<MarginNote>`
 - `<BookCover kind={...} size={...} />` — all five cover designs from
   `DESIGN.md` §2.1, one component switching on `kind`
-- `<ClosedBook item={...} width={...} selected={...} />` — the construction in
-  §2.2, exactly. Derive `spineWidth` and `lip` from thickness; do not
-  hardcode per item.
+- `<ClosedBook item={...} width={...} selected={...} />` — the spine-out
+  construction in §2.2, exactly: a flat cover-coloured bar whose **height is
+  `thickness`**, title along the spine in the contrast-chosen `ink`, `coverDark`
+  inset ring and two raised bands. No gradient, no page block. Do not hardcode
+  the bar height per item.
 - `:focus-visible` ring and the global `prefers-reduced-motion` rule
 
 **Done when:** a scratch route renders all five covers at both sizes and all
@@ -89,9 +91,10 @@ the carousel decides the shape of the state model.
 - Pile of four: offsets, rotations, 3px stacking, suspension shadow
 - Arrows advance/reverse; clicking a pile book brings it to the front;
   `←`/`→` keyboard
-- **The return animation**: pile lifts, returning book slides in underneath
-  from the front, pile settles. 420ms, `cubic-bezier(.2,.72,.18,1)`. Budget
-  real time for this — it is the thing that makes or breaks the page.
+- **No return-trip animation** (dropped — see DESIGN.md §6). Advancing just
+  reorders: the selected book becomes the floating item and the others
+  re-stack. Keep any transition short and interruptible, and gate it behind
+  `prefers-reduced-motion`.
 - Leader line to the description panel; `0X / 05` counter; pagination dots at
   **≥ 44px** targets
 - Mobile: bottom control bar, no leader lines, description below the pile
