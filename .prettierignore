@@ -1,0 +1,18 @@
+node_modules/
+.next/
+out/
+build/
+coverage/
+.vitest/
+package-lock.json
+next-env.d.ts
+
+# The design and plan documents are hand-wrapped prose contracts. Reflowing
+# their tables and paragraphs produces huge diffs that bury real edits.
+*.md
+
+# Generated — see scripts/generate-tokens-css.ts
+src/styles/tokens.css
+
+# The published handbook, kept verbatim as the Phase 4e content source
+index.html

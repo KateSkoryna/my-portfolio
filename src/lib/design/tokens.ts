@@ -43,19 +43,13 @@ export const bannedColors = {
   legacyMuted: '#6D7A72',
 } as const;
 
-/** Page background — two radial washes over the base. DESIGN.md §1.2 */
-export const pageBackground = {
-  desktop: [
-    'radial-gradient(1200px 700px at 12% -14%, #F0ECE0 0%, transparent 60%)',
-    'radial-gradient(1000px 800px at 108% 116%, #EEF3EE 0%, transparent 55%)',
-    color.paper,
-  ].join(', '),
-  mobile: [
-    'radial-gradient(500px 400px at 10% -8%, #F0ECE0 0%, transparent 62%)',
-    'radial-gradient(460px 460px at 112% 108%, #EEF3EE 0%, transparent 58%)',
-    color.paper,
-  ].join(', '),
-} as const;
+/**
+ * Page background. DESIGN.md §1.2 — a single flat fill, every route, desktop
+ * and mobile. An earlier two-radial-wash version met in the middle on large
+ * pages and read as a broken screen; it was removed. Do not reintroduce a
+ * multi-stop background.
+ */
+export const pageBackground = color.paper;
 
 export const font = {
   /** Headings, cover titles, page numbers, counters. */
@@ -139,29 +133,38 @@ export const motion = {
 } as const;
 
 /**
- * Closed-book geometry. DESIGN.md §2.2.
+ * Closed-book geometry. DESIGN.md §2.2 — spine-out: the book faces the
+ * viewer spine-first, bar height is `thickness`. The fill is flat cover
+ * colour; volume comes entirely from shadow, never a gradient or page-block
+ * texture — an earlier top-edge construction with a cream page-block and a
+ * left-hand hinge strip was discarded. Do not reintroduce either.
  *
  * Derive from thickness — never hardcode per item, or the five objects drift
  * apart as values are tweaked.
  */
 export const closedBook = {
   spineWidth: (thickness: number): number => (thickness < 18 ? 17 : 23),
-  /** Cover boards overhanging the page block. */
-  lip: (thickness: number): number => Math.max(2, Math.round(thickness * 0.085)),
   labelSize: (thickness: number): string => (thickness < 18 ? '7px' : '8px'),
-  hingeWidth: 3,
   /** Gap between the spine and the printed title. */
   labelInset: 13,
-  /**
-   * White stock with cool, tightly spaced lines. Age reads as warm, heavy,
-   * low-frequency texture; newness as cool, light, high-frequency.
-   */
-  pageBlock: [
-    'repeating-linear-gradient(180deg, rgba(58,74,70,.2) 0 1px, transparent 1px 3px)',
-    'linear-gradient(180deg, #FFFFFF 0%, #FDFAF4 50%, #F1EBDE 100%)',
-  ].join(', '),
-  hinge: 'linear-gradient(90deg, rgba(52,68,62,.22), transparent)',
-  selectedRing: `0 0 0 2px ${color.mustard}, 0 13px 20px -12px rgba(20,40,30,.7)`,
+  /** Flat-fill container volume: bound board edge + lit top/shadowed bottom curve + contact shadow + drop. */
+  containerShadow: (coverDark: string): string =>
+    [
+      `inset 0 0 0 1px ${coverDark}`,
+      'inset 0 3px 5px -3px rgba(255,255,255,.35)',
+      'inset 0 -4px 6px -3px rgba(0,0,0,.32)',
+      '0 2px 3px -1px rgba(20,40,30,.35)',
+      '0 16px 24px -12px rgba(20,40,30,.55)',
+    ].join(', '),
+  /** Same volume, plus the mustard selection ring, replacing the drop shadow. */
+  selectedShadow: (coverDark: string): string =>
+    [
+      `inset 0 0 0 1px ${coverDark}`,
+      'inset 0 3px 5px -3px rgba(255,255,255,.35)',
+      'inset 0 -4px 6px -3px rgba(0,0,0,.32)',
+      `0 0 0 2px ${color.mustard}`,
+      '0 15px 22px -12px rgba(20,40,30,.6)',
+    ].join(', '),
 } as const;
 
 /** Accessibility constants. Enforced, not aspirational. DESIGN.md §5 */
