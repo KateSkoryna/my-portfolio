@@ -1,0 +1,54 @@
+# Five checks, each a separate step so a failure names itself.
+#
+# These are the same commands PLAN.md requires before any task is considered
+# complete, so a red pipeline should never be the first time a problem shows
+# up.
+#
+# BRANCH PROTECTION: Vercel builds production from `main`, so this workflow
+# only blocks a bad production deploy once `main` is protected with these
+# checks required before merge. That is a GitHub repository setting, not a
+# file — enable it under Settings → Branches.
+
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Lint, format, types, tests, build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Matches the local toolchain and Vercel's runtime. Node's native
+          # type stripping runs scripts/generate-tokens-css.ts without a
+          # build step, so this must stay >= 22.
+          node-version: 24
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Format
+        run: npm run format:check
+
+      - name: Types
+        run: npm run typecheck
+
+      - name: Tests
+        run: npm run test
+
+      - name: Build
+        run: npm run build
+
+      - name: Accessibility
+        run: npm run test:a11y

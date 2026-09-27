@@ -1,0 +1,38 @@
+# BUILD.md Risks: "Dependency rot on a live portfolio". A portfolio is the
+# one site recruiters actually open, so it should not be running a Next with
+# a published advisory against it.
+#
+# Grouped so a quiet week produces one PR to review, not fifteen.
+
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      next:
+        patterns:
+          - 'next'
+          - 'eslint-config-next'
+          - '@next/*'
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - '@types/react'
+          - '@types/react-dom'
+      dev-tooling:
+        patterns:
+          - 'eslint*'
+          - 'prettier'
+          - 'vitest'
+          - 'typescript'
+          - '@types/node'
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
