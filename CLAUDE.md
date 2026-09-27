@@ -9,9 +9,10 @@ The personal portfolio site of Kateryna Skoryna — a stack of physical objects
 flips through. Each object is a route.
 
 It currently contains one finished artifact: `index.html`, the published
-Developer's Prompting Handbook, a page-flip book served from GitHub Pages. That
-file is **live**. Do not modify or delete it until Phase 4 of `BUILD.md`
-explicitly ports it.
+Developer's Prompting Handbook, a page-flip book. From Phase 0 the Next app
+owns `/` and this file stops being served — it is kept as the **content
+source** for the Phase 4e port, where the handbook returns as book 05 at
+`/handbook`. Do not modify or delete it until 4e explicitly ports it.
 
 ## Before writing any UI code
 
@@ -70,8 +71,28 @@ Vercel build costs a deploy cycle.
 
 ## Working branch
 
-Development happens on `claude/portfolio-book-stack-design-cetoc8`. Do not
-push to `main` without being asked.
+**One branch per phase**, cut from `main`: `phase-0-scaffold`,
+`phase-1-design-system`, and so on.
+
+**Do not commit while working.** Leave changes in the working tree so
+Kateryna can read the diff before anything is recorded; committing as you go
+means there is nothing left for her to review. Stop, report what changed, and
+commit only when she asks — then as small logical commits, not one blob.
+
+**Never push, never open a PR, never merge, never commit to `main`.** She
+pushes and opens the PR herself. See the Git protocol in `PLAN.md`.
+
+## Commit messages
+
+Short. A subject line, and a body only when the *why* is not obvious from the
+diff — then one or two sentences, not paragraphs.
+
+No attribution trailers, no co-author lines, no generated-by footers, in
+commits or pull request descriptions.
+
+Do not narrate the process ("two corrections, both found by…"), restate what
+the diff already shows, or explain what was considered and rejected. Write
+what changed and, where it matters, why.
 
 ## Design source
 
