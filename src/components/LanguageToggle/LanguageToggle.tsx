@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 
 import { routing } from '@/i18n/routing';
@@ -20,17 +21,35 @@ import styles from './LanguageToggle.module.css';
  * mean editing every *existing* locale file each time a new one is added.
  * Caught by actually adding a throwaway third locale in Phase 1 and
  * rebuilding, per this phase's own definition of done.
+ *
+ * `PageHeader` (and this) lives inside `page.tsx`, the segment that changes
+ * on a locale switch, so `router.replace` swaps in a whole new RSC tree —
+ * this component remounts already on the new locale, with no live DOM node
+ * for the thumb's `transform` transition to animate from. `pendingLocale`
+ * flips the thumb's position optimistically, in this still-mounted
+ * instance, the moment the button is clicked — the slide plays before the
+ * route swap replaces the tree under it.
  */
 export function LanguageToggle() {
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations('chrome.languageToggle');
+  const [pendingLocale, setPendingLocale] = useState<string | null>(null);
+
+  const activeLocale = pendingLocale ?? locale;
+  const selectedIndex = routing.locales.findIndex((code) => code === activeLocale);
 
   return (
-    <div className={styles.track} role="group" aria-label={t('label')}>
+    <div
+      className={styles.track}
+      data-selected-index={selectedIndex}
+      role="group"
+      aria-label={t('label')}
+    >
+      <span className={styles.thumb} aria-hidden="true" />
       {routing.locales.map((code) => {
-        const selected = code === locale;
+        const selected = code === activeLocale;
         const endonym = new Intl.DisplayNames([code], { type: 'language' }).of(code) ?? code;
         return (
           <button
@@ -39,7 +58,10 @@ export function LanguageToggle() {
             className={`${styles.hitArea} ${styles.option} ${selected ? styles.selected : ''}`}
             aria-pressed={selected}
             aria-label={t('switchTo', { language: endonym })}
-            onClick={() => router.replace(pathname, { locale: code })}
+            onClick={() => {
+              setPendingLocale(code);
+              router.replace(pathname, { locale: code });
+            }}
           >
             {code.toUpperCase()}
           </button>
