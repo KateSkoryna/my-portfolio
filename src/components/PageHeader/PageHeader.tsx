@@ -18,25 +18,30 @@ export function PageHeader({
   routeLabel,
   backHref = '/',
   action,
+  showBackRow = true,
 }: {
-  routeLabel: string;
+  routeLabel?: string;
   backHref?: string;
   action?: ReactNode;
+  /** `/` has nowhere to go back to and no route to label — see `Landing`. */
+  showBackRow?: boolean;
 }) {
   const t = useTranslations('chrome');
 
   return (
     <header className={styles.header}>
-      <div className={styles.row}>
+      <div className={styles.languageRow}>
         <LanguageToggle />
       </div>
-      <div className={styles.row}>
-        <Link href={backHref} className={styles.back}>
-          <span aria-hidden="true">←</span> {t('back')}
-        </Link>
-        <p className={styles.routeLabel}>{routeLabel}</p>
-        <div className={styles.action}>{action}</div>
-      </div>
+      {showBackRow && (
+        <div className={styles.backRow}>
+          <Link href={backHref} className={styles.back}>
+            <span aria-hidden="true">←</span> {t('back')}
+          </Link>
+          <p className={styles.routeLabel}>{routeLabel}</p>
+          <div className={styles.action}>{action}</div>
+        </div>
+      )}
     </header>
   );
 }

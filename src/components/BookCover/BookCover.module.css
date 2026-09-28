@@ -10,13 +10,20 @@
   height: var(--cover-h);
   overflow: hidden;
   border-radius: var(--radius-book);
-  box-shadow: var(--shadow-rest);
+  box-shadow: var(--cover-shadow);
   background: var(--cover-fill);
 }
 
-/* 7px fore-edge strip, DESIGN.md §2.1. */
+/*
+ * 7px fore-edge strip, DESIGN.md §2.1. It sits at the cover's outer edge and
+ * must stay above every decorative circle/pattern that bleeds off that same
+ * edge (the book and field guide's top-right circles both reach it) —
+ * without an explicit z-index it painted first in DOM order and vanished
+ * under them wherever they overlapped.
+ */
 .foreEdge {
   position: absolute;
+  z-index: 3;
   top: 0;
   right: 0;
   bottom: 0;
@@ -28,8 +35,10 @@
   );
 }
 
+/* Printed text layer — always above the decorative circles/dot grids below it. */
 .kicker {
   position: absolute;
+  z-index: 2;
   left: calc(18px * var(--cover-scale));
   top: calc(18px * var(--cover-scale));
   font-family: var(--font-body), system-ui, sans-serif;
@@ -46,9 +55,16 @@
   background: linear-gradient(150deg, var(--cover-fill), var(--cover-dark));
 }
 
+/*
+ * `right` is pulled in slightly further than the 216-ref spec's -46px — at
+ * this cover's actual proportions that value let the circle creep a few px
+ * into "CURRICULUM VITAE", covering its last letter despite the kicker's
+ * z-index (Kateryna: the kicker must stay clear of the circle, not just on
+ * top of it).
+ */
 .bookCircleCoral {
   position: absolute;
-  right: calc(-46px * var(--cover-scale));
+  right: calc(-54px * var(--cover-scale));
   top: calc(-46px * var(--cover-scale));
   width: calc(138px * var(--cover-scale));
   height: calc(138px * var(--cover-scale));
@@ -70,12 +86,35 @@
 .bookTitle {
   position: absolute;
   left: calc(18px * var(--cover-scale));
-  top: calc(40%);
+  /* Design's Covers.dc.html spec: title sits right under the kicker, ~20%
+     down the cover — not mid-cover. */
+  top: 20%;
   font-family: var(--font-display), system-ui, sans-serif;
   font-weight: 800;
   font-size: calc(35px * var(--cover-scale));
   line-height: 1;
   color: var(--color-cream);
+}
+
+/* Coral squiggle under the title, DESIGN.md's Covers.dc.html spec board. */
+.bookUnderline {
+  position: absolute;
+  left: calc(18px * var(--cover-scale));
+  top: calc(20% + 44px * var(--cover-scale));
+  width: calc(84px * var(--cover-scale));
+  height: calc(7px * var(--cover-scale));
+}
+
+/* Sage dot grid over the coral circle, Main.dc.html's book cover preview. */
+.bookDotGrid {
+  position: absolute;
+  right: calc(21px * var(--cover-scale));
+  top: calc(104px * var(--cover-scale));
+  width: calc(58px * var(--cover-scale));
+  height: calc(58px * var(--cover-scale));
+  background-image: radial-gradient(var(--color-sage) 1.7px, transparent 2.1px);
+  background-size: calc(13px * var(--cover-scale)) calc(13px * var(--cover-scale));
+  opacity: 0.5;
 }
 
 .bookFoot {

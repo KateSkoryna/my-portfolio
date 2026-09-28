@@ -116,6 +116,14 @@ export const shadow = {
   raised: '0 30px 46px -20px rgba(20,40,30,.6)',
   closed: '0 10px 18px -14px rgba(20,40,30,.6)',
   button: '0 10px 20px -10px rgba(31,111,95,.7)',
+  /**
+   * Small chrome — the language toggle track and similar chip-scale pills.
+   * `shadow.rest`'s wide, soft spread reads as flat at this size; this stays
+   * tight and close so a 30px control still looks lifted off the page.
+   */
+  chip: '0 4px 10px -4px rgba(20,40,30,.28)',
+  /** Selected state on a chip-scale circular control (language toggle). */
+  chipSelected: '0 3px 7px -2px rgba(20,40,30,.5)',
   /** Cast by the floating item onto the pile — what sells "suspended". */
   suspension: 'radial-gradient(closest-side, rgba(28,52,42,.3), transparent)',
 } as const;

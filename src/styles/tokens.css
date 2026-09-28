@@ -40,11 +40,13 @@
   --radius-closed: 4px 2px 2px 4px;
 
   /* Shadow — DESIGN.md §1.4 */
-  --shadow-rest:       0 18px 32px -22px rgba(20,40,30,.45);
-  --shadow-raised:     0 30px 46px -20px rgba(20,40,30,.6);
-  --shadow-closed:     0 10px 18px -14px rgba(20,40,30,.6);
-  --shadow-button:     0 10px 20px -10px rgba(31,111,95,.7);
-  --shadow-suspension: radial-gradient(closest-side, rgba(28,52,42,.3), transparent);
+  --shadow-rest:          0 18px 32px -22px rgba(20,40,30,.45);
+  --shadow-raised:        0 30px 46px -20px rgba(20,40,30,.6);
+  --shadow-closed:        0 10px 18px -14px rgba(20,40,30,.6);
+  --shadow-button:        0 10px 20px -10px rgba(31,111,95,.7);
+  --shadow-chip:          0 4px 10px -4px rgba(20,40,30,.28);
+  --shadow-chip-selected: 0 3px 7px -2px rgba(20,40,30,.5);
+  --shadow-suspension:    radial-gradient(closest-side, rgba(28,52,42,.3), transparent);
 
   /* Motion — DESIGN.md §1.4 */
   --motion-ease:        cubic-bezier(.2,.72,.18,1);

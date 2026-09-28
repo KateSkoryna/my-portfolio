@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import { items } from '@/content/items';
+import { localizeItems } from '@/content/items';
 import { BookCover } from '@/components/BookCover/BookCover';
 import { ClosedBook } from '@/components/ClosedBook/ClosedBook';
 import { SectionLabel } from '@/components/SectionLabel/SectionLabel';
@@ -17,6 +17,8 @@ import styles from './page.module.css';
  */
 export function ScratchContent() {
   const t = useTranslations('scratch');
+  const tItems = useTranslations('items');
+  const items = localizeItems(tItems);
 
   return (
     <>

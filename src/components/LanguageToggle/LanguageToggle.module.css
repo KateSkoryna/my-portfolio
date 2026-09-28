@@ -1,14 +1,50 @@
 .track {
+  --option-size: 30px;
+  --option-gap: 3px;
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 2px;
-  padding: 3px;
+  gap: var(--option-gap);
+  padding: 4px;
   border-radius: var(--radius-pill);
   background: rgba(220, 233, 226, 0.55);
-  /* Drop shadow plus a 1px inner top highlight, DESIGN.md §4.4. */
+  /* Tight drop shadow plus a 1px inner top highlight, DESIGN.md §4.4 — the
+     wider `shadow.rest` spread reads as flat at this size. */
   box-shadow:
-    var(--shadow-rest),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    var(--shadow-chip),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* The filled circle itself — slides under the selected option on locale
+   change instead of the background just flipping. `.option`'s own
+   background/shadow move here so the knob can travel independently of the
+   text it sits under. Position comes from `.track`'s `data-selected-index`
+   (set in the component, not inline styling) — one rule per locale slot;
+   add one more if a third locale ever lands here. */
+.thumb {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: var(--option-size);
+  height: var(--option-size);
+  border-radius: 50%;
+  background: var(--color-emerald);
+  box-shadow: var(--shadow-chip-selected);
+  transition: transform var(--motion-select) var(--motion-ease);
+}
+
+.track[data-selected-index='0'] .thumb {
+  transform: translateX(0);
+}
+
+.track[data-selected-index='1'] .thumb {
+  transform: translateX(calc(var(--option-size) + var(--option-gap)));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thumb {
+    transition: none;
+  }
 }
 
 .hitArea {
@@ -20,25 +56,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: var(--option-size);
+  height: var(--option-size);
   border-radius: 50%;
   font-family: var(--font-body), system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 10px;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.08em;
   color: var(--color-muted);
-  transition: background var(--motion-select) var(--motion-ease);
+  transition: color var(--motion-select) var(--motion-ease);
 }
 
 .selected {
-  background: var(--color-emerald);
   color: var(--color-cream);
-  box-shadow: var(--shadow-button);
+  letter-spacing: 0.02em;
 }
 
 @media (max-width: 480px) {
-  .option {
-    width: 26px;
-    height: 26px;
+  .track {
+    --option-size: 26px;
   }
 }

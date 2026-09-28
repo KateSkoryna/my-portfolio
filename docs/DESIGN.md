@@ -365,9 +365,13 @@ One header and footer structure on all 15 route boards, desktop and mobile.
   nav-button shadow, and the other language as plain muted text beside it. Both
   are real `<button>`s with `aria-label`.
 - **Buttons carry volume.** The circular nav arrows and the CTA pills already
-  had shadows; the language toggle and its selected knob now match. Flat
-  outlined bars (back / go-to-shelf) and underlined text links stay flat by
-  intent — a shadow on a text link looks wrong.
+  had shadows; the language toggle and its selected knob match, and the
+  "Go to shelf" pill now carries the nav-button shadow + inner top
+  highlight, no border — a border flattens it back down and fights the
+  shadow *(Kateryna's call — reverses the earlier "stays flat" note below)*.
+  The
+  back-arrow flat outline and underlined text links stay flat by intent — a
+  shadow on a text link looks wrong.
 - **Footer** on every route: `© 2026 Kateryna Skoryna · All rights reserved`,
   centred, Manrope 700 / 10px / `quiet`. Sequential prev/next links (where a
   page has them) sit on the row above it. The top back-arrow is the escape
