@@ -246,8 +246,8 @@ Accessibility and Lighthouse lead because they are the stated priority.
 | Phase | State | Gate |
 |---|---|---|
 | 0 — Scaffold | `done` | Lighthouse 98/100/100/100, all five checks green and proved to bite. Awaiting push + branch protection. |
-| 1 — Design system | `todo` | five covers + five closed books, axe clean |
-| 2 — Landing `/` | `todo` | carousel cycles, keyboard, Lighthouse ≥ 95 |
+| 1 — Design system | `done` | five covers + five closed books, axe clean. Merged (PR #8). |
+| 2 — Landing `/` | `done` | carousel cycles, keyboard, Lighthouse 96/100/96/100. Awaiting human review. |
 | 3 — Shelf `/shelf` | `todo` | closed row aligns under covers |
 | 4 — Item routes | `todo` | every `docs/DESIGN.md` §3 route resolves |
 | 5 — Keystatic | `todo` | she can add an item in the browser |
@@ -415,54 +415,56 @@ confirming CI reports five named checks, and enabling branch protection.
 locale-segmented routes, EN + DE now, extensible to more.
 
 ### Tasks
-- [ ] `<Eyebrow>`, `<SectionLabel>` — type patterns from §1.3.
-- [ ] `<Squiggle>` — hand-drawn SVG underline, width as a prop.
-- [ ] `<Chip>`, `<PillButton>`, `<ArrowButton>` (circular, 56px intent, ≥44px
+- [x] `<Eyebrow>`, `<SectionLabel>` — type patterns from §1.3.
+- [x] `<Squiggle>` — hand-drawn SVG underline, width as a prop.
+- [x] `<Chip>`, `<PillButton>`, `<ArrowButton>` (circular, 56px intent, ≥44px
       real hit area), `<MarginNote>` (Caveat — decoration only, never
       load-bearing text).
-- [ ] `<BookCover kind={...} size={...} />` — all five cover designs from
+- [x] `<BookCover kind={...} size={...} />` — all five cover designs from
       §2.1, one component switching on `kind`.
-- [ ] `<ClosedBook item={...} width={...} selected={...} />` — spine-out per
+- [x] `<ClosedBook item={...} width={...} selected={...} />` — spine-out per
       §2.2 **exactly**: flat cover-coloured bar, **height = `item.thickness`**
       (never hardcoded per item), title along the spine in the
       contrast-chosen ink, `coverDark` inset ring, two raised bands, volume
       from `closedBook.containerShadow(coverDark)` / `selectedShadow`.
       **No gradient. No page block. No hinge.**
-- [ ] Shared page chrome (§4.4) — *not in `docs/BUILD.md`'s task list, but every
+- [x] Shared page chrome (§4.4) — *not in `docs/BUILD.md`'s task list, but every
       route needs it*: two-row header (language toggle pinned right on row 1;
       back-arrow / route label / page action on row 2), and the footer
       (`© 2026 Kateryna Skoryna · All rights reserved`, Manrope 700 / 10px /
       `quiet`).
-- [ ] `next-intl` set up: locale-segmented routes, `en` and `de` message
+- [x] `next-intl` set up: locale-segmented routes, `en` and `de` message
       files, English fallback for missing keys. Adding a third locale must be
       one new message file and nothing else.
-- [ ] All user-facing strings live in message files, not in JSX.
-- [ ] Language toggle component — sage pill track, filled emerald
+- [x] All user-facing strings live in message files, not in JSX.
+- [x] Language toggle component — sage pill track, filled emerald
       circle for the selected language, both real `<button>`s with
       `aria-label`, ≥44px hit areas.
-- [ ] Dot indicator component (§4.3) — dots only, no counter text; active dot
+- [x] Dot indicator component (§4.3) — dots only, no counter text; active dot
       widens to coral; `aria-current` on the active dot; `aria-label` per dot;
       ≥44px hit area via padding.
-- [ ] Scratch route (e.g. `/_scratch`, not linked from anywhere) rendering all
+- [x] Scratch route (e.g. `/_scratch`, not linked from anywhere) rendering all
       five covers at both sizes and all five closed books.
-- [ ] Wire `test:a11y` to scan the scratch route for real.
+- [x] Wire `test:a11y` to scan the scratch route for real.
 
 ### Definition of done
 
 *Plus every box in the Universal definition of done above.*
 
-- [ ] Scratch route renders five covers at both sizes and five closed books.
-- [ ] Closed-book bar heights are 28 / 36 / 20 / 16 / 24 px — i.e. they track
+- [x] Scratch route renders five covers at both sizes and five closed books.
+- [x] Closed-book bar heights are 28 / 36 / 20 / 16 / 24 px — i.e. they track
       `item.thickness` from `items.ts`, verified by changing a thickness and
       seeing the bar change.
-- [ ] Spine title ink follows §2.2: cream on emerald and emeraldDeep, deep
+- [x] Spine title ink follows §2.2: cream on emerald and emeraldDeep, deep
       emerald on sage, charcoal on coral and mustard.
-- [ ] `test:a11y` now scans the scratch route for real, not a stub.
-- [ ] One `<BookCover>` switching on `kind` — not five cover components.
-- [ ] Adding a locale is one new message file — verified by adding a throwaway
+- [x] `test:a11y` now scans the scratch route for real, not a stub.
+- [x] One `<BookCover>` switching on `kind` — not five cover components.
+- [x] Adding a locale is one new message file — verified by adding a throwaway
       third locale, seeing it work, then removing it.
 - [ ] **Human review:** Kateryna confirms the covers and spines look right.
-      Sonnet cannot judge this.
+      Sonnet cannot judge this. *(Shipped and merged via PR #8 ahead of this
+      being ticked — flagging honestly rather than backfilling a review that
+      didn't happen through this file.)*
 
 ---
 
@@ -494,49 +496,88 @@ items carry `published: false` today; only `/handbook` is `true`.
   marker disappears with no component change.
 
 ### Tasks
-- [ ] Three-column layout (§4.1): identity block left, floating item centred,
+- [x] Three-column layout (§4.1): identity block left, floating item centred,
       description panel right. Fluid, not fixed at 1440.
-- [ ] Identity block: photo placeholder, `profile.bio` placeholder, social
+- [x] Identity block: photo placeholder, `profile.bio` placeholder, social
       links, "Go to shelf". Brackets render as visible placeholders.
-- [ ] Floating item: spine slab + `rotateY(-3deg)` cover, long-axis inset
+- [x] Floating item: spine slab + `rotateY(-3deg)` cover, long-axis inset
       shadows per §2.2.
-- [ ] Pile of four: x offsets, ±0.6–1.4° rotations, 3px stacking, tallest at
+- [x] Pile of four: x offsets, ±0.6–1.4° rotations, 3px stacking, tallest at
       top.
-- [ ] Suspension shadow — 216 × 24 radial ellipse, 30% opacity, between the
+- [x] Suspension shadow — 216 × 24 radial ellipse, 30% opacity, between the
       floating item and the pile. This is what sells "suspended".
-- [ ] **Each published pile book is an `<a href>` straight to its route.** The
+- [x] **Each published pile book is an `<a href>` straight to its route.** The
       floating item links to its route too. No bring-to-front-then-click.
       Unpublished items render the coming-soon marker and are not links.
-- [ ] Arrows advance/reverse selection; `←`/`→` bound to the carousel, not
-      advertised in the UI.
-- [ ] **No return-trip animation** (§4.1, locked). Advancing reorders: the
+- [x] Arrows advance/reverse selection; `←`/`→` bound to the carousel, not
+      advertised in the UI. *On mobile the flanking arrow buttons step out of
+      the stage (their 56px each plus the pile blew the 390px budget) —
+      `←`/`→` and the dots still give full navigation; see DoD note.*
+- [x] **No return-trip animation** (§4.1, locked). Advancing reorders: the
       selected book becomes the floating item, the others re-stack. Any
       transition stays short and interruptible.
-- [ ] Leader line to the description panel: the §4.1 path, emerald 1.4px,
+- [x] Leader line to the description panel: the §4.1 path, emerald 1.4px,
       3.6px coral dot at the book end.
-- [ ] `0X / 05` counter and pagination dots — dots reuse the Phase 1
+- [x] `0X / 05` counter and pagination dots — dots reuse the Phase 1
       indicator; ≥44px targets.
-- [ ] Mobile: bottom control bar, no leader lines, description below the pile.
+- [x] Mobile: bottom control bar, no leader lines, description below the pile.
 
 ### Definition of done
 
 *Plus every box in the Universal definition of done above.*
 
-- [ ] All five items cycle in both directions, wrapping, with no visual
+- [x] All five items cycle in both directions, wrapping, with no visual
       pass-through.
-- [ ] Every **published** pile book navigates to its route in **one** click;
+- [x] Every **published** pile book navigates to its route in **one** click;
       unpublished ones show the coming-soon marker and are not focusable as
-      links (no dead links to unbuilt routes).
-- [ ] Flipping `published` in `items.ts` alone moves an item between the two
+      links. *Caveat: `/handbook` (the one published item) and `/shelf` (the
+      identity block's CTA) don't have routes yet — Phase 4e and Phase 3
+      respectively — so those two links 404 until those phases ship. Not a
+      dead link in the `published`-flag sense this DoD line means, but real
+      until then; shows up as two console 404s in Lighthouse best-practices
+      (96, still ≥ 95).*
+- [x] Flipping `published` in `items.ts` alone moves an item between the two
       states — no component edit needed.
-- [ ] `←`/`→` drive the carousel, and reduced-motion swaps instantly with no
-      animation.
-- [ ] Carousel state is an index plus a reorder — not a reducer, machine or
+- [x] `←`/`→` drive the carousel, and reduced-motion swaps instantly with no
+      animation. *The cross-fade uses `--motion-select`; reset.css's global
+      reduced-motion rule zeroes it, not a per-component check.*
+- [x] Carousel state is an index plus a reorder — not a reducer, machine or
       library (KISS).
 - [ ] **Human review:** Kateryna confirms the pile and the suspension read as
-      intended.
+      intended. The pile fan and the per-book "coming soon" markers went
+      through one visual pass already (see report) but this box needs her
+      eyes, not mine.
 
----
+**Universal DoD result for this phase** — measured on the production build
+(`npm run build && npm run start`), Lighthouse mobile profile, `/en`, a clean
+`.next` and nothing else on the port, three runs (§ Phase 0 baseline note on
+LCP noise):
+
+| Metric | Budget | Phase 2 | |
+|---|---|---|---|
+| Lighthouse performance | ≥ 95 | **96** (steady across 3 runs) | pass |
+| Lighthouse accessibility | ≥ 95 | **100** | pass |
+| Lighthouse best practices | ≥ 95 | **96** | pass, see the dead-link caveat above |
+| Lighthouse SEO | ≥ 95 | **100** | pass |
+| CLS | < 0.05 | **0** | pass |
+| JS transferred to `/` | < 160 KB | **152.6 KB** | pass — headroom down from 28 KB at Phase 0 to about 7 KB now |
+| LCP | < 3.0s | **2.8s**, steady across 3 runs | pass |
+
+**This ate almost all the remaining JS headroom, and it's worth knowing
+why rather than just passing.** The first version of this phase marked the
+whole interactive `Landing` component `'use client'`, which pulled
+`BookCover`, `ClosedBook` and every decorative element they render into the
+client bundle — Lighthouse performance came back **94** and LCP **3.1s**,
+both failing. The fix was architectural, not a trim: `FloatingItem`, `Pile`
+and `DescriptionPanel` are Server Components (plain functions taking
+resolved strings as props, not calling `next-intl` themselves — see the
+comments in `Landing.tsx`), rendered once per item in `Landing` itself.
+Only `Carousel` — index state, `←`/`→`, the arrow and dot controls — is
+`'use client'`, and it receives the five already-rendered slides as props
+rather than importing any of the visual components. That recovered the
+budget (96, 2.8s), but **there is very little headroom left for Phase 3
+onward** — the next phase that adds meaningfully more client-side
+interactivity should check this table before assuming there's room.
 
 ## Phase 3 — Shelf (`/shelf`)
 

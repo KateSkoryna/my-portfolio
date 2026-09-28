@@ -5,14 +5,21 @@
  * makes it appear in the stack on `/`, on `/shelf`, and at its own route —
  * no component changes. Keystatic (Phase 5) writes to this same shape.
  *
- * Anything in [SQUARE BRACKETS] is a placeholder awaiting Kateryna's content.
- * Do not replace a bracket with invented copy.
+ * Locale-independent fields (id, kind, route, colours, thickness, publish
+ * state) live here. Every piece of copy — title, blurb, chips, CTA labels —
+ * lives in `messages/<locale>.json` under `items.<id>`, English included, so
+ * there is exactly one place item text is read from in either locale.
+ * `localizeItems` merges the two into the full `PortfolioItem` shape the
+ * rest of the app renders.
+ *
+ * Anything in [SQUARE BRACKETS] (in the message files) is a placeholder
+ * awaiting Kateryna's content. Do not replace a bracket with invented copy.
  */
 
 export type ItemKind = 'book' | 'magazine' | 'notebook' | 'newspaper' | 'fieldguide';
 
 export interface PortfolioItem {
-  /** Stable slug. Also the Keystatic entry name. */
+  /** Stable slug. Also the Keystatic entry name and the `items.<id>` message key. */
   id: string;
   /** Display number, "01"–"05". Drives the counter on `/`. */
   n: string;
@@ -34,10 +41,12 @@ export interface PortfolioItem {
   blurb: string;
   /** Short form for narrow layouts (mobile, shelf captions). */
   shortBlurb: string;
-  /** Two metadata chips. */
+  /** Metadata chips. */
   chips: readonly string[];
   /** Call-to-action label. "Open the book", "Open the magazine"… */
   cta: string;
+  /** Optional second action beside the CTA, e.g. the resume's "Download PDF". */
+  secondaryCta?: string;
   /** Front cover colour. Also the flat spine fill — see DESIGN.md §2.2. */
   cover: string;
   /** Back cover colour. Both cover lips use this — see DESIGN.md §2.2. */
@@ -51,22 +60,29 @@ export interface PortfolioItem {
   published: boolean;
 }
 
-export const items: readonly PortfolioItem[] = [
+/** Everything about an item that doesn't change with locale. */
+export type ItemStructural = Omit<
+  PortfolioItem,
+  | 'kindLabel'
+  | 'title'
+  | 'coverKicker'
+  | 'coverTitle'
+  | 'coverFoot'
+  | 'blurb'
+  | 'shortBlurb'
+  | 'chips'
+  | 'cta'
+  | 'secondaryCta'
+>;
+
+// `journal.title` ("Dev Journal") and `about.title` ("Off the Clock") in the
+// message files are still provisional placeholders awaiting a rename call.
+export const itemsBase: readonly ItemStructural[] = [
   {
     id: 'resume',
     n: '01',
     kind: 'book',
-    kindLabel: 'Book',
-    title: 'Resume',
     route: '/resume',
-    coverKicker: 'Curriculum Vitae',
-    coverTitle: 'Resume',
-    coverFoot: 'Kateryna Skoryna · 2026',
-    blurb:
-      'The CV as a typeset object — experience, stack and education set like a printed page rather than an exported PDF. Every line still reads as plain text for a recruiter parser.',
-    shortBlurb: 'Experience, stack and education, typeset like a printed page.',
-    chips: ['Print stylesheet', 'PDF download'],
-    cta: 'Open the book',
     cover: '#1F6F5F',
     coverDark: '#103C33',
     thickness: 28,
@@ -76,17 +92,7 @@ export const items: readonly PortfolioItem[] = [
     id: 'projects',
     n: '02',
     kind: 'magazine',
-    kindLabel: 'Magazine',
-    title: 'My Projects',
     route: '/projects',
-    coverKicker: 'Issue 01 · Projects',
-    coverTitle: 'My Projects',
-    coverFoot: 'Updated hourly from GitHub',
-    blurb:
-      'An issue-per-project magazine. Stars, language split and last-commit dates arrive live from the GitHub API on the server and refresh every hour, so it never goes stale.',
-    shortBlurb: 'One issue per project. Repo stats pulled live from GitHub.',
-    chips: ['Live GitHub data', 'ISR · 1h'],
-    cta: 'Open the magazine',
     cover: '#FF6F61',
     coverDark: '#B8453A',
     thickness: 36,
@@ -96,18 +102,7 @@ export const items: readonly PortfolioItem[] = [
     id: 'journal',
     n: '03',
     kind: 'notebook',
-    kindLabel: 'Notebook',
-    // [RENAME? "Dev Journal" is a placeholder title.]
-    title: 'Dev Journal',
     route: '/journal',
-    coverKicker: 'No. 03 · Working notes',
-    coverTitle: 'Dev Journal',
-    coverFoot: 'things I got wrong, and what fixed them',
-    blurb:
-      'Working notes — what broke, what I changed my mind about, what I am learning this month. Written in the margins, not polished for an audience.',
-    shortBlurb: 'Working notes. What broke, and what I changed my mind about.',
-    chips: ['MDX entries', 'Tagged'],
-    cta: 'Open the notebook',
     cover: '#DCE9E2',
     coverDark: '#8FAE9F',
     thickness: 20,
@@ -117,44 +112,53 @@ export const items: readonly PortfolioItem[] = [
     id: 'about',
     n: '04',
     kind: 'newspaper',
-    kindLabel: 'Newspaper',
-    // [RENAME? "Off the Clock" is a placeholder title.]
-    title: 'Off the Clock',
     route: '/about',
-    coverKicker: 'Weekend edition · [YOUR CITY]',
-    coverTitle: 'Off the Clock',
-    coverFoot: 'Photographs · Trivia · Recommendations',
-    blurb:
-      'The human column — where I am from, what I do away from a keyboard, and the facts that have no business being on a CV but are the reason people remember you.',
-    shortBlurb: 'The human column — everything that has no business on a CV.',
-    chips: ['[YOUR FACTS]', 'Photo essay'],
-    cta: 'Open the paper',
     cover: '#E9B44C',
     coverDark: '#A97C22',
-    thickness: 16,
+    thickness: 26,
     published: false,
   },
   {
     id: 'handbook',
     n: '05',
     kind: 'fieldguide',
-    kindLabel: 'Field guide',
-    title: 'Prompting Handbook',
     route: '/handbook',
-    coverKicker: 'Field Notes',
-    coverTitle: "The Developer's Prompting Handbook",
-    coverFoot: 'Eight spreads · EN / DE',
-    blurb:
-      'The page-flip field guide already published: how I make LLM output predictable enough to put in production. Eight spreads, English and German.',
-    shortBlurb: 'The page-flip field guide, already published. English and German.',
-    chips: ['Published', 'EN / DE'],
-    cta: 'Open the handbook',
     cover: '#155246',
     coverDark: '#08241E',
     thickness: 24,
     published: true,
   },
 ] as const;
+
+/**
+ * Structural shape of a next-intl translator scoped to the `items`
+ * namespace — matches both `next-intl/server`'s `getTranslations` and
+ * `next-intl`'s `useTranslations` return types, so this stays importable
+ * from client components (`ScratchContent`) and Server Components
+ * (`Landing`) alike without pulling in a server-only type.
+ */
+export interface ItemsTranslator {
+  (key: string, values?: Record<string, string | number | Date>): string;
+  raw(key: string): unknown;
+  has(key: string): boolean;
+}
+
+/** Overlays `items.<id>` copy from `messages/<locale>.json` onto `itemsBase`. */
+export function localizeItems(t: ItemsTranslator): readonly PortfolioItem[] {
+  return itemsBase.map((base) => ({
+    ...base,
+    kindLabel: t(`${base.id}.kindLabel`),
+    title: t(`${base.id}.title`),
+    coverKicker: t(`${base.id}.coverKicker`),
+    coverTitle: t(`${base.id}.coverTitle`),
+    coverFoot: t(`${base.id}.coverFoot`),
+    blurb: t(`${base.id}.blurb`),
+    shortBlurb: t(`${base.id}.shortBlurb`),
+    chips: t.raw(`${base.id}.chips`) as readonly string[],
+    cta: t(`${base.id}.cta`),
+    secondaryCta: t.has(`${base.id}.secondaryCta`) ? t(`${base.id}.secondaryCta`) : undefined,
+  }));
+}
 
 /**
  * Repos surfaced on `/projects`, in order. A curated list, not "all public
@@ -179,18 +183,19 @@ export const featuredRepos: readonly FeaturedRepo[] = [
   { repo: 'my-portfolio', summary: '[ONE LINE ON WHAT IT DOES AND THE HARD PART.]' },
 ] as const;
 
+/**
+ * Non-copy profile facts — proper nouns, URLs, tech-stack names. `role`,
+ * `bio` and `city` are copy, not facts, so they live in `messages.profile`
+ * alongside the item text, translated the same way.
+ */
 export const profile = {
   name: 'Kateryna Skoryna',
-  role: 'Frontend Developer',
-  stackLine: 'React · TypeScript · Next.js',
-  city: '[YOUR CITY]',
+  stackLine: 'React · TypeScript · Next.js · Node.js · PostgreSQL',
   email: 'k.skoryna@gmail.com',
   github: 'https://github.com/KateSkoryna',
   linkedin: 'https://www.linkedin.com/in/kateskoryna/',
-  /** Two sentences: what you build, what you care about, what you want next. */
-  bio: '[ONE-LINE BIO — two sentences. What you build, what you care about getting right, and what you are looking for next.]',
+  photo: '/photo2.webp',
   /** The section hiring managers actually read. Cannot be drafted for her. */
   lookingFor:
     '[TWO SENTENCES. The kind of team, the kind of problem, and whether you want onsite, hybrid or remote.]',
-  photo: '[YOUR PHOTO]',
 } as const;

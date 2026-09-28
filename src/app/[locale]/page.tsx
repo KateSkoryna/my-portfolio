@@ -1,14 +1,11 @@
-import { profile } from '@/content/items';
-
-import styles from './page.module.css';
+import { PageHeader } from '@/components/PageHeader/PageHeader';
+import { PageFooter } from '@/components/PageFooter/PageFooter';
+import { Landing } from '@/components/Landing/Landing';
 
 /**
- * TEMPORARY scaffold page. Phase 2 replaces this entirely with the landing
- * carousel (DESIGN.md §4.1).
- *
- * It exists so Phase 0's definition of done can actually be checked in a
- * browser: the flat paper background, and all three families rendering. It
- * deliberately carries no portfolio content.
+ * The stack — DESIGN.md §4.1. One item floats, four sit in the pile below.
+ * `/` has no "back" and no route label, so the header's second row is
+ * skipped here (`PageHeader`'s `showBackRow`).
  *
  * No `setRequestLocale` — `next/root-params` (via `i18n/request.ts`) is
  * what makes this render statically per locale now; next-intl's own
@@ -16,11 +13,10 @@ import styles from './page.module.css';
  */
 export default function Home() {
   return (
-    <main id="main" className={styles.main}>
-      <p className={styles.label}>Scaffold check — replaced in Phase 2</p>
-      <h1 className={styles.display}>{profile.name}</h1>
-      <p className={styles.body}>{profile.stackLine}</p>
-      <p className={styles.hand}>Caveat renders here</p>
-    </main>
+    <>
+      <PageHeader showBackRow={false} />
+      <Landing />
+      <PageFooter />
+    </>
   );
 }

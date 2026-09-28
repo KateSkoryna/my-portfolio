@@ -24,7 +24,8 @@
 }
 
 .active {
-  width: 20px;
+  /* 20px + 20% — was reading too short next to the plain 8px dots. */
+  width: 24px;
   border-radius: 4px;
   background: var(--color-coral);
 }

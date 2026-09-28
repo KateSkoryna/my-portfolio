@@ -1,0 +1,154 @@
+/*
+ * DESIGN.md §4.1 — three columns at the 1440 reference: identity (x80 w340),
+ * the floating stage centred, description (x1040 w320). Fluid via grid +
+ * clamp() rather than the literal px, per PLAN.md rule 3. `Carousel.module.css`
+ * owns the stage/description/dots columns; this file owns the grid shell and
+ * the identity block, which never changes with the selection.
+ */
+
+.landing {
+  display: grid;
+  grid-template-columns: minmax(240px, 380px) minmax(320px, 1fr) minmax(240px, 320px);
+  align-items: start;
+  gap: clamp(24px, 4vw, 64px);
+  /* No bottom padding — `PageFooter`'s own top padding (plus its mobile
+     dots-bar clearance below) is what separates this from the footer now. */
+  padding: clamp(24px, 4vw, 56px) clamp(16px, 5vw, 48px) 0;
+  /* `width: 100%` — see the note on `.header` in `PageHeader.module.css`:
+     without it, being a `body` (column flexbox) item with cross-axis auto
+     margins shrinks this to fit-content instead of stretching first. */
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.photo {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 1px dashed var(--color-placeholder);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  text-align: center;
+  color: var(--color-placeholder);
+  font-size: 11px;
+}
+
+.photoImage {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name {
+  /* Flex items default to a fit-content cross size under `align-items:
+     flex-start` on `.identity` — without `stretch` this shrinks to a much
+     narrower box than the column actually has, wrapping "Kateryna Skoryna"
+     far earlier than necessary. Same fix as `.bio` below. */
+  align-self: stretch;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 3.4vw, 46px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--color-charcoal);
+}
+
+/* Eyebrow above the name, DESIGN.md's Main canvas §identity. */
+.role {
+  align-self: stretch;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-emerald);
+}
+
+.stack {
+  align-self: stretch;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-body-text);
+}
+
+.bio {
+  /* A flex column with `align-items: flex-start` sizes children to their
+     content by default — without this, long text never wraps and runs off
+     the container instead. */
+  align-self: stretch;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-muted);
+}
+
+.socials {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/*
+ * Badge pill, DESIGN.md's Main canvas §identity — sage-tinted fill and an
+ * emerald outline, distinct from the filled CTA pill and from `.shelfLink`'s
+ * cream one below. `min-height` reaches the §5.3 44px target without
+ * inflating the padding past the design's drawn size.
+ */
+.socialLink {
+  min-height: var(--a11y-min-target);
+  min-width: 112px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 9px 15px;
+  border-radius: var(--radius-pill);
+  background: rgba(220, 233, 226, 0.42);
+  border: 1.5px solid var(--color-emerald);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 11.5px;
+  color: var(--color-emerald-deep);
+  text-decoration: none;
+  transition: transform var(--motion-hover) var(--motion-ease);
+}
+
+.socialLink:hover {
+  transform: scale(1.03);
+}
+
+.socialIcon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 800px) {
+  .landing {
+    /* Plain `1fr` has an implicit `auto` minimum — a wide child (the pile,
+       unwrapped text) can blow the track past the viewport instead of
+       wrapping. `minmax(0, 1fr)` makes the column actually respect it. */
+    grid-template-columns: minmax(0, 1fr);
+    /* No bottom clearance for the fixed dots bar here — `PageFooter` (the
+       next thing in flow) carries that instead, so there's no dead gap
+       between the description content and the footer that follows it. */
+  }
+
+  .identity {
+    align-items: center;
+    text-align: center;
+  }
+}

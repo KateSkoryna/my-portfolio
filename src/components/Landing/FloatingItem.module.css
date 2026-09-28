@@ -1,0 +1,58 @@
+/*
+ * DESIGN.md §2.1 hero geometry, scaled up 20% at Kateryna's request (the
+ * floating book read too small): a 34px spine slab (left: 0; top: 8px;
+ * height: 391px; radius 5px 0 0 5px) plus the hero cover offset left: 29px.
+ * 29 + 293 = 322 total width, matching the 408px hero height. Keep this in
+ * step with `BookCover`'s `BASE.hero`/`BASE_HEIGHT.hero` — both scale the
+ * same 244×340 reference by the same 1.2 factor.
+ */
+
+.floating {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  width: 322px;
+  height: 408px;
+  text-decoration: none;
+  /* Advancing reorders — a cross-fade, not the "drop to the bottom of the
+     pile" animation DESIGN.md §4.1 explicitly rejects. `prefers-reduced-
+     motion` zeroes animation-duration globally (reset.css). */
+  animation: fadeIn var(--motion-select) var(--motion-ease);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.spine {
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 34px;
+  height: 391px;
+  border-radius: 5px 0 0 5px;
+  background: var(--spine-fill);
+  /* Long-axis volume, DESIGN.md §2.2 floating-item note. */
+  box-shadow:
+    inset 2px 0 3px -1px rgba(255, 255, 255, 0.2),
+    inset -3px 0 5px -2px rgba(0, 0, 0, 0.28),
+    var(--shadow-raised);
+}
+
+.coverWrap {
+  position: absolute;
+  left: 29px;
+  top: 0;
+  transform: perspective(900px) rotateY(-3deg);
+  transform-origin: left center;
+  /* `BookCover`'s own `box-shadow: var(--cover-shadow)` reads flat at this
+     20%-larger hero size — a second, heavier shadow layered on via `filter`
+     (not clipped by the cover's own `overflow: hidden`) gives it real lift
+     off the page instead of just the token's default elevation. */
+  filter: drop-shadow(0 26px 34px rgba(20, 40, 30, 0.4));
+}

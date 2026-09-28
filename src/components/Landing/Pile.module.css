@@ -1,0 +1,47 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.pile {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* 380px (`PILE_WIDTH`) + 4px (the largest `PILE_X_OFFSETS` entry) — the
+     full fanned-out footprint, so the container isn't narrower than its own
+     children. A stale width here (left over from an old PILE_WIDTH) is what
+     threw the stack off-center under the single floating book: `.stack`
+     centers this box by its own width, not by where the books inside it
+     actually sit. */
+  width: 384px;
+  /* Worst case: the four tallest items stacked (36+28+24+20) plus a 3px gap
+     after each, so the deepest possible stack never clips the container. */
+  height: 124px;
+  animation: fadeIn var(--motion-select) var(--motion-ease);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.slot {
+  position: absolute;
+  left: var(--pile-x);
+  top: var(--pile-y);
+  z-index: var(--pile-z);
+  transform: rotate(var(--pile-rotate));
+}
+
+.link {
+  display: block;
+  text-decoration: none;
+  border-radius: var(--radius-closed);
+}

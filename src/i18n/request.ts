@@ -4,15 +4,26 @@ import * as rootParams from 'next/root-params';
 
 import { routing } from './routing';
 
-type Messages = { [key: string]: string | Messages };
+type MessageValue = string | readonly string[] | Messages;
+type Messages = { [key: string]: MessageValue };
 
-/** Recursive so a DE file missing one nested key still falls back per-key. */
+function isPlainMessages(value: MessageValue): value is Messages {
+  return typeof value === 'object' && !Array.isArray(value);
+}
+
+/**
+ * Recursive so a DE file missing one nested key still falls back per-key.
+ * Arrays (e.g. `items.*.chips`) replace wholesale rather than recursing —
+ * `typeof [] === 'object'`, so without this check an array value merged
+ * key-by-key like a plain object, turning `["a", "b"]` into `{0: "a", 1:
+ * "b"}` and breaking every `.map()` call on it.
+ */
 function deepMerge(base: Messages, override: Messages): Messages {
   const merged: Messages = { ...base };
   for (const [key, value] of Object.entries(override)) {
     const baseValue = base[key];
     merged[key] =
-      typeof value === 'object' && typeof baseValue === 'object'
+      isPlainMessages(value) && baseValue !== undefined && isPlainMessages(baseValue)
         ? deepMerge(baseValue, value)
         : value;
   }

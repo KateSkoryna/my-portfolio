@@ -11,6 +11,17 @@
   "dots": {
     "goTo": "Go to {n}"
   },
+  "landing": {
+    "identityLabel": "About Kateryna",
+    "descriptionLabel": "Selected item",
+    "prevItem": "Previous item",
+    "nextItem": "Next item",
+    "goToShelf": "Go to shelf",
+    "email": "Email",
+    "basedIn": "Based in {city}",
+    "pileNote": "four more waiting their turn",
+    "pileNoteCaption": "Click any spine in the pile to jump straight to it."
+  },
   "scratch": {
     "route": "Design system",
     "title": "Scratch route",
@@ -19,5 +30,68 @@
     "closedHeading": "Closed books, edge-on",
     "shelfSize": "Shelf size (216×260)",
     "heroSize": "Hero size (244×340)"
+  },
+  "profile": {
+    "role": "Frontend-Focused Full-Stack Developer",
+    "city": "Berlin, Germany",
+    "bio": "I'm a Frontend-focused Full-Stack Developer with three years of experience building production React and TypeScript applications for B2B and B2C products — from the UI through REST APIs and the PostgreSQL data layer, including authentication and claims-based authorization. I'm especially drawn to AI-powered products, shipping LLM features with validated, predictable output alongside measurable frontend and API performance gains."
+  },
+  "items": {
+    "resume": {
+      "kindLabel": "Book",
+      "title": "Resume",
+      "coverKicker": "Curriculum Vitae",
+      "coverTitle": "Resume",
+      "coverFoot": "Kateryna Skoryna · 2026",
+      "blurb": "The CV as a typeset object — experience, stack and education set like a printed page rather than an exported PDF. Every line still reads as plain text for a recruiter parser.",
+      "shortBlurb": "Experience, stack and education, typeset like a printed page.",
+      "chips": [],
+      "cta": "Open the book",
+      "secondaryCta": "Download PDF"
+    },
+    "projects": {
+      "kindLabel": "Magazine",
+      "title": "My Projects",
+      "coverKicker": "Issue 01 · Projects",
+      "coverTitle": "My Projects",
+      "coverFoot": "Updated hourly from GitHub",
+      "blurb": "An issue-per-project magazine. Stars, language split and last-commit dates arrive live from the GitHub API on the server and refresh every hour, so it never goes stale.",
+      "shortBlurb": "One issue per project. Repo stats pulled live from GitHub.",
+      "chips": ["Live GitHub data", "ISR · 1h"],
+      "cta": "Open the magazine"
+    },
+    "journal": {
+      "kindLabel": "Notebook",
+      "title": "Dev Journal",
+      "coverKicker": "No. 03 · Working notes",
+      "coverTitle": "Dev Journal",
+      "coverFoot": "things I got wrong, and what fixed them",
+      "blurb": "Working notes — what broke, what I changed my mind about, what I am learning this month. Written in the margins, not polished for an audience.",
+      "shortBlurb": "Working notes. What broke, and what I changed my mind about.",
+      "chips": ["MDX entries", "Tagged"],
+      "cta": "Open the notebook"
+    },
+    "about": {
+      "kindLabel": "Newspaper",
+      "title": "Off the Clock",
+      "coverKicker": "Weekend edition · [YOUR CITY]",
+      "coverTitle": "Off the Clock",
+      "coverFoot": "Photographs · Trivia · Recommendations",
+      "blurb": "The human column — where I am from, what I do away from a keyboard, and the facts that have no business being on a CV but are the reason people remember you.",
+      "shortBlurb": "The human column — everything that has no business on a CV.",
+      "chips": ["[YOUR FACTS]", "Photo essay"],
+      "cta": "Open the paper"
+    },
+    "handbook": {
+      "kindLabel": "Field guide",
+      "title": "Prompting Handbook",
+      "coverKicker": "Field Notes",
+      "coverTitle": "The Developer's Prompting Handbook",
+      "coverFoot": "Eight spreads · EN / DE",
+      "blurb": "The page-flip field guide already published: how I make LLM output predictable enough to put in production. Eight spreads, English and German.",
+      "shortBlurb": "The page-flip field guide, already published. English and German.",
+      "chips": ["Published", "EN / DE"],
+      "cta": "Open the handbook"
+    }
   }
 }

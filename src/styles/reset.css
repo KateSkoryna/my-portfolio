@@ -19,11 +19,20 @@ html {
 
 body {
   min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
   background: var(--page-background);
   color: var(--color-ink);
   font-family: var(--font-body), system-ui, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Pins `PageFooter` to the viewport bottom on short pages instead of
+   trailing right after the content — `main` grows to fill the leftover
+   space in the `body` flex column, and the footer sits after it. */
+body > main {
+  flex: 1;
 }
 
 img,

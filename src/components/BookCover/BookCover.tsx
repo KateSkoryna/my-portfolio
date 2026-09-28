@@ -6,9 +6,14 @@ import styles from './BookCover.module.css';
 
 export type CoverSize = 'shelf' | 'hero';
 
-/** DESIGN.md §2.1 reference dimensions the whole component scales from. */
-const BASE = { shelf: 216, hero: 244 } as const;
-const BASE_HEIGHT = { shelf: 260, hero: 340 } as const;
+/**
+ * DESIGN.md §2.1 reference dimensions the whole component scales from.
+ * `hero` is the design's 244×340 scaled up 20% (Kateryna's call — the
+ * floating book read too small) — keep in step with `FloatingItem.module.css`,
+ * which sizes the spine and cover offset from the same 1.2 factor.
+ */
+const BASE = { shelf: 216, hero: 293 } as const;
+const BASE_HEIGHT = { shelf: 260, hero: 408 } as const;
 
 /**
  * All five cover designs from DESIGN.md §2.1, switching on `item.kind`.
@@ -25,6 +30,10 @@ export function BookCover({ item, size = 'shelf' }: { item: PortfolioItem; size?
     '--cover-h': `${BASE_HEIGHT[size]}px`,
     '--cover-fill': item.cover,
     '--cover-dark': item.coverDark,
+    /* The floating hero cover sits well above the page (DESIGN.md §2.1's
+       perspective tilt); the flat shelf row doesn't, so it keeps the
+       lighter, closer shadow. */
+    '--cover-shadow': size === 'hero' ? 'var(--shadow-raised)' : 'var(--shadow-rest)',
   } as CSSProperties;
 
   return (
@@ -34,8 +43,18 @@ export function BookCover({ item, size = 'shelf' }: { item: PortfolioItem; size?
         <>
           <div className={styles.bookCircleCoral} aria-hidden="true" />
           <div className={styles.bookCircleSage} aria-hidden="true" />
+          <div className={styles.bookDotGrid} aria-hidden="true" />
           <p className={styles.kicker}>{item.coverKicker}</p>
           <p className={styles.bookTitle}>{item.coverTitle}</p>
+          <svg className={styles.bookUnderline} viewBox="0 0 84 7" aria-hidden="true">
+            <path
+              d="M2 4.5 C 20 1, 50 7, 82 2.5"
+              fill="none"
+              stroke="var(--color-coral)"
+              strokeWidth="3.4"
+              strokeLinecap="round"
+            />
+          </svg>
           <p className={styles.bookFoot}>{item.coverFoot}</p>
         </>
       )}
