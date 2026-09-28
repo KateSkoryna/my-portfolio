@@ -1,0 +1,378 @@
+/*
+ * DESIGN.md §2.1. `--cover-scale` is a plain number (244/216 for `hero`),
+ * so every `calc(Npx * var(--cover-scale))` below rescales the 216×260 spec
+ * values to whichever size the component was asked for.
+ */
+
+.cover {
+  position: relative;
+  width: var(--cover-w);
+  height: var(--cover-h);
+  overflow: hidden;
+  border-radius: var(--radius-book);
+  box-shadow: var(--shadow-rest);
+  background: var(--cover-fill);
+}
+
+/* 7px fore-edge strip, DESIGN.md §2.1. */
+.foreEdge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: calc(7px * var(--cover-scale));
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(255, 247, 237, 0.85) 0 1px,
+    rgba(190, 175, 150, 0.45) 1px 3px
+  );
+}
+
+.kicker {
+  position: absolute;
+  left: calc(18px * var(--cover-scale));
+  top: calc(18px * var(--cover-scale));
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: calc(8px * var(--cover-scale));
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-mustard);
+}
+
+/* ---- Book (resume) ---- */
+
+.book {
+  background: linear-gradient(150deg, var(--cover-fill), var(--cover-dark));
+}
+
+.bookCircleCoral {
+  position: absolute;
+  right: calc(-46px * var(--cover-scale));
+  top: calc(-46px * var(--cover-scale));
+  width: calc(138px * var(--cover-scale));
+  height: calc(138px * var(--cover-scale));
+  border-radius: 50%;
+  background: var(--color-coral);
+}
+
+.bookCircleSage {
+  position: absolute;
+  left: calc(-38px * var(--cover-scale));
+  bottom: calc(-42px * var(--cover-scale));
+  width: calc(102px * var(--cover-scale));
+  height: calc(102px * var(--cover-scale));
+  border-radius: 50%;
+  background: var(--color-sage);
+  opacity: 0.26;
+}
+
+.bookTitle {
+  position: absolute;
+  left: calc(18px * var(--cover-scale));
+  top: calc(40%);
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: calc(35px * var(--cover-scale));
+  line-height: 1;
+  color: var(--color-cream);
+}
+
+.bookFoot {
+  position: absolute;
+  left: calc(18px * var(--cover-scale));
+  bottom: calc(16px * var(--cover-scale));
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: calc(9px * var(--cover-scale));
+  color: rgba(255, 247, 237, 0.85);
+}
+
+/* ---- Magazine (projects) ---- */
+
+.magazine {
+  background: var(--color-cream);
+}
+
+.mastheadBand {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: calc(52px * var(--cover-scale));
+  background: var(--color-coral);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mastheadTitle {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: calc(21px * var(--cover-scale));
+  color: var(--color-cream);
+}
+
+.issueLine {
+  position: absolute;
+  left: calc(18px * var(--cover-scale));
+  top: calc(62px * var(--cover-scale));
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: calc(8px * var(--cover-scale));
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-emerald);
+}
+
+.thumbGrid {
+  position: absolute;
+  left: calc(18px * var(--cover-scale));
+  top: calc(82px * var(--cover-scale));
+  display: grid;
+  grid-template-columns: repeat(2, calc(46px * var(--cover-scale)));
+  grid-template-rows: repeat(2, calc(46px * var(--cover-scale)));
+  gap: calc(6px * var(--cover-scale));
+}
+
+.thumbGrid span:nth-child(1) {
+  background: var(--color-sage);
+}
+.thumbGrid span:nth-child(2) {
+  background: var(--color-emerald-deep);
+}
+.thumbGrid span:nth-child(3) {
+  background: var(--color-mustard);
+}
+.thumbGrid span:nth-child(4) {
+  background: var(--color-sage);
+}
+
+.magRule {
+  position: absolute;
+  left: calc(18px * var(--cover-scale));
+  right: calc(18px * var(--cover-scale));
+  top: calc(190px * var(--cover-scale));
+  height: calc(2.5px * var(--cover-scale));
+  background: var(--color-charcoal);
+}
+
+.magHeadline {
+  position: absolute;
+  left: calc(18px * var(--cover-scale));
+  top: calc(200px * var(--cover-scale));
+  right: calc(18px * var(--cover-scale));
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: calc(13px * var(--cover-scale));
+  color: var(--color-charcoal);
+}
+
+/* ---- Notebook (journal) ---- */
+
+.notebook {
+  background: linear-gradient(160deg, var(--cover-fill), #c3d6cb);
+  border-radius: calc(9px * var(--cover-scale));
+}
+
+.ruledField {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(31, 111, 95, 0.11) 0 1px,
+    transparent 1px calc(20px * var(--cover-scale))
+  );
+}
+
+.elasticBand {
+  position: absolute;
+  right: calc(32px * var(--cover-scale));
+  top: calc(-12px * var(--cover-scale));
+  bottom: calc(-12px * var(--cover-scale));
+  width: calc(15px * var(--cover-scale));
+  background: linear-gradient(180deg, #123f36, var(--color-emerald) 45%, #123f36);
+}
+
+.ribbon {
+  position: absolute;
+  right: calc(76px * var(--cover-scale));
+  top: 0;
+  bottom: 0;
+  width: calc(11px * var(--cover-scale));
+  background: var(--color-coral);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
+}
+
+.notebookTitle {
+  position: absolute;
+  left: calc(20px * var(--cover-scale));
+  top: 42%;
+  right: calc(60px * var(--cover-scale));
+  font-family: var(--font-hand), cursive;
+  font-weight: 700;
+  font-size: calc(37px * var(--cover-scale));
+  line-height: 1;
+  color: var(--color-emerald-deep);
+}
+
+/* ---- Newspaper (about) ---- */
+
+.newspaper {
+  background: #fbf6ea;
+}
+
+.crease {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: calc(16px * var(--cover-scale));
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(35, 35, 35, 0.18), transparent);
+}
+
+.mastheadRules {
+  position: absolute;
+  left: calc(18px * var(--cover-scale));
+  right: calc(18px * var(--cover-scale));
+  top: calc(46px * var(--cover-scale));
+  height: calc(4px * var(--cover-scale));
+  background: repeating-linear-gradient(
+    var(--color-charcoal) 0 2px,
+    transparent 2px 3px,
+    var(--color-charcoal) 3px 4px
+  );
+}
+
+.paperTitle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(18px * var(--cover-scale));
+  text-align: center;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: calc(21px * var(--cover-scale));
+  color: var(--color-charcoal);
+}
+
+.dateline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(56px * var(--cover-scale));
+  text-align: center;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: calc(6.5px * var(--cover-scale));
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-quiet);
+}
+
+.headline {
+  position: absolute;
+  left: calc(18px * var(--cover-scale));
+  right: calc(18px * var(--cover-scale));
+  top: calc(74px * var(--cover-scale));
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: calc(14.5px * var(--cover-scale));
+  color: var(--color-charcoal);
+}
+
+.columns {
+  position: absolute;
+  left: calc(18px * var(--cover-scale));
+  right: calc(18px * var(--cover-scale));
+  top: calc(120px * var(--cover-scale));
+  bottom: calc(16px * var(--cover-scale));
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: calc(8px * var(--cover-scale));
+}
+
+.columns span {
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(35, 35, 35, 0.24) 0 1px,
+    transparent 1px 6px
+  );
+}
+
+.photoBlock {
+  background-image: none;
+  background-color: var(--color-mustard);
+}
+
+/* ---- Field guide (handbook) ---- */
+
+.fieldguide {
+  background: linear-gradient(150deg, var(--cover-fill), var(--cover-dark));
+}
+
+.fgCircleCoral {
+  position: absolute;
+  right: calc(-30px * var(--cover-scale));
+  top: calc(-30px * var(--cover-scale));
+  width: calc(96px * var(--cover-scale));
+  height: calc(96px * var(--cover-scale));
+  border-radius: 50%;
+  background: var(--color-coral);
+  opacity: 0.9;
+}
+
+.fgCircleMustard {
+  position: absolute;
+  right: calc(20px * var(--cover-scale));
+  top: calc(60px * var(--cover-scale));
+  width: calc(30px * var(--cover-scale));
+  height: calc(30px * var(--cover-scale));
+  border-radius: 50%;
+  background: var(--color-mustard);
+}
+
+.fgCircleSage {
+  position: absolute;
+  left: calc(-30px * var(--cover-scale));
+  bottom: calc(-30px * var(--cover-scale));
+  width: calc(90px * var(--cover-scale));
+  height: calc(90px * var(--cover-scale));
+  border-radius: 50%;
+  background: var(--color-sage);
+  opacity: 0.3;
+}
+
+.dotGrid {
+  position: absolute;
+  left: calc(16px * var(--cover-scale));
+  bottom: calc(60px * var(--cover-scale));
+  width: calc(60px * var(--cover-scale));
+  height: calc(60px * var(--cover-scale));
+  background-image: radial-gradient(var(--color-sage) 1px, transparent 1px);
+  background-size: calc(14px * var(--cover-scale)) calc(14px * var(--cover-scale));
+  opacity: 0.5;
+}
+
+.fgTitle {
+  position: absolute;
+  left: calc(18px * var(--cover-scale));
+  right: calc(18px * var(--cover-scale));
+  top: calc(38%);
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: calc(27px * var(--cover-scale));
+  line-height: 1.1;
+  color: var(--color-cream);
+}
+
+.fgStrapline {
+  position: absolute;
+  left: calc(18px * var(--cover-scale));
+  right: calc(18px * var(--cover-scale));
+  bottom: calc(16px * var(--cover-scale));
+  font-family: var(--font-hand), cursive;
+  font-weight: 600;
+  font-size: calc(15px * var(--cover-scale));
+  color: rgba(255, 247, 237, 0.9);
+}

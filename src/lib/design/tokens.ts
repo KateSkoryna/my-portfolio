@@ -147,6 +147,22 @@ export const closedBook = {
   labelSize: (thickness: number): string => (thickness < 18 ? '7px' : '8px'),
   /** Gap between the spine and the printed title. */
   labelInset: 13,
+  /**
+   * Title ink, chosen for contrast, never brand (DESIGN.md §2.2 note 2):
+   * cream on the dark covers, deep emerald on sage, charcoal on coral and
+   * mustard. Do not reflexively put cream on coral — it fails contrast on a
+   * thin spine.
+   */
+  ink: (cover: string): string => {
+    if (cover === color.emerald || cover === color.emeraldDeep) return color.cream;
+    if (cover === color.sage) return color.emeraldDeep;
+    return color.charcoal;
+  },
+  /** The two raised spine bands — light on dark covers, dark on light ones. */
+  band: (cover: string): string =>
+    cover === color.emerald || cover === color.emeraldDeep
+      ? 'rgba(255,247,237,.32)'
+      : 'rgba(35,35,35,.2)',
   /** Flat-fill container volume: bound board edge + lit top/shadowed bottom curve + contact shadow + drop. */
   containerShadow: (coverDark: string): string =>
     [

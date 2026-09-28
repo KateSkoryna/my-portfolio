@@ -1,0 +1,6 @@
+.note {
+  font-family: var(--font-hand), cursive;
+  font-weight: 600;
+  font-size: 19px;
+  color: var(--color-emerald);
+}

@@ -1,0 +1,55 @@
+/* DESIGN.md §2.2. Flat fill, all volume from shadow — no gradient, no page block. */
+
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: var(--closed-w);
+  height: var(--closed-h);
+  overflow: hidden;
+  border-radius: var(--radius-closed);
+  padding: 0 40px 0 16px;
+  background: var(--closed-fill);
+  box-shadow: var(--closed-shadow);
+}
+
+.edgeTop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.edgeBottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--closed-dark);
+}
+
+.label {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: var(--closed-label-size);
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--closed-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.band {
+  position: absolute;
+  top: 24%;
+  bottom: 24%;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--closed-band);
+}
