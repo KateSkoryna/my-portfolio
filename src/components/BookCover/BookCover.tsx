@@ -22,8 +22,18 @@ const BASE_HEIGHT = { shelf: 260, hero: 408 } as const;
  * var(--cover-scale))` offset for the 244×340 `hero` size, so there is one
  * source of truth for the art instead of two near-duplicate layouts.
  */
-export function BookCover({ item, size = 'shelf' }: { item: PortfolioItem; size?: CoverSize }) {
+export function BookCover({
+  item,
+  size = 'shelf',
+  selected = false,
+}: {
+  item: PortfolioItem;
+  size?: CoverSize;
+  /** `/shelf` §4.2 — mustard ring, same weight as `ClosedBook`'s. */
+  selected?: boolean;
+}) {
   const scale = BASE[size] / BASE.shelf;
+  const baseShadow = size === 'hero' ? 'var(--shadow-raised)' : 'var(--shadow-rest)';
   const style = {
     '--cover-scale': scale,
     '--cover-w': `${BASE[size]}px`,
@@ -33,11 +43,17 @@ export function BookCover({ item, size = 'shelf' }: { item: PortfolioItem; size?
     /* The floating hero cover sits well above the page (DESIGN.md §2.1's
        perspective tilt); the flat shelf row doesn't, so it keeps the
        lighter, closer shadow. */
-    '--cover-shadow': size === 'hero' ? 'var(--shadow-raised)' : 'var(--shadow-rest)',
+    '--cover-shadow': selected ? `${baseShadow}, var(--shadow-selected-ring)` : baseShadow,
   } as CSSProperties;
 
   return (
-    <div className={`${styles.cover} ${styles[item.kind]}`} style={style}>
+    // Wholly decorative: every context that wraps this in a link supplies
+    // its own explicit `aria-label` (`FloatingItem`, `Shelf`) — without this,
+    // the cover's own kicker/title/foot text nodes and that override
+    // disagreed, tripping axe's `label-content-name-mismatch` the moment
+    // `/shelf` rendered five covers as links at once (an unlinked `<div>`
+    // and `/`'s single hero cover never exposed it).
+    <div className={`${styles.cover} ${styles[item.kind]}`} style={style} aria-hidden="true">
       <div className={styles.foreEdge} aria-hidden="true" />
       {item.kind === 'book' && (
         <>

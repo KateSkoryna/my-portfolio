@@ -85,6 +85,16 @@
       "cta": "Handbuch öffnen"
     }
   },
+  "shelf": {
+    "backToStack": "Zurück zum Stapel",
+    "eyebrow": "Das Regal",
+    "title": "Alles, nebeneinander",
+    "prevItem": "Vorheriges Element",
+    "nextItem": "Nächstes Element",
+    "closedHeading": "Die gleichen fünf, geschlossen",
+    "closedNote": "— so stehen sie im Stapel",
+    "closedExplainer": "Jedes geschlossene Buch sitzt direkt unter seinem Einband, auf einer Linie. Die Dicke ist redaktionelles Gewicht, nicht Seitenzahl — das Projekte-Magazin ist am dicksten, weil die meisten Besucher deswegen kommen. Jedes Buch zeigt dir zuerst den Rücken, sodass sich der Titel direkt vom flachen Rücken lesen lässt."
+  },
   "scratch": {
     "route": "Designsystem",
     "title": "Testroute",

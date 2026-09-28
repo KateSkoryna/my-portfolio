@@ -317,19 +317,53 @@ build; do not reinstate it.
 
 ### 4.2 Shelf (`/shelf`)
 
+A page heading above the shelf row itself — eyebrow "The shelf", `type.h1`
+title "Everything, side by side", coral squiggle underline (same treatment as
+the description panel's item title on `/`) — was missing from this section
+and caught only once Kateryna reviewed the built page.
+
 Five covers at 216 × 260, 40px apart, spanning 1240px — all five visible, none
-cut off. The closed row beneath uses the **same x positions and the same
-widths**, so each closed book sits directly under its own cover. That
-correspondence is the point of the page; do not let the two rows drift.
+cut off. Each cover is captioned below it: title, short blurb (`item.title` /
+`.shortBlurb`, content the site already had, just not previously surfaced
+here). A third caption line was tried twice — the route path (`/resume`,
+read as a stray dev detail) and the item's metadata chips (implementation-
+status text like "ISR · 1h", and empty for `resume`) — and dropped both
+times; the caption is title + blurb only until Kateryna has a replacement.
+Below that, a separator, an eyebrow + margin-note heading ("The same five,
+closed — this is how they sit in the stack"), then the closed row itself,
+then a closing paragraph. None of this — captions, separator, heading,
+paragraph — was in this section originally; all caught only once Kateryna
+reviewed the built page.
+
+The closed row beneath uses the **same x positions and the same widths**, so
+each closed book sits directly under its own cover. That correspondence is
+the point of the page; do not let the two rows drift — a plain block-level
+CSS grid defaults to packing its tracks to the *start* edge rather than
+centering them as a block, which silently misaligned the two rows the first
+time; `justify-content: center` on both fixes it, `justify-items` alone does
+not.
 
 - Arrows move a **selection** along the shelf, wrapping at both ends. They do
-  not scroll — everything is already visible.
+  not scroll. **Disabled while every item already fits the five-column grid**
+  — with nothing off-screen to reveal, they have no job; they activate once
+  the shelf holds more items than columns. *(Coupled to the CSS
+  `repeat(5, ...)` and a `VISIBLE_COLUMNS` constant in `Shelf.tsx` — the two
+  must change together if the grid ever grows past five.)*
+- **Nothing is selected on arrival** — the ring/scale only appears once the
+  visitor actually moves one, via the arrows or the arrow keys (Kateryna's
+  call; an earlier version defaulted to book 1 selected on load, which had no
+  reason to be picked). The first press lands on the natural end: `next`
+  selects book 1, `prev` selects book 5.
 - Selected: mustard ring on the cover, mustard ring on its closed book, title
-  turns `emeraldDeep`. **No vertical movement** — all five covers stay on one
-  line.
-- Hover: `transform: scale(1.2)` with `transform-origin: center bottom`, so
+  turns `emeraldDeep`, and the **same `scale(1.08)` hover carries over** — the
+  selected book stays grown, not just ringed, so "this is the one you're on"
+  reads the same way "this is the one you're about to click" does on hover.
+  **No vertical movement** — all five covers stay on one line.
+- Hover: `transform: scale(1.08)` with `transform-origin: center bottom`, so
   the book grows upward and stays planted on the shelf line. Raise its
-  `z-index` so it passes in front of its neighbours.
+  `z-index` so it passes in front of its neighbours. *(Turned down from the
+  original 1.2 spec — Kateryna's call — once captions existed under each
+  cover, 1.2 grew a hovered cover's caption text into its neighbour's.)*
 
 ### 4.3 Book spreads (`/resume`)
 
@@ -369,9 +403,12 @@ One header and footer structure on all 15 route boards, desktop and mobile.
   "Go to shelf" pill now carries the nav-button shadow + inner top
   highlight, no border — a border flattens it back down and fights the
   shadow *(Kateryna's call — reverses the earlier "stays flat" note below)*.
-  The
-  back-arrow flat outline and underlined text links stay flat by intent — a
-  shadow on a text link looks wrong.
+  The back-arrow **is** a flat outlined bar — same border/fill treatment as
+  the identity block's GitHub/LinkedIn/Email pills, just without their
+  shadow — not a bare text link; it had drifted to one with neither border
+  nor fill until `/shelf` (the first route to actually render the back row)
+  exposed it. Underlined text links stay flat by intent — a shadow on a
+  text link looks wrong.
 - **Footer** on every route: `© 2026 Kateryna Skoryna · All rights reserved`,
   centred, Manrope 700 / 10px / `quiet`. Sequential prev/next links (where a
   page has them) sit on the row above it. The top back-arrow is the escape

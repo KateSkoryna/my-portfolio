@@ -124,6 +124,12 @@ export const shadow = {
   chip: '0 4px 10px -4px rgba(20,40,30,.28)',
   /** Selected state on a chip-scale circular control (language toggle). */
   chipSelected: '0 3px 7px -2px rgba(20,40,30,.5)',
+  /**
+   * Mustard selection ring for a face-on cover (`/shelf`) — same 2px ring
+   * weight as `closedBook.selectedShadow`'s, so the cover and its closed
+   * book below read as one selection, not two different treatments.
+   */
+  selectedRing: `0 0 0 2px ${color.mustard}`,
   /** Cast by the floating item onto the pile — what sells "suspended". */
   suspension: 'radial-gradient(closest-side, rgba(28,52,42,.3), transparent)',
 } as const;
@@ -136,8 +142,14 @@ export const motion = {
   select: 320,
   /** Hover scale. */
   hover: 300,
-  /** Hover scale factor on /shelf covers. */
-  hoverScale: 1.2,
+  /**
+   * Hover scale factor on /shelf covers. DESIGN.md §4.2 specs 1.2, but at
+   * that size a hovered cover's caption text overlapped its neighbour's —
+   * only exposed once captions existed under each cover (not in the
+   * original spec). Turned down to stay noticeable without the overlap.
+   * *(Kateryna's call.)*
+   */
+  hoverScale: 1.08,
 } as const;
 
 /**

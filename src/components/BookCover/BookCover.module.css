@@ -148,7 +148,11 @@
   font-family: var(--font-display), system-ui, sans-serif;
   font-weight: 800;
   font-size: calc(21px * var(--cover-scale));
-  color: var(--color-cream);
+  /* Cream on coral was 2.56:1 — below the 3:1 large-text minimum, caught
+     once `/shelf` rendered all five face-on covers at once (landing only
+     ever shows this cover closed-spine or as the hero, never exposing it).
+     Charcoal clears 5.76:1, matching the newspaper cover's own headline. */
+  color: var(--color-charcoal);
 }
 
 .issueLine {

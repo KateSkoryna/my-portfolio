@@ -46,6 +46,7 @@
   --shadow-button:        0 10px 20px -10px rgba(31,111,95,.7);
   --shadow-chip:          0 4px 10px -4px rgba(20,40,30,.28);
   --shadow-chip-selected: 0 3px 7px -2px rgba(20,40,30,.5);
+  --shadow-selected-ring: 0 0 0 2px #E9B44C;
   --shadow-suspension:    radial-gradient(closest-side, rgba(28,52,42,.3), transparent);
 
   /* Motion — DESIGN.md §1.4 */
@@ -53,7 +54,7 @@
   --motion-turn:        420ms;
   --motion-select:      320ms;
   --motion-hover:       300ms;
-  --motion-hover-scale: 1.2;
+  --motion-hover-scale: 1.08;
 
   /* Accessibility — DESIGN.md §5 */
   --a11y-min-target:        44px;

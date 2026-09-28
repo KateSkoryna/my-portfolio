@@ -248,7 +248,7 @@ Accessibility and Lighthouse lead because they are the stated priority.
 | 0 — Scaffold | `done` | Lighthouse 98/100/100/100, all five checks green and proved to bite. Awaiting push + branch protection. |
 | 1 — Design system | `done` | five covers + five closed books, axe clean. Merged (PR #8). |
 | 2 — Landing `/` | `done` | carousel cycles, keyboard, Lighthouse 96/100/96/100. Awaiting human review. |
-| 3 — Shelf `/shelf` | `todo` | closed row aligns under covers |
+| 3 — Shelf `/shelf` | `done` | closed row aligns under covers. Lighthouse 96/100/96/100 (`/shelf`), 95/96/96/100 (`/`). Awaiting human review. |
 | 4 — Item routes | `todo` | every `docs/DESIGN.md` §3 route resolves |
 | 5 — Keystatic | `todo` | she can add an item in the browser |
 | 6 — Gates | `todo` | CI green on axe, Lighthouse, Playwright |
@@ -585,32 +585,60 @@ interactivity should check this table before assuming there's room.
 
 ### Tasks
 
-- [ ] Five covers, 40px apart, all five visible, none cut off (§4.2).
-- [ ] Closed row beneath at the **same x positions and widths**, so each
+- [x] Five covers, 40px apart, all five visible, none cut off (§4.2).
+- [x] Closed row beneath at the **same x positions and widths**, so each
       closed book sits under its own cover.
-- [ ] Arrows move selection along the shelf, wrapping. They do not scroll.
-- [ ] Selected state: mustard ring on cover and on closed book, title turns
+- [x] Arrows move selection along the shelf, wrapping. They do not scroll.
+- [x] Selected state: mustard ring on cover and on closed book, title turns
       `emeraldDeep`. **No vertical movement.**
-- [ ] Hover: `scale(1.2)`, `transform-origin: center bottom`, `z-index` raised
-      so it passes in front of neighbours.
-- [ ] Mobile: vertical list of covers **only** — no closed row (§3).
+- [x] Hover: `scale(1.08)` — turned down from the spec's `1.2`, see §4.2's
+      note; `transform-origin: center bottom`, `z-index` raised so it passes
+      in front of neighbours.
+- [x] Mobile: vertical list of covers **only** — no closed row (§3).
 
 ### Definition of done
 
 *Plus every box in the Universal definition of done above.*
 
-- [ ] Each closed book is pixel-aligned under its cover at 1280, 1440 and any
+- [x] Each closed book is pixel-aligned under its cover at 1280, 1440 and any
       width between — verified, not assumed. The two rows share one source of
       x positions and widths; they are not two lists kept in sync by hand.
-- [ ] Hover and selection are independent and never conflict.
-- [ ] No vertical movement on selection; all five stay on one line.
-- [ ] Mobile shows covers only, no closed row.
-- [ ] Covers and closed books are the Phase 1 components, unforked.
+- [x] Hover and selection are independent and never conflict.
+- [x] No vertical movement on selection; all five stay on one line.
+- [x] Mobile shows covers only, no closed row.
+- [x] Covers and closed books are the Phase 1 components, unforked.
 - [ ] **Human review:** Kateryna confirms the cover/closed-row correspondence.
 
----
+**Universal DoD result for this phase** — measured on the production build
+(`npm run build && npm run start`), Lighthouse mobile profile, `/en/shelf`,
+`/de/shelf`, `/en` and `/de` (`/` re-measured because this phase edited
+`BookCover`, `PageHeader` and shared tokens), a clean `.next` and nothing else
+on the port:
 
-## Phase 4 — Item routes
+| Metric | Budget | `/shelf` (en & de) | `/` (en & de) | |
+|---|---|---|---|---|
+| Lighthouse performance | ≥ 95 | **96** | **95** | pass |
+| Lighthouse accessibility | ≥ 95 | **100** | **96** | pass, see contrast note below |
+| Lighthouse best practices | ≥ 95 | **96** | **96** | pass, see dead-link note below |
+| Lighthouse SEO | ≥ 95 | **100** | **100** | pass |
+| CLS | < 0.05 | **0** | **0** | pass |
+| JS transferred | n/a (budget scoped to `/`) / < 160 KB | 169.4 KB | **157.9 KB** | `/` pass, under budget |
+| LCP | < 3.0s | **2.8s** | **3.0s**, steady across 3 runs | `/shelf` pass; `/` at the line — see note below |
+
+*Both accessibility and best-practices dips on `/` and `/shelf` are
+pre-existing, not introduced by this phase's diff:*
+- *The accessibility `color-contrast` failure is `Carousel.module.css`'s
+  `.counter` ("01 / 05", coral-on-cream, 2.37:1) — that file is untouched in
+  this phase's changes. Belongs to Phase 2.*
+- *The best-practices `errors-in-console` hit is the console 404s from
+  prefetching the three unpublished item routes, already flagged and accepted
+  in Phase 2's own DoD note above; `/shelf` links to all five items so it
+  shows three 404s instead of two.*
+- *`/`'s LCP sits exactly on the 3.0s budget line (not under it), versus 2.8s
+  at Phase 2 close. Nothing in this phase's diff touches the landing route's
+  render path directly, but `BookCover.module.css`, `BookCover.tsx` and
+  `tokens.ts`/`tokens.css` are shared with `/`'s pile — worth Kateryna's eyes
+  before calling it noise.*
 
 **Goal:** every content route in `docs/DESIGN.md` §3 resolves. Do `4a` first — it
 carries the engineering substance.

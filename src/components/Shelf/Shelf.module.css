@@ -1,0 +1,228 @@
+/*
+ * DESIGN.md §4.2 — five 216×260 covers (each captioned with title, route,
+ * blurb), 40px apart, spanning 1240px; a separate closed-spine row below,
+ * at the same x positions and widths, so each closed book sits directly
+ * under its own cover. `.covers` and `.closedRow` share identical grid
+ * column rules for exactly that reason — the correspondence is the page's
+ * whole point, kept by construction rather than synced by hand.
+ *
+ * Five fixed 216px covers (`BookCover`'s `shelf` size is fixed, matching
+ * `/`'s own fixed-size covers — DESIGN.md gives no fluid spec for the art
+ * itself) plus two 56px arrows is content that does not fit a 1280px
+ * viewport at the 40px reference gap: 56+40+1240+40+56 = 1432px. Below
+ * 1440px the gap steps down to 12px instead (1256px total, comfortably
+ * inside 1280) rather than scaling continuously — a `vw`-based `clamp()`
+ * here stays near its own max across the whole 1280–1440 range and still
+ * overflows. **Flagged for Kateryna to confirm the 1280px cutover** — it is
+ * earlier than a phone-only breakpoint, chosen purely from this width math.
+ */
+
+.page {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 5vw, 48px) clamp(40px, 6vh, 72px);
+}
+
+.heading {
+  padding-top: clamp(20px, 4vh, 40px);
+}
+
+/* `type.h1` (38px/800/-.025em) — components hand-specify this scale
+   directly, fluid via `clamp()`, same convention as `Landing.module.css`'s
+   `.name`; `type.*` stays TypeScript-only (`tokens-css.ts`), never a CSS
+   custom property. */
+.title {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 3.4vw, 38px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--color-charcoal);
+  margin-top: 6px;
+}
+
+.titleUnderline {
+  display: block;
+  width: 84px;
+  height: 7px;
+  margin-top: 10px;
+}
+
+.wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+  padding: clamp(24px, 5vh, 56px) 0 0;
+}
+
+/* (260px cover + caption block's own height) roughly centers the arrows
+   on the cover art itself rather than the taller cover+caption column. */
+.wrap > button {
+  margin-top: 90px;
+}
+
+/*
+ * `.covers` and `.closedRow` must be pixel-identical containers — same
+ * columns, same gap, same horizontal padding (none) — or the closed row
+ * drifts sideways from the covers above it, defeating the one thing this
+ * page is for. `.covers` is centered as a block because it's a flex *item*
+ * inside `.wrap` (sized to its own content, then that whole row centered by
+ * `.wrap`'s `justify-content`); `.closedRow` has no such parent, so as a
+ * plain block-level grid it defaults to full container width with its
+ * tracks packed to the *start* edge — `justify-content: center` here
+ * centers the track list itself, not just each cell's content
+ * (`justify-items`), or the two rows drift apart exactly as `.covers` does
+ * not. `align-items: end` on `.closedRow` bottom-aligns every closed book
+ * regardless of its own `item.thickness` — they "rest on one line" (the
+ * explainer text's own words), not stack from a shared top.
+ */
+.covers,
+.closedRow {
+  display: grid;
+  grid-template-columns: repeat(5, 216px);
+  justify-content: center;
+  justify-items: center;
+  gap: 12px;
+}
+
+.closedRow {
+  align-items: end;
+}
+
+@media (min-width: 1440px) {
+  .wrap {
+    gap: 40px;
+  }
+
+  .covers,
+  .closedRow {
+    gap: 40px;
+  }
+}
+
+.column {
+  display: flex;
+}
+
+.coverLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+  transform-origin: center bottom;
+  transition: transform var(--motion-hover) var(--motion-ease);
+}
+
+.closedLink {
+  display: flex;
+  color: inherit;
+  text-decoration: none;
+  transform-origin: center bottom;
+  transition: transform var(--motion-hover) var(--motion-ease);
+}
+
+/* DESIGN.md §4.2 — grows upward, stays planted on the shelf line; raised
+   above its neighbours so it doesn't pass behind them mid-scale. The
+   selected item carries the same scale permanently (not just its ring), so
+   it reads as "the one you're on" the same way hover reads as "the one
+   you're about to click". */
+.coverLink:hover,
+.coverLink:focus-visible,
+.coverLink.selected,
+.closedLink:hover,
+.closedLink:focus-visible,
+.closedLink.selected {
+  transform: scale(var(--motion-hover-scale));
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coverLink:hover,
+  .coverLink:focus-visible,
+  .coverLink.selected,
+  .closedLink:hover,
+  .closedLink:focus-visible,
+  .closedLink.selected {
+    transform: none;
+  }
+}
+
+.caption {
+  align-self: stretch;
+  margin-top: 14px;
+  text-align: left;
+}
+
+.captionTitle {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--color-emerald);
+}
+
+.captionBlurb {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-muted);
+  margin-top: 8px;
+}
+
+.closedHeading {
+  margin-top: clamp(24px, 4vh, 40px);
+}
+
+.separator {
+  border: none;
+  border-top: 1px solid var(--color-sage);
+  margin: 0 0 20px;
+}
+
+.closedHeadingRow {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.closedExplainer {
+  max-width: 760px;
+  margin: 24px auto 0;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-body-text);
+}
+
+@media (max-width: 1279px) {
+  .wrap > button {
+    display: none;
+  }
+
+  .covers {
+    grid-template-columns: 1fr;
+    max-width: 260px;
+    gap: 28px;
+    margin: 0 auto;
+  }
+
+  /* No hover/selection affordance to grow into on a single tapped column —
+     mobile is plain covers, one per row. */
+  .coverLink:hover,
+  .coverLink:focus-visible,
+  .coverLink.selected {
+    transform: none;
+  }
+
+  /* DESIGN.md §3 — mobile shows covers only, no closed row (and no section
+     explaining it). */
+  .closedHeading,
+  .closedRow,
+  .closedExplainer {
+    display: none;
+  }
+}
