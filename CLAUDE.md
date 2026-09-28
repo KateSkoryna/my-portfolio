@@ -16,13 +16,13 @@ source** for the Phase 4e port, where the handbook returns as book 05 at
 
 ## Before writing any UI code
 
-Read **`DESIGN.md`** in full. It is the design contract: tokens, object
+Read **`docs/DESIGN.md`** in full. It is the design contract: tokens, object
 construction with exact pixel values, motion timings, the accessibility
 contract, and a log of decisions with the reasoning behind them — including
 several that were wrong the first time. It exists so those mistakes are not
 repeated.
 
-Read **`BUILD.md`** for the phase plan, task breakdown and per-phase
+Read **`docs/BUILD.md`** for the phase plan, task breakdown and per-phase
 definition of done. Work one phase at a time. Do not start a later phase
 because an earlier one looks finished — check its acceptance criteria.
 
@@ -47,12 +47,12 @@ because an earlier one looks finished — check its acceptance criteria.
    deliberate placeholder awaiting her input. Leave it bracketed. Do not write
    plausible-sounding job history, project descriptions, or biography.
 3. **Accessibility is a build gate, not a polish pass.** See the accessibility
-   contract in `DESIGN.md`. Interactive elements are real `<button>` and
+   contract in `docs/DESIGN.md`. Interactive elements are real `<button>` and
    `<a href>`. Never `onClick` on a `div`. Every text colour must clear its
    stated contrast ratio.
 4. **`prefers-reduced-motion` disables every transform**, not just some.
 5. **No WebGL, no `<canvas>`, no animation library.** CSS transforms and
-   transitions only. The performance budget in `BUILD.md` depends on this.
+   transitions only. The performance budget in `docs/BUILD.md` depends on this.
 6. **Do not add a dependency** without stating what it replaces and why the
    platform cannot do it.
 
@@ -80,7 +80,7 @@ means there is nothing left for her to review. Stop, report what changed, and
 commit only when she asks — then as small logical commits, not one blob.
 
 **Never push, never open a PR, never merge, never commit to `main`.** She
-pushes and opens the PR herself. See the Git protocol in `PLAN.md`.
+pushes and opens the PR herself. See the Git protocol in `docs/PLAN.md`.
 
 ## Commit messages
 
@@ -97,6 +97,6 @@ what changed and, where it matters, why.
 ## Design source
 
 The visual design exists as an interactive prototype on a Claude Design
-canvas. `DESIGN.md` is the authoritative written extraction of it — build from
-`DESIGN.md`, not from memory of the prototype. Where the two disagree,
-`DESIGN.md` wins and should be corrected if it is wrong.
+canvas. `docs/DESIGN.md` is the authoritative written extraction of it — build from
+`docs/DESIGN.md`, not from memory of the prototype. Where the two disagree,
+`docs/DESIGN.md` wins and should be corrected if it is wrong.
