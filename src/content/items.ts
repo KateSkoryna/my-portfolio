@@ -176,7 +176,7 @@ export const featuredRepos: readonly FeaturedRepo[] = [
   { repo: 'travel-portal-app', summary: '[ONE LINE ON WHAT IT DOES AND THE HARD PART.]' },
   { repo: 'quizdom-react-app', summary: '[ONE LINE ON WHAT IT DOES AND THE HARD PART.]' },
   { repo: 'task-manager', summary: '[ONE LINE ON WHAT IT DOES AND THE HARD PART.]' },
-  { repo: 'prompting-handbook', summary: '[ONE LINE ON WHAT IT DOES AND THE HARD PART.]' },
+  { repo: 'my-portfolio', summary: '[ONE LINE ON WHAT IT DOES AND THE HARD PART.]' },
 ] as const;
 
 export const profile = {
