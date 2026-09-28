@@ -1,0 +1,23 @@
+{
+  "chrome": {
+    "skipToContent": "Skip to content",
+    "languageToggle": {
+      "label": "Language",
+      "switchTo": "Switch to {language}"
+    },
+    "back": "Back",
+    "footer": "© 2026 Kateryna Skoryna · All rights reserved"
+  },
+  "dots": {
+    "goTo": "Go to {n}"
+  },
+  "scratch": {
+    "route": "Design system",
+    "title": "Scratch route",
+    "intro": "Not linked from anywhere — renders every Phase 1 primitive against tokens.ts so drift is visible immediately.",
+    "coversHeading": "Covers, face-on",
+    "closedHeading": "Closed books, edge-on",
+    "shelfSize": "Shelf size (216×260)",
+    "heroSize": "Hero size (244×340)"
+  }
+}

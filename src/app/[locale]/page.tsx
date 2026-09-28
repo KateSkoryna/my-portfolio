@@ -9,6 +9,10 @@ import styles from './page.module.css';
  * It exists so Phase 0's definition of done can actually be checked in a
  * browser: the flat paper background, and all three families rendering. It
  * deliberately carries no portfolio content.
+ *
+ * No `setRequestLocale` — `next/root-params` (via `i18n/request.ts`) is
+ * what makes this render statically per locale now; next-intl's own
+ * request-locale cache is deprecated as of 4.14.
  */
 export default function Home() {
   return (

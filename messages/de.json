@@ -1,0 +1,23 @@
+{
+  "chrome": {
+    "skipToContent": "Zum Inhalt springen",
+    "languageToggle": {
+      "label": "Sprache",
+      "switchTo": "Zu {language} wechseln"
+    },
+    "back": "Zurück",
+    "footer": "© 2026 Kateryna Skoryna · Alle Rechte vorbehalten"
+  },
+  "dots": {
+    "goTo": "Zu {n} wechseln"
+  },
+  "scratch": {
+    "route": "Designsystem",
+    "title": "Testroute",
+    "intro": "Von nirgendwo verlinkt — zeigt jede Phase-1-Komponente gegen tokens.ts, damit Abweichungen sofort sichtbar werden.",
+    "coversHeading": "Einbände, frontal",
+    "closedHeading": "Geschlossene Bücher, von der Seite",
+    "shelfSize": "Regalgröße (216×260)",
+    "heroSize": "Heldengröße (244×340)"
+  }
+}
