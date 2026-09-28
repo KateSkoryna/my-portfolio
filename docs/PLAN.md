@@ -1,11 +1,11 @@
-# PLAN.md — the execution plan
+# docs/PLAN.md — the execution plan
 
-Machine-executable companion to `BUILD.md`. `BUILD.md` says *what* each phase
+Machine-executable companion to `docs/BUILD.md`. `docs/BUILD.md` says *what* each phase
 is and why; this file says *what to do next*, *how to know it is done*, and
 *where the state is*. It is the file the loop reads and writes.
 
-`DESIGN.md` remains the design contract. Where this file and `DESIGN.md`
-disagree about a value, `DESIGN.md` wins and this file is corrected.
+`docs/DESIGN.md` remains the design contract. Where this file and `docs/DESIGN.md`
+disagree about a value, `docs/DESIGN.md` wins and this file is corrected.
 
 ---
 
@@ -15,7 +15,7 @@ disagree about a value, `DESIGN.md` wins and this file is corrected.
 
 Each `/loop` invocation does exactly this:
 
-1. Read `DESIGN.md` in full, then `BUILD.md`, then this file.
+1. Read `docs/DESIGN.md` in full, then `docs/BUILD.md`, then this file.
 2. Find the first phase in the Status board below whose state is not `done`.
 3. Work its tasks in order, **leaving every change uncommitted** so Kateryna
    can read the diff (see Git protocol). Do not commit, stage or push.
@@ -37,7 +37,7 @@ The loop does **not** start the next phase. Kateryna reviews, then runs
 
 - A task requires content that is `[IN BRACKETS]` in `items.ts` — never
   invent copy (`CLAUDE.md` hard rule 2).
-- A DoD box cannot be made to pass without changing `DESIGN.md`.
+- A DoD box cannot be made to pass without changing `docs/DESIGN.md`.
 - A decision in **Open decisions** below is unresolved and blocks the task.
 - A visual result is ambiguous — Sonnet cannot judge whether the pile "looks
   right". Report and let a human look.
@@ -80,7 +80,7 @@ Decided. Not open for re-litigation by the loop.
 | Setting | Value |
 |---|---|
 | **Languages** | **EN + DE now, architected to extend to 3 or 4 without a rewrite.** Use a real i18n framework — `next-intl` unless there is a concrete reason otherwise. Locale-segmented routes (`/de/...`). Adding a locale = adding a message file, never touching components. |
-| **Language switcher** | In the header, on every page (`DESIGN.md` §4.4). |
+| **Language switcher** | In the header, on every page (`docs/DESIGN.md` §4.4). |
 | **German copy** | Kateryna writes it. Never machine-translate, never invent. Missing strings fall back to English. |
 | **Dark mode** | Not built. |
 | **Hosting** | Next owns `/` from Phase 0. `index.html` kept as the Phase 4e content source. |
@@ -97,13 +97,13 @@ These are not per-phase reminders; they apply always.
    a value is missing, add it to the token source first.
 2. **Never invent Kateryna's content.** `[SQUARE BRACKETS]` stay bracketed and
    render as visible placeholder text in `color.placeholder`.
-3. **Build fluid, not fixed-pixel.** Every px figure in `DESIGN.md` is a spec
+3. **Build fluid, not fixed-pixel.** Every px figure in `docs/DESIGN.md` is a spec
    of *intent* from a 1440/390 mockup. Implement with `clamp()`, grid/flex and
    container queries so 1280 laptops and tablets are not stranded
-   (`DESIGN.md` §6). Do not litter the codebase with `1440px`.
+   (`docs/DESIGN.md` §6). Do not litter the codebase with `1440px`.
 4. **Accessibility is a gate, not a polish pass.** Real `<button>`/`<a href>`,
    ≥44px targets, ≥11px informational text, `:focus-visible` ring,
-   `prefers-reduced-motion` disables *every* transform (`DESIGN.md` §5).
+   `prefers-reduced-motion` disables *every* transform (`docs/DESIGN.md` §5).
 5. **No new dependency** without stating what it replaces and why the platform
    cannot do it. No animation library, no component library, no CSS framework,
    no WebGL, no runtime CSS-in-JS.
@@ -121,14 +121,14 @@ These are not per-phase reminders; they apply always.
 These principles conflict in real decisions. When they do, higher wins —
 do not silently trade one away for a lower one.
 
-1. **Accessibility.** The contract in `DESIGN.md` §5. Non-negotiable, never
+1. **Accessibility.** The contract in `docs/DESIGN.md` §5. Non-negotiable, never
    traded for elegance, brevity or cleverness. If the accessible version is
    uglier code, ship the uglier code.
 2. **Lighthouse and the performance budget.** ≥ 95 in all four categories on
    mobile; LCP < 3.0s · CLS < 0.05 · INP < 200ms; JS to `/` under 160 KB.
    An abstraction that costs bundle size loses to the budget. The framework
    floor is ~132 KB, so the headroom for all our own code is ~28 KB.
-3. **Fidelity to `DESIGN.md`.** The design contract beats personal taste.
+3. **Fidelity to `docs/DESIGN.md`.** The design contract beats personal taste.
 4. **DRY / KISS / YAGNI.** Below the three above, not above them.
 5. Everything else.
 
@@ -235,7 +235,7 @@ Accessibility and Lighthouse lead because they are the stated priority.
 **Fidelity**
 - [ ] Fluid at 390, 768, 1280 and 1440 — no stranded breakpoint, no
       horizontal scroll.
-- [ ] Nothing in the phase contradicts a locked decision in `DESIGN.md` §6.
+- [ ] Nothing in the phase contradicts a locked decision in `docs/DESIGN.md` §6.
 - [ ] Where a trade-off was made against a lower-priority principle, the
       commit message says which and why.
 
@@ -249,7 +249,7 @@ Accessibility and Lighthouse lead because they are the stated priority.
 | 1 — Design system | `todo` | five covers + five closed books, axe clean |
 | 2 — Landing `/` | `todo` | carousel cycles, keyboard, Lighthouse ≥ 95 |
 | 3 — Shelf `/shelf` | `todo` | closed row aligns under covers |
-| 4 — Item routes | `todo` | every `DESIGN.md` §3 route resolves |
+| 4 — Item routes | `todo` | every `docs/DESIGN.md` §3 route resolves |
 | 5 — Keystatic | `todo` | she can add an item in the browser |
 | 6 — Gates | `todo` | CI green on axe, Lighthouse, Playwright |
 
@@ -262,14 +262,14 @@ it; it requires Phases 0–6 green and a separate decision.
 
 ## Open decisions — resolve before the phase that needs them
 
-These are gaps found between `BUILD.md` and `DESIGN.md`. The loop must **stop
+These are gaps found between `docs/BUILD.md` and `docs/DESIGN.md`. The loop must **stop
 and ask**, not guess.
 
 Everything else is in **Settled settings** above — do not reopen it.
 
 | # | Decision | Blocks | Why it is open |
 |---|---|---|---|
-| D1 | Repo rename or custom domain? | Phase 6 | `DESIGN.md` §6 "Open". Build with relative paths regardless so the move stays free. |
+| D1 | ~~Repo rename or custom domain?~~ **RESOLVED: renamed to `my-portfolio`.** | — | Settled. `docs/DESIGN.md` §6. Done early (Phase 1), ahead of Phase 6, at Kateryna's request. |
 | D2 | ~~The performance budget is unreachable as written.~~ **RESOLVED: the numbers were raised** to LCP < 3.0s and JS to `/` < 160 KB, Lighthouse ≥ 95 unchanged as the real gate. | — | Settled. The budget had been set without measuring the framework floor. It gets raised **once** — a later phase that blows through the ~28 KB of headroom fixes its code, not the budget. |
 
 ### Phase 0 baseline — measured, production build, mobile profile
@@ -360,7 +360,7 @@ handbook comes back as book 05 at `/handbook` in 4e.
       formatting, then types, and confirm the matching script exits non-zero
       each time. Revert after each. A gate never seen failing is not known to
       work.
-- [x] Dependabot or Renovate config (`BUILD.md` Risks).
+- [x] Dependabot or Renovate config (`docs/BUILD.md` Risks).
 
 ### Definition of done
 
@@ -428,7 +428,7 @@ locale-segmented routes, EN + DE now, extensible to more.
       contrast-chosen ink, `coverDark` inset ring, two raised bands, volume
       from `closedBook.containerShadow(coverDark)` / `selectedShadow`.
       **No gradient. No page block. No hinge.**
-- [ ] Shared page chrome (§4.4) — *not in `BUILD.md`'s task list, but every
+- [ ] Shared page chrome (§4.4) — *not in `docs/BUILD.md`'s task list, but every
       route needs it*: two-row header (language toggle pinned right on row 1;
       back-arrow / route label / page action on row 2), and the footer
       (`© 2026 Kateryna Skoryna · All rights reserved`, Manrope 700 / 10px /
@@ -476,16 +476,16 @@ Phase 3.
 
 ### `published: false` — the "coming soon" state
 
-`DESIGN.md` designs no such state, so this is the spec. Four of the five
+`docs/DESIGN.md` designs no such state, so this is the spec. Four of the five
 items carry `published: false` today; only `/handbook` is `true`.
 
 - A **small "coming soon" marker** on the item, wherever an item is
   presented: the pile and description panel on `/`, and the shelf.
-- It is **informational text, so ≥ 11px** (`DESIGN.md` §5.4). Manrope, the
+- It is **informational text, so ≥ 11px** (`docs/DESIGN.md` §5.4). Manrope, the
   `sectionLabel`/`caption` pattern from §1.3, in `color.quiet` or on a
   `sage` chip. Reuse `<Chip>` from Phase 1 rather than inventing a badge.
 - **An unpublished item is not a link.** A dead link costs more trust than
-  its absence — the same reasoning `DESIGN.md` §6 applies to dead demo
+  its absence — the same reasoning `docs/DESIGN.md` §6 applies to dead demo
   links. Render it as a non-interactive element, not an `<a>` to a 404.
 - The marker is driven by `item.published` only. Never hardcode which items
   are unpublished — flipping the flag in `items.ts` (or later in Keystatic)
@@ -571,7 +571,7 @@ items carry `published: false` today; only `/handbook` is `true`.
 
 ## Phase 4 — Item routes
 
-**Goal:** every content route in `DESIGN.md` §3 resolves. Do `4a` first — it
+**Goal:** every content route in `docs/DESIGN.md` §3 resolves. Do `4a` first — it
 carries the engineering substance.
 
 Sub-phases are large. Treat **each sub-phase as one loop iteration** and stop
@@ -643,7 +643,7 @@ a fraction of 731 KB; both greys pass AA; the old handbook URL still resolves.
 
 ### 4f `/colophon` — how the site was built
 
-*Not in `BUILD.md`'s task list, but `DESIGN.md` §3 designs it and Phase 4's
+*Not in `docs/BUILD.md`'s task list, but `docs/DESIGN.md` §3 designs it and Phase 4's
 gate requires every §3 route to resolve.*
 
 - [ ] Objects, palette and type, scrolling (~1300px). Desktop-only design —
@@ -654,7 +654,7 @@ gate requires every §3 route to resolve.*
 
 ### Phase 4 gate
 
-- [ ] Every route in `DESIGN.md` §3 resolves.
+- [ ] Every route in `docs/DESIGN.md` §3 resolves.
 - [ ] `/projects` data changes when a repo is pushed to.
 - [ ] `/resume` prints a usable CV.
 - [ ] `index.html` removed **only** after `/handbook` is verified live.
@@ -675,7 +675,7 @@ appears everywhere with no code change.
       data entry, never a code change.
 - [ ] GitHub App auth. Admin restricted to her account.
 - [ ] **Verify the admin route is not publicly reachable on a preview deploy
-      before production** (`BUILD.md` Risks).
+      before production** (`docs/BUILD.md` Risks).
 
 **Done when:** she adds an item through `/keystatic`, it commits to this repo,
 and it appears in the stack, on the shelf and at its own route with no code
@@ -687,7 +687,7 @@ edit. `/keystatic` is unreachable when signed out. axe clean on public routes.
 
 ## Phase 6 — Gates
 
-*`BUILD.md` gives no "Done when" for this phase. This is it.*
+*`docs/BUILD.md` gives no "Done when" for this phase. This is it.*
 
 **Blocked by:** D1 (domain/rename).
 
@@ -700,11 +700,16 @@ test, build) with the heavy gates — it does not create CI from scratch.
 - [ ] Playwright: carousel cycles both directions, `/resume` arrows disable at
       the ends, every route resolves, `prefers-reduced-motion` honoured,
       one-click pile navigation works.
-- [ ] `README.md` rewritten for the portfolio.
-- [ ] Resolve **D1** — custom domain or repo rename. Relative paths
-      throughout, so the move costs nothing.
+- [x] `README.md` rewritten for the portfolio, done early (Phase 1) at
+      Kateryna's request rather than blocked on the rest of this phase. Its
+      original content — the handbook essay — moved to `docs/HANDBOOK.md` rather
+      than being discarded; nothing else in it duplicated `docs/PLAN.md`,
+      `docs/DESIGN.md` or `docs/BUILD.md`, so there was nothing to migrate there.
+- [x] Resolve **D1** — repo renamed to `my-portfolio`, done early (Phase 1)
+      at Kateryna's request. Relative paths throughout, so the move cost
+      nothing.
 - [ ] Retire the GitHub Pages deployment — only after the Vercel URL is
-      confirmed serving correctly (`BUILD.md` Vercel hosting §4).
+      confirmed serving correctly (`docs/BUILD.md` Vercel hosting §4).
 
 **Done when:** CI is green on all three gates against a pull request; a
 deliberately introduced violation fails the build (prove each gate bites);
@@ -716,7 +721,7 @@ deliberately introduced violation fails the build (prove each gate bites);
 
 - **Phase 7 — AI drafting.** Requires 0–6 green and a separate decision.
 - **Real copy.** Every `[BRACKET]` is Kateryna's. Sample data is enough to
-  build; it is not enough to launch (`BUILD.md` Blockers).
+  build; it is not enough to launch (`docs/BUILD.md` Blockers).
 - **Writing German copy.** The i18n framework is built in Phase 1, but the
   German text itself is Kateryna's to write. Structure for it; never generate
   it.

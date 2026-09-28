@@ -484,9 +484,13 @@ Kept so they are not re-litigated or re-broken.
 
 ### Open, for Kateryna
 
-- **The repo name.** `github.io/prompting-handbook/resume` undercuts a
-  portfolio link on a CV. A repo named `kateskoryna.github.io`, or a custom
-  domain on Vercel, fixes it. Build with relative paths so the move is free.
+- ~~**The repo name.** `github.io/prompting-handbook/resume` undercuts a
+  portfolio link on a CV.~~ **RESOLVED:** renamed to `my-portfolio`
+  (`github.io/my-portfolio/resume`) rather than the special-cased
+  `kateskoryna.github.io` naming — GitHub Pages is being retired for Vercel
+  anyway (`docs/BUILD.md` Phase 6), so the repo name doesn't need to double
+  as the site's public host. Built with relative paths throughout, so the
+  move cost nothing.
 - **Item names** — *Off the Clock* and *Dev Journal* are still invented
   ("My Projects" is now set). Rename if you want.
 - **Every `[BRACKET]`** is waiting on real content. **This is now the critical

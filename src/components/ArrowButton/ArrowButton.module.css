@@ -1,0 +1,27 @@
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-cream);
+  color: var(--color-emerald);
+  box-shadow: var(--shadow-rest);
+  transition: transform var(--motion-hover) var(--motion-ease);
+}
+
+.arrow:hover:not(:disabled) {
+  transform: scale(1.06);
+}
+
+.arrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow:hover:not(:disabled) {
+    transform: none;
+  }
+}

@@ -1,0 +1,44 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 8px clamp(16px, 5vw, 48px) 40px;
+}
+
+.title {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 5vw, 38px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--color-charcoal);
+}
+
+.intro {
+  max-width: 60ch;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-body-text);
+}
+
+.subheading {
+  margin: 20px 0 12px;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--color-charcoal);
+}
+
+.coverRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.closedColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 400px;
+}

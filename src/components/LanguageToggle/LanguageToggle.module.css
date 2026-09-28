@@ -1,0 +1,44 @@
+.track {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: rgba(220, 233, 226, 0.55);
+  /* Drop shadow plus a 1px inner top highlight, DESIGN.md §4.4. */
+  box-shadow:
+    var(--shadow-rest),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.hitArea {
+  composes: hitArea from '../../styles/shared.module.css';
+}
+
+.option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  color: var(--color-muted);
+  transition: background var(--motion-select) var(--motion-ease);
+}
+
+.selected {
+  background: var(--color-emerald);
+  color: var(--color-cream);
+  box-shadow: var(--shadow-button);
+}
+
+@media (max-width: 480px) {
+  .option {
+    width: 26px;
+    height: 26px;
+  }
+}

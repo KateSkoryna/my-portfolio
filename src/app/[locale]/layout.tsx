@@ -1,5 +1,10 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { NextIntlClientProvider, hasLocale } from 'next-intl';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { Bricolage_Grotesque, Caveat, Manrope } from 'next/font/google';
+
+import { routing } from '@/i18n/routing';
 
 import '@/styles/tokens.css';
 import '@/styles/reset.css';
@@ -33,19 +38,41 @@ const caveat = Caveat({
   display: 'swap',
 });
 
+export function generateStaticParams(): Array<{ locale: string }> {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export const metadata: Metadata = {
   title: 'Kateryna Skoryna',
   description: 'Frontend developer. React, TypeScript, Next.js.',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  // Only used to 404 an unknown segment before rendering. The locale value
+  // itself comes from `getLocale()` below — `next/root-params` (via
+  // `i18n/request.ts`) is what makes this layout render statically per
+  // locale now, replacing next-intl's deprecated `setRequestLocale` cache.
+  const { locale: segment } = await params;
+  if (!hasLocale(routing.locales, segment)) notFound();
+
+  const locale = await getLocale();
+  const t = await getTranslations('chrome');
+
   return (
-    <html lang="en" className={`${bricolage.variable} ${manrope.variable} ${caveat.variable}`}>
+    <html lang={locale} className={`${bricolage.variable} ${manrope.variable} ${caveat.variable}`}>
       <body>
-        <a className="skipLink" href="#main">
-          Skip to content
-        </a>
-        {children}
+        <NextIntlClientProvider>
+          <a className="skipLink" href="#main">
+            {t('skipToContent')}
+          </a>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

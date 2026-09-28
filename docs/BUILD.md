@@ -1,6 +1,6 @@
 # BUILD.md — the plan
 
-Read `DESIGN.md` first. Work one phase at a time, in order. A phase is done
+Read `docs/DESIGN.md` first. Work one phase at a time, in order. A phase is done
 when every box in its **Done when** list is true — not when the code looks
 finished.
 
@@ -20,7 +20,7 @@ Each phase should end in a commit that builds, lints, typechecks and deploys.
 | Styling | CSS Modules + custom properties | No runtime CSS-in-JS; keeps the perf budget reachable |
 
 Deliberately **not** used: an animation library, a component library, a CSS
-framework, WebGL. Everything in `DESIGN.md` is achievable with CSS transforms.
+framework, WebGL. Everything in `docs/DESIGN.md` is achievable with CSS transforms.
 
 ---
 
@@ -41,7 +41,7 @@ defending in an interview.
 
 **How to measure**, so the numbers mean the same thing every time: against
 `npm run build && npm run start`, Lighthouse mobile profile, a clean `.next`
-and nothing else already bound to the port. Record the figures in `PLAN.md`
+and nothing else already bound to the port. Record the figures in `docs/PLAN.md`
 alongside the phase.
 
 **LCP is noisy — treat a single run with suspicion.** Repeated runs of the
@@ -92,7 +92,7 @@ served the moment Next owns the root, and that is fine (see Blockers).
   `Component.tsx`; only cross-component styles live in `src/styles/`.
   `camelCase` class names; use `composes:` for shared building blocks
   instead of duplicating declarations; never `:global()` as a shortcut
-- Root layout: background washes from `DESIGN.md` §1.2, font variables,
+- Root layout: background washes from `docs/DESIGN.md` §1.2, font variables,
   skip-to-content link
 - Scripts: `dev`, `build`, `lint`, `typecheck`, `test:a11y`
 - Vercel project connected to this repo, preview deploys on PRs
@@ -109,7 +109,7 @@ Primitives every later phase consumes. Build these before any page.
 - `<Eyebrow>`, `<SectionLabel>`, `<Squiggle>` (the hand-drawn SVG underline,
   width as a prop), `<Chip>`, `<PillButton>`, `<ArrowButton>`, `<MarginNote>`
 - `<BookCover kind={...} size={...} />` — all five cover designs from
-  `DESIGN.md` §2.1, one component switching on `kind`
+  `docs/DESIGN.md` §2.1, one component switching on `kind`
 - `<ClosedBook item={...} width={...} selected={...} />` — the spine-out
   construction in §2.2, exactly: a flat cover-coloured bar whose **height is
   `thickness`**, title along the spine in the contrast-chosen `ink`, `coverDark`
@@ -125,7 +125,7 @@ five closed books; axe reports zero violations; every value traces to
 
 ## Phase 2 — Landing (`/`)
 
-`DESIGN.md` §4.1. The hardest phase — do it before the easy pages, because
+`docs/DESIGN.md` §4.1. The hardest phase — do it before the easy pages, because
 the carousel decides the shape of the state model.
 
 - Three-column layout; identity block with photo placeholder, bio placeholder,
@@ -134,9 +134,9 @@ the carousel decides the shape of the state model.
 - Pile of four: offsets, rotations, 3px stacking, suspension shadow
 - Arrows advance/reverse selection (`←`/`→` keyboard). **Each pile book is a
   direct link to its own route — clicking navigates straight there, no
-  "bring to front, then click again"** (`DESIGN.md` §4.1). The floating item
+  "bring to front, then click again"** (`docs/DESIGN.md` §4.1). The floating item
   also links to its route.
-- **No return-trip animation** (dropped — see DESIGN.md §6). Advancing just
+- **No return-trip animation** (dropped — see docs/DESIGN.md §6). Advancing just
   reorders: the selected book becomes the floating item and the others
   re-stack. Keep any transition short and interruptible, and gate it behind
   `prefers-reduced-motion`.
@@ -152,7 +152,7 @@ works; Lighthouse ≥ 95 mobile.
 
 ## Phase 3 — Shelf (`/shelf`)
 
-`DESIGN.md` §4.2.
+`docs/DESIGN.md` §4.2.
 
 - Five covers, 40px apart, all visible; closed row at identical x positions
   and widths
@@ -195,7 +195,7 @@ first, so if time runs short the interesting page exists.
 ### 4e `/handbook` — port the existing flip-book
 - Rebuild the page-flip as a React component
 - **Extract the base64 images to `/public`** and serve via `next/image`
-- Fix the two failing greys (`DESIGN.md` §1.1)
+- Fix the two failing greys (`docs/DESIGN.md` §1.1)
 - Keep the EN/DE toggle
 - Only now remove the root `index.html`
 
@@ -227,7 +227,7 @@ route with no code edit.
 - Playwright: carousel cycles, arrows disable correctly, routes resolve,
   reduced-motion honoured
 - `README.md` rewritten for the portfolio
-- Custom domain, or rename the repo — see `DESIGN.md` §6
+- Custom domain, or rename the repo — see `docs/DESIGN.md` §6
 
 ---
 
@@ -276,9 +276,9 @@ Resolved before Phase 1:
 - `pageBackground` and the `closedBook.pageBlock`/`hinge`/`lip` tokens
   encoded a discarded look (multi-stop background, old page-block/hinge
   spine construction) — fixed in `tokens.ts` to match the current spec in
-  `DESIGN.md` §1.2 and §2.2.
+  `docs/DESIGN.md` §1.2 and §2.2.
 - Pile click behavior confirmed as one-click straight to the route (already
-  DESIGN.md's decision; BUILD.md's Phase 2 task list had drifted to a
+  docs/DESIGN.md's decision; BUILD.md's Phase 2 task list had drifted to a
   bring-to-front-then-click model and has been corrected above).
 
 ---

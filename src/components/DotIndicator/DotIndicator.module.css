@@ -1,0 +1,30 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--a11y-min-target);
+  min-height: var(--a11y-min-target);
+  padding: 12px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-sage);
+  transition:
+    width var(--motion-select) var(--motion-ease),
+    background var(--motion-select) var(--motion-ease);
+}
+
+.active {
+  width: 20px;
+  border-radius: 4px;
+  background: var(--color-coral);
+}
