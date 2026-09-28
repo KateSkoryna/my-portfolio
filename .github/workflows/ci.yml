@@ -1,6 +1,10 @@
-# Five checks, each a separate step so a failure names itself.
+# Six independent jobs, not one job with six steps — GitHub reports each
+# job as its own named check on the PR, which is what branch protection
+# requires (docs/PLAN.md: "its job names are the ones branch protection will
+# require"). A single job with six steps only ever reports one check, no
+# matter how many steps are inside it.
 #
-# These are the same commands PLAN.md requires before any task is considered
+# These are the same commands docs/PLAN.md requires before any task is considered
 # complete, so a red pipeline should never be the first time a problem shows
 # up.
 #
@@ -16,39 +20,82 @@ on:
   push:
     branches: [main]
 
-jobs:
-  verify:
-    name: Lint, format, types, tests, build
-    runs-on: ubuntu-latest
+# Shared by every job below.
+env:
+  NODE_VERSION: 24
 
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
 
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+
+  types:
+    name: Types
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npm run test
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
           # Matches the local toolchain and Vercel's runtime. Node's native
           # type stripping runs scripts/generate-tokens-css.ts without a
           # build step, so this must stay >= 22.
-          node-version: 24
+          node-version: ${{ env.NODE_VERSION }}
           cache: npm
+      - run: npm ci
+      - run: npm run build
 
-      - name: Install
-        run: npm ci
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Format
-        run: npm run format:check
-
-      - name: Types
-        run: npm run typecheck
-
-      - name: Tests
-        run: npm run test
-
-      - name: Build
-        run: npm run build
-
-      - name: Accessibility
-        run: npm run test:a11y
+  accessibility:
+    name: Accessibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+      - run: npm run test:a11y
