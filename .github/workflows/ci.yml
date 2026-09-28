@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           # Matches the local toolchain and Vercel's runtime. Node's native
           # type stripping runs scripts/generate-tokens-css.ts without a
