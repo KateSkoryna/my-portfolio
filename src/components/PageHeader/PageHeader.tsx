@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 
 import { useTranslations } from 'next-intl';
 
+import { profile } from '@/content/items';
 import { Link } from '@/i18n/navigation';
 import { LanguageToggle } from '@/components/LanguageToggle/LanguageToggle';
 
@@ -70,6 +71,9 @@ export function PageHeader({
   return (
     <header className={styles.header}>
       <div className={styles.languageRow}>
+        <Link href="/" className={styles.homeLink}>
+          {profile.name}
+        </Link>
         <LanguageToggle />
       </div>
       {showBackRow && (
