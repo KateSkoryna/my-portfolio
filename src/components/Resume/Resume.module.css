@@ -148,10 +148,32 @@
   grid-area: dots;
   display: flex;
   justify-content: center;
+  min-width: 0;
 }
 
 .dotsSpread {
   display: none;
+}
+
+/* One dot per page can be more 44px targets than a phone is wide, which ran
+   the row out over the page's side padding. The row now takes exactly the
+   width the page gives it: the dots share it, each up to 44px, with a fluid
+   gap between them. When there are too many for 44px each they narrow (the
+   dot itself keeps its size) instead of overflowing. */
+.dotsPage {
+  width: 100%;
+}
+
+.dotsPage > div {
+  width: 100%;
+  gap: clamp(0px, 1vw, 6px);
+}
+
+.dotsPage button {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 44px;
+  padding-inline: 0;
 }
 
 @media (min-width: 900px) {
