@@ -29,6 +29,15 @@ type AsLink = CommonProps &
 export function PillButton({ children, variant = 'filled', href, ...rest }: AsButton | AsLink) {
   const className = `${styles.pill} ${variant === 'outline' ? styles.outline : styles.filled}`;
 
+  if (href && 'download' in rest && rest.download !== undefined) {
+    // A file, not a route — a plain `<a download>`, not the locale-aware `Link`.
+    return (
+      <a href={href} className={className} {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}>
+        {children}
+      </a>
+    );
+  }
+
   if (href) {
     return (
       <Link
