@@ -130,40 +130,6 @@
   flex-wrap: wrap;
 }
 
-.hitArea {
-  composes: hitArea from '../../styles/shared.module.css';
-}
-
-/* Chip-sized, same sage fill as `.chips` — but a real interactive button
-   (DESIGN.md §5.2) so it carries the language toggle's 3D treatment: chip
-   shadow plus a 1px inner top highlight, not the flat metadata chips. */
-.secondaryAction {
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 12px;
-  border-radius: var(--radius-pill);
-  background: var(--color-sage);
-  color: var(--color-emerald-deep);
-  text-decoration: none;
-  font-family: var(--font-body), system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 11px;
-  box-shadow:
-    var(--shadow-chip),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  transition: transform var(--motion-hover) var(--motion-ease);
-}
-
-.secondaryAction:hover {
-  transform: scale(1.03);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .secondaryAction:hover {
-    transform: none;
-  }
-}
-
 /* Extra breathing room above the CTA beyond the `.description` column's
    10px gap — it reads too close to the chips row otherwise. `:last-child`
    alone (not `a:last-child`) because `PillButton` renders a `<button>`,
@@ -179,6 +145,14 @@
    `display: none`, which also takes it out of the tab order. */
 .mobileCta {
   display: none;
+}
+
+/* The panel's own buttons: the item's main button plus its download, same
+   size, side by side — wrapping onto a second line in a narrow column. */
+.descriptionCta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 /* Desktop: the description sits in its own grid column as before, and the

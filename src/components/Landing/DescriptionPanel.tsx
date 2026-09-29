@@ -1,5 +1,4 @@
 import { itemsBase, type PortfolioItem } from '@/content/items';
-import { resumePdfPath } from '@/content/resume';
 import { Chip } from '@/components/Chip/Chip';
 import { Eyebrow } from '@/components/Eyebrow/Eyebrow';
 
@@ -53,20 +52,9 @@ export function DescriptionPanel({
             <Chip>{chip}</Chip>
           </li>
         ))}
-        {item.secondaryCta ? (
-          <li>
-            <a
-              href={resumePdfPath}
-              download
-              className={`${styles.hitArea} ${styles.secondaryAction}`}
-            >
-              {item.secondaryCta}
-            </a>
-          </li>
-        ) : null}
       </ul>
       <div className={styles.descriptionCta}>
-        <ItemCta item={item} />
+        <ItemCta item={item} withDownload />
       </div>
     </section>
   );
