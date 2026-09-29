@@ -35,6 +35,13 @@
   color: var(--color-charcoal);
 }
 
+/* Phones: the band hugged the title; give it room above and below. */
+@media (max-width: 799px) {
+  .masthead {
+    padding-block: 20px;
+  }
+}
+
 .selectedWork {
   font-family: var(--font-body), system-ui, sans-serif;
   font-weight: 800;
@@ -51,6 +58,17 @@
   flex-wrap: wrap;
   gap: 4px 24px;
   padding: 2px var(--gutter);
+}
+
+@media (max-width: 799px) {
+  .strip {
+    padding-block: 12px;
+  }
+
+  /* The shared `MarginNote` (19px) read small here; only this route bumps it. */
+  .strip > p:last-child {
+    font-size: 24px;
+  }
 }
 
 .status {
@@ -193,7 +211,8 @@
   border-radius: var(--radius-card);
 }
 
-.screenshot p {
+.screenshot p,
+.cardScreenshot p {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -401,15 +420,18 @@
   background: var(--color-emerald);
 }
 
-.card[data-accent='coral'] .tab {
+.card[data-accent='coral'] .tab,
+.feature[data-accent='coral'] .tab {
   background: var(--color-coral);
 }
 
-.card[data-accent='mustard'] .tab {
+.card[data-accent='mustard'] .tab,
+.feature[data-accent='mustard'] .tab {
   background: var(--color-mustard);
 }
 
-.card[data-accent='deep'] .tab {
+.card[data-accent='deep'] .tab,
+.feature[data-accent='deep'] .tab {
   background: var(--color-emerald-deep);
 }
 
@@ -554,4 +576,116 @@
   min-height: 0;
   border-radius: 0;
   box-shadow: none;
+}
+
+/* --- Phones: every card carries what the feature card does -------------
+   Image, description, language split and stack, with one gap between blocks. */
+.cardMobileOnly {
+  display: none;
+}
+
+@media (max-width: 799px) {
+  .feature,
+  .card {
+    --block-gap: 18px;
+  }
+
+  .featureBody {
+    padding-bottom: 0;
+  }
+
+  .facts,
+  .stackBlock {
+    margin-top: var(--block-gap);
+  }
+
+  .screenshot {
+    padding-top: var(--block-gap);
+  }
+
+  .card {
+    min-height: 0;
+  }
+
+  .card .summary,
+  .card .placeholder {
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+  }
+
+  .cardMobileOnly {
+    display: block;
+  }
+
+  .cardDesktopOnly {
+    display: none;
+  }
+
+  .cardScreenshot {
+    display: flex;
+    margin-top: var(--block-gap);
+  }
+
+  .cardFoot {
+    padding-top: var(--block-gap);
+  }
+}
+
+/* Phones and tablets: the feature card is a plain card like the rest — no
+   emerald cover panel. Its title and links move into the body, in the cards'
+   own layout, and it stays one column whatever the width. */
+.featureMobileHead,
+.featureMobileFoot {
+  display: none;
+}
+
+@media (max-width: 1199px) {
+  .feature {
+    --block-gap: 18px;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .featurePanel,
+  .factDesktopOnly {
+    display: none;
+  }
+
+  .featureBody {
+    padding: 16px 20px 0;
+  }
+
+  .featureBody .facts,
+  .featureBody .stackBlock {
+    margin-top: var(--block-gap);
+  }
+
+  .featureMobileHead {
+    display: block;
+  }
+
+  .screenshot {
+    padding: var(--block-gap) 20px 0;
+  }
+
+  .featureMobileFoot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: var(--block-gap) 20px 16px;
+  }
+
+  .featureMobileFoot .links {
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+/* Tablet: the three other projects sit side by side in one row. */
+@media (min-width: 800px) and (max-width: 1199px) {
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }

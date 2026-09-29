@@ -152,10 +152,34 @@ export function Projects({
                 {summary}
               </p>
 
+              <div className={styles.cardMobileOnly}>
+                {languages.length > 0 && (
+                  <dl className={styles.facts}>
+                    <div className={styles.languageSplit}>
+                      <dt>{t('languageSplit')}</dt>
+                      <dd>
+                        <LanguageBar languages={languages} />
+                        <span className={styles.splitText}>
+                          {languages.map((l) => `${l.name} ${l.percent}%`).join(' · ')}
+                        </span>
+                      </dd>
+                    </div>
+                  </dl>
+                )}
+                <StackBlock stack={issue.stack} />
+                <div className={styles.cardScreenshot}>
+                  <ScreenshotImage screenshot={issue.screenshot} />
+                </div>
+              </div>
+
               <div className={styles.cardFoot}>
-                {languages.length > 0 && <LanguageBar languages={languages} />}
+                {languages.length > 0 && (
+                  <div className={styles.cardDesktopOnly}>
+                    <LanguageBar languages={languages} />
+                  </div>
+                )}
                 {issue.stats && (
-                  <p className={styles.cardMeta}>
+                  <p className={`${styles.cardMeta} ${styles.cardDesktopOnly}`}>
                     {issue.stack ? issue.stack.join(' · ') : languages[0]?.name}
                   </p>
                 )}
@@ -223,20 +247,24 @@ function FeatureContent({ feature, locale }: { feature: ProjectIssue; locale: st
       </div>
 
       <div className={styles.featureBody}>
+        <div className={styles.featureMobileHead}>
+          <span className={styles.tab} aria-hidden="true" />
+          <h2 className={styles.cardTitle}>{feature.title}</h2>
+        </div>
         <p className={isPlaceholder(featureSummary) ? styles.placeholder : styles.summary}>
           {featureSummary}
         </p>
 
         {feature.stats && (
           <dl className={styles.facts}>
-            <div>
+            <div className={styles.factDesktopOnly}>
               <dt>{t('lastCommit')}</dt>
               <dd>{date.format(new Date(feature.stats.pushedAt))}</dd>
             </div>
             {featureLanguages.length > 0 && (
               <>
                 {!feature.stack && (
-                  <div>
+                  <div className={styles.factDesktopOnly}>
                     <dt>{t('language')}</dt>
                     <dd>{featureLanguages[0].name}</dd>
                   </div>
@@ -255,33 +283,62 @@ function FeatureContent({ feature, locale }: { feature: ProjectIssue; locale: st
           </dl>
         )}
 
-        <div className={styles.stackBlock}>
-          <p className={styles.stackLabel}>{t('stack')}</p>
-          <ul className={styles.stack}>
-            {(feature.stack ?? [t('stackPlaceholder')]).map((name) => (
-              <li key={name} className={feature.stack ? undefined : styles.stackPlaceholder}>
-                {name}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <StackBlock stack={feature.stack} />
       </div>
 
       <div className={styles.screenshot}>
-        {feature.screenshot ? (
-          <Image
-            src={feature.screenshot.src}
-            width={feature.screenshot.width}
-            height={feature.screenshot.height}
-            alt={feature.screenshot.alt}
-            sizes="(min-width: 1200px) 25vw, 100vw"
-            className={styles.screenshotImage}
-          />
-        ) : (
-          <p>{t('screenshot')}</p>
+        <ScreenshotImage screenshot={feature.screenshot} />
+      </div>
+
+      <div className={styles.featureMobileFoot}>
+        <p className={styles.links}>
+          <a href={feature.url} className={styles.link}>
+            {t('code')} <span aria-hidden="true">→</span>
+          </a>
+          {feature.demoUrl && (
+            <a href={feature.demoUrl} className={styles.link}>
+              {t('demo')} <span aria-hidden="true">→</span>
+            </a>
+          )}
+        </p>
+        {feature.stats && (
+          <time className={styles.cardDate} dateTime={feature.stats.pushedAt}>
+            {date.format(new Date(feature.stats.pushedAt))}
+          </time>
         )}
       </div>
     </>
+  );
+}
+
+function StackBlock({ stack }: { stack: readonly string[] | undefined }) {
+  const t = useTranslations('projects');
+  return (
+    <div className={styles.stackBlock}>
+      <p className={styles.stackLabel}>{t('stack')}</p>
+      <ul className={styles.stack}>
+        {(stack ?? [t('stackPlaceholder')]).map((name) => (
+          <li key={name} className={stack ? undefined : styles.stackPlaceholder}>
+            {name}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function ScreenshotImage({ screenshot }: { screenshot: ProjectIssue['screenshot'] }) {
+  const t = useTranslations('projects');
+  if (!screenshot) return <p>{t('screenshot')}</p>;
+  return (
+    <Image
+      src={screenshot.src}
+      width={screenshot.width}
+      height={screenshot.height}
+      alt={screenshot.alt}
+      sizes="(min-width: 1200px) 25vw, 100vw"
+      className={styles.screenshotImage}
+    />
   );
 }
 
