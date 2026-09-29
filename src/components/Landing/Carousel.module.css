@@ -164,6 +164,8 @@
 
 .floatingWrap {
   position: relative;
+  /* Horizontal touch drags belong to the swipe; vertical ones still scroll. */
+  touch-action: pan-y;
 }
 
 .back,
@@ -461,7 +463,7 @@
  * description on the right (`Landing.module.css` sets the two columns). What
  * has to change to fit that narrower stage: the arrows shrink to 44px. The
  * leader line to the description counter and the pile's note, with its dotted
- * arrow, sit where they do on desktop.
+ * arrow, sit where they do on desktop. Swiping the book also works here.
  */
 @media (min-width: 801px) and (max-width: 1199px) {
   .stage {

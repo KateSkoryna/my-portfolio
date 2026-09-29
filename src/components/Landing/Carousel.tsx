@@ -72,10 +72,11 @@ export function Carousel({
   );
 
   /*
-   * Mobile swipe on the book: left → next, right → previous. The arrows are
-   * hidden on phones (`Carousel.module.css`), and the dots below remain the
-   * non-gesture way to move (WCAG 2.5.1). A swipe also fires a `click` on
-   * release, so `swiped` swallows that one instead of flipping the book.
+   * Touch swipe on the book: left → next, right → previous. The arrows are
+   * hidden on phones and tablets (`Carousel.module.css`), and the dots below
+   * remain the non-gesture way to move (WCAG 2.5.1). A swipe also fires a
+   * `click` on release — which would flip the book on a phone or open its page
+   * on a tablet — so `swiped` swallows that one. A mouse never swipes.
    */
   const swipeStart = useRef<{ x: number; y: number } | null>(null);
   const swiped = useRef(false);
@@ -104,7 +105,36 @@ export function Carousel({
       <div className={styles.stage}>
         <ArrowButton direction="prev" label={prevLabel} onClick={() => advance(-1)} />
         <div className={styles.stack}>
-          <div key={`floating-${index}`} className={styles.floatingWrap} data-flipped={flipped}>
+          <div
+            key={`floating-${index}`}
+            className={styles.floatingWrap}
+            data-flipped={flipped}
+            onPointerDown={(event) => {
+              if (event.pointerType === 'mouse') return;
+              swipeStart.current = { x: event.clientX, y: event.clientY };
+              swiped.current = false;
+            }}
+            onPointerUp={(event) => {
+              const start = swipeStart.current;
+              swipeStart.current = null;
+              if (!start) return;
+              const dx = event.clientX - start.x;
+              const dy = event.clientY - start.y;
+              if (Math.abs(dx) >= SWIPE_MIN_DISTANCE && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                swiped.current = true;
+                advance(dx < 0 ? 1 : -1);
+              }
+            }}
+            onPointerCancel={() => {
+              swipeStart.current = null;
+            }}
+            onClickCapture={(event) => {
+              if (!swiped.current) return;
+              swiped.current = false;
+              event.preventDefault();
+              event.stopPropagation();
+            }}
+          >
             <div className={styles.flipper}>
               <div className={styles.front}>{slide.floating}</div>
               {/* `inert` while the book is closed — the back holds a link, and
@@ -120,31 +150,7 @@ export function Carousel({
               className={styles.flipButton}
               aria-label={flipLabel}
               aria-expanded={flipped}
-              onPointerDown={(event) => {
-                swipeStart.current = { x: event.clientX, y: event.clientY };
-                swiped.current = false;
-              }}
-              onPointerUp={(event) => {
-                const start = swipeStart.current;
-                swipeStart.current = null;
-                if (!start) return;
-                const dx = event.clientX - start.x;
-                const dy = event.clientY - start.y;
-                if (Math.abs(dx) >= SWIPE_MIN_DISTANCE && Math.abs(dx) > Math.abs(dy) * 1.5) {
-                  swiped.current = true;
-                  advance(dx < 0 ? 1 : -1);
-                }
-              }}
-              onPointerCancel={() => {
-                swipeStart.current = null;
-              }}
-              onClick={() => {
-                if (swiped.current) {
-                  swiped.current = false;
-                  return;
-                }
-                setFlipped((f) => !f);
-              }}
+              onClick={() => setFlipped((f) => !f)}
             />
           </div>
           <div className={styles.suspensionShadow} aria-hidden="true" />
