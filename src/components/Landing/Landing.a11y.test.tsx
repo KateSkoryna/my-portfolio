@@ -57,7 +57,8 @@ function buildSlides(items: readonly PortfolioItem[], descriptionLabel: string) 
 
 describe.each([
   ['en', enMessages],
-  ['de', deMessages],
+  // DE lacks namespaces Kateryna hasn't translated yet; the app falls back to EN per key.
+  ['de', deMessages as typeof enMessages],
 ])('Carousel (%s) — DESIGN.md §5 accessibility contract', (locale, messages) => {
   it('has zero axe violations', async () => {
     const items = buildItems(messages);
