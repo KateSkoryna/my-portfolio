@@ -249,7 +249,7 @@ Accessibility and Lighthouse lead because they are the stated priority.
 | 1 — Design system | `done` | five covers + five closed books, axe clean. Merged (PR #8). |
 | 2 — Landing `/` | `done` | carousel cycles, keyboard, Lighthouse 96/100/96/100. Awaiting human review. |
 | 3 — Shelf `/shelf` | `done` | closed row aligns under covers. Lighthouse 96/100/96/100 (`/shelf`), 95/96/96/100 (`/`). Awaiting human review. |
-| 4 — Item routes | `todo` | every `docs/DESIGN.md` §3 route resolves |
+| 4 — Item routes | `in progress` (4a done, awaiting review; 4b–4f todo) | every `docs/DESIGN.md` §3 route resolves |
 | 5 — Keystatic | `todo` | she can add an item in the browser |
 | 6 — Gates | `todo` | CI green on axe, Lighthouse, Playwright |
 
@@ -648,21 +648,39 @@ after each, same protocol.
 
 ### 4a `/projects` — the magazine, live data
 
-- [ ] Server component. `export const revalidate = 3600`.
-- [ ] Fetch stars, language breakdown, last-commit date, description per repo
+- [x] Server component. `export const revalidate = 3600`.
+- [x] Fetch language breakdown, last-commit date, description per repo
       from the GitHub REST API — one batched call per revalidation.
-- [ ] Repo list from `featuredRepos` in `items.ts`, not "all public repos".
-- [ ] `GITHUB_TOKEN` server-side only. Never in a client component, never
+- [x] Repo list from `featuredRepos` in `items.ts`, not "all public repos".
+- [x] `GITHUB_TOKEN` server-side only. Never in a client component, never
       `NEXT_PUBLIC_*`.
-- [ ] Graceful degradation: API failure renders with static/cached data and no
+- [x] Graceful degradation: API failure renders with static/cached data and no
       visible error state.
-- [ ] Issue-per-project layout matching the magazine cover language.
-- [ ] Footer note linking `/colophon` once, in context (§3).
-- [ ] Drop the "Live demo" link for any repo with no real deployment (§6).
+- [x] Issue-per-project layout matching the magazine cover language.
+- [ ] Footer note linking `/colophon` once, in context (§3). *Removed at Kateryna's request — `/colophon` (4f) needs another way in.*
+- [x] Drop the "Live demo" link for any repo with no real deployment (§6).
 
 **Done when:** `/projects` renders live repo data that changes after a push;
 the token never reaches the client bundle (grep the build output); API failure
 degrades silently; axe clean; Lighthouse ≥ 95.
+
+**4a result** — production build, Lighthouse mobile, `/en/projects`, three runs:
+performance **95 / 96 / 96**, accessibility **100**, best-practices **100**,
+SEO **100**, CLS **0**, LCP **2.8s**, 335 KiB total. axe (jsdom) clean with
+stats and after simulated API failure. `GITHUB_TOKEN` is absent from
+`.next/static`. Notes for review:
+- GitHub REST has no multi-repo endpoint, so "one batched call" is one
+  `Promise.all` over `repo` + `languages` per repo. Last-commit date is
+  `pushed_at` (any branch), not the latest commit on the default branch.
+- All four `summary` fields are still `[BRACKETED]` and render as placeholders.
+  No repo has a `demoUrl`, so no "Live demo" link renders.
+- No `GITHUB_TOKEN` locally, so measured unauthenticated (60 req/h). The
+  Vercel token is untested from here.
+- German `projects` strings not written (Kateryna's call); falls back to EN.
+  The two a11y tests now cast `deMessages` because DE lacks the namespace.
+- `/colophon` link 404s until 4f. `projects.published` flipped to `true`.
+- Layout is Kateryna's screenshot: one feature project plus cards; clicking a card swaps it with the feature. Stars are no longer fetched or shown (the design's margin note says "no star counts").
+- Not checked visually at 390 / 768 / 1280 by a human; grid is `auto-fit`.
 
 ### 4b `/resume` — the book
 

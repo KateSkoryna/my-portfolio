@@ -103,5 +103,25 @@
       "chips": ["Published", "EN / DE"],
       "cta": "Open the handbook"
     }
+  },
+  "projects": {
+    "backToStack": "Back to the stack",
+    "title": "My Projects",
+    "goToShelf": "Go to shelf",
+    "rebuilt": "Rebuilt from the GitHub API {ago} · revalidates hourly",
+    "marginNote": "no star counts — commit recency is the honest metric",
+    "featureProject": "Feature project",
+    "screenshot": "[SCREENSHOT]",
+    "lastCommit": "Last commit",
+    "language": "Language",
+    "languageSplit": "Language split",
+    "viewCode": "View the code",
+    "code": "Code",
+    "demo": "Live demo",
+    "makeFeature": "Show {name} as the feature project",
+    "nowFeatured": "{name} is now the feature project",
+    "stack": "Stack",
+    "stackPlaceholder": "[STACK]",
+    "selectedWork": "Selected work"
   }
 }

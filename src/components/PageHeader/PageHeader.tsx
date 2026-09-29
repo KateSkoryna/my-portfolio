@@ -8,6 +8,27 @@ import { LanguageToggle } from '@/components/LanguageToggle/LanguageToggle';
 import styles from './PageHeader.module.css';
 
 /**
+ * The flat outlined pill both header links share — the back-arrow and a
+ * page's forward action (e.g. "Go to shelf →") — so they cannot drift apart.
+ */
+export function HeaderLink({
+  href,
+  arrow,
+  children,
+}: {
+  href: string;
+  arrow: 'back' | 'forward';
+  children: ReactNode;
+}) {
+  const glyph = <span aria-hidden="true">{arrow === 'back' ? '←' : '→'}</span>;
+  return (
+    <Link href={href} className={styles.link}>
+      {arrow === 'back' && glyph} {children} {arrow === 'forward' && glyph}
+    </Link>
+  );
+}
+
+/**
  * DESIGN.md §4.4 — two rows, one structure on every route. Row 1: the
  * language toggle alone, pinned right (a site-wide setting). Row 2:
  * back-arrow / route label / the page's own action (a where-you-are
@@ -38,9 +59,9 @@ export function PageHeader({
       </div>
       {showBackRow && (
         <div className={styles.backRow}>
-          <Link href={backHref} className={styles.back}>
-            <span aria-hidden="true">←</span> {backLabel ?? t('back')}
-          </Link>
+          <HeaderLink href={backHref} arrow="back">
+            {backLabel ?? t('back')}
+          </HeaderLink>
           <p className={styles.routeLabel}>{routeLabel}</p>
           <div className={styles.action}>{action}</div>
         </div>

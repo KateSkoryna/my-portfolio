@@ -1,0 +1,502 @@
+/*
+ * `/projects` — one magazine "issue" per repo, in a grid that reflows from
+ * one column (390) to two (≥ 768) without a fixed pixel width anywhere.
+ */
+
+.page {
+  /* Content gutter that also holds at widths past 1440, where the masthead
+     still bleeds edge to edge but its text stays aligned with the grid. */
+  --gutter: max(clamp(16px, 5vw, 48px), calc((100% - 1440px) / 2 + clamp(16px, 5vw, 48px)));
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* The cover's coral masthead band, run the full width of the page. */
+.masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  flex-wrap: wrap;
+  margin-top: clamp(12px, 2.6vh, 28px);
+  padding-block: clamp(10px, 1.4vw, 16px);
+  padding-inline: var(--gutter);
+  background: var(--color-coral);
+}
+
+/* Cream on coral is the masthead treatment (DESIGN.md §2.1 magazine); the
+   thin issue line beside it uses charcoal for contrast, §2.2 point 2. */
+.title {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(28px, 3.4vw, 38px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--color-charcoal);
+}
+
+.selectedWork {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-charcoal);
+}
+
+.strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  padding: 2px var(--gutter);
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-mustard);
+  flex: none;
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin: clamp(4px, 1vh, 12px) var(--gutter) 0;
+  background: var(--color-cream);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-rest);
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .feature {
+    grid-template-columns: minmax(260px, 3fr) minmax(0, 5fr);
+    /* Fixed, so swapping the feature never resizes the card. Sized to the
+       tallest content; a longer description grows it, and that is the cue to
+       raise this. */
+    min-height: 308px;
+  }
+
+  /* Two columns until there is room for the screenshot beside the text. */
+  .screenshot {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1200px) {
+  .feature {
+    grid-template-columns: minmax(260px, 3fr) minmax(0, 4fr) minmax(220px, 3fr);
+  }
+
+  .screenshot {
+    grid-column: auto;
+  }
+}
+
+/* The field-guide cover's treatment: emerald gradient, coral circle, mustard kicker. */
+.featurePanel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 220px;
+  padding: 24px;
+  background: linear-gradient(150deg, var(--color-emerald), var(--color-emerald-deep));
+  overflow: hidden;
+}
+
+.circle {
+  position: absolute;
+  top: -46px;
+  right: 12%;
+  width: 138px;
+  height: 138px;
+  border-radius: 50%;
+  background: var(--color-coral);
+}
+
+/* The field-guide cover's mustard dot and sage dot grid, DESIGN.md §2.1. */
+.circleGold {
+  position: absolute;
+  top: 78px;
+  right: 28px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--color-mustard);
+}
+
+.dotGrid {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  width: 80px;
+  height: 80px;
+  background-image: radial-gradient(var(--color-sage) 1px, transparent 1px);
+  background-size: 14px 14px;
+  opacity: 0.5;
+}
+
+.featureKicker {
+  position: relative;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-mustard);
+}
+
+.featurePanelFoot {
+  position: relative;
+}
+
+.panelName {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(24px, 2.4vw, 30px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--color-cream);
+  overflow-wrap: anywhere;
+}
+
+/* Placeholder until real screenshots exist; sits beside the text on wide screens. */
+.screenshot {
+  display: flex;
+  padding: clamp(18px, 2.4vw, 28px);
+  padding-left: 0;
+}
+
+.screenshotImage {
+  width: 100%;
+  height: auto;
+  align-self: center;
+  border: 1px solid var(--color-sage);
+  border-radius: var(--radius-card);
+}
+
+.screenshot p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  min-height: 160px;
+  border: 1.5px dashed var(--color-placeholder);
+  border-radius: var(--radius-card);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--color-placeholder);
+}
+
+@media (max-width: 1199px) {
+  .screenshot {
+    padding: 0 clamp(18px, 2.4vw, 28px) clamp(18px, 2.4vw, 28px);
+  }
+}
+
+.featureBody {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(10px, 1.2vw, 14px) clamp(18px, 2.4vw, 28px);
+}
+
+.featureBody > :first-child {
+  margin-top: 0;
+}
+
+.summary,
+.placeholder {
+  margin-top: 10px;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.summary {
+  color: var(--color-body-text);
+}
+
+.placeholder {
+  color: var(--color-placeholder);
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  margin-top: 18px;
+}
+
+.facts dt {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.facts dd {
+  margin-top: 4px;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--color-charcoal);
+}
+
+.stackBlock {
+  margin-top: 8px;
+}
+
+.stackLabel {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.stack {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.stack li {
+  padding: 4px 12px;
+  border: 1.5px solid var(--color-emerald-deep);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 11.5px;
+  color: var(--color-emerald-deep);
+}
+
+.stack li.stackPlaceholder {
+  border-style: dashed;
+  border-color: var(--color-placeholder);
+  color: var(--color-placeholder);
+}
+
+.splitText {
+  display: block;
+  margin-top: 8px;
+  font-weight: 600;
+  font-size: 11.5px;
+  color: var(--color-muted);
+}
+
+.languageSplit {
+  flex: 1 1 220px;
+}
+
+.bar {
+  display: flex;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--color-sage);
+  overflow: hidden;
+}
+
+.segment {
+  flex-basis: 0;
+}
+
+.segment[data-tone='0'] {
+  background: var(--color-emerald);
+}
+
+.segment[data-tone='1'] {
+  background: var(--color-mustard);
+}
+
+.segment[data-tone='2'] {
+  background: var(--color-coral);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 20px;
+  margin-top: auto;
+  padding-top: 14px;
+}
+
+/* Underline is a mustard rule under the text, as in the design — drawn with a
+   border so it clears the 44px hit area without shrinking it. */
+.linksOnDark {
+  margin-top: 4px;
+  padding-top: 0;
+}
+
+.linksOnDark .link {
+  color: var(--color-cream);
+}
+
+.link {
+  /* Inline, not flex: a flex gap would break the underline between the label and the arrow. */
+  display: inline-block;
+  padding-block: 14px;
+  min-height: var(--a11y-min-target);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--color-emerald-deep);
+  text-decoration: underline;
+  text-decoration-color: var(--color-mustard);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+.cards {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: clamp(12px, 1.4vw, 16px);
+  margin: clamp(8px, 1.2vh, 12px) var(--gutter) 0;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* Same reason as `.feature`: every card is one size whichever project it holds. */
+  min-height: 270px;
+  padding: 16px 20px;
+  background: var(--color-cream);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-rest);
+}
+
+.tab {
+  width: 48px;
+  height: 7px;
+  border-radius: var(--radius-pill);
+  background: var(--color-emerald);
+}
+
+.card[data-accent='coral'] .tab {
+  background: var(--color-coral);
+}
+
+.card[data-accent='mustard'] .tab {
+  background: var(--color-mustard);
+}
+
+.card[data-accent='deep'] .tab {
+  background: var(--color-emerald-deep);
+}
+
+.cardTitle {
+  margin-top: 10px;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 1.1;
+  color: var(--color-emerald-deep);
+  overflow-wrap: anywhere;
+}
+
+/* The full text is in the feature view; clamped here so a long description
+   cannot make one card taller than the others. */
+.card .summary,
+.card .placeholder {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+
+.promote {
+  all: unset;
+  cursor: pointer;
+}
+
+/* One click target across the whole card; the links sit above it. */
+.promote::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.promote:focus-visible {
+  outline: none;
+}
+
+.promote:focus-visible::after {
+  box-shadow: var(--a11y-focus-ring);
+}
+
+.cardFoot {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  padding-top: 10px;
+  pointer-events: none;
+}
+
+.cardFoot a {
+  pointer-events: auto;
+}
+
+.cardMeta {
+  margin-top: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 11.5px;
+  color: var(--color-muted);
+}
+
+/* Links left, last-commit date in the bottom-right corner. */
+.cardBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cardBottom .links {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.cardDate {
+  white-space: nowrap;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 11.5px;
+  color: var(--color-muted);
+}
+
+.srOnly {
+  composes: visuallyHidden from '@/styles/shared.module.css';
+}

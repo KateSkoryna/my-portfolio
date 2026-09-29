@@ -35,7 +35,7 @@
    "flat outlined bar", not a bare text link; this had drifted to one with
    no border or fill until `/shelf` was the first route to actually show
    the back row (`/` skips it via `showBackRow={false}`) and exposed it. */
-.back {
+.link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -49,15 +49,18 @@
   font-size: 12.5px;
   color: var(--color-emerald-deep);
   text-decoration: none;
+}
+
+.backRow > :first-child {
   justify-self: start;
 }
 
-.back:hover {
+.link:hover {
   transform: scale(1.03);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .back:hover {
+  .link:hover {
     transform: none;
   }
 }
