@@ -249,7 +249,7 @@ Accessibility and Lighthouse lead because they are the stated priority.
 | 1 — Design system | `done` | five covers + five closed books, axe clean. Merged (PR #8). |
 | 2 — Landing `/` | `done` | carousel cycles, keyboard, Lighthouse 96/100/96/100. Awaiting human review. |
 | 3 — Shelf `/shelf` | `done` | closed row aligns under covers. Lighthouse 96/100/96/100 (`/shelf`), 95/96/96/100 (`/`). Awaiting human review. |
-| 4 — Item routes | `in progress` (4a done, awaiting review; 4b–4f todo) | every `docs/DESIGN.md` §3 route resolves |
+| 4 — Item routes | `in progress` (4a, 4b done; 4c–4f todo) | every `docs/DESIGN.md` §3 route resolves |
 | 5 — Keystatic | `todo` | she can add an item in the browser |
 | 6 — Gates | `todo` | CI green on axe, Lighthouse, Playwright |
 
