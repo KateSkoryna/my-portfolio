@@ -294,7 +294,11 @@ Every route is now designed on the canvas, desktop **and** mobile. "Designed"
 
 - `/shelf` — desktop shows covers **and** the closed edge-on row; mobile shows
   a vertical list of covers **only** (five covers can't be legible side by side
-  at 390px, and the pile already lives on the mobile landing).
+  at 390px, and the pile already lives on the mobile landing), 21% larger than
+  the 216px reference. Tablet (801–1279px) shows the covers only, two per row,
+  each cover scaled to fill its column (measured, not a fixed size) with the
+  caption running the full column width, and the odd fifth cover left-aligned
+  on its own row *(Kateryna's call)*.
 - `/resume`, `/handbook` — desktop is a two-page spread; mobile is one page at
   a time, so the indicator counts pages ("Page 2 of 5"), not spreads.
 - `/about` — desktop is multi-column with a centre fold; mobile is single

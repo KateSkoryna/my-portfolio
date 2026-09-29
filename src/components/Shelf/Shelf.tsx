@@ -1,6 +1,14 @@
 'use client';
 
-import { useCallback, useEffect, useState, type ReactNode } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react';
 
 import { Link } from '@/i18n/navigation';
 import { ArrowButton } from '@/components/ArrowButton/ArrowButton';
@@ -16,6 +24,9 @@ import styles from './Shelf.module.css';
  * change together).
  */
 const VISIBLE_COLUMNS = 5;
+
+/** `BookCover`'s `shelf` reference width, the art's own fixed size. */
+const COVER_ART_WIDTH = 216;
 
 export interface ShelfSlide {
   id: string;
@@ -79,6 +90,23 @@ export function Shelf({
   const [selected, setSelected] = useState<number | null>(null);
   const arrowsDisabled = slides.length <= VISIBLE_COLUMNS;
 
+  // Tablet: each cover fills its column. The art is fixed-pixel, so it is
+  // scaled by (column width ÷ 216px) — measured, not hardcoded — and only the
+  // art, not its caption (`Shelf.module.css` `.art`, tablet block).
+  const coversRef = useRef<HTMLUListElement>(null);
+  const [artFit, setArtFit] = useState(1);
+  useLayoutEffect(() => {
+    const list = coversRef.current;
+    const column = list?.firstElementChild;
+    if (!list || !column) return;
+    const measure = () => setArtFit(column.clientWidth / COVER_ART_WIDTH);
+    measure();
+    if (typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(measure);
+    observer.observe(column);
+    return () => observer.disconnect();
+  }, []);
+
   const move = useCallback(
     (delta: number) => {
       setSelected((i) =>
@@ -111,7 +139,12 @@ export function Shelf({
           onClick={() => move(-1)}
           disabled={arrowsDisabled}
         />
-        <ul role="list" className={styles.covers}>
+        <ul
+          ref={coversRef}
+          role="list"
+          className={styles.covers}
+          style={{ '--art-fit': artFit } as CSSProperties}
+        >
           {slides.map((slide, i) => (
             <li key={slide.id} className={styles.column}>
               <Link

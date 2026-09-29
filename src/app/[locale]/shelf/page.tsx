@@ -47,13 +47,17 @@ export default async function ShelfPage() {
       title: item.title,
       cover: (
         <>
-          <BookCover item={item} size="shelf" />
+          <div className={styles.art}>
+            <BookCover item={item} size="shelf" />
+          </div>
           {caption}
         </>
       ),
       coverSelected: (
         <>
-          <BookCover item={item} size="shelf" selected />
+          <div className={styles.art}>
+            <BookCover item={item} size="shelf" selected />
+          </div>
           {caption}
         </>
       ),

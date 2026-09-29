@@ -207,15 +207,8 @@
     display: none;
   }
 
-  .covers {
-    grid-template-columns: 1fr;
-    max-width: 260px;
-    gap: 28px;
-    margin: 0 auto;
-  }
-
-  /* No hover/selection affordance to grow into on a single tapped column —
-     mobile is plain covers, one per row. */
+  /* No hover/selection affordance to grow into on touch layouts — plain
+     covers. */
   .coverLink:hover,
   .coverLink:focus-visible,
   .coverLink.selected {
@@ -228,5 +221,62 @@
   .closedRow,
   .closedExplainer {
     display: none;
+  }
+}
+
+/* Mobile: one column, the covers 21% bigger than the 216px reference (10%,
+   then 10% again). `zoom` (not `transform`) so the layout grows with them —
+   and the caption with it, which then gets a further 10% on its own. */
+@media (max-width: 800px) {
+  .covers {
+    grid-template-columns: 1fr;
+    max-width: 340px;
+    gap: 28px;
+    margin: 0 auto;
+  }
+
+  .coverLink {
+    zoom: 1.21;
+  }
+
+  .captionTitle {
+    font-size: 17.6px;
+  }
+
+  .captionBlurb {
+    font-size: 14.3px;
+  }
+}
+
+/* Tablet: two big covers per row, the odd fifth left-aligned on its own row.
+   Each column takes half the width, so the caption under a cover runs the
+   whole column instead of stopping at the cover's own width. */
+@media (min-width: 801px) and (max-width: 1279px) {
+  .covers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+    justify-items: stretch;
+    gap: 48px clamp(32px, 6vw, 72px);
+  }
+
+  .coverLink {
+    flex: 1;
+    min-width: 0;
+    align-items: flex-start;
+  }
+
+  /* The cover art fills its column: scaled by column width ÷ 216px
+     (`--art-fit`, measured in `Shelf.tsx`). Only the art — the caption keeps
+     its own size, a little larger than on desktop. */
+  .art {
+    zoom: var(--art-fit, 1);
+  }
+
+  .captionTitle {
+    font-size: 20px;
+  }
+
+  .captionBlurb {
+    font-size: 16px;
   }
 }
