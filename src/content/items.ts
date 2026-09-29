@@ -171,6 +171,11 @@ export interface FeaturedRepo {
   /** Repo name under github.com/KateSkoryna */
   repo: string;
   /**
+   * What the project is called on the site. Deliberately not the repo name:
+   * it says what the project is, for someone who has never opened the repo.
+   */
+  title: string;
+  /**
    * Two sentences, same shape for every project: what it is and who it is
    * for; then "Built with <technologies>, it features <features>."
    */
@@ -190,6 +195,7 @@ export interface FeaturedRepo {
 export const featuredRepos: readonly FeaturedRepo[] = [
   {
     repo: 'task-manager',
+    title: 'AI Task Manager',
     demoUrl: 'https://todo-list-frontend-six-drab.vercel.app/',
     screenshot: {
       src: '/task-manager.webp',
@@ -203,6 +209,7 @@ export const featuredRepos: readonly FeaturedRepo[] = [
   },
   {
     repo: 'quizdom-react-app',
+    title: 'QuizDOM — AI Learning App',
     demoUrl: 'https://kateskoryna.github.io/quizdom-react-app/',
     screenshot: {
       src: '/quizdom.webp',
@@ -216,6 +223,7 @@ export const featuredRepos: readonly FeaturedRepo[] = [
   },
   {
     repo: 'solar-calculator',
+    title: 'Fleet Solar Calculator',
     demoUrl: 'https://solar-calculator-azure.vercel.app',
     screenshot: {
       src: '/solar-calculator.webp',
@@ -229,6 +237,7 @@ export const featuredRepos: readonly FeaturedRepo[] = [
   },
   {
     repo: 'my-portfolio',
+    title: 'This Portfolio',
     summary:
       'A personal portfolio designed as a stack of physical objects - book, magazine, notebook, newspaper, field guide - each one a route. Built with Next.js 16, React 19, and TypeScript, it features live GitHub data via ISR, EN/DE i18n, and zero animation libraries.',
     demoUrl: 'https://prompting-handbook-olive.vercel.app/de',

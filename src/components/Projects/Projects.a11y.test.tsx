@@ -22,6 +22,7 @@ afterEach(cleanup);
 
 const withStats: ProjectIssue = {
   repo: 'alpha',
+  title: 'Alpha',
   summary: '[ONE LINE ON WHAT IT DOES AND THE HARD PART.]',
   url: 'https://github.com/x/alpha',
   stats: {
@@ -35,7 +36,7 @@ const withStats: ProjectIssue = {
 };
 
 // The API-failure path: same issue, no stats, no error state.
-const degraded: ProjectIssue = { ...withStats, repo: 'beta', stats: null };
+const degraded: ProjectIssue = { ...withStats, repo: 'beta', title: 'Beta', stats: null };
 
 function renderProjects(issues: readonly ProjectIssue[]) {
   return render(
@@ -64,15 +65,15 @@ describe('Projects — DESIGN.md §5 accessibility contract', () => {
   });
 
   it('swaps a clicked card into the feature slot and keeps the button mounted', () => {
-    renderProjects([withStats, { ...withStats, repo: 'gamma' }]);
-    expect(screen.getByRole('heading', { level: 2, name: 'alpha' })).toBeTruthy();
+    renderProjects([withStats, { ...withStats, repo: 'gamma', title: 'Gamma' }]);
+    expect(screen.getByRole('heading', { level: 2, name: 'Alpha' })).toBeTruthy();
 
-    const button = screen.getByRole('button', { name: 'Show gamma as the feature project' });
+    const button = screen.getByRole('button', { name: 'Show Gamma as the feature project' });
     fireEvent.click(button);
 
     const feature = document.querySelector('article');
-    expect(feature?.querySelector('h2')?.textContent).toBe('gamma');
-    expect(screen.getByRole('button', { name: 'Show alpha as the feature project' })).toBe(button);
-    expect(screen.getByRole('status').textContent).toBe('gamma is now the feature project');
+    expect(feature?.querySelector('h2')?.textContent).toBe('Gamma');
+    expect(screen.getByRole('button', { name: 'Show Alpha as the feature project' })).toBe(button);
+    expect(screen.getByRole('status').textContent).toBe('Gamma is now the feature project');
   });
 });
