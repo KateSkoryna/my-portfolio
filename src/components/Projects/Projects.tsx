@@ -77,7 +77,7 @@ export function Projects({
 
   function promote(slot: number) {
     if (sweep) return; // one change at a time
-    setAnnounce(t('nowFeatured', { name: issues[slots[slot]].repo }));
+    setAnnounce(t('nowFeatured', { name: issues[slots[slot]].title }));
 
     const box = featureRef.current?.getBoundingClientRect();
     if (!box?.width || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
@@ -142,10 +142,10 @@ export function Projects({
                 <button
                   type="button"
                   className={styles.promote}
-                  aria-label={t('makeFeature', { name: issue.repo })}
+                  aria-label={t('makeFeature', { name: issue.title })}
                   onClick={() => promote(i + 1)}
                 >
-                  {issue.repo}
+                  {issue.title}
                 </button>
               </h2>
               <p className={isPlaceholder(summary) ? styles.placeholder : styles.summary}>
@@ -208,7 +208,7 @@ function FeatureContent({ feature, locale }: { feature: ProjectIssue; locale: st
         <span className={styles.dotGrid} aria-hidden="true" />
         <p className={styles.featureKicker}>{t('featureProject')}</p>
         <div className={styles.featurePanelFoot}>
-          <h2 className={styles.panelName}>{feature.repo}</h2>
+          <h2 className={styles.panelName}>{feature.title}</h2>
           <p className={`${styles.links} ${styles.linksOnDark}`}>
             <a href={feature.url} className={styles.link}>
               {t('viewCode')} <span aria-hidden="true">→</span>
