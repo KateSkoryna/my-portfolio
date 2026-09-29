@@ -191,6 +191,12 @@
   font-size: 17px;
 }
 
+/* The handbook's back has no chips, so its description gets the room: bigger
+   still. */
+.largeBlurb .blurb {
+  font-size: 20px;
+}
+
 /* The elastic band, mirrored, occupies 43–63px from the left edge. */
 .besideElastic {
   padding-left: 84px;

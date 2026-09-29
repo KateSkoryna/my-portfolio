@@ -85,7 +85,7 @@ function decor(kind: Kind): ReactNode {
  */
 const CONTENT_CLEARANCE: Record<Kind, string> = {
   book: `${styles.belowCircles} ${styles.raisedTitle}`,
-  fieldguide: styles.belowCircles,
+  fieldguide: `${styles.belowCircles} ${styles.raisedTitle} ${styles.largeBlurb}`,
   notebook: styles.besideElastic,
   magazine: styles.belowBand,
   newspaper: styles.betweenRules,
