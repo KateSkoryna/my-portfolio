@@ -87,6 +87,11 @@ function PageClone({
           {blank ? null : children}
         </div>
       </div>
+      {blank ? null : (
+        <span className={side === 'left' ? styles.pageNumLeft : styles.pageNumRight}>
+          {index + 1}
+        </span>
+      )}
     </div>
   );
 }
@@ -261,6 +266,12 @@ export function ResumeBook({
         <div className={styles.frames} aria-hidden="true">
           <div className={`${styles.frame} ${styles.frameLeft}`} />
           <div className={`${styles.frame} ${styles.frameRight}`} />
+        </div>
+        <div className={styles.pageNums} aria-hidden="true">
+          {isSpread && <span className={styles.pageNumLeft}>{view * 2 + 1}</span>}
+          {(!isSpread || view * 2 + 2 <= pageCount) && (
+            <span className={styles.pageNumRight}>{isSpread ? view * 2 + 2 : page + 1}</span>
+          )}
         </div>
         <div className={styles.viewport}>
           <div
