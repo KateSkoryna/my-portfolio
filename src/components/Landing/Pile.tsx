@@ -11,8 +11,17 @@ import styles from './Pile.module.css';
 const PILE_WIDTH = 380;
 /** Per-book x offset — not a flat step; tuned per book, not a formula. */
 const PILE_X_OFFSETS = [0, 4, 0, 2];
-/** Per-book y offset — tuned per book, not accumulated from thickness. */
+/**
+ * Per-book y offset — tuned per position, but never closer than the book above
+ * is thick: which four books make up the pile changes with the selection, so a
+ * thick one (My Projects, 36px) can land where the tuned gap was sized for a
+ * thin one, and would lie over the book below it.
+ */
 const PILE_Y_OFFSETS = [0, 45, 72, 104];
+/** Air kept between one book's bottom edge and the next book's top. */
+const PILE_MIN_GAP = 6;
+/** The three lower books all sit this much higher than their spaced positions. */
+const PILE_LIFT = 4;
 const FOURTH_BOOK_ROTATE = 0;
 
 /**
@@ -31,6 +40,12 @@ const FOURTH_BOOK_ROTATE = 0;
 export function Pile({ items }: { items: readonly PortfolioItem[] }) {
   const ordered = items;
   const rotations = [-1.4, 0.9, -0.7, 1.2];
+  const yOffsets: number[] = [];
+  ordered.forEach((item, i) => {
+    const clearOfAbove = i === 0 ? 0 : yOffsets[i - 1] + ordered[i - 1].thickness + PILE_MIN_GAP;
+    yOffsets.push(Math.max(PILE_Y_OFFSETS[i], clearOfAbove));
+  });
+  const lifted = yOffsets.map((y, i) => (i === 0 ? y : y - PILE_LIFT));
 
   return (
     <div className={styles.wrap}>
@@ -38,7 +53,7 @@ export function Pile({ items }: { items: readonly PortfolioItem[] }) {
         {ordered.map((item, i) => {
           const style = {
             '--pile-x': `${PILE_X_OFFSETS[i]}px`,
-            '--pile-y': `${PILE_Y_OFFSETS[i]}px`,
+            '--pile-y': `${lifted[i]}px`,
             '--pile-rotate': `${i === 3 ? FOURTH_BOOK_ROTATE : rotations[i % rotations.length]}deg`,
             '--pile-z': ordered.length - i,
           } as CSSProperties;
