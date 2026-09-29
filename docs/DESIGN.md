@@ -119,15 +119,15 @@ made the CV thickest.
 **All thickness values are even and ≥ 16px** (Kateryna's call). Thickness is
 the bar height of the spine-out slab (§2.2), so it is the only thing that
 carries hierarchy edge-on — never hardcode a slab height per item, read it from
-`thickness`. This set is canonical across the pile, the shelf, the closed row
-and the colophon; earlier the surfaces disagreed.
+`thickness`. This set is canonical across the pile, the shelf and the closed row;
+earlier the surfaces disagreed.
 
 Item names: **"My Projects"** is set (was "Selected Work"). "Resume",
 "Dev Journal" and "Off the Clock" are still placeholders Kateryna may rename.
 
 ### 2.1 Cover construction (face-on)
 
-Sizes: **216 × 260** on `/shelf` and `/colophon`; **244 × 340** for the
+Sizes: **216 × 260** on `/shelf`; **244 × 340** for the
 floating item on the landing page, with a separate 28px spine slab to its left
 (`left: 0; top: 7px; height: 326px; radius 5px 0 0 5px`), the cover offset
 `left: 24px` and given `transform: perspective(900px) rotateY(-3deg);
@@ -183,8 +183,7 @@ Per-object cover art, at 216 × 260:
 
 ### 2.2 Closed-book construction (edge-on) — the important one
 
-This is the object that appears in the landing pile, the `/shelf` bottom row
-and the `/colophon` edge row. **It is spine-out: the book faces the viewer
+This is the object that appears in the landing pile and the `/shelf` bottom row. **It is spine-out: the book faces the viewer
 spine-first**, like a stack of books you read the spines of — not fore-edge or
 top-edge on. (This reverses an earlier decision; see the note below and §6.)
 The whole slab is the spine face. Its long dimension (`W`, roughly the book's
@@ -279,7 +278,6 @@ Every route is now designed on the canvas, desktop **and** mobile. "Designed"
 | `/journal` | The notebook. MDX entries, entry index + open entry. | Static | **Yes** (+ mobile) |
 | `/about` | The newspaper. Multi-column (desktop); single column (mobile). | Static | **Yes** (+ mobile) |
 | `/handbook` | The existing flip-book, ported. Spread (desktop); one page (mobile). | Static | **Yes** (+ mobile) |
-| `/colophon` | How the site was built: objects, palette, type. Scrolls (1300px). | Static | **Yes** (desktop only) |
 | `/keystatic` | Admin UI. | Client | N/A — library-provided |
 
 **Per-breakpoint content differences (not just reflow) the build must honour:**
@@ -291,11 +289,6 @@ Every route is now designed on the canvas, desktop **and** mobile. "Designed"
   a time, so the indicator counts pages ("Page 2 of 5"), not spreads.
 - `/about` — desktop is multi-column with a centre fold; mobile is single
   column, no fold.
-
-Reachability: `/colophon` is **not** header chrome. It is linked once, in
-context, from the `/projects` footer note ("This site is a project too — see
-how it was built"). A recruiter never has to open it; a developer who wants to
-can.
 
 ---
 
@@ -436,7 +429,7 @@ One header and footer structure on all 15 route boards, desktop and mobile.
 One-screen routes are a uniform **1440 × 960** (1920×1080 minus browser chrome
 — the most common EU desktop). Long-form routes keep their natural height and
 scroll: `/projects` 960 (fits), `/journal` 960, `/about` **1260 (scrolls — a
-newspaper is allowed to run long)**, `/colophon` 1300. Every route's core lands
+newspaper is allowed to run long)**. Every route's core lands
 above ~744px (the 1536×864 laptop fold) — verified per page. Do **not** add a
 visible fold guide to the artboards; a coral one was tried and read as a pink
 screen-glitch.
@@ -514,8 +507,7 @@ Kept so they are not re-litigated or re-broken.
 - **Pile books link straight to their routes** (§4.1) — the one-click path.
 - **Return-trip animation dropped** (§4.1) — the carousel just reorders.
 - **Closed books are spine-out** (§2.2). *Reverses the earlier "titles on the
-  page block" decision.* The pile, the shelf's closed row and the colophon's
-  edge row now show each book spine-first — a flat cover-coloured bar with the
+  page block" decision.* The pile and the shelf's closed row now show each book spine-first — a flat cover-coloured bar with the
   title along the spine — instead of top-edge on with a cream page block. The
   spine face is long enough to hold the title, which is what forced the old
   page-block workaround; that reason is gone. *(Kateryna's call, made
@@ -564,8 +556,7 @@ Kept so they are not re-litigated or re-broken.
 
 ## 7. Design status
 
-All eight content routes are designed on the canvas, desktop and mobile
-(`/colophon` desktop only). The prototype lives on a Claude Design canvas;
+All content routes are designed on the canvas, desktop and mobile. The prototype lives on a Claude Design canvas;
 this file is the authoritative written extraction — build from it, and correct
 it here if the two ever disagree.
 
