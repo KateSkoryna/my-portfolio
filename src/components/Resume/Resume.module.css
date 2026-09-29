@@ -550,6 +550,22 @@ section + .role {
   color: var(--color-coral);
 }
 
+/* The closing line is the thing to see on the last page: 32px on phones, 38px
+   on tablets. */
+@media (max-width: 800px) {
+  .closingNote {
+    font-size: 32px;
+    line-height: 1.05;
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1199px) {
+  .closingNote {
+    font-size: 38px;
+    line-height: 1.05;
+  }
+}
+
 /* --- Print: one plain page, no chrome ---------------------------------- */
 
 @page {

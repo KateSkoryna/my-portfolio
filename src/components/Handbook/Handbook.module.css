@@ -1166,3 +1166,12 @@ h2.title {
   font-size: 16px;
   color: var(--color-coral);
 }
+
+/* Phones: the page is scaled down to fit, so 16px ends up a few px tall on
+   screen — three times the size keeps it readable after scaling. */
+@media (max-width: 800px) {
+  .closingNote {
+    font-size: 48px;
+    line-height: 1.05;
+  }
+}
