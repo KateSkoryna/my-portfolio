@@ -1,6 +1,14 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react';
 
 import { ArrowButton } from '@/components/ArrowButton/ArrowButton';
 import { DotIndicator } from '@/components/DotIndicator/DotIndicator';
@@ -9,6 +17,18 @@ import { Link } from '@/i18n/navigation';
 
 import { SelectItemContext } from './CarouselContext';
 import styles from './Carousel.module.css';
+
+/**
+ * Phones: the book and the pile are fixed-pixel art, so the whole stack is
+ * scaled to the width the page gives it instead of hardcoding sizes per
+ * screen. The pile (384px) is the widest thing in it; the scale is that
+ * width's ratio to the space available, kept within sane limits.
+ */
+const STACK_DESIGN_WIDTH = 384;
+/** How much of the available width the pile should fill (the rest is air). */
+const STACK_FILL = 0.8;
+const STACK_FIT_MIN = 0.6;
+const STACK_FIT_MAX = 1.1;
 
 /** Horizontal travel, in px, that counts as a swipe rather than a tap. */
 const SWIPE_MIN_DISTANCE = 40;
@@ -57,6 +77,23 @@ export function Carousel({
   const [index, setIndex] = useState(defaultIndex);
   /** Mobile: the book is flipped and its description is showing. */
   const [flipped, setFlipped] = useState(false);
+  /** Scale of the whole stack; only applied on phones (`Carousel.module.css`). */
+  const [fit, setFit] = useState(1);
+  const stageRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    const measure = () => {
+      const scale = (stage.clientWidth * STACK_FILL) / STACK_DESIGN_WIDTH;
+      setFit(Math.min(STACK_FIT_MAX, Math.max(STACK_FIT_MIN, scale)));
+    };
+    measure();
+    if (typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(measure);
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, []);
 
   const select = useCallback((i: number) => {
     setIndex(i);
@@ -102,9 +139,9 @@ export function Carousel({
 
   return (
     <SelectItemContext.Provider value={selectById}>
-      <div className={styles.stage}>
+      <div ref={stageRef} className={styles.stage}>
         <ArrowButton direction="prev" label={prevLabel} onClick={() => advance(-1)} />
-        <div className={styles.stack}>
+        <div className={styles.stack} style={{ '--fit': fit } as CSSProperties}>
           <div
             key={`floating-${index}`}
             className={styles.floatingWrap}
