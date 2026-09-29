@@ -11,8 +11,8 @@
   grid-template-columns: minmax(240px, 380px) minmax(320px, 1fr) minmax(240px, 320px);
   align-items: start;
   gap: clamp(24px, 4vw, 64px);
-  /* No bottom padding — `PageFooter`'s own top padding (plus its mobile
-     dots-bar clearance below) is what separates this from the footer now. */
+  /* No bottom padding — `PageFooter`'s own top padding is what separates this
+     from the footer now. */
   padding: clamp(24px, 4vw, 56px) clamp(16px, 5vw, 48px) 0;
   /* `width: 100%` — see the note on `.header` in `PageHeader.module.css`:
      without it, being a `body` (column flexbox) item with cross-axis auto
@@ -26,7 +26,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  /* The only spacing between the identity blocks — no per-element margins. */
+  gap: 16px;
 }
 
 .photo {
@@ -142,13 +143,26 @@
        unwrapped text) can blow the track past the viewport instead of
        wrapping. `minmax(0, 1fr)` makes the column actually respect it. */
     grid-template-columns: minmax(0, 1fr);
-    /* No bottom clearance for the fixed dots bar here — `PageFooter` (the
-       next thing in flow) carries that instead, so there's no dead gap
-       between the description content and the footer that follows it. */
+    /* More air between the about-me block and the book. */
+    row-gap: 56px;
   }
 
   .identity {
     align-items: center;
     text-align: center;
+  }
+
+  /* Role and stack lines are the first thing read on a phone — the desktop
+     sizes (11px / 12px) are too small at arm's length. */
+  .role {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    /* Already weight 800, the heaviest Manrope loaded — the darker green is
+       what makes it read bolder. */
+    color: var(--color-emerald-deep);
+  }
+
+  .stack {
+    font-size: 15px;
   }
 }
