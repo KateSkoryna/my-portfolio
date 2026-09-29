@@ -112,6 +112,33 @@ describe('Resume — DESIGN.md §4.3 and §5', () => {
     );
   });
 
+  it('turns pages by swiping on mobile', () => {
+    mockViewport(false);
+    const { container } = renderBook();
+    const book = container.querySelector('div[lang="en"]') as HTMLElement;
+    // jsdom has no PointerEvent; React only reads `type` and the coordinates.
+    const pointer = (type: string, x: number, y: number) =>
+      fireEvent(book, new MouseEvent(type, { bubbles: true, clientX: x, clientY: y }));
+    const swipe = (fromX: number, toX: number, dy = 0) => {
+      pointer('pointerdown', fromX, 200);
+      pointer('pointerup', toX, 200 + dy);
+    };
+
+    expect(prev().disabled).toBe(true);
+    swipe(300, 100); // left → next page
+    expect(prev().disabled).toBe(false);
+    swipe(100, 300); // right → back
+    expect(prev().disabled).toBe(true);
+    swipe(100, 300); // right at the first page: nothing
+    expect(prev().disabled).toBe(true);
+    swipe(300, 280); // too short: not a swipe
+    expect(prev().disabled).toBe(true);
+    swipe(300, 100, 200); // mostly vertical: a scroll, not a swipe
+    expect(prev().disabled).toBe(true);
+    for (let i = 0; i < PAGES + 2; i++) swipe(300, 100);
+    expect(next().disabled).toBe(true); // stops at the last page
+  });
+
   it('steps one page at a time on mobile', () => {
     mockViewport(false);
     renderBook();

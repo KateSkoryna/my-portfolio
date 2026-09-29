@@ -34,6 +34,9 @@ function useIsSpread() {
   );
 }
 
+/** Horizontal travel, in px, that counts as a swipe rather than a tap. */
+const SWIPE_MIN_DISTANCE = 40;
+
 /** A turn in flight: the left-hand page index before and after. */
 interface Turn {
   dir: 'next' | 'prev';
@@ -243,6 +246,11 @@ export function ResumeBook({
   const atStart = view === 0;
   const atEnd = view === lastView;
 
+  // No arrow buttons on phones and tablets: swipe the book left for the next
+  // page (or spread), right for the previous. The dots stay as the
+  // non-gesture way to move; the arrows only appear on wide desktops.
+  const swipeStart = useRef<{ x: number; y: number } | null>(null);
+
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'ArrowRight' && !atEnd) goToView(view + 1);
@@ -262,7 +270,28 @@ export function ResumeBook({
           disabled={atStart}
         />
       </div>
-      <div className={styles.book} lang={lang}>
+      <div
+        className={styles.book}
+        lang={lang}
+        onPointerDown={(event) => {
+          // A mouse drag is a text selection, not a swipe.
+          if (event.pointerType === 'mouse') return;
+          swipeStart.current = { x: event.clientX, y: event.clientY };
+        }}
+        onPointerUp={(event) => {
+          const start = swipeStart.current;
+          swipeStart.current = null;
+          if (!start) return;
+          const dx = event.clientX - start.x;
+          const dy = event.clientY - start.y;
+          if (Math.abs(dx) < SWIPE_MIN_DISTANCE || Math.abs(dx) <= Math.abs(dy) * 1.5) return;
+          if (dx < 0 && !atEnd) goToView(view + 1);
+          if (dx > 0 && !atStart) goToView(view - 1);
+        }}
+        onPointerCancel={() => {
+          swipeStart.current = null;
+        }}
+      >
         <div className={styles.frames} aria-hidden="true">
           <div className={`${styles.frame} ${styles.frameLeft}`} />
           <div className={`${styles.frame} ${styles.frameRight}`} />

@@ -30,11 +30,13 @@
   flex: 1;
   min-height: 0;
   display: grid;
+  /* Mobile: the book, then the dots — no arrow buttons (pages turn by
+     swiping). Desktop restores the arrows below. */
   grid-template-rows: minmax(0, 1fr) auto;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
-    'book book book'
-    'prev dots next';
+    'book'
+    'dots';
   align-items: center;
   gap: 8px 12px;
   width: 100%;
@@ -112,6 +114,11 @@
   position: relative; /* offsetParent for measuring where the closing leaf falls */
   height: 100%;
   overflow: hidden;
+  /* `.flow` is a scroll container (overflow hidden), and a touch that starts
+     inside one only honours `touch-action` set on it or below — not the one
+     on `.book`. Without this the browser claims a horizontal drag as a pan and
+     cancels the pointer, so the page-turn swipe never fires. */
+  touch-action: pan-y;
   font-family: var(--font-body), system-ui, sans-serif;
   font-size: 13px;
   line-height: 1.6;
@@ -124,24 +131,55 @@
 
 .prev {
   grid-area: prev;
+  display: none;
 }
 
 .next {
   grid-area: next;
+  display: none;
+}
+
+/* Horizontal drags turn the page; vertical ones still scroll. */
+.book {
+  touch-action: pan-y;
 }
 
 .dots {
   grid-area: dots;
   display: flex;
   justify-content: center;
+  min-width: 0;
 }
 
 .dotsSpread {
   display: none;
 }
 
+/* One dot per page can be more 44px targets than a phone is wide, which ran
+   the row out over the page's side padding. The row now takes exactly the
+   width the page gives it: the dots share it, each up to 44px, with a fluid
+   gap between them. When there are too many for 44px each they narrow (the
+   dot itself keeps its size) instead of overflowing. */
+.dotsPage {
+  width: 100%;
+}
+
+.dotsPage > div {
+  width: 100%;
+  gap: clamp(0px, 1vw, 6px);
+}
+
+.dotsPage button {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 44px;
+  padding-inline: 0;
+}
+
 @media (min-width: 900px) {
   .stage {
+    grid-template-rows: minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     grid-template-areas:
       'prev book next'
       '. dots .';
@@ -174,6 +212,15 @@
 
   .dotsPage {
     display: none;
+  }
+}
+
+/* Arrow buttons only on wide desktops; below that (phones and tablets) the
+   pages turn by swiping. */
+@media (min-width: 1200px) {
+  .prev,
+  .next {
+    display: block;
   }
 }
 
@@ -523,6 +570,22 @@ section + .role {
   font-weight: 600;
   font-size: 16px;
   color: var(--color-coral);
+}
+
+/* The closing line is the thing to see on the last page: 32px on phones, 38px
+   on tablets. */
+@media (max-width: 800px) {
+  .closingNote {
+    font-size: 32px;
+    line-height: 1.05;
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1199px) {
+  .closingNote {
+    font-size: 38px;
+    line-height: 1.05;
+  }
 }
 
 /* --- Print: one plain page, no chrome ---------------------------------- */

@@ -66,7 +66,8 @@ describe('Projects — DESIGN.md §5 accessibility contract', () => {
 
   it('swaps a clicked card into the feature slot and keeps the button mounted', () => {
     renderProjects([withStats, { ...withStats, repo: 'gamma', title: 'Gamma' }]);
-    expect(screen.getByRole('heading', { level: 2, name: 'Alpha' })).toBeTruthy();
+    // The feature card holds two titles (cover panel and phone layout); CSS shows one.
+    expect(screen.getAllByRole('heading', { level: 2, name: 'Alpha' }).length).toBeGreaterThan(0);
 
     const button = screen.getByRole('button', { name: 'Show Gamma as the feature project' });
     fireEvent.click(button);

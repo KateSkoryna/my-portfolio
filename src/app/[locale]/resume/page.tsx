@@ -13,15 +13,20 @@ import { ResumeBook } from '@/components/Resume/ResumeBook';
  */
 export default async function ResumePage() {
   const t = await getTranslations('resume');
+  const tChrome = await getTranslations('chrome');
   const locale = await getLocale();
 
   return (
     <>
       <PageHeader
         backLabel={t('backToStack')}
-        center={<HeaderDownload href={resumePdfPath}>{t('downloadPdf')}</HeaderDownload>}
+        center={
+          <HeaderDownload href={resumePdfPath} shortLabel={tChrome('pdfShort')}>
+            {t('downloadPdf')}
+          </HeaderDownload>
+        }
         action={
-          <HeaderLink href="/shelf" arrow="forward">
+          <HeaderLink href="/shelf" arrow="forward" shortLabel={tChrome('shelfShort')}>
             {t('goToShelf')}
           </HeaderLink>
         }

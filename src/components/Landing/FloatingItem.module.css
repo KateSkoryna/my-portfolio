@@ -13,7 +13,6 @@
   flex-shrink: 0;
   width: 322px;
   height: 408px;
-  text-decoration: none;
   /* Advancing reorders — a cross-fade, not the "drop to the bottom of the
      pile" animation DESIGN.md §4.1 explicitly rejects. `prefers-reduced-
      motion` zeroes animation-duration globally (reset.css). */
@@ -55,4 +54,18 @@
      (not clipped by the cover's own `overflow: hidden`) gives it real lift
      off the page instead of just the token's default elevation. */
   filter: drop-shadow(0 26px 34px rgba(20, 40, 30, 0.4));
+}
+
+/* Empty overlay over the art; hidden on mobile, where `Carousel`'s flip
+   button covers the book instead. */
+.desktopLink {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-book);
+}
+
+@media (max-width: 800px) {
+  .desktopLink {
+    display: none;
+  }
 }

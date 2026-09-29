@@ -11,8 +11,8 @@ import styles from './FloatingItem.module.css';
  * 28px spine slab plus the hero cover, tilted `rotateY(-3deg)` so it reads
  * as a book seen slightly edge-on rather than a flat poster.
  *
- * Every item links straight to its route (one click, no bring-to-front
- * step — §4.1), published or not — the unbuilt routes 404 for now
+ * On desktop every item links straight to its route (one click, no bring-to-
+ * front step — §4.1), published or not — the unbuilt routes 404 for now
  * *(Kateryna's call)*. No publish-status badge either way — DESIGN.md's
  * canvas draws every cover as finished art.
  *
@@ -35,8 +35,15 @@ export function FloatingItem({ item }: { item: PortfolioItem }) {
   );
 
   return (
-    <Link href={item.route} className={styles.floating} aria-label={`${item.title} — ${item.cta}`}>
-      {assembly}
-    </Link>
+    <div className={styles.floating}>
+      <div aria-hidden="true">{assembly}</div>
+      {/* Desktop only — on mobile a tap flips the book (see `Carousel`) and
+          the item's own button is what navigates. */}
+      <Link
+        href={item.route}
+        className={styles.desktopLink}
+        aria-label={`${item.title} — ${item.cta}`}
+      />
+    </div>
   );
 }

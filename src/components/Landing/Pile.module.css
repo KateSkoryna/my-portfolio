@@ -17,9 +17,11 @@
      centers this box by its own width, not by where the books inside it
      actually sit. */
   width: 384px;
-  /* Worst case: the four tallest items stacked (36+28+24+20) plus a 3px gap
-     after each, so the deepest possible stack never clips the container. */
-  height: 124px;
+  /* Worst case over every selection (`Pile.tsx` spaces the books by their own
+     thickness, then lifts the lower three 4px): 115px to the top of the last
+     book + its 24px. Fixed, so the
+     dots and shadow below don't shift when the selection changes. */
+  height: 140px;
   animation: fadeIn var(--motion-select) var(--motion-ease);
 }
 
@@ -41,7 +43,33 @@
 }
 
 .link {
+  position: relative;
   display: block;
-  text-decoration: none;
   border-radius: var(--radius-closed);
+}
+
+/* Empty overlays over the book art — see `Pile.tsx`. */
+.desktopLink,
+.mobileSelect {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: var(--radius-closed);
+  cursor: pointer;
+}
+
+.mobileSelect {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .desktopLink {
+    display: none;
+  }
+
+  .mobileSelect {
+    display: block;
+  }
 }

@@ -1,0 +1,218 @@
+/*
+ * The mirror of `FloatingItem.module.css`: the same 322×408 assembly turned
+ * over, so the 34px spine slab is on the right and the 293px board on the
+ * left. The board's fill, gradient, radius and shadow come from
+ * `BookCover.module.css` (`.cover` + the per-kind class), set through the
+ * same `--cover-*` variables.
+ */
+
+.book {
+  position: relative;
+  width: 322px;
+  height: 408px;
+  /* Same lift off the page as the front (`FloatingItem`'s `.coverWrap`). */
+  filter: drop-shadow(0 26px 34px rgba(20, 40, 30, 0.4));
+}
+
+/* `.cover` is `position: relative` — this has to out-rank it. */
+.book > .board {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* `--radius-book` mirrored: rounded on the outer (left) edge, square by the
+   spine. The notebook keeps its own all-round radius, so it skips this. */
+.book > .mirroredCorners {
+  border-radius: 9px 2px 2px 9px;
+}
+
+/* The same gradients as `BookCover.module.css` `.book` / `.notebook`, with the
+   angle mirrored so the light end sits next to the spine. */
+.book > .mirroredBook {
+  background: linear-gradient(210deg, var(--cover-fill), var(--cover-dark));
+}
+
+.book > .mirroredNotebook {
+  background: linear-gradient(200deg, var(--cover-fill), #c3d6cb);
+}
+
+.spine {
+  position: absolute;
+  right: 0;
+  top: 8px;
+  width: 34px;
+  height: 391px;
+  border-radius: 0 5px 5px 0;
+  background: var(--spine-fill);
+  /* `FloatingItem`'s long-axis volume, mirrored left↔right. */
+  box-shadow:
+    inset -2px 0 3px -1px rgba(255, 255, 255, 0.2),
+    inset 3px 0 5px -2px rgba(0, 0, 0, 0.28),
+    var(--shadow-raised);
+}
+
+/* `BookCover`'s fore-edge strip, but on the left: turned over, the page
+   edges are on the side away from the spine. */
+.foreEdge {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(7px * var(--cover-scale));
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(255, 247, 237, 0.85) 0 1px,
+    rgba(190, 175, 150, 0.45) 1px 3px
+  );
+}
+
+/* The front's decorations, flipped left↔right so a circle that bleeds off the
+   top-right of the front bleeds off the top-left here. A static flip of art
+   that never moves, not motion. Below the text (`.content` is z-index 2). */
+.decor {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(-1);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  height: 100%;
+  padding: 28px 22px 22px 34px;
+  color: var(--back-ink);
+}
+
+.counterRow {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.counter {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.counterLine {
+  flex-grow: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.35;
+}
+
+.kind {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 34px;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+.blurb {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 15.5px;
+  line-height: 1.5;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding: 0;
+  list-style: none;
+}
+
+/* Outlined in the cover's own ink — a filled chip would vanish on one cover
+   or another (sage on the sage notebook, cream on the cream magazine). */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border: 1.5px solid currentColor;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 12.5px;
+  color: var(--back-ink);
+  text-decoration: none;
+}
+
+/* Where the text starts, per cover — clear of the decoration above/beside it.
+   Values are the front's own offsets at hero scale (×293/216). */
+
+/* The coral circle bleeds down to ~125px (book) / ~100px (field guide). The
+   counter row keeps its usual place at the very top, full width, and the
+   title is pushed down below the circle (cream text on coral fails contrast).
+   The row's number still sits on the circle, in cream, by Kateryna's call —
+   2.56:1 there, under the 3:1 large-text minimum; move the circle if that
+   ever needs fixing. */
+.belowCircles {
+  padding-top: 28px;
+}
+
+.belowCircles .counterLine {
+  background: var(--color-cream);
+  opacity: 0.7;
+}
+
+/* 128px from the top of the board, less the counter row and the flex gap. */
+.belowCircles .title {
+  margin-top: 68px;
+}
+
+/* The resume only: title and blurb 60px higher than the other covers, up over
+   the coral circle's lower edge (Kateryna's call — cream on coral there is
+   under 3:1); the title is smaller, the description bigger. */
+.raisedTitle .title {
+  margin-top: 8px;
+  font-size: 28px;
+}
+
+.raisedTitle .blurb {
+  font-size: 17px;
+}
+
+/* The handbook's back has no chips, so its description gets the room: bigger
+   still. */
+.largeBlurb .blurb {
+  font-size: 20px;
+}
+
+/* The elastic band, mirrored, occupies 43–63px from the left edge. */
+.besideElastic {
+  padding-left: 84px;
+}
+
+/* The coral masthead band takes the top 52px × scale. */
+.belowBand {
+  padding-top: calc(52px * var(--cover-scale) + 22px);
+}
+
+/* Counter row sits between the two masthead rules; the title clears the lower
+   one before the blurb starts. */
+.betweenRules {
+  padding-top: 30px;
+}
+
+.betweenRules .title {
+  margin-bottom: 30px;
+}

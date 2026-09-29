@@ -6,6 +6,8 @@
       "switchTo": "Zu {language} wechseln"
     },
     "back": "Zurück",
+    "shelfShort": "Regal",
+    "pdfShort": "PDF",
     "footer": "© 2026 Kateryna Skoryna · All rights reserved"
   },
   "dots": {
@@ -16,6 +18,7 @@
     "descriptionLabel": "Ausgewähltes Element",
     "prevItem": "Vorheriges Element",
     "nextItem": "Nächstes Element",
+    "flipBook": "Details anzeigen",
     "goToShelf": "Zum Regal",
     "email": "E-Mail",
     "basedIn": "Ansässig in {city}",
@@ -81,7 +84,7 @@
       "coverFoot": "Acht Doppelseiten · EN / DE",
       "blurb": "Der bereits veröffentlichte Blätter-Feldführer: wie ich LLM-Ausgaben verlässlich genug für den Produktivbetrieb mache. Acht Doppelseiten, Englisch und Deutsch.",
       "shortBlurb": "Der bereits veröffentlichte Blätter-Feldführer. Englisch und Deutsch.",
-      "chips": ["Veröffentlicht", "EN / DE"],
+      "chips": [],
       "cta": "Handbuch öffnen"
     }
   },

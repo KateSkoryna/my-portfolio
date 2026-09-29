@@ -20,7 +20,31 @@
 
 .languageRow {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
+}
+
+/* Name → landing, top-left. Mobile and tablet only: on desktop the identity
+   block already carries the name. `display: none` also removes it from the
+   tab order and the accessibility tree there. Breakpoint matches
+   `Projects` / `Shelf` (below 1200px). */
+.homeLink {
+  display: none;
+  align-items: center;
+  min-height: var(--a11y-min-target);
+  margin-right: auto;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  color: var(--color-charcoal);
+  text-decoration: none;
+}
+
+@media (max-width: 1199px) {
+  .homeLink {
+    display: inline-flex;
+  }
 }
 
 .backRow {
@@ -76,4 +100,21 @@
 
 .action {
   justify-self: end;
+}
+
+/* A route's own back label ("Back to the stack") is long; on phones the plain
+   "Back" replaces it so the header row fits. Only one is displayed, so only
+   that one is read out. */
+.backShort {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .backLong {
+    display: none;
+  }
+
+  .backShort {
+    display: inline;
+  }
 }

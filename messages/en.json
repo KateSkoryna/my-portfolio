@@ -6,6 +6,8 @@
       "switchTo": "Switch to {language}"
     },
     "back": "Back",
+    "shelfShort": "Shelf",
+    "pdfShort": "PDF",
     "footer": "© 2026 Kateryna Skoryna · All rights reserved"
   },
   "dots": {
@@ -16,6 +18,7 @@
     "descriptionLabel": "Selected item",
     "prevItem": "Previous item",
     "nextItem": "Next item",
+    "flipBook": "Show details",
     "goToShelf": "Go to shelf",
     "email": "Email",
     "basedIn": "Based in {city}",
@@ -100,7 +103,7 @@
       "coverFoot": "Eight spreads · EN / DE",
       "blurb": "The page-flip field guide already published: how I make LLM output predictable enough to put in production. Eight spreads, English and German.",
       "shortBlurb": "The page-flip field guide, already published. English and German.",
-      "chips": ["Published", "EN / DE"],
+      "chips": [],
       "cta": "Open the handbook"
     }
   },

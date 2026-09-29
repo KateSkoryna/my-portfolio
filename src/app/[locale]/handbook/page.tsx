@@ -11,6 +11,7 @@ import { PageFooter } from '@/components/PageFooter/PageFooter';
  */
 export default async function HandbookPage() {
   const t = await getTranslations('handbook');
+  const tChrome = await getTranslations('chrome');
   const locale = await getLocale();
 
   return (
@@ -18,7 +19,7 @@ export default async function HandbookPage() {
       <PageHeader
         backLabel={t('backToStack')}
         action={
-          <HeaderLink href="/shelf" arrow="forward">
+          <HeaderLink href="/shelf" arrow="forward" shortLabel={tChrome('shelfShort')}>
             {t('goToShelf')}
           </HeaderLink>
         }

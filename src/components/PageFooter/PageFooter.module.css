@@ -26,13 +26,14 @@
   text-align: right;
 }
 
+/* Phones: more air above the footer, and everything in it centred. */
 @media (max-width: 800px) {
-  /* The carousel's dots row goes `position: fixed` to the bottom of the
-     viewport below 800px (`Carousel.module.css` `.dots`) — 12px padding +
-     the 44px a11y hit target + 12px padding, plus the safe-area inset.
-     Without this the fixed bar sits on top of the copyright line instead of
-     after it. */
   .footer {
-    padding-bottom: calc(68px + env(safe-area-inset-bottom, 0px));
+    padding-top: 40px;
+    align-items: center;
+  }
+
+  .copyright {
+    text-align: center;
   }
 }

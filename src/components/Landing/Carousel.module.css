@@ -130,40 +130,6 @@
   flex-wrap: wrap;
 }
 
-.hitArea {
-  composes: hitArea from '../../styles/shared.module.css';
-}
-
-/* Chip-sized, same sage fill as `.chips` — but a real interactive button
-   (DESIGN.md §5.2) so it carries the language toggle's 3D treatment: chip
-   shadow plus a 1px inner top highlight, not the flat metadata chips. */
-.secondaryAction {
-  display: inline-flex;
-  align-items: center;
-  padding: 5px 12px;
-  border-radius: var(--radius-pill);
-  background: var(--color-sage);
-  color: var(--color-emerald-deep);
-  text-decoration: none;
-  font-family: var(--font-body), system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 11px;
-  box-shadow:
-    var(--shadow-chip),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  transition: transform var(--motion-hover) var(--motion-ease);
-}
-
-.secondaryAction:hover {
-  transform: scale(1.03);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .secondaryAction:hover {
-    transform: none;
-  }
-}
-
 /* Extra breathing room above the CTA beyond the `.description` column's
    10px gap — it reads too close to the chips row otherwise. `:last-child`
    alone (not `a:last-child`) because `PillButton` renders a `<button>`,
@@ -172,6 +138,39 @@
    silently never matched on any slide but the one published item. */
 .description > *:last-child {
   margin-top: 12px;
+}
+
+/* The CTA appears in two places — beside the description on desktop, under
+   the floating book's shadow on mobile (see the 800px block). One is always
+   `display: none`, which also takes it out of the tab order. */
+.mobileCta {
+  display: none;
+}
+
+/* The panel's own buttons: the item's main button plus its download, same
+   size, side by side — wrapping onto a second line in a narrow column. */
+.descriptionCta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Desktop: the description sits in its own grid column as before, and the
+   flip machinery is inert — `.back` and `.flipButton` are
+   hidden, `.desktopDescription` is transparent to the grid. */
+.desktopDescription {
+  display: contents;
+}
+
+.floatingWrap {
+  position: relative;
+  /* Horizontal touch drags belong to the swipe; vertical ones still scroll. */
+  touch-action: pan-y;
+}
+
+.back,
+.flipButton {
+  display: none;
 }
 
 /* Matches `Landing.module.css`'s `.arrow` on the go-to-shelf link — same
@@ -280,6 +279,12 @@
     display: none;
   }
 
+  /* Fluid: the book and the pile scale with the width the page gives them
+     (`--fit`, measured in `Carousel.tsx`), instead of fixed pixel sizes. */
+  .stack {
+    zoom: var(--fit, 1);
+  }
+
   .description {
     align-items: center;
     text-align: center;
@@ -290,32 +295,222 @@
     display: none;
   }
 
+  /* CTA moves from the description to between the book's shadow and the
+     pile. Tighter shadow margin below, so the button sits close to the book
+     it opens. */
+  .descriptionCta {
+    display: none;
+  }
+
+  .suspensionShadow {
+    margin-bottom: 16px;
+  }
+
+  /* Tapping the book flips it (a 3D turn on its own axis) to show the
+     description on its back cover. The button under the book, not the book,
+     is what navigates. */
+  .floatingWrap {
+    width: 322px;
+    height: 408px;
+    perspective: 1400px;
+  }
+
+  .flipper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform var(--motion-turn) var(--motion-ease);
+  }
+
+  .floatingWrap[data-flipped='true'] .flipper {
+    transform: rotateY(180deg);
+  }
+
+  .front,
+  .back {
+    position: absolute;
+    inset: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* The back of the book (`BookBack`) — the mirrored 322×408 assembly,
+     spine on the right. Pre-turned 180° so it reads the right way round
+     once the flipper has turned. */
+  .back {
+    display: block;
+    transform: rotateY(180deg);
+  }
+
+  .flipButton {
+    display: block;
+    position: absolute;
+    inset: 0;
+    /* Horizontal drags belong to the carousel's swipe; vertical ones still
+       scroll the page. */
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    border-radius: var(--radius-book);
+  }
+
+  .desktopDescription {
+    display: none;
+  }
+
+  /* No 3D turn under reduced motion (DESIGN.md §5.5) — the two faces swap
+     with an instant fade instead. */
+  @media (prefers-reduced-motion: reduce) {
+    .flipper {
+      transition: none;
+    }
+
+    .floatingWrap[data-flipped='true'] .flipper {
+      transform: none;
+    }
+
+    .front,
+    .back {
+      -webkit-backface-visibility: visible;
+      backface-visibility: visible;
+    }
+
+    .back {
+      transform: none;
+      opacity: 0;
+    }
+
+    .floatingWrap[data-flipped='true'] .front {
+      opacity: 0;
+    }
+
+    .floatingWrap[data-flipped='true'] .back {
+      opacity: 1;
+    }
+  }
+
+  .mobileCta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: clamp(16px, 4vh, 40px);
+  }
+
+  /* `.pileWrap` steps out of the layout so its children (the pile and the
+     note) become `.stack` items — that lets the note be ordered *after*
+     `.pileShadow`, which then sits right under the pile. */
+  .pileWrap {
+    display: contents;
+  }
+
+  .pileShadow {
+    order: 1;
+  }
+
+  /* The dots are part of the flow now — between the pile's shadow and the
+     note — not a fixed bar along the bottom of the screen. */
   .dots {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin-top: 0;
-    padding: 12px 0 calc(12px + env(safe-area-inset-bottom, 0px));
-    background: var(--color-paper);
-    box-shadow: var(--shadow-rest);
+    order: 2;
   }
 
   /* No room to the right of the pile below 800px — back to flowing under
-     it, centered, like the rest of the mobile stack. */
+     the pile and its shadow, centered, like the rest of the mobile stack. */
   .pileNote {
+    order: 3;
     position: static;
     transform: none;
     margin-left: 0;
-    margin-top: 28px;
+    margin-top: 0;
     align-items: center;
     width: auto;
-    max-width: none;
+    /* `.stack` is as wide as its widest child — the 384px pile, wider than
+       a phone's content box — so a note that fills the stack ran out into the
+       page's side padding. Cap it to the viewport minus that padding
+       (`.landing`'s `clamp(16px, 5vw, 48px)` each side). */
+    max-width: calc(100vw - 2 * clamp(16px, 5vw, 48px));
     text-align: center;
   }
 
   /* Same reasoning as `.leader` above — no horizontal gap left to span. */
   .pileNoteArrow {
     display: none;
+  }
+
+  /* Bigger, so the note reads at arm's length: the Caveat line, the caption
+     under it, and the go-to-shelf button. */
+  .pileNote > :first-child {
+    font-size: 28px;
+  }
+
+  .pileNoteCaption {
+    font-size: 15px;
+  }
+
+  .pileShelfLink {
+    font-size: 15px;
+    padding: 15px 26px;
+  }
+
+  .pileShelfIcon {
+    width: 19px;
+    height: 19px;
+  }
+}
+
+/*
+ * Tablet, 801–1199px: the desktop arrangement — book stack on the left, the
+ * description on the right (`Landing.module.css` sets the two columns). What
+ * has to change to fit that narrower stage: the arrows shrink to 44px. The
+ * leader line to the description counter and the pile's note, with its dotted
+ * arrow, sit where they do on desktop. Swiping the book also works here.
+ */
+@media (min-width: 801px) and (max-width: 1199px) {
+  .stage {
+    gap: 12px;
+  }
+
+  /* (408px book - 44px arrow) / 2 */
+  .stage > button {
+    width: 44px;
+    height: 44px;
+    margin-top: 182px;
+  }
+
+  .blurb {
+    font-size: 17px;
+  }
+
+  /*
+   * The note lines up with the description: its left edge sits on the
+   * description column's left edge, in the same vertical line. That column
+   * starts one grid gap past the stage's right edge, and the pile is centred
+   * in the stage, so from the pile's right edge it is
+   *   (stage width − 384px pile) / 2 + gap
+   * away. `.stage` is the size container that `cqw` reads; the gap is
+   * `.landing`'s own `clamp(24px, 4vw, 64px)`. The arrow keeps its 80px and
+   * sits just left of the note.
+   */
+  .stage {
+    container-type: inline-size;
+  }
+
+  .pileWrap {
+    --note-left: calc(100% + (100cqw - 384px) / 2 + clamp(24px, 4vw, 64px));
+  }
+
+  .pileNote {
+    left: var(--note-left);
+    margin-left: 0;
+  }
+
+  .pileNoteArrow {
+    left: calc(var(--note-left) - 100px);
   }
 }

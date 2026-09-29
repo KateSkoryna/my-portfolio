@@ -107,7 +107,7 @@ and edge-on.
 |---|---|---|---|---|---|---|
 | 01 | Resume | `/resume` | Hardcover book | `#1F6F5F` | `#103C33` | 28px |
 | 02 | My Projects | `/projects` | Glossy magazine | `#FF6F61` | `#B8453A` | **36px** |
-| 03 | Dev Journal | `/journal` | Softcover notebook | `#DCE9E2` | `#8FAE9F` | 20px |
+| 03 | Dev Journal | `/journal` | Spiral-bound notebook | `#DCE9E2` | `#8FAE9F` | 20px |
 | 04 | Off the Clock | `/about` | Folded newspaper | `#E9B44C` | `#A97C22` | 16px |
 | 05 | Prompting Handbook | `/handbook` | Field guide | `#155246` | `#08241E` | 24px |
 
@@ -151,10 +151,16 @@ Per-object cover art, at 216 × 260:
   charcoal rule above a 13px Bricolage headline.
 - **Notebook** — `linear-gradient(160deg, #DCE9E2, #C3D6CB)`, radius 9px all
   round. Ruled interior showing through: `repeating-linear-gradient(180deg,
-  rgba(31,111,95,.11) 0 1px, transparent 1px 20px)`. A 15px vertical elastic
-  band at `right: 32px`, gradient `#123F36 → #1F6F5F 45% → #123F36`, extending
-  12px past the top and bottom. A coral ribbon marker 11px wide at
-  `right: 76px`, notched with `clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%)`,
+  rgba(31,111,95,.11) 0 1px, transparent 1px 20px)`. **Spiral binding down the
+  left edge**: a column of 22px-wide × 7px-tall wire coils, one every 20px to
+  sit on the ruling, `emeraldDeep`, each with a 2px highlight along its top
+  edge, the coil overhanging the cover's left edge by 8px; a punched hole (5px,
+  `rgba(21,82,70,.35)`) sits under each coil. The cover's left radius is square
+  where the coils bind it. **The 15px dark-green elastic band stays on the
+  right** (`right: 32px`, gradient `#123F36 → #1F6F5F 45% → #123F36`, 12px past
+  the top and bottom) — a closure strap, spiral on one side and band on the
+  other (see §6). A coral ribbon marker **18px** wide (was 11px — Kateryna's
+  call, it read too thin) at `right: 76px` (clears the band by 29px), notched with `clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%)`,
   75px tall from the top — short, like a bookmark poking out, not the full
   height of the cover (Kateryna's call, halved once more from an already-
   shortened first pass; it read as a stripe at full length).
@@ -217,6 +223,10 @@ edgeBottom absolute; left 0; right 0; bottom 0; height 1px
 
 bandA/B    absolute; right 30/23px; top 24%; bottom 24%; width 2px; radius 1px
            background band                         (two raised spine bands)
+           EXCEPT the notebook: a spiral has no spine, so instead of the two
+           bands it shows the coil edge — a row of 2px loops every 9px along
+           the slab (`repeating-linear-gradient(90deg, band 0 2px, transparent
+           2px 9px)`), same top/bottom 24% inset, same `band` colour.
 
 label      position relative; z-index 2
            Manrope 800 / (h < 18 ? 7.5px : 8.5–9px) / letter-spacing .16–.18em
@@ -284,7 +294,11 @@ Every route is now designed on the canvas, desktop **and** mobile. "Designed"
 
 - `/shelf` — desktop shows covers **and** the closed edge-on row; mobile shows
   a vertical list of covers **only** (five covers can't be legible side by side
-  at 390px, and the pile already lives on the mobile landing).
+  at 390px, and the pile already lives on the mobile landing), 21% larger than
+  the 216px reference. Tablet (801–1279px) shows the covers only, two per row,
+  each cover scaled to fill its column (measured, not a fixed size) with the
+  caption running the full column width, and the odd fifth cover left-aligned
+  on its own row *(Kateryna's call)*.
 - `/resume`, `/handbook` — desktop is a two-page spread; mobile is one page at
   a time, so the indicator counts pages ("Page 2 of 5"), not spreads.
 - `/about` — desktop is multi-column with a centre fold; mobile is single
@@ -392,6 +406,30 @@ screen-reader user still gets a position cue; each dot already carries an
 
 `/resume` and `/handbook` are interactive in the mockup: the dots and the
 page-arrows drive one shared `sel` state, and the folio numbers track it.
+
+### 4.3b Journal (`/journal`) — the spiral notebook
+
+**Proposed — layout details await Kateryna's confirmation** (spiral in the
+centre of the spread is confirmed). The notebook opens
+like `/resume`: two cream (`#FFF7ED`) pages side by side, but bound by a
+**spiral down the centre gutter** instead of a hinge shadow. Coils use the same
+construction as the cover (§2.1), 20px pitch, drawn with CSS gradients — no
+canvas, no images. Both pages carry the punched holes beside the coils and the
+ruled lines from the cover.
+
+- **Left page: the index.** Entries newest first — date, title, one-line
+  excerpt, tag chips. Each entry is a real `<a href>` to its own URL.
+- **Right page: the open entry**, MDX rendered in the body type (§1.3). Tags as
+  `Chip`s, a Caveat margin note allowed for asides only (§1.3).
+- **Mobile:** one page at a time, coil down the left edge; index first, entry
+  on its own page.
+- Long entries scroll **inside the page**, not the site; the binding stays put.
+- Arrows / dots page through entries; dots-only with `aria-current` (§4.3).
+  Arrows disable at the ends — a notebook does not loop.
+- Page turn is the `/resume` hinged leaf, `duration.turn`, disabled under
+  `prefers-reduced-motion`. Coils never animate.
+- Entry text is Kateryna's; nothing is invented. Until real posts exist the
+  entries are clearly marked samples in `[BRACKETS]`.
 
 ### 4.4 Shared page chrome (every route)
 
@@ -519,6 +557,14 @@ Kept so they are not re-litigated or re-broken.
   then asked for is built entirely from box-shadows (inset highlight top, inset
   shadow bottom, contact + drop) plus the `coverDark` ring and two raised bands
   — never by reintroducing a colour gradient. See §2.2.
+- **The journal is a spiral notebook** (§2.1, §4.3b). *(Kateryna's call.)* The
+  softcover-with-elastic-band was a hardcover notebook in disguise; a spiral
+  makes it read as a different object from the resume book both face-on and
+  edge-on, and it needs only CSS gradients. The **dark-green elastic band is
+  kept** on the cover's right edge (Kateryna's call, reversing my first
+  proposal to drop it) and the coral ribbon is widened to 18px. Edge-on, the two spine bands become a
+  row of coil loops (§2.2). This changes the shared `BookCover` and `ClosedBook`
+  components, so it also changes the landing pile and `/shelf`.
 - **`/about` scrolls** (1260px) — not forced to the uniform 960.
 - **Even thickness, ≥ 16px** (§2), one canonical set everywhere.
 - **Magazine renamed "My Projects."**
