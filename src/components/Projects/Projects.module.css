@@ -74,6 +74,7 @@
 }
 
 .feature {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   margin: clamp(4px, 1vh, 12px) var(--gutter) 0;
@@ -134,17 +135,17 @@
 /* The field-guide cover's mustard dot and sage dot grid, DESIGN.md §2.1. */
 .circleGold {
   position: absolute;
-  top: 78px;
+  top: 40px;
   right: 28px;
-  width: 30px;
-  height: 30px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: var(--color-mustard);
 }
 
 .dotGrid {
   position: absolute;
-  top: 20px;
+  top: 90px;
   right: 16px;
   width: 80px;
   height: 80px;
@@ -499,4 +500,58 @@
 
 .srOnly {
   composes: visuallyHidden from '@/styles/shared.module.css';
+}
+
+/* --- Project change: the old project is wiped away ----------------------
+   A copy of the old project lies over the card and a rotating edge, hinged at
+   the card's bottom centre, sweeps it away 180° like a wiper, uncovering the
+   new project underneath. The edge is a conic-gradient mask whose start angle
+   is animated (`--sweep-angle`), so the old project itself never moves or
+   rotates — it is just cut away. Where `@property` is unsupported the angle
+   does not interpolate and the old project simply disappears at the end. */
+
+@property --sweep-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.sweep {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  filter: drop-shadow(var(--shadow-sweep-edge));
+}
+
+/* Visible: the 180° clockwise from `270deg + angle` — at 0 that is the whole
+   card (everything above its bottom edge); at 180deg it is nothing. */
+.sweepOld {
+  mask-image: conic-gradient(
+    from calc(270deg + var(--sweep-angle)) at 50% 100%,
+    #000 0deg 179.6deg,
+    transparent 180deg 360deg
+  );
+  animation: sweepAngle var(--motion-sweep-turn) var(--motion-ease-page-turn) both;
+}
+
+@keyframes sweepAngle {
+  from {
+    --sweep-angle: 0deg;
+  }
+  to {
+    --sweep-angle: 180deg;
+  }
+}
+
+/* The copy of the card: same layout as `.feature`, with none of the card's own
+   margin, shadow or clip. */
+.featureClone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  min-height: 0;
+  border-radius: 0;
+  box-shadow: none;
 }

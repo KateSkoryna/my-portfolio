@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { MarginNote } from '@/components/MarginNote/MarginNote';
+import { motion } from '@/lib/design/tokens';
 import type { ProjectIssue, RepoLanguage } from '@/lib/github/repos';
 
 import { FetchedAgo } from './FetchedAgo';
@@ -14,8 +15,19 @@ import styles from './Projects.module.css';
 /** A summary still in [BRACKETS] is a placeholder awaiting Kateryna — CLAUDE.md rule 2. */
 const isPlaceholder = (text: string) => text.startsWith('[');
 
+const summaryOf = (issue: ProjectIssue) =>
+  isPlaceholder(issue.summary) ? issue.summary : issue.summary || issue.stats?.description || '';
+
 /** Accent per project, fixed to the repo so its colour follows it into the feature slot. */
 const ACCENTS = ['emerald', 'coral', 'mustard', 'deep'] as const;
+
+interface Sweep {
+  /** Issue index of the project being replaced. */
+  from: number;
+  /** Size of the feature card, so the copy of the old project matches it exactly. */
+  width: number;
+  height: number;
+}
 
 /**
  * DESIGN.md §3 `/projects` — the magazine: a coral masthead, one large feature
@@ -40,29 +52,50 @@ export function Projects({
   // mounted and keeps focus.
   const [slots, setSlots] = useState(() => issues.map((_, i) => i));
   const [announce, setAnnounce] = useState('');
+  const [sweep, setSweep] = useState<Sweep | null>(null);
+  const featureRef = useRef<HTMLElement>(null);
+  const timers = useRef<number[]>([]);
+
+  useEffect(() => {
+    const pending = timers.current;
+    return () => pending.forEach((id) => window.clearTimeout(id));
+  }, []);
 
   const date = new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : locale, {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
   });
-  const summaryOf = (issue: ProjectIssue) =>
-    isPlaceholder(issue.summary) ? issue.summary : issue.summary || issue.stats?.description || '';
 
-  function promote(slot: number) {
+  function swap(slot: number) {
     setSlots((prev) => {
       const next = [...prev];
       [next[0], next[slot]] = [next[slot], next[0]];
       return next;
     });
+  }
+
+  function promote(slot: number) {
+    if (sweep) return; // one change at a time
     setAnnounce(t('nowFeatured', { name: issues[slots[slot]].repo }));
+
+    const box = featureRef.current?.getBoundingClientRect();
+    if (!box?.width || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      swap(slot);
+      return;
+    }
+
+    // The old project stays on top and is wiped away by an edge that swings
+    // 180° about the card's bottom centre, like a wiper, uncovering the new
+    // project. The slots swap straight away underneath, so the new project is
+    // already there.
+    setSweep({ from: slots[0], width: box.width, height: box.height });
+    swap(slot);
+    timers.current.push(window.setTimeout(() => setSweep(null), motion.sweepTurn));
   }
 
   const feature = issues[slots[0]];
   const featureAccent = ACCENTS[slots[0] % ACCENTS.length];
-  const featureSummary = summaryOf(feature);
-  const featureLanguages = feature.stats?.languages ?? [];
-
   return (
     <div className={styles.page}>
       <div className={styles.masthead}>
@@ -77,86 +110,20 @@ export function Projects({
         <MarginNote>{t('marginNote')}</MarginNote>
       </div>
 
-      <article className={styles.feature} data-accent={featureAccent}>
-        <div className={styles.featurePanel}>
-          <span className={styles.circle} aria-hidden="true" />
-          <span className={styles.circleGold} aria-hidden="true" />
-          <span className={styles.dotGrid} aria-hidden="true" />
-          <p className={styles.featureKicker}>{t('featureProject')}</p>
-          <div className={styles.featurePanelFoot}>
-            <h2 className={styles.panelName}>{feature.repo}</h2>
-            <p className={`${styles.links} ${styles.linksOnDark}`}>
-              <a href={feature.url} className={styles.link}>
-                {t('viewCode')} <span aria-hidden="true">→</span>
-              </a>
-              {feature.demoUrl && (
-                <a href={feature.demoUrl} className={styles.link}>
-                  {t('demo')} <span aria-hidden="true">→</span>
-                </a>
-              )}
-            </p>
+      <article ref={featureRef} className={styles.feature} data-accent={featureAccent}>
+        <FeatureContent feature={feature} locale={locale} />
+        {sweep && (
+          <div className={styles.sweep} aria-hidden="true">
+            <div
+              className={`${styles.feature} ${styles.featureClone} ${styles.sweepOld}`}
+              data-accent={ACCENTS[sweep.from % ACCENTS.length]}
+              style={{ width: sweep.width, height: sweep.height }}
+              inert
+            >
+              <FeatureContent feature={issues[sweep.from]} locale={locale} />
+            </div>
           </div>
-        </div>
-
-        <div className={styles.featureBody}>
-          <p className={isPlaceholder(featureSummary) ? styles.placeholder : styles.summary}>
-            {featureSummary}
-          </p>
-
-          {feature.stats && (
-            <dl className={styles.facts}>
-              <div>
-                <dt>{t('lastCommit')}</dt>
-                <dd>{date.format(new Date(feature.stats.pushedAt))}</dd>
-              </div>
-              {featureLanguages.length > 0 && (
-                <>
-                  {!feature.stack && (
-                    <div>
-                      <dt>{t('language')}</dt>
-                      <dd>{featureLanguages[0].name}</dd>
-                    </div>
-                  )}
-                  <div className={styles.languageSplit}>
-                    <dt>{t('languageSplit')}</dt>
-                    <dd>
-                      <LanguageBar languages={featureLanguages} />
-                      <span className={styles.splitText}>
-                        {featureLanguages.map((l) => `${l.name} ${l.percent}%`).join(' · ')}
-                      </span>
-                    </dd>
-                  </div>
-                </>
-              )}
-            </dl>
-          )}
-
-          <div className={styles.stackBlock}>
-            <p className={styles.stackLabel}>{t('stack')}</p>
-            <ul className={styles.stack}>
-              {(feature.stack ?? [t('stackPlaceholder')]).map((name) => (
-                <li key={name} className={feature.stack ? undefined : styles.stackPlaceholder}>
-                  {name}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className={styles.screenshot}>
-          {feature.screenshot ? (
-            <Image
-              src={feature.screenshot.src}
-              width={feature.screenshot.width}
-              height={feature.screenshot.height}
-              alt={feature.screenshot.alt}
-              sizes="(min-width: 1200px) 25vw, 100vw"
-              className={styles.screenshotImage}
-            />
-          ) : (
-            <p>{t('screenshot')}</p>
-          )}
-        </div>
+        )}
       </article>
 
       <ul className={styles.cards}>
@@ -219,6 +186,102 @@ export function Projects({
         {announce}
       </p>
     </div>
+  );
+}
+
+/** The three panels of the feature card. Rendered once live and, during a project change, again inside every flipping tile. */
+function FeatureContent({ feature, locale }: { feature: ProjectIssue; locale: string }) {
+  const t = useTranslations('projects');
+  const date = new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : locale, {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
+  const featureSummary = summaryOf(feature);
+  const featureLanguages = feature.stats?.languages ?? [];
+
+  return (
+    <>
+      <div className={styles.featurePanel}>
+        <span className={styles.circle} aria-hidden="true" />
+        <span className={styles.circleGold} aria-hidden="true" />
+        <span className={styles.dotGrid} aria-hidden="true" />
+        <p className={styles.featureKicker}>{t('featureProject')}</p>
+        <div className={styles.featurePanelFoot}>
+          <h2 className={styles.panelName}>{feature.repo}</h2>
+          <p className={`${styles.links} ${styles.linksOnDark}`}>
+            <a href={feature.url} className={styles.link}>
+              {t('viewCode')} <span aria-hidden="true">→</span>
+            </a>
+            {feature.demoUrl && (
+              <a href={feature.demoUrl} className={styles.link}>
+                {t('demo')} <span aria-hidden="true">→</span>
+              </a>
+            )}
+          </p>
+        </div>
+      </div>
+
+      <div className={styles.featureBody}>
+        <p className={isPlaceholder(featureSummary) ? styles.placeholder : styles.summary}>
+          {featureSummary}
+        </p>
+
+        {feature.stats && (
+          <dl className={styles.facts}>
+            <div>
+              <dt>{t('lastCommit')}</dt>
+              <dd>{date.format(new Date(feature.stats.pushedAt))}</dd>
+            </div>
+            {featureLanguages.length > 0 && (
+              <>
+                {!feature.stack && (
+                  <div>
+                    <dt>{t('language')}</dt>
+                    <dd>{featureLanguages[0].name}</dd>
+                  </div>
+                )}
+                <div className={styles.languageSplit}>
+                  <dt>{t('languageSplit')}</dt>
+                  <dd>
+                    <LanguageBar languages={featureLanguages} />
+                    <span className={styles.splitText}>
+                      {featureLanguages.map((l) => `${l.name} ${l.percent}%`).join(' · ')}
+                    </span>
+                  </dd>
+                </div>
+              </>
+            )}
+          </dl>
+        )}
+
+        <div className={styles.stackBlock}>
+          <p className={styles.stackLabel}>{t('stack')}</p>
+          <ul className={styles.stack}>
+            {(feature.stack ?? [t('stackPlaceholder')]).map((name) => (
+              <li key={name} className={feature.stack ? undefined : styles.stackPlaceholder}>
+                {name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className={styles.screenshot}>
+        {feature.screenshot ? (
+          <Image
+            src={feature.screenshot.src}
+            width={feature.screenshot.width}
+            height={feature.screenshot.height}
+            alt={feature.screenshot.alt}
+            sizes="(min-width: 1200px) 25vw, 100vw"
+            className={styles.screenshotImage}
+          />
+        ) : (
+          <p>{t('screenshot')}</p>
+        )}
+      </div>
+    </>
   );
 }
 
