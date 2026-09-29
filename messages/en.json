@@ -62,7 +62,7 @@
     "projects": {
       "kindLabel": "Magazine",
       "title": "My Projects",
-      "coverKicker": "Issue 01 · Projects",
+      "coverKicker": "Code · Live Demo",
       "coverTitle": "My Projects",
       "coverFoot": "Updated hourly from GitHub",
       "blurb": "An issue-per-project magazine. Stars, language split and last-commit dates arrive live from the GitHub API on the server and refresh every hour, so it never goes stale.",
@@ -86,7 +86,7 @@
       "title": "Off the Clock",
       "coverKicker": "Weekend edition · [YOUR CITY]",
       "coverTitle": "Off the Clock",
-      "coverFoot": "Photographs · Trivia · Recommendations",
+      "coverFoot": "Eleven things that never fit on a CV",
       "blurb": "The human column — where I am from, what I do away from a keyboard, and the facts that have no business being on a CV but are the reason people remember you.",
       "shortBlurb": "The human column — everything that has no business on a CV.",
       "chips": ["[YOUR FACTS]", "Photo essay"],

@@ -143,23 +143,39 @@ Per-object cover art, at 216 × 260:
   `left: -38px; bottom: -42px; opacity .26`. Kicker "CURRICULUM VITAE" in
   mustard at 8px/.24em. Title 35px Bricolage in cream. Foot: name and year,
   9px, `rgba(255,247,237,.85)`.
-- **Magazine** — cream field. Coral masthead band 52px tall across the top
-  holding the title at 21px reversed out. Issue line in emerald 8px/.22em.
-  A 2×2 grid of 46px article thumbnails (sage / emeraldDeep / mustard / sage).
-  A 2.5px charcoal rule above a 13px Bricolage headline.
+- **Magazine** — cream field. Coral masthead band 52px tall across the top,
+  title at 21px reversed out, left-aligned at the same 18px inset every other
+  cover kind's title uses (was centered — the one exception — until
+  Kateryna's call to match). Issue line in emerald 8px/.22em. A 2×2 grid of
+  46px article thumbnails (sage / emeraldDeep / mustard / sage). A 2.5px
+  charcoal rule above a 13px Bricolage headline.
 - **Notebook** — `linear-gradient(160deg, #DCE9E2, #C3D6CB)`, radius 9px all
   round. Ruled interior showing through: `repeating-linear-gradient(180deg,
   rgba(31,111,95,.11) 0 1px, transparent 1px 20px)`. A 15px vertical elastic
   band at `right: 32px`, gradient `#123F36 → #1F6F5F 45% → #123F36`, extending
   12px past the top and bottom. A coral ribbon marker 11px wide at
-  `right: 76px`, notched with `clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%)`.
+  `right: 76px`, notched with `clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%)`,
+  75px tall from the top — short, like a bookmark poking out, not the full
+  height of the cover (Kateryna's call, halved once more from an already-
+  shortened first pass; it read as a stripe at full length).
   Title in **Caveat** 37px — the one cover where the display face is the
-  handwriting.
-- **Newspaper** — newsprint `#FBF6EA`. A 16px vertical centre crease made of a
-  soft dark gradient. Masthead between double rules (2px + 1px above, 1px +
-  2px below), title 21px centred, dateline 6.5px/.22em. A 14.5px headline,
-  then a three-column grid of hairline "text" (`repeating-linear-gradient(180deg,
-  rgba(35,35,35,.24) 0 1px, transparent 1px 6px)`) with one mustard photo block.
+  handwriting. A `coverFoot` line (`item.coverFoot`, existing content, not
+  previously surfaced here) sits bottom-left in the same hand at 15px — a
+  scribbled note under the title, not a second heading. Was missing entirely;
+  every other cover kind already prints its `coverFoot`.
+- **Newspaper** — newsprint `#FBF6EA`. No centre crease — dropped, briefly
+  restored to match a reference mockup, dropped again for good (Kateryna's
+  call both times; the mockup isn't the final word here). Two double rules
+  sandwich the title/kicker block, one above and one below — was only one
+  rule, between the title and kicker, until the reference mockup showed the
+  masthead needs both. Title 21px centred, dateline 6.5px/.22em. A 14.5px
+  headline (`item.coverFoot`: "Eleven things that never fit on a CV"), then a
+  short (70px) three-column grid: two
+  columns of hairline "text" (`repeating-linear-gradient(180deg,
+  rgba(35,35,35,.24) 0 1px, transparent 1px 6px)`), and the **last** column a
+  square mustard photo block, no hairlines (`aspect-ratio: 1/1`, top-aligned,
+  not stretched to the text columns' full height) — a photo insert, not a
+  fourth column of text.
 - **Field guide** — the existing handbook cover, unchanged so it stays
   recognisable: emerald gradient, coral circle top-right, mustard circle,
   sage circle bottom-left, a 14px sage dot grid, "FIELD NOTES" kicker, four-line

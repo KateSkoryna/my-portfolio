@@ -40,8 +40,10 @@
   --radius-closed: 4px 2px 2px 4px;
 
   /* Shadow — DESIGN.md §1.4 */
-  --shadow-rest:          0 18px 32px -22px rgba(20,40,30,.45);
-  --shadow-raised:        0 30px 46px -20px rgba(20,40,30,.6);
+  --shadow-rest:          0 20px 28px -12px rgba(20,40,30,.55);
+  --shadow-raised:        0 32px 40px -12px rgba(20,40,30,.65);
+  --shadow-rest-dark:     0 22px 32px -8px rgba(10,20,15,.62);
+  --shadow-raised-dark:   0 34px 42px -8px rgba(10,20,15,.72);
   --shadow-closed:        0 10px 18px -14px rgba(20,40,30,.6);
   --shadow-button:        0 10px 20px -10px rgba(31,111,95,.7);
   --shadow-chip:          0 4px 10px -4px rgba(20,40,30,.28);

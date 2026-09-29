@@ -43,7 +43,7 @@
     "projects": {
       "kindLabel": "Magazin",
       "title": "Meine Projekte",
-      "coverKicker": "Ausgabe 01 · Projekte",
+      "coverKicker": "Code · Live-Demo",
       "coverTitle": "Meine Projekte",
       "coverFoot": "Stündlich aktualisiert von GitHub",
       "blurb": "Ein Magazin mit einer Ausgabe pro Projekt. Stars, Sprachverteilung und letzte Commit-Daten kommen live von der GitHub-API auf dem Server und werden stündlich aktualisiert, damit nichts veraltet.",
@@ -67,7 +67,7 @@
       "title": "Feierabend",
       "coverKicker": "Wochenendausgabe · [DEINE STADT]",
       "coverTitle": "Feierabend",
-      "coverFoot": "Fotos · Wissenswertes · Empfehlungen",
+      "coverFoot": "Elf Dinge, die auf keinen Lebenslauf passen",
       "blurb": "Die menschliche Kolumne — woher ich komme, was ich abseits der Tastatur mache, und die Fakten, die auf keinem Lebenslauf etwas verloren haben, aber der Grund sind, warum man sich an dich erinnert.",
       "shortBlurb": "Die menschliche Kolumne — alles, was auf keinem Lebenslauf etwas verloren hat.",
       "chips": ["[DEINE FAKTEN]", "Fotoessay"],

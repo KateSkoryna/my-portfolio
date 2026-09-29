@@ -33,7 +33,18 @@ export function BookCover({
   selected?: boolean;
 }) {
   const scale = BASE[size] / BASE.shelf;
-  const baseShadow = size === 'hero' ? 'var(--shadow-raised)' : 'var(--shadow-rest)';
+  // `book` and `fieldguide` fade to a near-black `coverDark` — the ordinary
+  // shadow reads flatter against them (see the note on `shadow.restDark` in
+  // tokens.ts), so they get the wider, higher-opacity variant instead.
+  const isDarkCover = item.kind === 'book' || item.kind === 'fieldguide';
+  const baseShadow =
+    size === 'hero'
+      ? isDarkCover
+        ? 'var(--shadow-raised-dark)'
+        : 'var(--shadow-raised)'
+      : isDarkCover
+        ? 'var(--shadow-rest-dark)'
+        : 'var(--shadow-rest)';
   const style = {
     '--cover-scale': scale,
     '--cover-w': `${BASE[size]}px`,
@@ -96,19 +107,23 @@ export function BookCover({
           <div className={styles.elasticBand} aria-hidden="true" />
           <div className={styles.ribbon} aria-hidden="true" />
           <p className={styles.notebookTitle}>{item.coverTitle}</p>
+          <p className={styles.notebookFoot}>{item.coverFoot}</p>
         </>
       )}
       {item.kind === 'newspaper' && (
         <>
-          <div className={styles.crease} aria-hidden="true" />
-          <div className={styles.mastheadRules} aria-hidden="true" />
+          <div className={`${styles.mastheadRule} ${styles.mastheadRuleTop}`} aria-hidden="true" />
           <p className={styles.paperTitle}>{item.coverTitle}</p>
           <p className={styles.dateline}>{item.coverKicker}</p>
+          <div
+            className={`${styles.mastheadRule} ${styles.mastheadRuleBottom}`}
+            aria-hidden="true"
+          />
           <p className={styles.headline}>{item.coverFoot}</p>
           <div className={styles.columns} aria-hidden="true">
             <span />
-            <span className={styles.photoBlock} />
             <span />
+            <span className={styles.photoBlock} />
           </div>
         </>
       )}
