@@ -30,11 +30,13 @@
   flex: 1;
   min-height: 0;
   display: grid;
+  /* Mobile: the book, then the dots — no arrow buttons (pages turn by
+     swiping). Desktop restores the arrows below. */
   grid-template-rows: minmax(0, 1fr) auto;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
-    'book book book'
-    'prev dots next';
+    'book'
+    'dots';
   align-items: center;
   gap: 8px 12px;
   width: 100%;
@@ -112,6 +114,11 @@
   position: relative; /* offsetParent for measuring where the closing leaf falls */
   height: 100%;
   overflow: hidden;
+  /* `.flow` is a scroll container (overflow hidden), and a touch that starts
+     inside one only honours `touch-action` set on it or below — not the one
+     on `.book`. Without this the browser claims a horizontal drag as a pan and
+     cancels the pointer, so the page-turn swipe never fires. */
+  touch-action: pan-y;
   font-family: var(--font-body), system-ui, sans-serif;
   font-size: 13px;
   line-height: 1.6;
@@ -124,10 +131,17 @@
 
 .prev {
   grid-area: prev;
+  display: none;
 }
 
 .next {
   grid-area: next;
+  display: none;
+}
+
+/* Horizontal drags turn the page; vertical ones still scroll. */
+.book {
+  touch-action: pan-y;
 }
 
 .dots {
@@ -142,6 +156,8 @@
 
 @media (min-width: 900px) {
   .stage {
+    grid-template-rows: minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     grid-template-areas:
       'prev book next'
       '. dots .';
@@ -174,6 +190,15 @@
 
   .dotsPage {
     display: none;
+  }
+}
+
+/* Arrow buttons only on wide desktops; below that (phones and tablets) the
+   pages turn by swiping. */
+@media (min-width: 1200px) {
+  .prev,
+  .next {
+    display: block;
   }
 }
 
