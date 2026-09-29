@@ -43,7 +43,13 @@
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
+  /* Same spacing as the resume (`Resume.module.css` `.stage`): the same top and
+     side padding, none at the bottom (the footer brings its own), an 8px gap
+     to the dots. The book keeps its aspect ratio, so unlike the resume it can
+     be shorter than the space — the book and the dots are then centred as one
+     group, the dots always right under the book. */
+  grid-template-rows: auto auto;
+  align-content: center;
   grid-template-columns: auto minmax(0, 1fr) auto;
   grid-template-areas:
     'prev book next'
@@ -53,7 +59,7 @@
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
-  padding: 0 clamp(16px, 5vw, 48px) 8px;
+  padding: clamp(12px, 2.6vh, 28px) clamp(16px, 5vw, 48px) 0;
 }
 
 /* Measured by `HandbookBook` to scale the book to what is left. */
@@ -80,6 +86,64 @@
   grid-area: dots;
   display: flex;
   justify-content: center;
+  min-width: 0;
+}
+
+/* The dots share the width the page gives them (each up to 44px, a fluid gap
+   between) instead of running out over the side padding when there are many. */
+.navDots > div {
+  width: 100%;
+  justify-content: center;
+  gap: clamp(0px, 1vw, 6px);
+}
+
+.navDots button {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 44px;
+  padding-inline: 0;
+}
+
+/* Horizontal drags turn the page; vertical ones still scroll. Set all the way
+   down: the pages are `overflow: hidden`, and a touch inside one only honours
+   the `touch-action` on it or below it. */
+.bookArea,
+.bookArea * {
+  touch-action: pan-y;
+}
+
+/* Phones: a window one page wide over the book, shifted between its halves. */
+.scalerClip {
+  /* Clips the sides (the other half of the book) but not the top and bottom,
+     so the page's drop shadow still shows — `overflow: hidden` cut it off and
+     left the single page looking flat. */
+  clip-path: inset(-120px 0 -120px 0);
+}
+
+.stageShift {
+  transition: transform var(--motion-turn) var(--motion-ease);
+}
+
+/* Phones: the page changes at once, as on the resume — no leaf turn, no slide
+   between the two halves of a spread. */
+.instant .stageShift,
+.instant .leaf {
+  transition: none;
+}
+
+/* No arrow buttons below desktop: swipe, or use the dots. */
+@media (max-width: 1199px) {
+  .root {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'book'
+      'dots';
+  }
+
+  .prev,
+  .next {
+    display: none;
+  }
 }
 
 /* --- Book, ported from index.html --- */
@@ -115,6 +179,39 @@
   width: calc(var(--page-w) * 2);
   height: var(--page-h);
   transform-style: preserve-3d;
+}
+/* Volume: the page edges of the block on the right — the same fore-edge
+   lines as the covers (`BookCover.module.css` `.foreEdge`) — and a shadow on
+   the ground under the whole book. Static; on phones (one page, clipped) the
+   pages' own drop shadows carry it. */
+.book::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  right: -7px;
+  width: 9px;
+  z-index: 0;
+  border-radius: 0 6px 6px 0;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 247, 237, 0.92) 0 1px,
+    rgba(196, 181, 152, 0.7) 1px 3px
+  );
+  box-shadow: 4px 0 8px -4px rgba(20, 40, 30, 0.35);
+  pointer-events: none;
+}
+.stage:not(.stageShift)::after {
+  content: '';
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: -34px;
+  height: 44px;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--shadow-suspension);
+  pointer-events: none;
 }
 .endpaper {
   position: absolute;
@@ -205,11 +302,11 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.1), transparent 14%);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.16), transparent 16%);
   border-radius: inherit;
 }
 .face.back::after {
-  background: linear-gradient(270deg, rgba(0, 0, 0, 0.1), transparent 14%);
+  background: linear-gradient(270deg, rgba(0, 0, 0, 0.16), transparent 16%);
 }
 .page {
   position: absolute;

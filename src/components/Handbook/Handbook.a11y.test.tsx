@@ -10,14 +10,19 @@ import { handbookLeaves } from './HandbookFaces';
 import { HandbookBook } from './HandbookBook';
 
 // jsdom has no layout, `matchMedia` or `ResizeObserver`. Reduced motion is
-// stubbed on so leaves land instantly instead of waiting for a transition.
-beforeEach(() => {
+// stubbed on so leaves land instantly instead of waiting for a transition;
+// `mobile` stands in for the ≤ 800px one-page layout.
+function mockMedia(mobile: boolean) {
   vi.stubGlobal('matchMedia', (query: string) => ({
-    matches: true,
+    matches: query.includes('prefers-reduced-motion') || (mobile && query.includes('max-width')),
     media: query,
     addEventListener: () => {},
     removeEventListener: () => {},
   }));
+}
+
+beforeEach(() => {
+  mockMedia(false);
   vi.stubGlobal(
     'ResizeObserver',
     class {
@@ -87,5 +92,54 @@ describe('Handbook — DESIGN.md §4.3 and §5', () => {
     );
     expect(prev().disabled).toBe(false);
     expect(next().disabled).toBe(false);
+  });
+
+  describe('on a phone (one page at a time)', () => {
+    /** jsdom has no PointerEvent; React only reads `type` and the coordinates. */
+    function swipe(book: HTMLElement, fromX: number, toX: number, dy = 0) {
+      const at = (type: string, x: number, y: number) =>
+        fireEvent(book, new MouseEvent(type, { bubbles: true, clientX: x, clientY: y }));
+      at('pointerdown', fromX, 200);
+      at('pointerup', toX, 200 + dy);
+    }
+
+    it('has one dot per page: the cover, both halves of each spread, the back cover', () => {
+      mockMedia(true);
+      const { container } = renderBook();
+      expect(container.querySelectorAll('button[aria-label^="Go to"]').length).toBe(9);
+      expect(container.querySelectorAll('button[aria-current="true"]').length).toBe(1);
+    });
+
+    it('turns by swiping and stops at the first and last page', () => {
+      mockMedia(true);
+      const { container } = renderBook();
+      const book = container.querySelector('div[lang="en"]') as HTMLElement;
+      const active = () =>
+        Array.from(container.querySelectorAll('button[aria-label^="Go to"]')).findIndex(
+          (b) => b.getAttribute('aria-current') === 'true',
+        );
+
+      expect(active()).toBe(0);
+      swipe(book, 100, 300); // right at the cover: nothing
+      expect(active()).toBe(0);
+      swipe(book, 300, 100); // left → next page
+      expect(active()).toBe(1);
+      swipe(book, 300, 280); // too short
+      expect(active()).toBe(1);
+      swipe(book, 300, 100, 200); // mostly vertical
+      expect(active()).toBe(1);
+      swipe(book, 100, 300); // right → back
+      expect(active()).toBe(0);
+      for (let i = 0; i < 12; i++) swipe(book, 300, 100);
+      expect(active()).toBe(8); // the back cover, and no further
+    });
+
+    it('exposes only the page in view', () => {
+      mockMedia(true);
+      const { container } = renderBook();
+      const inert = () => container.querySelectorAll('[inert]').length;
+      // The cover alone is in view: the other nine faces are inert.
+      expect(inert()).toBe(9);
+    });
   });
 });
