@@ -715,12 +715,23 @@ download (also linked from the landing page). Notes for review:
 
 ### 4c `/journal` — the notebook
 
+- [ ] Design first: spiral notebook, `docs/DESIGN.md` §2.1, §2.2, §4.3b.
+      Confirm the proposed layout with Kateryna before building.
+- [ ] Shared components: add the left-edge spiral to `BookCover` (notebook),
+      keep the dark-green elastic band on the right, widen the coral ribbon to
+      18px; replace the two bands in `ClosedBook` with the coil-edge row
+      for the notebook. This also changes the landing pile and `/shelf` —
+      re-check both.
 - [ ] MDX entries, tags, reverse-chronological.
-- [ ] Entry index + open entry views.
+- [ ] Entry index + open entry views, bound by a centre spiral (§4.3b).
 - [ ] Dots-only indicator where paged.
+- [ ] Sample entries in `[BRACKETS]` until Kateryna supplies the real posts.
+- [ ] Share button (Web Share API, copy-link fallback) on an open entry.
+      Likes and comments are out of scope for 4c.
 
 **Done when:** an MDX file added to the content directory appears in the index
-and at its own URL with no code change.
+and at its own URL with no code change; the spiral renders on the cover, the
+closed book and the open notebook with no image or canvas; axe clean.
 
 ### 4d `/about` — the newspaper
 
