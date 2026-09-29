@@ -144,6 +144,7 @@
   border-radius: var(--radius-pill);
   background: var(--color-sage);
   color: var(--color-emerald-deep);
+  text-decoration: none;
   font-family: var(--font-body), system-ui, sans-serif;
   font-weight: 700;
   font-size: 11px;

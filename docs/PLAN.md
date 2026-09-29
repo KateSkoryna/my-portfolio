@@ -249,7 +249,7 @@ Accessibility and Lighthouse lead because they are the stated priority.
 | 1 — Design system | `done` | five covers + five closed books, axe clean. Merged (PR #8). |
 | 2 — Landing `/` | `done` | carousel cycles, keyboard, Lighthouse 96/100/96/100. Awaiting human review. |
 | 3 — Shelf `/shelf` | `done` | closed row aligns under covers. Lighthouse 96/100/96/100 (`/shelf`), 95/96/96/100 (`/`). Awaiting human review. |
-| 4 — Item routes | `in progress` (4a done, awaiting review; 4b–4f todo) | every `docs/DESIGN.md` §3 route resolves |
+| 4 — Item routes | `in progress` (4a, 4b done; 4c–4f todo) | every `docs/DESIGN.md` §3 route resolves |
 | 5 — Keystatic | `todo` | she can add an item in the browser |
 | 6 — Gates | `todo` | CI green on axe, Lighthouse, Playwright |
 
@@ -684,15 +684,35 @@ stats and after simulated API failure. `GITHUB_TOKEN` is absent from
 
 ### 4b `/resume` — the book
 
-- [ ] Two spreads (§4.3), inset spine shadows facing each other.
-- [ ] Arrows **disable at the ends** — a book does not loop.
-- [ ] Dots-only indicator with `aria-current`.
-- [ ] A real print stylesheet — `Cmd+P` gives a clean one-page CV.
-- [ ] PDF download.
-- [ ] Mobile: one page at a time.
+- [x] Two spreads (§4.3), inset spine shadows facing each other.
+- [x] Arrows **disable at the ends** — a book does not loop.
+- [x] Dots-only indicator with `aria-current`.
+- [x] A real print stylesheet — `Cmd+P` gives a clean one-page CV.
+- [x] PDF download.
+- [x] Mobile: one page at a time.
 
 **Done when:** printing produces a usable one-page CV (verified in print
 preview, not assumed); arrows disable correctly at both ends; axe clean.
+
+**4b result** — English CV text is `docs/CV.md` verbatim (`src/content/resume.en.ts`);
+`resume.de.ts` is a German translation of it. The book is a fixed-size frame
+between header and footer; the CV is one flow laid out in CSS columns, one per
+page, so text runs on from page to page and nothing scrolls. Page count is
+measured (4 spreads in EN, 5 in DE at 1440×900). Desktop turns pages with a
+hinged leaf (CSS transform, skipped under reduced motion); the closing
+photo-and-links page always opens on a right-hand page. `npm run build`, lint,
+typecheck and vitest pass; axe (jsdom) clean; arrows disable at both ends
+(tested). Print verified by headless-Chrome `--print-to-pdf`: exactly **1 A4
+page** in EN and DE; the EN output is `public/kateryna-skoryna-cv.pdf`, the
+download (also linked from the landing page). Notes for review:
+- Phone number deliberately omitted (Kateryna's call).
+- Solar Calculator appears in the book only, not in print or the PDF.
+- Not done: Lighthouse on `/resume`, and no human look at 390 / 768 / 1280
+  (mobile shows one page at a time, no page-turn animation).
+- The PDF is a static English copy — regenerate it when the CV changes.
+- No "what I'm looking for" page: it is not in `CV.md` (`profile.lookingFor`
+  is still a placeholder).
+- The German CV text is a translation by Claude — needs Kateryna's read.
 
 ### 4c `/journal` — the notebook
 

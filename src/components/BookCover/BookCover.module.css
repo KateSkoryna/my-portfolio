@@ -51,6 +51,11 @@
 
 /* ---- Book (resume) ---- */
 
+/* The book cover's kicker sits on the same 10px line as its title. */
+.bookKicker {
+  left: calc(10px * var(--cover-scale));
+}
+
 .book {
   background: linear-gradient(150deg, var(--cover-fill), var(--cover-dark));
 }
@@ -85,7 +90,10 @@
 
 .bookTitle {
   position: absolute;
-  left: calc(18px * var(--cover-scale));
+  /* 10px, not the 18px inset the other covers use: the German title
+     ("Lebenslauf") is wider than the English one and ran into the coral
+     circle. Kicker, squiggle and foot share this line. */
+  left: calc(10px * var(--cover-scale));
   /* Design's Covers.dc.html spec: title sits right under the kicker, ~20%
      down the cover — not mid-cover. */
   top: 20%;
@@ -99,7 +107,7 @@
 /* Coral squiggle under the title, DESIGN.md's Covers.dc.html spec board. */
 .bookUnderline {
   position: absolute;
-  left: calc(18px * var(--cover-scale));
+  left: calc(10px * var(--cover-scale));
   top: calc(20% + 44px * var(--cover-scale));
   width: calc(84px * var(--cover-scale));
   height: calc(7px * var(--cover-scale));
@@ -119,7 +127,7 @@
 
 .bookFoot {
   position: absolute;
-  left: calc(18px * var(--cover-scale));
+  left: calc(10px * var(--cover-scale));
   bottom: calc(16px * var(--cover-scale));
   font-family: var(--font-body), system-ui, sans-serif;
   font-size: calc(9px * var(--cover-scale));

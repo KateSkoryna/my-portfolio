@@ -71,7 +71,7 @@ export function BookCover({
           <div className={styles.bookCircleCoral} aria-hidden="true" />
           <div className={styles.bookCircleSage} aria-hidden="true" />
           <div className={styles.bookDotGrid} aria-hidden="true" />
-          <p className={styles.kicker}>{item.coverKicker}</p>
+          <p className={`${styles.kicker} ${styles.bookKicker}`}>{item.coverKicker}</p>
           <p className={styles.bookTitle}>{item.coverTitle}</p>
           <svg className={styles.bookUnderline} viewBox="0 0 84 7" aria-hidden="true">
             <path

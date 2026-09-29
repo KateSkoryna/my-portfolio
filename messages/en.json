@@ -123,5 +123,24 @@
     "stack": "Stack",
     "stackPlaceholder": "[STACK]",
     "selectedWork": "Selected work"
+  },
+  "resume": {
+    "backToStack": "Back to the stack",
+    "downloadPdf": "Download PDF",
+    "goToShelf": "Go to shelf",
+    "book": "Resume",
+    "prev": "Previous pages",
+    "next": "Next pages",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "email": "Email",
+    "getInTouch": "Get in touch",
+    "skills": "Skills",
+    "workExperience": "Work experience",
+    "projects": "Projects",
+    "educationLanguages": "Education & languages",
+    "languages": "Languages",
+    "liveDemo": "Live demo",
+    "code": "Code"
   }
 }

@@ -1,0 +1,661 @@
+/*
+ * `/resume` — the opened book (DESIGN.md §4.3). Desktop: two pages side by
+ * side with inset spine shadows facing each other. Mobile: one page at a
+ * time. The breakpoint must match `SPREAD_QUERY` in `ResumeBook.tsx`.
+ *
+ * The book is a fixed-size frame (it fills the space between header and
+ * footer). The CV is ONE continuous flow of text laid out in CSS columns, one
+ * column per page and each exactly a page tall, so text runs on from the
+ * bottom of one page to the top of the next instead of scrolling. Turning the
+ * page scrolls the (overflow: hidden) flow by one column pitch; the number of
+ * pages is however many columns the text needs at the current size.
+ *
+ * The `@media print` block at the bottom turns all of it into one plain CV —
+ * what Cmd+P produces and what `kateryna-skoryna-cv.pdf` is saved from.
+ */
+
+/* The whole book fits between the header and the footer: the document is
+   exactly one viewport tall and `main` takes what is left. (Print undoes it.) */
+:global(body):has(.stage) {
+  height: 100dvh;
+}
+
+:global(body):has(.stage) > main {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.stage {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    'book book book'
+    'prev dots next';
+  align-items: center;
+  gap: 8px 12px;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: clamp(12px, 2.6vh, 28px) clamp(16px, 5vw, 48px) 0;
+}
+
+.book {
+  --pad: clamp(24px, 6vw, 44px);
+  grid-area: book;
+  align-self: stretch;
+  position: relative;
+  min-width: 0;
+  min-height: 360px;
+}
+
+/* The two page shapes behind the text — empty on purpose. */
+.frames {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.frame {
+  background: var(--color-cream);
+  border-radius: var(--radius-book);
+  box-shadow: var(--shadow-rest);
+}
+
+.frameLeft {
+  display: none;
+}
+
+/* Text sits inside the frames' padding: the container's content box is the
+   text area (one page wide on mobile, two pages minus the outer padding on
+   desktop), which `cqw` below measures. */
+.viewport {
+  position: absolute;
+  inset: 0;
+  padding: var(--pad);
+  container-type: size;
+}
+
+.flow {
+  position: relative; /* offsetParent for measuring where the closing leaf falls */
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-body-text);
+  /* One column per page. Column pitch = text width + gap = page width. */
+  column-width: 100cqw;
+  column-gap: calc(var(--pad) * 2);
+  column-fill: auto;
+}
+
+.prev {
+  grid-area: prev;
+}
+
+.next {
+  grid-area: next;
+}
+
+.dots {
+  grid-area: dots;
+  display: flex;
+  justify-content: center;
+}
+
+.dotsSpread {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .stage {
+    grid-template-areas:
+      'prev book next'
+      '. dots .';
+    gap: 8px clamp(12px, 2vw, 28px);
+  }
+
+  .frames {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Spine in the middle: the left page's sharp edge is its right, and each
+     page darkens toward it. */
+  .frameLeft {
+    display: block;
+    border-radius: 9px 2px 2px 9px;
+    box-shadow: var(--shadow-spine-left), var(--shadow-rest);
+  }
+
+  .frameRight {
+    box-shadow: var(--shadow-spine-right), var(--shadow-rest);
+  }
+
+  .flow {
+    column-width: calc((100cqw - var(--pad) * 2) / 2);
+  }
+
+  .dotsSpread {
+    display: block;
+  }
+
+  .dotsPage {
+    display: none;
+  }
+}
+
+/* --- Page turn (desktop) ------------------------------------------------
+   A leaf hinged on the spine, drawn over the book while the flow underneath
+   has already moved on. Front and back are `PageClone`s of the real pages, so
+   the page you are leaving turns over to reveal the next one. CSS transform +
+   animation only; `ResumeBook` skips the whole thing under reduced motion. */
+
+.book {
+  perspective: 2400px;
+}
+
+.half {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 1;
+}
+
+.halfLeft {
+  left: 0;
+}
+
+.halfRight {
+  left: 50%;
+}
+
+.leaf {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 2;
+  transform-style: preserve-3d;
+  animation-duration: var(--motion-page-turn);
+  animation-timing-function: var(--motion-ease-page-turn);
+  will-change: transform;
+  animation-fill-mode: forwards;
+}
+
+.leafNext {
+  left: 50%;
+  transform-origin: left center;
+  animation-name: turnNext;
+}
+
+.leafPrev {
+  left: 0;
+  transform-origin: right center;
+  animation-name: turnPrev;
+}
+
+@keyframes turnNext {
+  to {
+    transform: rotateY(-180deg);
+  }
+}
+
+@keyframes turnPrev {
+  to {
+    transform: rotateY(180deg);
+  }
+}
+
+.clone {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  background: var(--color-cream);
+  border-radius: var(--radius-book);
+}
+
+.pageLeft {
+  border-radius: 9px 2px 2px 9px;
+  box-shadow: var(--shadow-spine-left), var(--shadow-rest);
+}
+
+.pageRight {
+  box-shadow: var(--shadow-spine-right), var(--shadow-rest);
+}
+
+.faceBack {
+  transform: rotateY(180deg);
+}
+
+/* One page per column here, whatever the book's own column rule is. */
+.cloneFlow {
+  column-width: 100cqw;
+}
+
+/* Empty trailing column that fills out the last spread's right-hand page. */
+.filler {
+  break-before: column;
+  height: 1px;
+}
+
+/* Keep a bullet, a skills row or an education line whole across a page break, and a
+   heading with the text under it. */
+.bullets li,
+.skillRow,
+.education li,
+.summary {
+  break-inside: avoid;
+}
+
+.sectionHeading,
+.roleTitle,
+.roleMeta {
+  break-after: avoid;
+}
+
+/* Role rows: place left, period right. */
+.roleMetaSplit {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 12px;
+}
+
+.sectionHeading {
+  break-inside: avoid;
+}
+
+/* --- Page content ------------------------------------------------------ */
+
+.name {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(30px, 4vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--color-charcoal);
+}
+
+.headline {
+  margin-top: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--color-emerald);
+}
+
+.headlineStack {
+  display: block;
+}
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 14px;
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.contact a,
+.projectLinks a {
+  color: var(--color-emerald-deep);
+  text-underline-offset: 2px;
+}
+
+.summary {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1.5px solid var(--color-sage);
+}
+
+.sectionHeading {
+  margin: 22px 0 10px;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-emerald);
+}
+
+/* Short gold rule under each section heading. */
+.sectionHeading::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin-top: 8px;
+  border-radius: 2px;
+  background: var(--color-mustard);
+}
+
+.skills {
+  display: grid;
+  gap: 8px;
+}
+
+.skillRow dt {
+  font-weight: 800;
+  font-size: 12px;
+  color: var(--color-charcoal);
+}
+
+.skillRow dd {
+  margin: 0;
+  font-size: 12.5px;
+}
+
+.role + .role,
+section + .role {
+  margin-top: 18px;
+}
+
+.roleTitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2px 12px;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--color-charcoal);
+}
+
+.roleMeta {
+  margin-top: 2px;
+  font-weight: 700;
+  font-size: 11.5px;
+  color: var(--color-muted);
+}
+
+.bullets {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding-left: 18px;
+}
+
+.bullets li::marker {
+  color: var(--color-coral);
+}
+
+.bulletLabel {
+  font-weight: 800;
+  color: var(--color-charcoal);
+}
+
+.projectLinks {
+  display: inline-flex;
+  gap: 12px;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.projectText {
+  margin-top: 8px;
+}
+
+.education {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.education li::marker {
+  color: var(--color-coral);
+}
+
+.education strong,
+.languages strong {
+  color: var(--color-charcoal);
+}
+
+.languages {
+  margin-top: 16px;
+}
+
+/* The last leaf: photo and links, on a page of their own, centred both ways
+   (`cqh` = the book's text-area height, i.e. exactly one page). */
+.closing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100cqh;
+  text-align: center;
+  break-before: column;
+  break-inside: avoid;
+}
+
+.closing .sectionHeading {
+  margin: 0;
+}
+
+/* A short gold rule under the heading, and a gold ring round the photo. */
+.closing .sectionHeading::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  margin: 12px auto 22px;
+  border-radius: 2px;
+  background: var(--color-mustard);
+}
+
+.photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow:
+    0 0 0 4px var(--color-cream),
+    0 0 0 7px var(--color-mustard);
+}
+
+.contactLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contactLinks a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--a11y-min-target);
+  padding: 9px 18px;
+  border-radius: var(--radius-pill);
+  background: rgba(220, 233, 226, 0.42);
+  border: 1.5px solid var(--color-emerald);
+  font-weight: 700;
+  font-size: 12.5px;
+  color: var(--color-emerald-deep);
+  text-decoration: none;
+}
+
+/* --- Print: one plain page, no chrome ---------------------------------- */
+
+@page {
+  size: A4;
+  margin: 9mm;
+}
+
+@media print {
+  /* The site's own header, footer and skip link are outside this component. */
+  :global(body > header),
+  :global(body > footer),
+  :global(.skipLink) {
+    display: none !important;
+  }
+
+  :global(body),
+  :global(body):has(.stage) {
+    height: auto;
+    background: #fff;
+  }
+
+  :global(body):has(.stage) > main {
+    display: block;
+  }
+
+  .stage {
+    display: block;
+    max-width: none;
+    padding: 0;
+  }
+
+  .prev,
+  .next,
+  .dots,
+  .frames,
+  .filler,
+  .half,
+  .leaf,
+  .closing,
+  .bookOnly {
+    display: none !important;
+  }
+
+  .book {
+    min-height: 0;
+  }
+
+  .viewport {
+    position: static;
+    padding: 0;
+    container-type: normal;
+  }
+
+  /* German runs longer than English; shrink the whole print layout a touch so
+     it still fits one page. */
+  .book:lang(de) .flow {
+    zoom: 0.92;
+  }
+
+  .flow {
+    height: auto;
+    overflow: visible;
+    columns: auto;
+    column-gap: normal;
+    font-size: 8.1pt;
+    line-height: 1.28;
+    color: #000;
+  }
+
+  .name {
+    font-size: 21pt;
+    color: #000;
+  }
+
+  .headline {
+    margin-top: 3pt;
+    font-size: 9pt;
+    color: #000;
+  }
+
+  .contact {
+    margin-top: 3pt;
+    gap: 0 10pt;
+    font-size: 8.1pt;
+    color: #000;
+  }
+
+  .contact a,
+  .projectLinks a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  .summary {
+    margin-top: 6pt;
+    padding-top: 5pt;
+    border-top: 0.75pt solid #000;
+  }
+
+  .sectionHeading::after {
+    display: none;
+  }
+
+  .sectionHeading {
+    margin: 8pt 0 3pt;
+    padding-bottom: 1.5pt;
+    border-bottom: 0.75pt solid #000;
+    font-size: 8.1pt;
+    color: #000;
+  }
+
+  .skills {
+    gap: 1.5pt;
+  }
+
+  .skillRow dt,
+  .skillRow dd {
+    display: inline;
+    font-size: 8.1pt;
+    color: #000;
+  }
+
+  .skillRow dt::after {
+    content: ': ';
+  }
+
+  .role + .role,
+  section + .role {
+    margin-top: 5pt;
+  }
+
+  .roleTitle {
+    font-size: 9.4pt;
+    color: #000;
+  }
+
+  .roleMeta {
+    margin-top: 0;
+    font-size: 8.1pt;
+    color: #000;
+  }
+
+  .bullets {
+    gap: 1.5pt;
+    margin-top: 2pt;
+    padding-left: 11pt;
+  }
+
+  .bulletLabel,
+  .education strong,
+  .languages strong {
+    color: #000;
+  }
+
+  .projectLinks {
+    gap: 8pt;
+    font-size: 8.1pt;
+  }
+
+  .projectText {
+    margin-top: 1.5pt;
+  }
+
+  .education {
+    gap: 1pt;
+    padding-left: 11pt;
+  }
+
+  .languages {
+    margin-top: 3pt;
+  }
+}

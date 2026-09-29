@@ -86,7 +86,7 @@ export const itemsBase: readonly ItemStructural[] = [
     cover: '#1F6F5F',
     coverDark: '#103C33',
     thickness: 28,
-    published: false,
+    published: true,
   },
   {
     id: 'projects',

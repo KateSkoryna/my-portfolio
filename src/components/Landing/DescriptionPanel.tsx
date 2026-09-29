@@ -1,4 +1,5 @@
 import { itemsBase, type PortfolioItem } from '@/content/items';
+import { resumePdfPath } from '@/content/resume';
 import { PillButton } from '@/components/PillButton/PillButton';
 import { Chip } from '@/components/Chip/Chip';
 import { Eyebrow } from '@/components/Eyebrow/Eyebrow';
@@ -54,9 +55,13 @@ export function DescriptionPanel({
         ))}
         {item.secondaryCta ? (
           <li>
-            <button type="button" className={`${styles.hitArea} ${styles.secondaryAction}`}>
+            <a
+              href={resumePdfPath}
+              download
+              className={`${styles.hitArea} ${styles.secondaryAction}`}
+            >
               {item.secondaryCta}
-            </button>
+            </a>
           </li>
         ) : null}
       </ul>
