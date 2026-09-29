@@ -96,7 +96,7 @@ export const itemsBase: readonly ItemStructural[] = [
     cover: '#FF6F61',
     coverDark: '#B8453A',
     thickness: 36,
-    published: false,
+    published: true,
   },
   {
     id: 'journal',
@@ -170,17 +170,76 @@ export function localizeItems(t: ItemsTranslator): readonly PortfolioItem[] {
 export interface FeaturedRepo {
   /** Repo name under github.com/KateSkoryna */
   repo: string;
-  /** [ONE LINE ON WHAT IT DOES AND THE HARD PART.] */
+  /**
+   * Two sentences, same shape for every project: what it is and who it is
+   * for; then "Built with <technologies>, it features <features>."
+   */
   summary: string;
   /** Optional live deployment. */
   demoUrl?: string;
+  /**
+   * The technologies that matter, as she'd list them. Shown in place of the
+   * GitHub language split, which only sees a repo's largest languages (a
+   * MongoDB/NestJS/AI project reads as just "TypeScript").
+   */
+  stack?: readonly string[];
+  /** Image under `public/`. Without one the feature card shows a `[SCREENSHOT]` placeholder. */
+  screenshot?: { src: string; width: number; height: number; alt: string };
 }
 
 export const featuredRepos: readonly FeaturedRepo[] = [
-  { repo: 'travel-portal-app', summary: '[ONE LINE ON WHAT IT DOES AND THE HARD PART.]' },
-  { repo: 'quizdom-react-app', summary: '[ONE LINE ON WHAT IT DOES AND THE HARD PART.]' },
-  { repo: 'task-manager', summary: '[ONE LINE ON WHAT IT DOES AND THE HARD PART.]' },
-  { repo: 'my-portfolio', summary: '[ONE LINE ON WHAT IT DOES AND THE HARD PART.]' },
+  {
+    repo: 'task-manager',
+    demoUrl: 'https://todo-list-frontend-six-drab.vercel.app/',
+    screenshot: {
+      src: '/task-manager.webp',
+      width: 3386,
+      height: 1898,
+      alt: 'The task-manager dashboard: today’s completion, top-priority tasks, a weekly task-status view and today’s task list.',
+    },
+    stack: ['React', 'TypeScript', 'NestJS', 'MongoDB', 'Firebase', 'Tailwind CSS', 'Gemini AI'],
+    summary:
+      'A modern full-stack productivity app with a conversational AI assistant for managing tasks through natural language. Built with React, NestJS, MongoDB, Firebase, and Gemini, it features analytics, AI-powered reports, secure user-scoped access, and multilingual support.',
+  },
+  {
+    repo: 'quizdom-react-app',
+    demoUrl: 'https://kateskoryna.github.io/quizdom-react-app/',
+    screenshot: {
+      src: '/quizdom.webp',
+      width: 2908,
+      height: 1898,
+      alt: 'The Quizdom home page: a search box for describing the quiz you want, and a grid of quiz cards showing difficulty, rating and completion.',
+    },
+    stack: ['React', 'TypeScript', 'Firebase', 'Genkit', 'Gemini AI', 'Sass'],
+    summary:
+      'An educational app where an LLM assists users with learning, generating quizzes by topic, level and language with hints and scoring. Built with React 19, TypeScript, Firebase, Genkit, and Gemini, it features semantic quiz search and an admin lab where Gemini scores generated quizzes.',
+  },
+  {
+    repo: 'solar-calculator',
+    demoUrl: 'https://solar-calculator-azure.vercel.app',
+    screenshot: {
+      src: '/solar-calculator.webp',
+      width: 3030,
+      height: 1898,
+      alt: 'The Solar Calculator landing page, in German: a heading for a solar calculator for commercial vehicles over an aerial forest photo, four feature panels and a “Get started” button.',
+    },
+    stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Prisma', 'NextAuth', 'Tailwind CSS'],
+    summary:
+      'A multi-tenant web app that helps commercial fleet operators evaluate solar panel investments for buses, trucks, vans and trailers. Built with Next.js 16, React 19, TypeScript, PostgreSQL, and Prisma, it features fleet-scoped role-based access, a vehicle and calculation data model, and EN/DE/ES i18n.',
+  },
+  {
+    repo: 'my-portfolio',
+    summary:
+      'A personal portfolio designed as a stack of physical objects - book, magazine, notebook, newspaper, field guide - each one a route. Built with Next.js 16, React 19, and TypeScript, it features live GitHub data via ISR, EN/DE i18n, and zero animation libraries.',
+    demoUrl: 'https://prompting-handbook-olive.vercel.app/de',
+    screenshot: {
+      src: '/my-portfolio.webp',
+      width: 2860,
+      height: 1898,
+      alt: 'The portfolio landing page: a floating Resume book with a pile of four more books beneath it, an identity block on the left and a description panel on the right.',
+    },
+    stack: ['Next.js', 'React', 'TypeScript', 'next-intl', 'CSS Modules'],
+  },
 ] as const;
 
 /**
