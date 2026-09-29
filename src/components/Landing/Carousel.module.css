@@ -455,3 +455,54 @@
     height: 19px;
   }
 }
+
+/*
+ * Tablet, 801–1199px: the desktop arrangement — book stack on the left, the
+ * description on the right (`Landing.module.css` sets the two columns). What
+ * has to change to fit that narrower stage: the arrows shrink to 44px. The
+ * leader line to the description counter and the pile's note, with its dotted
+ * arrow, sit where they do on desktop.
+ */
+@media (min-width: 801px) and (max-width: 1199px) {
+  .stage {
+    gap: 12px;
+  }
+
+  /* (408px book - 44px arrow) / 2 */
+  .stage > button {
+    width: 44px;
+    height: 44px;
+    margin-top: 182px;
+  }
+
+  .blurb {
+    font-size: 17px;
+  }
+
+  /*
+   * The note lines up with the description: its left edge sits on the
+   * description column's left edge, in the same vertical line. That column
+   * starts one grid gap past the stage's right edge, and the pile is centred
+   * in the stage, so from the pile's right edge it is
+   *   (stage width − 384px pile) / 2 + gap
+   * away. `.stage` is the size container that `cqw` reads; the gap is
+   * `.landing`'s own `clamp(24px, 4vw, 64px)`. The arrow keeps its 80px and
+   * sits just left of the note.
+   */
+  .stage {
+    container-type: inline-size;
+  }
+
+  .pileWrap {
+    --note-left: calc(100% + (100cqw - 384px) / 2 + clamp(24px, 4vw, 64px));
+  }
+
+  .pileNote {
+    left: var(--note-left);
+    margin-left: 0;
+  }
+
+  .pileNoteArrow {
+    left: calc(var(--note-left) - 100px);
+  }
+}
