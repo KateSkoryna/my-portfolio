@@ -249,7 +249,7 @@ Accessibility and Lighthouse lead because they are the stated priority.
 | 1 — Design system | `done` | five covers + five closed books, axe clean. Merged (PR #8). |
 | 2 — Landing `/` | `done` | carousel cycles, keyboard, Lighthouse 96/100/96/100. Awaiting human review. |
 | 3 — Shelf `/shelf` | `done` | closed row aligns under covers. Lighthouse 96/100/96/100 (`/shelf`), 95/96/96/100 (`/`). Awaiting human review. |
-| 4 — Item routes | `in progress` (4a, 4b done; 4c–4f todo) | every `docs/DESIGN.md` §3 route resolves |
+| 4 — Item routes | `in progress` (4a, 4b done; 4c–4e todo) | every `docs/DESIGN.md` §3 route resolves |
 | 5 — Keystatic | `todo` | she can add an item in the browser |
 | 6 — Gates | `todo` | CI green on axe, Lighthouse, Playwright |
 
@@ -657,7 +657,6 @@ after each, same protocol.
 - [x] Graceful degradation: API failure renders with static/cached data and no
       visible error state.
 - [x] Issue-per-project layout matching the magazine cover language.
-- [ ] Footer note linking `/colophon` once, in context (§3). *Removed at Kateryna's request — `/colophon` (4f) needs another way in.*
 - [x] Drop the "Live demo" link for any repo with no real deployment (§6).
 
 **Done when:** `/projects` renders live repo data that changes after a push;
@@ -678,7 +677,7 @@ stats and after simulated API failure. `GITHUB_TOKEN` is absent from
   Vercel token is untested from here.
 - German `projects` strings not written (Kateryna's call); falls back to EN.
   The two a11y tests now cast `deMessages` because DE lacks the namespace.
-- `/colophon` link 404s until 4f. `projects.published` flipped to `true`.
+- `projects.published` flipped to `true`.
 - Layout is Kateryna's screenshot: one feature project plus cards; clicking a card swaps it with the feature. Stars are no longer fetched or shown (the design's margin note says "no star counts").
 - Not checked visually at 390 / 768 / 1280 by a human; grid is `auto-fit`.
 
@@ -747,17 +746,6 @@ width; axe clean.
 
 **Done when:** the ported flip-book matches the published one; page weight is
 a fraction of 731 KB; both greys pass AA; the old handbook URL still resolves.
-
-### 4f `/colophon` — how the site was built
-
-*Not in `docs/BUILD.md`'s task list, but `docs/DESIGN.md` §3 designs it and Phase 4's
-gate requires every §3 route to resolve.*
-
-- [ ] Objects, palette and type, scrolling (~1300px). Desktop-only design —
-      make it at least legible on mobile.
-- [ ] Reachable only from the `/projects` footer note. **Not** header chrome.
-
-**Done when:** it resolves, is linked from `/projects` only, and axe is clean.
 
 ### Phase 4 gate
 

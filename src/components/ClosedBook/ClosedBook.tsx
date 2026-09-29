@@ -7,7 +7,7 @@ import styles from './ClosedBook.module.css';
 
 /**
  * The spine-out closed book, DESIGN.md §2.2 — "the important one". Appears
- * in the landing pile, `/shelf`'s closed row and `/colophon`'s edge row.
+ * in the landing pile and `/shelf`'s closed row.
  *
  * Flat cover-colour fill, height = `item.thickness` (never hardcoded per
  * item — read the note on that in `tokens.ts`). Volume is entirely
@@ -54,7 +54,7 @@ export function ClosedBook({
     <div className={styles.container} style={style}>
       {/*
        * No `aria-hidden` — the printed title is real text, so when this
-       * sits inside an `<a>` (the pile / `/shelf` / `/colophon`) it becomes
+       * sits inside an `<a>` (the pile / `/shelf`) it becomes
        * the link's accessible name for free, with nothing to duplicate.
        */}
       <span className={styles.edgeTop} />
