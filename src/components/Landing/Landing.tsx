@@ -7,6 +7,8 @@ import { FloatingItem } from './FloatingItem';
 import { Pile } from './Pile';
 import { DescriptionPanel } from './DescriptionPanel';
 import { Carousel } from './Carousel';
+import { ItemCta } from './ItemCta';
+import { BookBack } from './BookBack';
 import styles from './Landing.module.css';
 
 /** Lands on the CV first — the item recruiters look for. */
@@ -35,9 +37,12 @@ export async function Landing() {
   const [roleLead, roleLast] = splitFirstWord(tProfile('role'));
 
   const slides = items.map((item, i) => ({
+    id: item.id,
+    back: <BookBack item={item} />,
     floating: <FloatingItem item={item} />,
     pile: <Pile items={items.filter((_, j) => j !== i)} />,
     description: <DescriptionPanel item={item} descriptionLabel={t('descriptionLabel')} />,
+    cta: <ItemCta item={item} withDownload />,
   }));
 
   return (
@@ -106,6 +111,7 @@ export async function Landing() {
         goToShelfLabel={t('goToShelf')}
         pileNote={t('pileNote')}
         pileNoteCaption={t('pileNoteCaption')}
+        flipLabel={t('flipBook')}
       />
     </main>
   );

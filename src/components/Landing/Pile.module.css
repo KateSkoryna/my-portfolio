@@ -41,7 +41,33 @@
 }
 
 .link {
+  position: relative;
   display: block;
-  text-decoration: none;
   border-radius: var(--radius-closed);
+}
+
+/* Empty overlays over the book art — see `Pile.tsx`. */
+.desktopLink,
+.mobileSelect {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: var(--radius-closed);
+  cursor: pointer;
+}
+
+.mobileSelect {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .desktopLink {
+    display: none;
+  }
+
+  .mobileSelect {
+    display: block;
+  }
 }

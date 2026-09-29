@@ -16,6 +16,7 @@
     "descriptionLabel": "Selected item",
     "prevItem": "Previous item",
     "nextItem": "Next item",
+    "flipBook": "Show details",
     "goToShelf": "Go to shelf",
     "email": "Email",
     "basedIn": "Based in {city}",

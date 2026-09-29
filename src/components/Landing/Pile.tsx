@@ -4,6 +4,8 @@ import { Link } from '@/i18n/navigation';
 import type { PortfolioItem } from '@/content/items';
 import { ClosedBook } from '@/components/ClosedBook/ClosedBook';
 
+import { PileSelectButton } from './CarouselContext';
+
 import styles from './Pile.module.css';
 
 const PILE_WIDTH = 380;
@@ -19,8 +21,8 @@ const FOURTH_BOOK_ROTATE = 0;
  * by thickness — x/y offsets and ±0.6–1.4° rotations give it an organic (not
  * perfectly ruled) look without reshuffling which book sits where.
  *
- * Every book is a direct link to its own route — no bring-to-front-then-
- * click — published or not; the unbuilt routes 404 for now *(Kateryna's
+ * On desktop every book is a direct link to its own route — no bring-to-
+ * front-then-click — published or not; the unbuilt routes 404 for now *(Kateryna's
  * call)*. DESIGN.md's canvas draws the pile with no publish-status marker
  * at all — the "coming soon" row this used to render below it was our own
  * addition, not the design's, so it's gone; the closed spine's title is
@@ -43,9 +45,20 @@ export function Pile({ items }: { items: readonly PortfolioItem[] }) {
 
           return (
             <li key={item.id} className={styles.slot} style={style}>
-              <Link href={item.route} className={styles.link}>
-                <ClosedBook item={item} width={PILE_WIDTH} />
-              </Link>
+              <div className={styles.link}>
+                <div aria-hidden="true">
+                  <ClosedBook item={item} width={PILE_WIDTH} />
+                </div>
+                {/* Desktop: the book is a direct link to its route. Mobile:
+                    a tap selects it instead — only the item's own button
+                    navigates. CSS shows one of the two. */}
+                <Link href={item.route} className={styles.desktopLink} aria-label={item.title} />
+                <PileSelectButton
+                  itemId={item.id}
+                  label={item.title}
+                  className={styles.mobileSelect}
+                />
+              </div>
             </li>
           );
         })}

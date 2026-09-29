@@ -174,6 +174,29 @@
   margin-top: 12px;
 }
 
+/* The CTA appears in two places — beside the description on desktop, under
+   the floating book's shadow on mobile (see the 800px block). One is always
+   `display: none`, which also takes it out of the tab order. */
+.mobileCta {
+  display: none;
+}
+
+/* Desktop: the description sits in its own grid column as before, and the
+   flip machinery is inert — `.back` and `.flipButton` are
+   hidden, `.desktopDescription` is transparent to the grid. */
+.desktopDescription {
+  display: contents;
+}
+
+.floatingWrap {
+  position: relative;
+}
+
+.back,
+.flipButton {
+  display: none;
+}
+
 /* Matches `Landing.module.css`'s `.arrow` on the go-to-shelf link — same
    glyph treatment, DESIGN.md's canvas. */
 .ctaArrow {
@@ -290,32 +313,171 @@
     display: none;
   }
 
+  /* CTA moves from the description to between the book's shadow and the
+     pile. Tighter shadow margin below, so the button sits close to the book
+     it opens. */
+  .descriptionCta {
+    display: none;
+  }
+
+  .suspensionShadow {
+    margin-bottom: 16px;
+  }
+
+  /* Tapping the book flips it (a 3D turn on its own axis) to show the
+     description on its back cover. The button under the book, not the book,
+     is what navigates. */
+  .floatingWrap {
+    width: 322px;
+    height: 408px;
+    perspective: 1400px;
+  }
+
+  .flipper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform var(--motion-turn) var(--motion-ease);
+  }
+
+  .floatingWrap[data-flipped='true'] .flipper {
+    transform: rotateY(180deg);
+  }
+
+  .front,
+  .back {
+    position: absolute;
+    inset: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* The back of the book (`BookBack`) — the mirrored 322×408 assembly,
+     spine on the right. Pre-turned 180° so it reads the right way round
+     once the flipper has turned. */
+  .back {
+    display: block;
+    transform: rotateY(180deg);
+  }
+
+  .flipButton {
+    display: block;
+    position: absolute;
+    inset: 0;
+    /* Horizontal drags belong to the carousel's swipe; vertical ones still
+       scroll the page. */
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    border-radius: var(--radius-book);
+  }
+
+  .desktopDescription {
+    display: none;
+  }
+
+  /* No 3D turn under reduced motion (DESIGN.md §5.5) — the two faces swap
+     with an instant fade instead. */
+  @media (prefers-reduced-motion: reduce) {
+    .flipper {
+      transition: none;
+    }
+
+    .floatingWrap[data-flipped='true'] .flipper {
+      transform: none;
+    }
+
+    .front,
+    .back {
+      -webkit-backface-visibility: visible;
+      backface-visibility: visible;
+    }
+
+    .back {
+      transform: none;
+      opacity: 0;
+    }
+
+    .floatingWrap[data-flipped='true'] .front {
+      opacity: 0;
+    }
+
+    .floatingWrap[data-flipped='true'] .back {
+      opacity: 1;
+    }
+  }
+
+  .mobileCta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: clamp(16px, 4vh, 40px);
+  }
+
+  /* `.pileWrap` steps out of the layout so its children (the pile and the
+     note) become `.stack` items — that lets the note be ordered *after*
+     `.pileShadow`, which then sits right under the pile. */
+  .pileWrap {
+    display: contents;
+  }
+
+  .pileShadow {
+    order: 1;
+  }
+
+  /* The dots are part of the flow now — between the pile's shadow and the
+     note — not a fixed bar along the bottom of the screen. */
   .dots {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin-top: 0;
-    padding: 12px 0 calc(12px + env(safe-area-inset-bottom, 0px));
-    background: var(--color-paper);
-    box-shadow: var(--shadow-rest);
+    order: 2;
   }
 
   /* No room to the right of the pile below 800px — back to flowing under
-     it, centered, like the rest of the mobile stack. */
+     the pile and its shadow, centered, like the rest of the mobile stack. */
   .pileNote {
+    order: 3;
     position: static;
     transform: none;
     margin-left: 0;
-    margin-top: 28px;
+    margin-top: 0;
     align-items: center;
     width: auto;
-    max-width: none;
+    /* `.stack` is as wide as its widest child — the 384px pile, wider than
+       a phone's content box — so a note that fills the stack ran out into the
+       page's side padding. Cap it to the viewport minus that padding
+       (`.landing`'s `clamp(16px, 5vw, 48px)` each side). */
+    max-width: calc(100vw - 2 * clamp(16px, 5vw, 48px));
     text-align: center;
   }
 
   /* Same reasoning as `.leader` above — no horizontal gap left to span. */
   .pileNoteArrow {
     display: none;
+  }
+
+  /* Bigger, so the note reads at arm's length: the Caveat line, the caption
+     under it, and the go-to-shelf button. */
+  .pileNote > :first-child {
+    font-size: 28px;
+  }
+
+  .pileNoteCaption {
+    font-size: 15px;
+  }
+
+  .pileShelfLink {
+    font-size: 15px;
+    padding: 15px 26px;
+  }
+
+  .pileShelfIcon {
+    width: 19px;
+    height: 19px;
   }
 }

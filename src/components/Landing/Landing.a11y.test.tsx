@@ -13,6 +13,8 @@ import { Carousel } from './Carousel';
 import { FloatingItem } from './FloatingItem';
 import { Pile } from './Pile';
 import { DescriptionPanel } from './DescriptionPanel';
+import { ItemCta } from './ItemCta';
+import { BookBack } from './BookBack';
 
 /*
  * Same stand-in as `ScratchContent.a11y.test.tsx` — `@/i18n/navigation`'s
@@ -49,9 +51,12 @@ function buildItems(messages: Messages): readonly PortfolioItem[] {
 
 function buildSlides(items: readonly PortfolioItem[], descriptionLabel: string) {
   return items.map((item, i) => ({
+    id: item.id,
+    back: <BookBack item={item} />,
     floating: <FloatingItem item={item} />,
     pile: <Pile items={items.filter((_, j) => j !== i)} />,
     description: <DescriptionPanel item={item} descriptionLabel={descriptionLabel} />,
+    cta: <ItemCta item={item} withDownload />,
   }));
 }
 
@@ -72,6 +77,7 @@ describe.each([
           goToShelfLabel={messages.landing.goToShelf}
           pileNote={messages.landing.pileNote}
           pileNoteCaption={messages.landing.pileNoteCaption}
+          flipLabel={messages.landing.flipBook}
         />
       </NextIntlClientProvider>,
     );

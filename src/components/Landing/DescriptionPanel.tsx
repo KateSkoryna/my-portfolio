@@ -1,9 +1,9 @@
 import { itemsBase, type PortfolioItem } from '@/content/items';
 import { resumePdfPath } from '@/content/resume';
-import { PillButton } from '@/components/PillButton/PillButton';
 import { Chip } from '@/components/Chip/Chip';
 import { Eyebrow } from '@/components/Eyebrow/Eyebrow';
 
+import { ItemCta } from './ItemCta';
 import styles from './Carousel.module.css';
 
 /**
@@ -65,12 +65,9 @@ export function DescriptionPanel({
           </li>
         ) : null}
       </ul>
-      <PillButton href={item.route}>
-        {item.cta}
-        <span className={styles.ctaArrow} aria-hidden="true">
-          →
-        </span>
-      </PillButton>
+      <div className={styles.descriptionCta}>
+        <ItemCta item={item} />
+      </div>
     </section>
   );
 }
