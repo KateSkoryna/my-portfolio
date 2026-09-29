@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 
-import { closedBook } from '@/lib/design/tokens';
+import { closedBook, color } from '@/lib/design/tokens';
 import type { PortfolioItem } from '@/content/items';
 
 import styles from './ClosedBook.module.css';
@@ -23,7 +23,9 @@ export function ClosedBook({
   width: number;
   selected?: boolean;
 }) {
-  const ink = closedBook.ink(item.cover);
+  // `/shelf` §4.2: the selected title turns `emeraldDeep`, regardless of
+  // the per-cover ink `closedBook.ink` would otherwise pick.
+  const ink = selected ? color.emeraldDeep : closedBook.ink(item.cover);
   const band = closedBook.band(item.cover);
   const shadow = selected
     ? closedBook.selectedShadow(item.coverDark)

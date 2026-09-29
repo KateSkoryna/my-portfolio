@@ -109,11 +109,32 @@ export const radius = {
   book: '2px 9px 9px 2px',
   /** Edge-on closed book. */
   closed: '4px 2px 2px 4px',
+  /** Small chip-scale swatches — the magazine cover's `.thumbGrid` tiles. */
+  thumb: '4px',
 } as const;
 
 export const shadow = {
-  rest: '0 18px 32px -22px rgba(20,40,30,.45)',
-  raised: '0 30px 46px -20px rgba(20,40,30,.6)',
+  /**
+   * Drop shadow for a face-on cover (`BookCover`'s `shelf` size, and the
+   * landing pile's spine). The previous `-22px` spread shrank the shadow
+   * tight against the card before the blur ever ran, so it read flat —
+   * widened the spread and raised the opacity so the card actually reads
+   * as lifted off the page, not just faintly outlined (Kateryna's call,
+   * matched against her reference).
+   */
+  rest: '0 20px 28px -12px rgba(20,40,30,.55)',
+  /** Same fix, for the floating hero cover — stays the deeper of the two. */
+  raised: '0 32px 40px -12px rgba(20,40,30,.65)',
+  /**
+   * `rest`/`raised`, for the two dark-gradient covers (`book`, `fieldguide`
+   * — both fade to a near-black `coverDark`). The same shadow read
+   * noticeably flatter under these two: a dark shadow loses contrast right
+   * where it meets an already-dark card edge, even though the geometry is
+   * identical to the light covers. Wider spread and higher opacity keep the
+   * halo legible against the page regardless of what it's falling from.
+   */
+  restDark: '0 22px 32px -8px rgba(10,20,15,.62)',
+  raisedDark: '0 34px 42px -8px rgba(10,20,15,.72)',
   closed: '0 10px 18px -14px rgba(20,40,30,.6)',
   button: '0 10px 20px -10px rgba(31,111,95,.7)',
   /**
@@ -124,6 +145,12 @@ export const shadow = {
   chip: '0 4px 10px -4px rgba(20,40,30,.28)',
   /** Selected state on a chip-scale circular control (language toggle). */
   chipSelected: '0 3px 7px -2px rgba(20,40,30,.5)',
+  /**
+   * Mustard selection ring for a face-on cover (`/shelf`) — same 2px ring
+   * weight as `closedBook.selectedShadow`'s, so the cover and its closed
+   * book below read as one selection, not two different treatments.
+   */
+  selectedRing: `0 0 0 2px ${color.mustard}`,
   /** Cast by the floating item onto the pile — what sells "suspended". */
   suspension: 'radial-gradient(closest-side, rgba(28,52,42,.3), transparent)',
 } as const;
@@ -136,8 +163,14 @@ export const motion = {
   select: 320,
   /** Hover scale. */
   hover: 300,
-  /** Hover scale factor on /shelf covers. */
-  hoverScale: 1.2,
+  /**
+   * Hover scale factor on /shelf covers. DESIGN.md §4.2 specs 1.2, but at
+   * that size a hovered cover's caption text overlapped its neighbour's —
+   * only exposed once captions existed under each cover (not in the
+   * original spec). Turned down to stay noticeable without the overlap.
+   * *(Kateryna's call.)*
+   */
+  hoverScale: 1.08,
 } as const;
 
 /**

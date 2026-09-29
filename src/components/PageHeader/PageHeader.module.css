@@ -30,18 +30,36 @@
   gap: 12px;
 }
 
+/* Same flat-outlined pill as the identity block's GitHub/LinkedIn/Email
+   links (`Landing.module.css` `.socialLink`) — DESIGN.md §4.4 calls this a
+   "flat outlined bar", not a bare text link; this had drifted to one with
+   no border or fill until `/shelf` was the first route to actually show
+   the back row (`/` skips it via `showBackRow={false}`) and exposed it. */
 .back {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   min-height: var(--a11y-min-target);
-  padding: 0 4px;
+  padding: 9px 15px;
+  border-radius: var(--radius-pill);
+  background: rgba(220, 233, 226, 0.42);
+  border: 1.5px solid var(--color-emerald);
   font-family: var(--font-body), system-ui, sans-serif;
   font-weight: 700;
   font-size: 12.5px;
-  color: var(--color-emerald);
+  color: var(--color-emerald-deep);
   text-decoration: none;
   justify-self: start;
+}
+
+.back:hover {
+  transform: scale(1.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back:hover {
+    transform: none;
+  }
 }
 
 .routeLabel {

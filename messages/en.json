@@ -22,6 +22,16 @@
     "pileNote": "four more waiting their turn",
     "pileNoteCaption": "Click any spine in the pile to jump straight to it."
   },
+  "shelf": {
+    "backToStack": "Back to the stack",
+    "eyebrow": "The shelf",
+    "title": "Everything, side by side",
+    "prevItem": "Previous item",
+    "nextItem": "Next item",
+    "closedHeading": "The same five, closed",
+    "closedNote": "— this is how they sit in the stack",
+    "closedExplainer": "Every closed book sits directly under its own cover, resting on one line. Thickness is editorial weight rather than page count — the projects magazine is the thickest because it is what most people come for. Each book faces you spine-first, so the title reads straight off the flat spine."
+  },
   "scratch": {
     "route": "Design system",
     "title": "Scratch route",
@@ -52,7 +62,7 @@
     "projects": {
       "kindLabel": "Magazine",
       "title": "My Projects",
-      "coverKicker": "Issue 01 · Projects",
+      "coverKicker": "Code · Live Demo",
       "coverTitle": "My Projects",
       "coverFoot": "Updated hourly from GitHub",
       "blurb": "An issue-per-project magazine. Stars, language split and last-commit dates arrive live from the GitHub API on the server and refresh every hour, so it never goes stale.",
@@ -76,7 +86,7 @@
       "title": "Off the Clock",
       "coverKicker": "Weekend edition · [YOUR CITY]",
       "coverTitle": "Off the Clock",
-      "coverFoot": "Photographs · Trivia · Recommendations",
+      "coverFoot": "Eleven things that never fit on a CV",
       "blurb": "The human column — where I am from, what I do away from a keyboard, and the facts that have no business being on a CV but are the reason people remember you.",
       "shortBlurb": "The human column — everything that has no business on a CV.",
       "chips": ["[YOUR FACTS]", "Photo essay"],

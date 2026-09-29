@@ -17,11 +17,14 @@ import styles from './PageHeader.module.css';
 export function PageHeader({
   routeLabel,
   backHref = '/',
+  backLabel,
   action,
   showBackRow = true,
 }: {
   routeLabel?: string;
   backHref?: string;
+  /** Falls back to the generic "Back" — a route can say where it goes back to. */
+  backLabel?: string;
   action?: ReactNode;
   /** `/` has nowhere to go back to and no route to label — see `Landing`. */
   showBackRow?: boolean;
@@ -36,7 +39,7 @@ export function PageHeader({
       {showBackRow && (
         <div className={styles.backRow}>
           <Link href={backHref} className={styles.back}>
-            <span aria-hidden="true">←</span> {t('back')}
+            <span aria-hidden="true">←</span> {backLabel ?? t('back')}
           </Link>
           <p className={styles.routeLabel}>{routeLabel}</p>
           <div className={styles.action}>{action}</div>
