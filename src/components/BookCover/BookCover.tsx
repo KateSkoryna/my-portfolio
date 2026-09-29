@@ -124,6 +124,8 @@ export function BookCover({
             <span />
             <span />
             <span className={styles.photoBlock} />
+            <span className={styles.wideLine} />
+            <span className={styles.outlineBlock} />
           </div>
         </>
       )}

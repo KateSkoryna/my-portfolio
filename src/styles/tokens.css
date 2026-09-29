@@ -38,6 +38,7 @@
   --radius-card:   12px;
   --radius-book:   2px 9px 9px 2px;
   --radius-closed: 4px 2px 2px 4px;
+  --radius-thumb:  4px;
 
   /* Shadow — DESIGN.md §1.4 */
   --shadow-rest:          0 20px 28px -12px rgba(20,40,30,.55);

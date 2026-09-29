@@ -109,6 +109,8 @@ export const radius = {
   book: '2px 9px 9px 2px',
   /** Edge-on closed book. */
   closed: '4px 2px 2px 4px',
+  /** Small chip-scale swatches — the magazine cover's `.thumbGrid` tiles. */
+  thumb: '4px',
 } as const;
 
 export const shadow = {

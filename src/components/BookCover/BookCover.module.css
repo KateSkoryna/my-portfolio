@@ -171,14 +171,28 @@
   color: var(--color-emerald);
 }
 
+/* `left` + `right` (not a fixed-width `left` alone) so the grid spans the
+   cover's full content width, same inset pattern as `.columns`/`.headline` —
+   was pinned to a fixed 46px-per-column width, well short of the 180px
+   available, and never stretched to fill it. Rows stay a fixed 46px each
+   (not `aspect-ratio`-square) — squaring a ~87px-wide column would push
+   the grid to ~180px tall and collide with `.magRule`/`.magHeadline` right
+   below it, so the tiles are wide rounded rectangles, not squares. */
 .thumbGrid {
   position: absolute;
   left: calc(18px * var(--cover-scale));
+  right: calc(18px * var(--cover-scale));
   top: calc(82px * var(--cover-scale));
   display: grid;
-  grid-template-columns: repeat(2, calc(46px * var(--cover-scale)));
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, calc(46px * var(--cover-scale)));
   gap: calc(6px * var(--cover-scale));
+}
+
+.thumbGrid span {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-thumb);
 }
 
 .thumbGrid span:nth-child(1) {
@@ -270,7 +284,9 @@
 .notebookFoot {
   position: absolute;
   left: calc(20px * var(--cover-scale));
-  right: calc(18px * var(--cover-scale));
+  /* `.elasticBand` sits at right: 32px, 15px wide (spans to right: 47px) —
+     18px let the note's text run under it. 52px clears the band. */
+  right: calc(52px * var(--cover-scale));
   bottom: calc(36px * var(--cover-scale));
   font-family: var(--font-hand), cursive;
   font-weight: 600;
@@ -304,7 +320,7 @@
 }
 
 .mastheadRuleBottom {
-  top: calc(70px * var(--cover-scale));
+  top: calc(74px * var(--cover-scale));
 }
 
 .paperTitle {
@@ -349,9 +365,14 @@
   left: calc(18px * var(--cover-scale));
   right: calc(18px * var(--cover-scale));
   top: calc(135px * var(--cover-scale));
-  height: calc(70px * var(--cover-scale));
+  /* Two rows now — the top row (two text columns + photo) and a second
+     row of hairline text spanning the two text columns' combined width
+     underneath them. 105px keeps the whole grid inside the 260px cover at
+     a 135px top offset, with a little clearance before the fore-edge. */
+  height: calc(105px * var(--cover-scale));
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: calc(8px * var(--cover-scale));
 }
 
@@ -374,6 +395,28 @@
   background-color: var(--color-mustard);
   align-self: start;
   aspect-ratio: 1 / 1;
+  border-radius: var(--radius-thumb);
+}
+
+/* Second row, under the two text columns only (not the photo column) —
+   same hairline background as `.columns span` (plain `span`, no override),
+   just spanning both their widths as one wider block of "text". */
+.wideLine {
+  grid-column: span 2;
+}
+
+/* Second row, under the gold photo block and to the right of `.wideLine` —
+   same square footprint as `.photoBlock`, but an outline instead of a
+   fill: white inside a border, not another solid colour. Exact same
+   colour as `.columns span`'s hairlines, so the border reads as part of
+   the same line-art language. */
+.columns .outlineBlock {
+  background-image: none;
+  background-color: var(--color-cream);
+  border: calc(1px * var(--cover-scale)) solid rgba(35, 35, 35, 0.24);
+  align-self: start;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-thumb);
 }
 
 /* ---- Field guide (handbook) ---- */
@@ -416,10 +459,10 @@
 
 .dotGrid {
   position: absolute;
-  left: calc(16px * var(--cover-scale));
-  bottom: calc(60px * var(--cover-scale));
-  width: calc(60px * var(--cover-scale));
-  height: calc(60px * var(--cover-scale));
+  right: calc(32px * var(--cover-scale));
+  top: calc(20px * var(--cover-scale));
+  width: calc(80px * var(--cover-scale));
+  height: calc(80px * var(--cover-scale));
   background-image: radial-gradient(var(--color-sage) 1px, transparent 1px);
   background-size: calc(14px * var(--cover-scale)) calc(14px * var(--cover-scale));
   opacity: 0.5;
