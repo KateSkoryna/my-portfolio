@@ -106,7 +106,8 @@
 
 .socials {
   display: flex;
-  gap: 8px;
+  /* Fluid: tight on a small phone, roomier as the screen widens. */
+  gap: clamp(8px, 2.5vw, 20px);
   flex-wrap: wrap;
 }
 
@@ -172,6 +173,19 @@
 
   .stack {
     font-size: 15px;
+  }
+
+  /* The three buttons share one row across the full width, however narrow
+     the phone (375px is 337px of content): they shrink instead of wrapping. */
+  .socials {
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+
+  .socialLink {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: 8px;
   }
 }
 
