@@ -42,6 +42,7 @@ export function renderTokensCss(): string {
       ['--motion-turn', `${motion.turn}ms`],
       ['--motion-page-turn', `${motion.pageTurn}ms`],
       ['--motion-ease-page-turn', motion.easePageTurn],
+      ['--motion-sweep-turn', `${motion.sweepTurn}ms`],
       ['--motion-select', `${motion.select}ms`],
       ['--motion-hover', `${motion.hover}ms`],
       ['--motion-hover-scale', `${motion.hoverScale}`],

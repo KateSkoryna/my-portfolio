@@ -158,6 +158,8 @@ export const shadow = {
    */
   spineLeft: 'inset -16px 0 26px -18px rgba(0,0,0,.4)',
   spineRight: 'inset 16px 0 26px -18px rgba(0,0,0,.4)',
+  /** Soft edge on the old project as it is wiped away on `/projects` (used as a `drop-shadow`). */
+  sweepEdge: '0 0 14px rgba(20,40,30,.35)',
   /** Cast by the floating item onto the pile — what sells "suspended". */
   suspension: 'radial-gradient(closest-side, rgba(28,52,42,.3), transparent)',
 } as const;
@@ -173,6 +175,12 @@ export const motion = {
   pageTurn: 900,
   /** Ease-in-out for the leaf — it accelerates off the page and settles softly. */
   easePageTurn: 'cubic-bezier(.45,.05,.25,1)',
+  /**
+   * `/projects` change of project (ms). The old project is wiped away by an
+   * edge that swings 180° about the card's bottom centre, uncovering the new
+   * one.
+   */
+  sweepTurn: 1100,
   /** Selection change. */
   select: 320,
   /** Hover scale. */

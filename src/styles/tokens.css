@@ -52,6 +52,7 @@
   --shadow-selected-ring: 0 0 0 2px #E9B44C;
   --shadow-spine-left:    inset -16px 0 26px -18px rgba(0,0,0,.4);
   --shadow-spine-right:   inset 16px 0 26px -18px rgba(0,0,0,.4);
+  --shadow-sweep-edge:    0 0 14px rgba(20,40,30,.35);
   --shadow-suspension:    radial-gradient(closest-side, rgba(28,52,42,.3), transparent);
 
   /* Motion — DESIGN.md §1.4 */
@@ -59,6 +60,7 @@
   --motion-turn:           420ms;
   --motion-page-turn:      900ms;
   --motion-ease-page-turn: cubic-bezier(.45,.05,.25,1);
+  --motion-sweep-turn:     1100ms;
   --motion-select:         320ms;
   --motion-hover:          300ms;
   --motion-hover-scale:    1.08;
