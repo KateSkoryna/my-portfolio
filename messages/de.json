@@ -120,6 +120,14 @@
     "educationLanguages": "Ausbildung & Sprachen",
     "languages": "Sprachen",
     "liveDemo": "Live-Demo",
-    "code": "Code"
+    "code": "Code",
+    "closingNote": "↳ Schreib mir. Prompt-Engineering ist nicht nötig."
+  },
+  "handbook": {
+    "backToStack": "Zurück zum Stapel",
+    "goToShelf": "Zum Regal",
+    "prev": "Vorherige Seite",
+    "next": "Nächste Seite",
+    "closingNote": "↳ Schreib mir. Prompt-Engineering ist nicht nötig."
   }
 }

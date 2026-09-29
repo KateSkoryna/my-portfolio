@@ -182,6 +182,7 @@ export function ResumeClosing() {
           <a href={`mailto:${resumeContact.email}`}>{t('email')}</a>
         </li>
       </ul>
+      <p className={styles.closingNote}>{t('closingNote')}</p>
     </section>
   );
 }

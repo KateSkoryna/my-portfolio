@@ -735,17 +735,46 @@ width; axe clean.
 
 ### 4e `/handbook` — port the flip-book
 
-- [ ] Rebuild the page-flip as a React component.
-- [ ] **Extract the base64 images to `/public`**, serve via `next/image`. The
+- [x] Rebuild the page-flip as a React component.
+- [x] **Extract the base64 images to `/public`**, serve via `next/image`. The
       731 KB inline-image mistake is not repeated.
-- [ ] Fix the two failing greys — `#9A9284` → `quiet`, `#6D7A72` → `muted`
+- [x] Fix the two failing greys — `#9A9284` → `quiet`, `#6D7A72` → `muted`
       (§1.1).
-- [ ] Keep the EN/DE toggle.
+- [x] Keep the EN/DE toggle.
 - [ ] Only now remove the root `index.html` — and only once the React port is
       verified live at `/handbook`.
 
 **Done when:** the ported flip-book matches the published one; page weight is
 a fraction of 731 KB; both greys pass AA; the old handbook URL still resolves.
+
+**4e result** — `/handbook` is a static route (`/en/handbook`, `/de/handbook`).
+Text is the published handbook's `data-en` / `data-de` strings, unchanged, in
+`src/content/handbook.{en,de}.ts`; the ten faces are in
+`src/components/Handbook/HandbookFaces.tsx`, converted from `index.html` by a
+one-off script and edited by hand. The four inline base64 images are now files
+under `public/handbook/` (author photo shrunk to 448px) served by `next/image`.
+Measured on a production build, `/en/handbook` transfers ~410 KB in total,
+of which ~137 KB is the three fonts, ~165 KB the framework and page JS and ~59 KB
+the images (the published page was 731 KB in one file, with fonts fetched
+separately). `npm run build`, lint, typecheck and vitest (25) pass; axe (jsdom)
+clean; arrows disable at the cover and the back cover (tested). All five spreads
+checked by hand in headless Chrome, EN and DE. Changes from the published page:
+- The toolbar, page label and key hint are replaced by the site's arrows and
+  dots (DESIGN.md §4.3); the page's own language switcher by the site toggle.
+- Mouse-wheel page turning is not carried over (it hijacks scroll).
+- Body copy is 11px, not 10px/9px (DESIGN.md §5.4); dense pages are still scaled to
+  fit, so on-screen text is smaller than 11px there — same as the published page.
+- `#9A9284` → `quiet`, `#6D7A72` → `muted`; the "— inside cover —" caption is now `quiet`.
+- Only the two faces in view are focusable / exposed to assistive tech.
+Not done, needs Kateryna:
+- **`index.html` is not removed.** It is only to go once the port is verified live
+  on Vercel, which cannot be checked from here. It is still the only copy of the
+  published handbook.
+- Mobile shows the whole spread scaled down, as the published page did, not one
+  page at a time as DESIGN.md §3 asks. No Lighthouse run; no human look at 390 / 768.
+- The gem portraits and author photo are the published page's; alt text for DE is new.
+- A few colours still hardcoded as `--hb-*` (handbook-only creams/greys); shadows inside
+  the pages are carried over as-is, not yet on tokens.
 
 ### Phase 4 gate
 

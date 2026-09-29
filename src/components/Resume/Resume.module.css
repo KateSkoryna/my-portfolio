@@ -70,6 +70,34 @@
   display: none;
 }
 
+/* Page numbers, as in the handbook: bottom outer corner of each page. Not part
+   of the flow, so they never affect where the text breaks. The turning leaf and
+   the old page carry their own copies (`PageClone`), so a number turns with its
+   page instead of vanishing until the turn ends. */
+.pageNums {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.pageNumLeft,
+.pageNumRight {
+  position: absolute;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--color-muted);
+  bottom: 14px;
+}
+
+.pageNumLeft {
+  left: 24px;
+}
+
+.pageNumRight {
+  right: 24px;
+}
+
 /* Text sits inside the frames' padding: the container's content box is the
    text area (one page wide on mobile, two pages minus the outer padding on
    desktop), which `cqw` below measures. */
@@ -487,6 +515,16 @@ section + .role {
   text-decoration: none;
 }
 
+/* The hand-written aside under the links. Book only — the closing leaf is
+   not printed. */
+.closingNote {
+  margin: 18px 0 0;
+  font-family: var(--font-hand), cursive;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--color-coral);
+}
+
 /* --- Print: one plain page, no chrome ---------------------------------- */
 
 @page {
@@ -521,6 +559,7 @@ section + .role {
   .prev,
   .next,
   .dots,
+  .pageNums,
   .frames,
   .filler,
   .half,

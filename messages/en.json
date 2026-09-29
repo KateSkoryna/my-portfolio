@@ -141,6 +141,14 @@
     "educationLanguages": "Education & languages",
     "languages": "Languages",
     "liveDemo": "Live demo",
-    "code": "Code"
+    "code": "Code",
+    "closingNote": "↳ Say hi. No prompt engineering required."
+  },
+  "handbook": {
+    "backToStack": "Back to the stack",
+    "goToShelf": "Go to shelf",
+    "prev": "Previous page",
+    "next": "Next page",
+    "closingNote": "↳ Say hi. No prompt engineering required."
   }
 }
