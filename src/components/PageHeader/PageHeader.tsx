@@ -16,16 +16,31 @@ export function HeaderLink({
   href,
   arrow,
   children,
+  shortLabel,
 }: {
   href: string;
   arrow: 'back' | 'forward';
   children: ReactNode;
+  /** Replaces `children` on phones, where the row is too narrow for the full text. */
+  shortLabel?: string;
 }) {
   const glyph = <span aria-hidden="true">{arrow === 'back' ? '←' : '→'}</span>;
   return (
     <Link href={href} className={styles.link}>
-      {arrow === 'back' && glyph} {children} {arrow === 'forward' && glyph}
+      {arrow === 'back' && glyph} <ResponsiveLabel short={shortLabel}>{children}</ResponsiveLabel>{' '}
+      {arrow === 'forward' && glyph}
     </Link>
+  );
+}
+
+/** The full label, or — on phones — the short one. Only the visible one is read out. */
+function ResponsiveLabel({ short, children }: { short?: string; children: ReactNode }) {
+  if (!short) return <>{children}</>;
+  return (
+    <>
+      <span className={styles.backLong}>{children}</span>
+      <span className={styles.backShort}>{short}</span>
+    </>
   );
 }
 
@@ -33,10 +48,20 @@ export function HeaderLink({
  * The same pill for a file download — a plain `<a download>`, not the
  * locale-aware `Link`, since the file is not a route.
  */
-export function HeaderDownload({ href, children }: { href: string; children: ReactNode }) {
+export function HeaderDownload({
+  href,
+  children,
+  shortLabel,
+}: {
+  href: string;
+  children: ReactNode;
+  /** Replaces `children` on phones, where the row is too narrow for the full text. */
+  shortLabel?: string;
+}) {
   return (
     <a href={href} download className={styles.link}>
-      {children} <span aria-hidden="true">↓</span>
+      <ResponsiveLabel short={shortLabel}>{children}</ResponsiveLabel>{' '}
+      <span aria-hidden="true">↓</span>
     </a>
   );
 }
@@ -79,7 +104,14 @@ export function PageHeader({
       {showBackRow && (
         <div className={styles.backRow}>
           <HeaderLink href={backHref} arrow="back">
-            {backLabel ?? t('back')}
+            {backLabel ? (
+              <>
+                <span className={styles.backLong}>{backLabel}</span>
+                <span className={styles.backShort}>{t('back')}</span>
+              </>
+            ) : (
+              t('back')
+            )}
           </HeaderLink>
           {center ?? <p className={styles.routeLabel}>{routeLabel}</p>}
           <div className={styles.action}>{action}</div>

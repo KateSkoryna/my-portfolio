@@ -101,3 +101,20 @@
 .action {
   justify-self: end;
 }
+
+/* A route's own back label ("Back to the stack") is long; on phones the plain
+   "Back" replaces it so the header row fits. Only one is displayed, so only
+   that one is read out. */
+.backShort {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .backLong {
+    display: none;
+  }
+
+  .backShort {
+    display: inline;
+  }
+}

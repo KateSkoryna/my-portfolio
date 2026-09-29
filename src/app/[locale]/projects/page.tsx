@@ -14,6 +14,7 @@ export const revalidate = 3600;
 
 export default async function ProjectsPage() {
   const t = await getTranslations('projects');
+  const tChrome = await getTranslations('chrome');
   const locale = await getLocale();
   const { issues, fetchedAt } = await getProjectIssues();
 
@@ -22,7 +23,7 @@ export default async function ProjectsPage() {
       <PageHeader
         backLabel={t('backToStack')}
         action={
-          <HeaderLink href="/shelf" arrow="forward">
+          <HeaderLink href="/shelf" arrow="forward" shortLabel={tChrome('shelfShort')}>
             {t('goToShelf')}
           </HeaderLink>
         }
