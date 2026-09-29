@@ -151,6 +151,8 @@ export const shadow = {
    * book below read as one selection, not two different treatments.
    */
   selectedRing: `0 0 0 2px ${color.mustard}`,
+  /** Soft edge on the old project as it is wiped away on `/projects` (used as a `drop-shadow`). */
+  sweepEdge: '0 0 14px rgba(20,40,30,.35)',
   /** Cast by the floating item onto the pile — what sells "suspended". */
   suspension: 'radial-gradient(closest-side, rgba(28,52,42,.3), transparent)',
 } as const;
@@ -159,6 +161,12 @@ export const motion = {
   ease: 'cubic-bezier(.2,.72,.18,1)',
   /** Carousel advance and page turn. */
   turn: 420,
+  /**
+   * `/projects` change of project (ms). The old project is wiped away by an
+   * edge that swings 180° about the card's bottom centre, uncovering the new
+   * one.
+   */
+  sweepTurn: 1100,
   /** Selection change. */
   select: 320,
   /** Hover scale. */
