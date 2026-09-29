@@ -30,6 +30,14 @@
   gap: 16px;
 }
 
+/* Two groups inside the identity block, for the tablet layout below: the
+   role/name/photo/stack column and the bio/buttons column. Transparent
+   everywhere else — the children stay flex items of `.identity` as before. */
+.identityMain,
+.identityAbout {
+  display: contents;
+}
+
 .photo {
   width: 220px;
   height: 220px;
@@ -164,5 +172,45 @@
 
   .stack {
     font-size: 15px;
+  }
+}
+
+/*
+ * Tablet, 801–1199px. The identity block spans the full width in two columns
+ * — photo, role and name on the left; the stack line, the bio and the buttons
+ * on the right — and the desktop stage-and-description row sits underneath it, with
+ * the description on the right. (The mobile layout above 800px is untouched.)
+ */
+@media (min-width: 801px) and (max-width: 1199px) {
+  .landing {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+    row-gap: 48px;
+  }
+
+  .identity {
+    grid-column: 1 / -1;
+    display: grid;
+    /* The left column is as wide as its content (the name), not half the
+       row; the right column takes the rest. */
+    grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: clamp(32px, 6vw, 80px);
+    align-items: start;
+  }
+
+  .stack {
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .bio {
+    font-size: 18px;
+  }
+
+  .identityMain,
+  .identityAbout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
   }
 }
