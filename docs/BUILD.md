@@ -227,7 +227,15 @@ route with no code edit.
 - Playwright: carousel cycles, arrows disable correctly, routes resolve,
   reduced-motion honoured
 - `README.md` rewritten for the portfolio
-- Custom domain, or rename the repo — see `docs/DESIGN.md` §6
+- Custom domain, or rename the repo — see `docs/DESIGN.md` §6 and
+  `docs/domain.md`
+- Analytics: `@vercel/analytics`, `<Analytics />` in the root layout, enabled in
+  the Vercel project dashboard. Enable it after the custom domain is live so
+  the data starts from the real URL. No cookies, no personal data, so no
+  consent banner. Dependency justification: a static page has no visitor log,
+  and the platform cannot provide one. Optionally add `@vercel/speed-insights`
+  to track real-user LCP/CLS/INP against the performance budget. Re-check the
+  JS budget after adding either (~1 KB each)
 
 ---
 
