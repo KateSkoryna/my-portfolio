@@ -40,6 +40,8 @@ export function renderTokensCss(): string {
     section('Motion — DESIGN.md §1.4', [
       ['--motion-ease', motion.ease],
       ['--motion-turn', `${motion.turn}ms`],
+      ['--motion-page-turn', `${motion.pageTurn}ms`],
+      ['--motion-ease-page-turn', motion.easePageTurn],
       ['--motion-select', `${motion.select}ms`],
       ['--motion-hover', `${motion.hover}ms`],
       ['--motion-hover-scale', `${motion.hoverScale}`],

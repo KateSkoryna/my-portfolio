@@ -151,6 +151,13 @@ export const shadow = {
    * book below read as one selection, not two different treatments.
    */
   selectedRing: `0 0 0 2px ${color.mustard}`,
+  /**
+   * Inset spine shadows for an opened book (DESIGN.md §4.3): two pages side
+   * by side, each darkening toward the spine so the pair reads as one
+   * bound object. Left page shadows its right edge, right page its left.
+   */
+  spineLeft: 'inset -16px 0 26px -18px rgba(0,0,0,.4)',
+  spineRight: 'inset 16px 0 26px -18px rgba(0,0,0,.4)',
   /** Cast by the floating item onto the pile — what sells "suspended". */
   suspension: 'radial-gradient(closest-side, rgba(28,52,42,.3), transparent)',
 } as const;
@@ -159,6 +166,13 @@ export const motion = {
   ease: 'cubic-bezier(.2,.72,.18,1)',
   /** Carousel advance and page turn. */
   turn: 420,
+  /**
+   * The `/resume` page-turn leaf. Slower than `turn`: a whole leaf swinging
+   * across the spread reads as rushed at 420ms. *(Kateryna's call.)*
+   */
+  pageTurn: 900,
+  /** Ease-in-out for the leaf — it accelerates off the page and settles softly. */
+  easePageTurn: 'cubic-bezier(.45,.05,.25,1)',
   /** Selection change. */
   select: 320,
   /** Hover scale. */
