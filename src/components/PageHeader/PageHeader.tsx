@@ -29,6 +29,18 @@ export function HeaderLink({
 }
 
 /**
+ * The same pill for a file download — a plain `<a download>`, not the
+ * locale-aware `Link`, since the file is not a route.
+ */
+export function HeaderDownload({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a href={href} download className={styles.link}>
+      {children} <span aria-hidden="true">↓</span>
+    </a>
+  );
+}
+
+/**
  * DESIGN.md §4.4 — two rows, one structure on every route. Row 1: the
  * language toggle alone, pinned right (a site-wide setting). Row 2:
  * back-arrow / route label / the page's own action (a where-you-are
@@ -37,12 +49,15 @@ export function HeaderLink({
  */
 export function PageHeader({
   routeLabel,
+  center,
   backHref = '/',
   backLabel,
   action,
   showBackRow = true,
 }: {
   routeLabel?: string;
+  /** Replaces the route label in the middle cell — e.g. a download button. */
+  center?: ReactNode;
   backHref?: string;
   /** Falls back to the generic "Back" — a route can say where it goes back to. */
   backLabel?: string;
@@ -62,7 +77,7 @@ export function PageHeader({
           <HeaderLink href={backHref} arrow="back">
             {backLabel ?? t('back')}
           </HeaderLink>
-          <p className={styles.routeLabel}>{routeLabel}</p>
+          {center ?? <p className={styles.routeLabel}>{routeLabel}</p>}
           <div className={styles.action}>{action}</div>
         </div>
       )}
