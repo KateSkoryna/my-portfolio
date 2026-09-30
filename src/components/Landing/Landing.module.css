@@ -193,3 +193,41 @@
     gap: 16px;
   }
 }
+
+/*
+ * Intro (once per session, see `intro.ts`; the timeline is in
+ * `Carousel.module.css`). The photo fades in with the books; the role, name,
+ * stack line and bio are typed (`TypedText.tsx`); the buttons fade in once the
+ * bio is done (`--bio-chars` is set on `.identity`, `Landing.tsx`). Only while
+ * `<main data-intro="play">`; the global reduced-motion rule in reset.css
+ * collapses these to their end state.
+ */
+:global([data-intro='play']) .photo,
+:global([data-intro='play']) .photoImage {
+  animation: introFade var(--motion-intro-rise) linear backwards;
+  animation-delay: var(--motion-intro-pile-at);
+}
+
+:global([data-intro='play']) .socials > * {
+  animation: introFade var(--motion-intro-rise) linear backwards;
+  animation-delay: calc(
+    var(--motion-intro-text-at) + 15 * var(--motion-intro-stagger) + var(--bio-chars) *
+      var(--motion-type-char-fast) + var(--intro-step) * var(--motion-intro-stagger)
+  );
+}
+
+:global([data-intro='play']) .socials > :nth-child(1) {
+  --intro-step: 0;
+}
+:global([data-intro='play']) .socials > :nth-child(2) {
+  --intro-step: 1;
+}
+:global([data-intro='play']) .socials > :nth-child(3) {
+  --intro-step: 2;
+}
+
+@keyframes introFade {
+  from {
+    opacity: 0;
+  }
+}

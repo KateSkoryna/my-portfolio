@@ -16,6 +16,8 @@ import { MarginNote } from '@/components/MarginNote/MarginNote';
 import { Link } from '@/i18n/navigation';
 
 import { SelectItemContext } from './CarouselContext';
+import { TypedText } from './TypedText';
+import { PileStack, type PileBookData } from './PileStack';
 import styles from './Carousel.module.css';
 
 /**
@@ -30,6 +32,9 @@ const STACK_FILL = 0.8;
 const STACK_FIT_MIN = 0.6;
 const STACK_FIT_MAX = 1.1;
 
+/** When the pile note starts typing at session start: last, after the other text. */
+const NOTE_START = 'calc(var(--motion-intro-text-at) + 22 * var(--motion-intro-stagger))';
+
 /** Horizontal travel, in px, that counts as a swipe rather than a tap. */
 const SWIPE_MIN_DISTANCE = 40;
 
@@ -38,7 +43,6 @@ interface Slide {
   /** The description, printed on the back of the book (mobile). */
   back: ReactNode;
   floating: ReactNode;
-  pile: ReactNode;
   description: ReactNode;
   /** Same button as inside `description`; shown under the book on mobile. */
   cta: ReactNode;
@@ -56,6 +60,7 @@ interface Slide {
  */
 export function Carousel({
   slides,
+  pileBooks,
   prevLabel,
   nextLabel,
   defaultIndex,
@@ -65,6 +70,8 @@ export function Carousel({
   flipLabel,
 }: {
   slides: readonly Slide[];
+  /** Every item as a closed book, in stack order — the pile shows four of them. */
+  pileBooks: readonly PileBookData[];
   prevLabel: string;
   nextLabel: string;
   defaultIndex: number;
@@ -95,17 +102,46 @@ export function Carousel({
     return () => observer.disconnect();
   }, []);
 
-  const select = useCallback((i: number) => {
-    setIndex(i);
-    setFlipped(false);
-  }, []);
+  /* The intro is over once the visitor picks another book — see `IntroGate`.
+     Compared against the previous index, so Strict Mode's double effect on
+     mount does not end it early. */
+  const previousIndex = useRef(index);
+  useLayoutEffect(() => {
+    if (previousIndex.current === index) return;
+    previousIndex.current = index;
+    const main = document.getElementById('main');
+    if (main) main.dataset.intro = 'seen';
+  }, [index]);
 
-  const advance = useCallback(
-    (delta: number) => {
-      setIndex((i) => (i + delta + slides.length) % slides.length);
+  /*
+   * Changing book: the old one slides out toward the side the visitor is
+   * moving away from while the new one slides in from the other. `swapDir` is
+   * +1 forward, -1 back, 0 before anything has changed (the first render must
+   * not animate — the intro owns it). The pile is untouched: the old book does
+   * not travel anywhere, it just leaves.
+   */
+  const [swapDir, setSwapDir] = useState<0 | 1 | -1>(0);
+  const [leaving, setLeaving] = useState<number | null>(null);
+  /** The book that was floating a moment ago; it flies into the pile. */
+  const [arriving, setArriving] = useState<string | null>(null);
+
+  const go = useCallback(
+    (to: number, dir: 1 | -1) => {
+      if (to === index) return;
+      setLeaving(index);
+      setArriving(slides[index].id);
+      setSwapDir(dir);
+      setIndex(to);
       setFlipped(false);
     },
-    [slides.length],
+    [index, slides],
+  );
+
+  const select = useCallback((i: number) => go(i, i > index ? 1 : -1), [go, index]);
+
+  const advance = useCallback(
+    (delta: number) => go((index + delta + slides.length) % slides.length, delta > 0 ? 1 : -1),
+    [go, index, slides.length],
   );
 
   /*
@@ -142,60 +178,75 @@ export function Carousel({
       <div ref={stageRef} className={styles.stage}>
         <ArrowButton direction="prev" label={prevLabel} onClick={() => advance(-1)} />
         <div className={styles.stack} style={{ '--fit': fit } as CSSProperties}>
-          <div
-            key={`floating-${index}`}
-            className={styles.floatingWrap}
-            data-flipped={flipped}
-            onPointerDown={(event) => {
-              if (event.pointerType === 'mouse') return;
-              swipeStart.current = { x: event.clientX, y: event.clientY };
-              swiped.current = false;
-            }}
-            onPointerUp={(event) => {
-              const start = swipeStart.current;
-              swipeStart.current = null;
-              if (!start) return;
-              const dx = event.clientX - start.x;
-              const dy = event.clientY - start.y;
-              if (Math.abs(dx) >= SWIPE_MIN_DISTANCE && Math.abs(dx) > Math.abs(dy) * 1.5) {
-                swiped.current = true;
-                advance(dx < 0 ? 1 : -1);
-              }
-            }}
-            onPointerCancel={() => {
-              swipeStart.current = null;
-            }}
-            onClickCapture={(event) => {
-              if (!swiped.current) return;
-              swiped.current = false;
-              event.preventDefault();
-              event.stopPropagation();
-            }}
-          >
-            <div className={styles.flipper}>
-              <div className={styles.front}>{slide.floating}</div>
-              {/* `inert` while the book is closed — the back holds a link, and
-                  it must not be tabbable or read out until it is showing. */}
-              <div className={styles.back} inert={!flipped}>
-                {slide.back}
+          <div className={styles.floatingStage} style={{ '--swap-dir': swapDir } as CSSProperties}>
+            {leaving !== null && (
+              /* The book being replaced, kept just long enough to slide out. */
+              <div
+                key={`leaving-${leaving}`}
+                className={styles.leaving}
+                aria-hidden="true"
+                inert
+                onAnimationEnd={() => setLeaving(null)}
+              >
+                {slides[leaving].floating}
               </div>
-            </div>
-            {/* Mobile only: a tap flips the book and reveals its description;
+            )}
+            <div
+              key={`floating-${index}`}
+              className={styles.floatingWrap}
+              data-swapped={swapDir !== 0}
+              data-flipped={flipped}
+              onPointerDown={(event) => {
+                if (event.pointerType === 'mouse') return;
+                swipeStart.current = { x: event.clientX, y: event.clientY };
+                swiped.current = false;
+              }}
+              onPointerUp={(event) => {
+                const start = swipeStart.current;
+                swipeStart.current = null;
+                if (!start) return;
+                const dx = event.clientX - start.x;
+                const dy = event.clientY - start.y;
+                if (Math.abs(dx) >= SWIPE_MIN_DISTANCE && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                  swiped.current = true;
+                  advance(dx < 0 ? 1 : -1);
+                }
+              }}
+              onPointerCancel={() => {
+                swipeStart.current = null;
+              }}
+              onClickCapture={(event) => {
+                if (!swiped.current) return;
+                swiped.current = false;
+                event.preventDefault();
+                event.stopPropagation();
+              }}
+            >
+              <div className={styles.flipper}>
+                <div className={styles.front}>{slide.floating}</div>
+                {/* `inert` while the book is closed — the back holds a link, and
+                  it must not be tabbable or read out until it is showing. */}
+                <div className={styles.back} inert={!flipped}>
+                  {slide.back}
+                </div>
+              </div>
+              {/* Mobile only: a tap flips the book and reveals its description;
                 the item's own button (below) is what navigates. */}
-            <button
-              type="button"
-              className={styles.flipButton}
-              aria-label={flipLabel}
-              aria-expanded={flipped}
-              onClick={() => setFlipped((f) => !f)}
-            />
+              <button
+                type="button"
+                className={styles.flipButton}
+                aria-label={flipLabel}
+                aria-expanded={flipped}
+                onClick={() => setFlipped((f) => !f)}
+              />
+            </div>
           </div>
           <div className={styles.suspensionShadow} aria-hidden="true" />
           <div key={`cta-${index}`} className={styles.mobileCta}>
             {slide.cta}
           </div>
-          <div key={`pile-${index}`} className={styles.pileWrap}>
-            {slide.pile}
+          <div className={styles.pileWrap}>
+            <PileStack books={pileBooks} selectedIndex={index} arrivingId={arriving} />
             <svg
               className={styles.pileNoteArrow}
               viewBox="0 0 145 40"
@@ -212,8 +263,23 @@ export function Carousel({
               <circle cx="141" cy="34" r="3" fill="var(--color-emerald)" />
             </svg>
             <div className={styles.pileNote}>
-              <MarginNote>{pileNote}</MarginNote>
-              <p className={styles.pileNoteCaption}>{pileNoteCaption}</p>
+              <MarginNote>
+                <TypedText
+                  text={pileNote}
+                  intro
+                  start={NOTE_START}
+                  step="var(--motion-type-char-fast)"
+                />
+              </MarginNote>
+              <p className={styles.pileNoteCaption}>
+                <TypedText
+                  text={pileNoteCaption}
+                  intro
+                  start={NOTE_START}
+                  step="var(--motion-type-char-fast)"
+                  startIndex={pileNote.length}
+                />
+              </p>
               <Link href="/shelf" className={styles.pileShelfLink}>
                 <svg className={styles.pileShelfIcon} viewBox="0 0 16 16" aria-hidden="true">
                   <rect fill="currentColor" x="1.4" y="3" width="3" height="9.6" rx="1" />
@@ -236,7 +302,14 @@ export function Carousel({
         <ArrowButton direction="next" label={nextLabel} onClick={() => advance(1)} />
       </div>
 
-      <div className={styles.desktopDescription}>{slide.description}</div>
+      <div
+        key={`description-${index}`}
+        className={styles.desktopDescription}
+        data-swapped={swapDir !== 0}
+        style={{ '--swap-dir': swapDir } as CSSProperties}
+      >
+        {slide.description}
+      </div>
     </SelectItemContext.Provider>
   );
 }
