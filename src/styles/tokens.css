@@ -64,6 +64,17 @@
   --motion-select:         320ms;
   --motion-hover:          300ms;
   --motion-hover-scale:    1.08;
+  --motion-swap:           600ms;
+  --motion-type-char:      55ms;
+  --motion-type-char-fast: 5ms;
+  --motion-intro-rise:     600ms;
+  --motion-intro-drop:     720ms;
+  --motion-intro-lift:     760ms;
+  --motion-intro-draw:     520ms;
+  --motion-intro-stagger:  90ms;
+  --motion-intro-pile-at:  200ms;
+  --motion-intro-float-at: 1000ms;
+  --motion-intro-text-at:  1300ms;
 
   /* Accessibility — DESIGN.md §5 */
   --a11y-min-target:        44px;
