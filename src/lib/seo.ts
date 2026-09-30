@@ -8,6 +8,14 @@ export const SITE_URL = 'https://katerynaskoryna.com';
 
 export const SITE_NAME = 'Kateryna Skoryna';
 
+/** The 1200×630 card shown when a link is shared. Served from `public/`. */
+export const PREVIEW_IMAGE = {
+  url: '/preview.png',
+  width: 1200,
+  height: 630,
+  alt: 'Kateryna Skoryna, frontend-focused full-stack developer in Berlin',
+};
+
 /** Every route that is a real page, as a path without the locale prefix. */
 export const STATIC_PATHS = [
   '',
@@ -54,6 +62,7 @@ export function pageMetadata(args: {
       siteName: SITE_NAME,
       locale,
       type: 'website',
+      images: [PREVIEW_IMAGE],
       ...(title ? { title } : {}),
       ...(description ? { description } : {}),
     },

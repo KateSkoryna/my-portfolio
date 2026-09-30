@@ -6,7 +6,7 @@ import { Bricolage_Grotesque, Caveat, Manrope } from 'next/font/google';
 
 import { getResumeContent } from '@/content/resume';
 import { routing } from '@/i18n/routing';
-import { SITE_NAME, SITE_URL, pageMetadata } from '@/lib/seo';
+import { PREVIEW_IMAGE, SITE_NAME, SITE_URL, pageMetadata } from '@/lib/seo';
 
 import '@/styles/tokens.css';
 import '@/styles/reset.css';
@@ -55,7 +55,7 @@ export async function generateMetadata({
     metadataBase: new URL(SITE_URL),
     title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
     ...pageMetadata({ locale, path: '', description: `${headline}. ${headlineStack}.` }),
-    twitter: { card: 'summary' },
+    twitter: { card: 'summary_large_image', images: [PREVIEW_IMAGE] },
   };
 }
 
