@@ -23,14 +23,19 @@ import styles from './FloatingItem.module.css';
  * `Carousel` only ever receives this already rendered, never imports it.
  */
 export function FloatingItem({ item }: { item: PortfolioItem }) {
-  const style = { '--spine-fill': item.cover } as CSSProperties;
+  const isNotebook = item.kind === 'notebook';
+  // `--cover-scale` is `BookCover`'s hero scale (293 / 216); the notebook's holes
+  // below sit on the same pitch as the cover's coils.
+  const style = { '--spine-fill': item.cover, '--cover-scale': 293 / 216 } as CSSProperties;
 
   const assembly = (
     <>
-      {/* A spiral-bound notebook has no spine: the coils bind the cover itself. */}
-      {item.kind !== 'notebook' && (
-        <span className={styles.spine} style={style} aria-hidden="true" />
-      )}
+      {/* The notebook has no hardcover spine: its strip is the stacked page edges, under the coils. */}
+      <span
+        className={isNotebook ? styles.pageEdge : styles.spine}
+        style={style}
+        aria-hidden="true"
+      />
       <div className={styles.coverWrap}>
         <BookCover item={item} size="hero" />
       </div>

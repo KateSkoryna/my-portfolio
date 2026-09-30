@@ -193,6 +193,26 @@ export const motion = {
    * *(Kateryna's call.)*
    */
   hoverScale: 1.08,
+  /**
+   * Landing intro, once per session  The `*At`
+   * values are when each phase starts; `introStagger` is the step between
+   * siblings within one.
+   */
+  /** Changing book on the landing carousel: the old one slides out, the new one in. */
+  swap: 600,
+  /** Typing effect on the landing counter row: time per character. */
+  typeChar: 55,
+  /** Same effect on the description (150–220 characters), so much faster. */
+  typeCharFast: 5,
+  introRise: 600,
+  introDrop: 720,
+  introLift: 760,
+  introDraw: 520,
+  introStagger: 90,
+  introPileAt: 200,
+  introFloatAt: 1000,
+  /** When all the text starts typing: once the books have mostly landed. */
+  introTextAt: 1300,
 } as const;
 
 /**

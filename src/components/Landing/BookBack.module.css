@@ -58,6 +58,31 @@
     var(--shadow-raised);
 }
 
+/* The notebook's page-edge strip — see `FloatingItem.module.css` `.pageEdge`. */
+.pageEdge {
+  composes: spine;
+  /* One coil every 20px at the cover's scale, so each hole sits level with a
+     coil and on a rule of the cover's ruling. The first centre is 20 units
+     down the cover, less the strip's 8px top inset. */
+  --pitch: calc(20px * var(--cover-scale));
+  --hole-x: 17px;
+  background-image:
+    radial-gradient(
+      circle calc(2.5px * var(--cover-scale)) at var(--hole-x) calc(var(--pitch) / 2),
+      rgba(21, 82, 70, 0.4) 0 90%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      transparent calc(var(--pitch) / 2 - 0.5px),
+      rgba(31, 111, 95, 0.11) calc(var(--pitch) / 2 - 0.5px) calc(var(--pitch) / 2 + 0.5px),
+      transparent calc(var(--pitch) / 2 + 0.5px)
+    );
+  background-size: 100% var(--pitch);
+  background-position: 0 calc(var(--pitch) / 2 - 8px);
+  background-repeat: repeat-y;
+}
+
 /* `BookCover`'s fore-edge strip, but on the left: turned over, the page
    edges are on the side away from the spine. */
 .foreEdge {

@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 
@@ -5,10 +6,13 @@ import { itemsBase, localizeItems, profile } from '@/content/items';
 import { SocialLink } from '@/components/SocialLink/SocialLink';
 
 import { FloatingItem } from './FloatingItem';
-import { Pile } from './Pile';
+import { PileBook } from './Pile';
 import { DescriptionPanel } from './DescriptionPanel';
 import { Carousel } from './Carousel';
 import { ItemCta } from './ItemCta';
+import { IntroGate } from './IntroGate';
+import { TypedText } from './TypedText';
+import { introSkipScript } from './intro';
 import { BookBack } from './BookBack';
 import styles from './Landing.module.css';
 
@@ -36,20 +40,33 @@ export async function Landing() {
   const tItems = await getTranslations('items');
   const tCommon = await getTranslations('common');
   const items = localizeItems(tItems);
+  const bio = tProfile('bio');
+  const basedIn = t('basedIn', { city: tProfile('city') });
   const [roleLead, roleLast] = splitFirstWord(tProfile('role'));
 
-  const slides = items.map((item, i) => ({
+  const slides = items.map((item) => ({
     id: item.id,
     back: <BookBack item={item} />,
     floating: <FloatingItem item={item} />,
-    pile: <Pile items={items.filter((_, j) => j !== i)} />,
     description: <DescriptionPanel item={item} descriptionLabel={t('descriptionLabel')} />,
     cta: <ItemCta item={item} withDownload />,
   }));
 
+  const pileBooks = items.map((item) => ({
+    id: item.id,
+    thickness: item.thickness,
+    node: <PileBook item={item} />,
+  }));
+
   return (
-    <main id="main" className={styles.landing}>
-      <section className={styles.identity} aria-label={t('identityLabel')}>
+    <main id="main" className={styles.landing} data-intro="play" suppressHydrationWarning>
+      <script dangerouslySetInnerHTML={{ __html: introSkipScript }} />
+      <IntroGate />
+      <section
+        className={styles.identity}
+        aria-label={t('identityLabel')}
+        style={{ '--bio-chars': bio.length } as CSSProperties}
+      >
         <div className={styles.identityMain}>
           {profile.photo.startsWith('[') ? (
             <div className={styles.photo}>{profile.photo}</div>
@@ -64,19 +81,55 @@ export async function Landing() {
             />
           )}
           <p className={styles.role}>
-            {roleLead}
+            <TypedText
+              text={roleLead}
+              intro
+              start="var(--motion-intro-text-at)"
+              step="var(--motion-type-char-fast)"
+            />
             <br />
-            {roleLast}
+            <TypedText
+              text={roleLast}
+              intro
+              start="var(--motion-intro-text-at)"
+              step="var(--motion-type-char-fast)"
+              startIndex={roleLead.length + 1}
+            />
           </p>
-          <h1 className={styles.name}>{profile.name}</h1>
+          <h1 className={styles.name}>
+            <TypedText
+              text={profile.name}
+              intro
+              start="calc(var(--motion-intro-text-at) + 2 * var(--motion-intro-stagger))"
+              step="var(--motion-type-char)"
+            />
+          </h1>
         </div>
         <div className={styles.identityAbout}>
           <p className={styles.stack}>
-            {profile.stackLine}
+            <TypedText
+              text={profile.stackLine}
+              intro
+              start="calc(var(--motion-intro-text-at) + 12 * var(--motion-intro-stagger))"
+              step="var(--motion-type-char-fast)"
+            />
             <br />
-            {t('basedIn', { city: tProfile('city') })}
+            <TypedText
+              text={basedIn}
+              intro
+              start="calc(var(--motion-intro-text-at) + 12 * var(--motion-intro-stagger))"
+              step="var(--motion-type-char-fast)"
+              startIndex={profile.stackLine.length + 1}
+            />
           </p>
-          <p className={styles.bio}>{tProfile('bio')}</p>
+          <p className={styles.bio}>
+            <TypedText
+              text={tProfile('bio')}
+              intro
+              start="calc(var(--motion-intro-text-at) + 15 * var(--motion-intro-stagger))"
+              step="var(--motion-type-char-fast)"
+            />
+          </p>
           <div className={styles.socials}>
             <SocialLink kind="github" href={profile.github} className={styles.socialItem}>
               GitHub
@@ -93,6 +146,7 @@ export async function Landing() {
 
       <Carousel
         slides={slides}
+        pileBooks={pileBooks}
         prevLabel={tCommon('prevItem')}
         nextLabel={tCommon('nextItem')}
         defaultIndex={DEFAULT_INDEX}

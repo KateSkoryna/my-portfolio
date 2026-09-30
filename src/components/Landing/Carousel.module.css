@@ -285,6 +285,26 @@
     zoom: var(--fit, 1);
   }
 
+  /* The same scale worked out in CSS, so it is right on the very first paint:
+     the page is server-rendered, and `--fit` only exists once the browser has
+     measured — until then the book and pile showed at full size, then snapped
+     down. This mirrors `Carousel.tsx` (the stage is the viewport less the
+     page's side padding, the pile fills `STACK_FILL` of it, 384px wide,
+     kept within 0.6–1.1). */
+  @supports (width: calc(10px / 1px)) {
+    .stack {
+      zoom: clamp(0.6, calc(((100vw - 2 * clamp(16px, 5vw, 48px)) * 0.8) / 384px), 1.1);
+    }
+  }
+
+  /* A browser without that arithmetic still has to wait for the measurement:
+     hide the stack until `Carousel.tsx` has set it, rather than show it huge. */
+  @supports not (width: calc(10px / 1px)) {
+    .stack:not([data-ready='true']) {
+      visibility: hidden;
+    }
+  }
+
   .description {
     align-items: center;
     text-align: center;
@@ -512,5 +532,343 @@
 
   .pileNoteArrow {
     left: calc(var(--note-left) - 100px);
+  }
+}
+
+/*
+ * Intro (once per session, see `intro.ts`) — two acts, one rule for each kind
+ * of thing. Act 1: the objects land — the pile (`Pile.module.css`), the book
+ * lifting off it (`FloatingItem.module.css`) and the shadow beneath it. Act 2,
+ * from `--motion-intro-text-at`: every piece of text is typed
+ * (`TypedText.tsx`, and the counter row below), the left column and the
+ * description at the same time, each in reading order; the pile note last. The
+ * two drawn lines are the only other movement. Everything else — controls,
+ * chips, buttons — fades in once. Gated on `data-intro="play"` so advancing the
+ * carousel later is not affected (DESIGN.md §4.1).
+ */
+:global([data-intro='play']) .suspensionShadow {
+  animation: shadowGrow var(--motion-intro-lift) var(--motion-ease) backwards;
+  animation-delay: var(--motion-intro-float-at);
+}
+
+:global([data-intro='play']) .pileShadow {
+  animation: introFade var(--motion-intro-rise) linear backwards;
+  animation-delay: var(--motion-intro-pile-at);
+}
+
+/* Controls arrive as the text starts. */
+:global([data-intro='play']) .stage > button,
+:global([data-intro='play']) .dots {
+  animation: introFade var(--motion-intro-rise) linear backwards;
+  animation-delay: var(--motion-intro-text-at);
+}
+
+/* The pile note's arrow and button come with the note (`NOTE_START`). */
+:global([data-intro='play']) .pileNoteArrow,
+:global([data-intro='play']) .pileShelfLink {
+  animation: introFade var(--motion-intro-rise) linear backwards;
+  animation-delay: calc(var(--motion-intro-text-at) + 26 * var(--motion-intro-stagger));
+}
+
+/* The leader line is drawn from the book out to the panel as the text starts;
+   the coral dot at the book end simply comes with it. */
+:global([data-intro='play']) .leader path {
+  animation: introDraw var(--motion-intro-draw) var(--motion-ease) backwards;
+  animation-delay: var(--motion-intro-text-at);
+}
+
+:global([data-intro='play']) .leader circle {
+  animation: introFade calc(var(--motion-intro-draw) / 2) linear backwards;
+  animation-delay: var(--motion-intro-text-at);
+}
+
+/* The counter row types like the rest: the number, then the type label. */
+:global([data-intro='play']) .counterN,
+:global([data-intro='play']) .counterRow > :last-child {
+  display: inline-block;
+  animation: typeIn calc(var(--chars) * var(--motion-type-char)) steps(var(--chars)) backwards;
+  animation-delay: var(--motion-intro-text-at);
+}
+
+:global([data-intro='play']) .counterN {
+  --chars: 2;
+}
+
+:global([data-intro='play']) .counterRow > :last-child {
+  --chars: var(--kind-chars);
+}
+
+/* The title, then the description, typed in reading order. */
+:global([data-intro='play']) .itemTitle .char {
+  animation: charIn 1ms steps(1) backwards;
+  animation-delay: calc(var(--motion-intro-text-at) + var(--i) * var(--motion-type-char));
+}
+
+:global([data-intro='play']) .blurb .char {
+  animation: charIn 1ms steps(1) backwards;
+  animation-delay: calc(
+    calc(var(--motion-intro-text-at) + var(--title-chars) * var(--motion-type-char)) + var(--i) *
+      var(--motion-type-char-fast)
+  );
+}
+
+/* The coral squiggle is drawn once the title is typed. */
+:global([data-intro='play']) .titleUnderline path {
+  animation: introDraw var(--motion-intro-draw) var(--motion-ease) backwards;
+  animation-delay: calc(var(--motion-intro-text-at) + var(--title-chars) * var(--motion-type-char));
+}
+
+/* Chips and the button fade in when the description is done. */
+:global([data-intro='play']) .chips,
+:global([data-intro='play']) .descriptionCta {
+  animation: introFade var(--motion-intro-rise) linear backwards;
+  animation-delay: calc(
+    var(--motion-intro-text-at) + var(--title-chars) * var(--motion-type-char) +
+      var(--blurb-chars) * var(--motion-type-char-fast)
+  );
+}
+
+@keyframes introFade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* `pathLength="1"` on the SVG paths (`DescriptionPanel.tsx`) makes 1 the
+   whole line, whatever its real length. */
+@keyframes introDraw {
+  from {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes shadowGrow {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+/*
+ * Changing book (arrows, dots, swipe, pile click). The new book is set down
+ * on top of the old one: it drops in from just above, tilted a few degrees
+ * toward the side it came from (`--swap-dir`: +1 forward, -1 back), lands,
+ * bounces once and settles. The old book stays put underneath, fully covered
+ * by the time it lands, and is removed when the new one has finished — it
+ * never fades, so the stage is never half-empty. The pile is not involved:
+ * nothing travels to it, and it swaps without any fade (a fade of the whole
+ * pile read as a blink). Also runs on the very first change during the
+ * intro, which ends at that point (`Carousel.tsx`).
+ */
+.floatingStage {
+  position: relative;
+}
+
+/* Its animation ending is what removes it (`Carousel.tsx`): exactly when the
+   new book lands (55% of `swapDrop`). Any later and the bounce lifts the new
+   book off it, showing a grey sliver of the old spine's bottom edge. */
+.leaving {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Cut to the book's own outline (`FloatingItem.module.css`: the 34px spine
+     from y 8 to 399, the cover from x 29): its shadows fall outside. Left on,
+     they stack with the new book's (darker) and vanish when this copy is
+     removed — a blink. A plain `inset(0)` box was 9px taller than the spine
+     and kept a cut-off strip of its shadow under it: a grey line. */
+  clip-path: polygon(0 8px, 29px 8px, 29px 0, 100% 0, 100% 100%, 29px 100%, 29px 399px, 0 399px);
+  animation: swapHold calc(var(--motion-swap) * 0.55) linear forwards;
+}
+
+.floatingWrap[data-swapped='true'] {
+  animation:
+    swapDrop var(--motion-swap) var(--motion-ease) backwards,
+    swapDropFade calc(var(--motion-swap) / 4) linear backwards;
+}
+
+@keyframes swapHold {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes swapDropFade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes swapDrop {
+  0% {
+    transform: translateY(-80px) rotate(calc(var(--swap-dir) * 3deg));
+    animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.5);
+  }
+  55% {
+    transform: translateY(0) rotate(0deg);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  75% {
+    transform: translateY(-7px) rotate(0deg);
+    animation-timing-function: cubic-bezier(0.6, 0, 0.9, 0.5);
+  }
+  90% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+/* The description fades in (no movement) once the new book is arriving. The
+   leader line, the coral squiggle and, in the counter row, the "/ 05" and the
+   fading line are left alone: they are the same for every book, so they stay
+   put. Only the book number and the type label change. */
+.desktopDescription[data-swapped='true']
+  .description
+  > :not(.leader):not(.titleUnderline):not(.counterRow):not(.itemTitle):not(.blurb) {
+  animation: introFade var(--motion-swap) var(--motion-ease) backwards;
+  animation-delay: calc(var(--motion-swap) / 4);
+}
+
+/* The book number and the type label are typed out, a character at a time
+   (`steps`), not faded — the fade blinked. `--kind-chars` is the label's
+   length (`DescriptionPanel.tsx`). */
+.desktopDescription[data-swapped='true'] .counterN,
+.desktopDescription[data-swapped='true'] .counterRow > :last-child {
+  display: inline-block;
+  animation: typeIn calc(var(--chars) * var(--motion-type-char)) steps(var(--chars)) backwards;
+  animation-delay: calc(var(--motion-swap) / 4);
+}
+
+.desktopDescription[data-swapped='true'] .counterN {
+  --chars: 2;
+}
+
+.desktopDescription[data-swapped='true'] .counterRow > :last-child {
+  --chars: var(--kind-chars);
+}
+
+/* Revealed left to right. The inset is a few px past the box top, bottom and
+   right so it never clips glyphs. */
+@keyframes typeIn {
+  from {
+    clip-path: inset(-4px 100% -4px -4px);
+  }
+  to {
+    clip-path: inset(-4px -4px -4px -4px);
+  }
+}
+
+/*
+ * The title and the description are typed too, a character at a time: every
+ * character (`TypedText.tsx`) appears at its own moment, `--i` steps after the
+ * start. The title types beside the counter; the description starts a beat
+ * later and types much faster, being ten times as long. Only on a book change
+ * (`data-swapped`) — the page-load intro rises the block as a whole.
+ */
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.desktopDescription[data-swapped='true'] .char {
+  animation: charIn 1ms steps(1) backwards;
+  animation-delay: calc(var(--type-start) + var(--i) * var(--type-step));
+}
+
+.desktopDescription[data-swapped='true'] .itemTitle {
+  --type-start: calc(var(--motion-swap) / 4);
+  --type-step: var(--motion-type-char);
+}
+
+.desktopDescription[data-swapped='true'] .blurb {
+  --type-start: calc(var(--motion-swap) / 2);
+  --type-step: var(--motion-type-char-fast);
+}
+
+@keyframes charIn {
+  from {
+    opacity: 0;
+  }
+}
+
+/* The coral line under the title is drawn once the title has been typed. */
+.desktopDescription[data-swapped='true'] .titleUnderline path {
+  animation: introDraw var(--motion-intro-draw) var(--motion-ease) backwards;
+  animation-delay: calc(var(--motion-swap) / 4 + var(--title-chars) * var(--motion-type-char));
+}
+
+/* Typed at the start of a session — the left-hand identity block and the pile
+   note (`TypedText` with `intro`): each character appears at its own moment. */
+:global([data-intro='play']) .typed[data-type='intro'] .char {
+  animation: charIn 1ms steps(1) backwards;
+  animation-delay: calc(var(--type-start) + var(--i) * var(--type-step));
+}
+
+/*
+ * Intro on phones (see `Landing.module.css`): no typing, drawing or lifting —
+ * the text is simply there, and the rest of the page is the tail of the wave:
+ * the book's shadow and button with the book, the pile's shadow with the pile,
+ * then the note and the dots.
+ */
+@media (max-width: 800px) {
+  :global([data-intro='play']) .typed[data-type='intro'] .char {
+    animation: none;
+  }
+
+  :global([data-intro='play']) .suspensionShadow,
+  :global([data-intro='play']) .mobileCta,
+  :global([data-intro='play']) .pileShadow,
+  :global([data-intro='play']) .pileNote,
+  :global([data-intro='play']) .dots {
+    animation: waveIn calc(var(--motion-intro-lift) * 1.2) linear backwards;
+    animation-delay: calc(var(--wave-i) * var(--motion-intro-stagger) * 0.7);
+  }
+
+  :global([data-intro='play']) .suspensionShadow,
+  :global([data-intro='play']) .mobileCta {
+    --wave-i: 9;
+  }
+
+  :global([data-intro='play']) .pileShadow {
+    --wave-i: 12;
+  }
+
+  :global([data-intro='play']) .pileNote {
+    --wave-i: 14;
+  }
+
+  :global([data-intro='play']) .dots {
+    --wave-i: 15;
+  }
+
+  /* The note's button comes with the note, not on its own later timer. */
+  :global([data-intro='play']) .pileShelfLink,
+  :global([data-intro='play']) .pileNoteArrow {
+    animation: none;
+  }
+}
+
+/* One swell: rises from below, lifts a touch past its place and settles —
+   every segment eased like a sine, so nothing starts or stops abruptly. */
+@keyframes waveIn {
+  0% {
+    opacity: 0;
+    transform: translateY(26px);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-3px);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

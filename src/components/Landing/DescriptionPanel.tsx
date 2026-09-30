@@ -1,8 +1,11 @@
+import type { CSSProperties } from 'react';
+
 import { itemsBase, type PortfolioItem } from '@/content/items';
 import { Chip } from '@/components/Chip/Chip';
 import { Eyebrow } from '@/components/Eyebrow/Eyebrow';
 
 import { ItemCta } from './ItemCta';
+import { TypedText } from './TypedText';
 import styles from './Carousel.module.css';
 
 /**
@@ -18,10 +21,20 @@ export function DescriptionPanel({
   descriptionLabel: string;
 }) {
   return (
-    <section className={styles.description} aria-label={descriptionLabel}>
+    <section
+      className={styles.description}
+      aria-label={descriptionLabel}
+      style={
+        {
+          '--title-chars': item.title.length,
+          '--blurb-chars': item.blurb.length,
+        } as CSSProperties
+      }
+    >
       <svg className={styles.leader} viewBox="0 0 182 64" fill="none" aria-hidden="true">
         <path
           d="M7 50 L56 50 C78 50 76 12 98 12 L178 12"
+          pathLength={1}
           stroke="var(--color-emerald)"
           strokeWidth="1.4"
           strokeLinecap="round"
@@ -29,23 +42,32 @@ export function DescriptionPanel({
         {/* The dot marks the book end of the line, not the counter end — DESIGN.md's canvas. */}
         <circle cx="7" cy="50" r="3.6" fill="var(--color-coral)" />
       </svg>
-      <div className={styles.counterRow}>
+      <div
+        className={styles.counterRow}
+        style={{ '--kind-chars': item.kindLabel.length } as CSSProperties}
+      >
         <p className={styles.counter}>
-          {item.n} / {String(itemsBase.length).padStart(2, '0')}
+          <span className={styles.counterN}>{item.n}</span> /{' '}
+          {String(itemsBase.length).padStart(2, '0')}
         </p>
         <span className={styles.counterLine} aria-hidden="true" />
         <Eyebrow>{item.kindLabel}</Eyebrow>
       </div>
-      <h2 className={styles.itemTitle}>{item.title}</h2>
+      <h2 className={styles.itemTitle}>
+        <TypedText text={item.title} />
+      </h2>
       <svg className={styles.titleUnderline} viewBox="0 0 84 7" fill="none" aria-hidden="true">
         <path
           d="M2 4.5 C 20 1, 50 7, 82 2.5"
+          pathLength={1}
           stroke="var(--color-coral)"
           strokeWidth="3.4"
           strokeLinecap="round"
         />
       </svg>
-      <p className={styles.blurb}>{item.blurb}</p>
+      <p className={styles.blurb}>
+        <TypedText text={item.blurb} />
+      </p>
       <ul role="list" className={styles.chips}>
         {item.chips.map((chip) => (
           <li key={chip}>
