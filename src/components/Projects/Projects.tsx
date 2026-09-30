@@ -47,6 +47,7 @@ export function Projects({
   locale: string;
 }) {
   const t = useTranslations('projects');
+  const tCommon = useTranslations('common');
   // `slots[0]` is the feature, the rest are the cards in order. Swapping keeps
   // every card in its own slot, so the button the visitor just pressed stays
   // mounted and keeps focus.
@@ -186,11 +187,11 @@ export function Projects({
                 <div className={styles.cardBottom}>
                   <p className={styles.links}>
                     <a href={issue.url} className={styles.link}>
-                      {t('code')} <span aria-hidden="true">→</span>
+                      {tCommon('code')} <span aria-hidden="true">→</span>
                     </a>
                     {issue.demoUrl && (
                       <a href={issue.demoUrl} className={styles.link}>
-                        {t('demo')} <span aria-hidden="true">→</span>
+                        {tCommon('liveDemo')} <span aria-hidden="true">→</span>
                       </a>
                     )}
                   </p>
@@ -216,6 +217,7 @@ export function Projects({
 /** The three panels of the feature card. Rendered once live and, during a project change, again inside every flipping tile. */
 function FeatureContent({ feature, locale }: { feature: ProjectIssue; locale: string }) {
   const t = useTranslations('projects');
+  const tCommon = useTranslations('common');
   const date = new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : locale, {
     day: 'numeric',
     month: 'short',
@@ -239,7 +241,7 @@ function FeatureContent({ feature, locale }: { feature: ProjectIssue; locale: st
             </a>
             {feature.demoUrl && (
               <a href={feature.demoUrl} className={styles.link}>
-                {t('demo')} <span aria-hidden="true">→</span>
+                {tCommon('liveDemo')} <span aria-hidden="true">→</span>
               </a>
             )}
           </p>
@@ -293,11 +295,11 @@ function FeatureContent({ feature, locale }: { feature: ProjectIssue; locale: st
       <div className={styles.featureMobileFoot}>
         <p className={styles.links}>
           <a href={feature.url} className={styles.link}>
-            {t('code')} <span aria-hidden="true">→</span>
+            {tCommon('code')} <span aria-hidden="true">→</span>
           </a>
           {feature.demoUrl && (
             <a href={feature.demoUrl} className={styles.link}>
-              {t('demo')} <span aria-hidden="true">→</span>
+              {tCommon('liveDemo')} <span aria-hidden="true">→</span>
             </a>
           )}
         </p>

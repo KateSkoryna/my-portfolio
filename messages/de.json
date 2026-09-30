@@ -1,4 +1,17 @@
 {
+  "common": {
+    "backToStack": "Zurück zum Stapel",
+    "goToShelf": "Zum Regal",
+    "prevItem": "Vorheriges Element",
+    "nextItem": "Nächstes Element",
+    "email": "E-Mail",
+    "code": "Code",
+    "liveDemo": "Live-Demo",
+    "closingNote": "↳ Schreib mir. Prompt-Engineering ist nicht nötig.",
+    "getInTouch": "Kontakt aufnehmen",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
+  },
   "chrome": {
     "skipToContent": "Zum Inhalt springen",
     "languageToggle": {
@@ -16,11 +29,7 @@
   "landing": {
     "identityLabel": "Über Kateryna",
     "descriptionLabel": "Ausgewähltes Element",
-    "prevItem": "Vorheriges Element",
-    "nextItem": "Nächstes Element",
     "flipBook": "Details anzeigen",
-    "goToShelf": "Zum Regal",
-    "email": "E-Mail",
     "basedIn": "Ansässig in {city}",
     "pileNote": "vier weitere warten dran",
     "pileNoteCaption": "Auf einen Buchrücken im Stapel klicken, um direkt dorthin zu springen."
@@ -89,11 +98,8 @@
     }
   },
   "shelf": {
-    "backToStack": "Zurück zum Stapel",
     "eyebrow": "Das Regal",
     "title": "Alles, nebeneinander",
-    "prevItem": "Vorheriges Element",
-    "nextItem": "Nächstes Element",
     "closedHeading": "Die gleichen fünf, geschlossen",
     "closedNote": "— so stehen sie im Stapel",
     "closedExplainer": "Jedes geschlossene Buch sitzt direkt unter seinem Einband, auf einer Linie. Die Dicke ist redaktionelles Gewicht, nicht Seitenzahl — das Projekte-Magazin ist am dicksten, weil die meisten Besucher deswegen kommen. Jedes Buch zeigt dir zuerst den Rücken, sodass sich der Titel direkt vom flachen Rücken lesen lässt."
@@ -108,29 +114,34 @@
     "heroSize": "Heldengröße (244×340)"
   },
   "resume": {
-    "backToStack": "Zurück zum Stapel",
     "downloadPdf": "PDF herunterladen",
-    "goToShelf": "Zum Regal",
+    "book": "Lebenslauf",
     "prev": "Vorherige Seiten",
     "next": "Nächste Seiten",
-    "linkedin": "LinkedIn",
-    "github": "GitHub",
-    "email": "E-Mail",
-    "getInTouch": "Kontakt aufnehmen",
     "skills": "Kenntnisse",
     "workExperience": "Berufserfahrung",
     "projects": "Projekte",
     "educationLanguages": "Ausbildung & Sprachen",
-    "languages": "Sprachen",
-    "liveDemo": "Live-Demo",
-    "code": "Code",
-    "closingNote": "↳ Schreib mir. Prompt-Engineering ist nicht nötig."
+    "languages": "Sprachen"
+  },
+  "projects": {
+    "title": "Meine Projekte",
+    "rebuilt": "Neu erstellt aus der GitHub-API {ago} · stündlich aktualisiert",
+    "marginNote": "keine Stern-Zahlen — die Aktualität der Commits ist die ehrliche Kennzahl",
+    "featureProject": "Hauptprojekt",
+    "screenshot": "[SCREENSHOT]",
+    "lastCommit": "Letzter Commit",
+    "language": "Sprache",
+    "languageSplit": "Sprachverteilung",
+    "viewCode": "Code ansehen",
+    "makeFeature": "{name} als Hauptprojekt anzeigen",
+    "nowFeatured": "{name} ist jetzt das Hauptprojekt",
+    "stack": "Stack",
+    "stackPlaceholder": "[STACK]",
+    "selectedWork": "Ausgewählte Arbeiten"
   },
   "handbook": {
-    "backToStack": "Zurück zum Stapel",
-    "goToShelf": "Zum Regal",
     "prev": "Vorherige Seite",
-    "next": "Nächste Seite",
-    "closingNote": "↳ Schreib mir. Prompt-Engineering ist nicht nötig."
+    "next": "Nächste Seite"
   }
 }

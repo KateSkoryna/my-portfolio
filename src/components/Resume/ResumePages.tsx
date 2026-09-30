@@ -49,6 +49,7 @@ function Role({ role }: { role: ResumeRole }) {
 
 function PageOne() {
   const t = useTranslations('resume');
+  const tCommon = useTranslations('common');
   const c = useContent();
   return (
     <>
@@ -61,8 +62,8 @@ function PageOne() {
         <p className={styles.contact}>
           <span>{c.city}</span>
           <a href={`mailto:${resumeContact.email}`}>{resumeContact.email}</a>
-          <a href={resumeContact.linkedin}>{t('linkedin')}</a>
-          <a href={resumeContact.github}>{t('github')}</a>
+          <a href={resumeContact.linkedin}>{tCommon('linkedin')}</a>
+          <a href={resumeContact.github}>{tCommon('github')}</a>
         </p>
       </div>
       <p className={styles.summary}>{c.summary}</p>
@@ -98,6 +99,7 @@ function PageTwo() {
 
 function PageThree() {
   const t = useTranslations('resume');
+  const tCommon = useTranslations('common');
   const c = useContent();
   return (
     <>
@@ -115,8 +117,8 @@ function PageThree() {
               <h3 className={styles.roleTitle}>
                 {p.name}
                 <span className={styles.projectLinks}>
-                  {links.demo && <a href={links.demo}>{t('liveDemo')}</a>}
-                  <a href={links.code}>{t('code')}</a>
+                  {links.demo && <a href={links.demo}>{tCommon('liveDemo')}</a>}
+                  <a href={links.code}>{tCommon('code')}</a>
                 </span>
               </h3>
               <p className={styles.roleMeta}>{p.stack.join(' · ')}</p>
@@ -158,11 +160,11 @@ function PageFour() {
  */
 /** The book's last leaf: the photo and the three ways to reach her. Not in print. */
 export function ResumeClosing() {
-  const t = useTranslations('resume');
+  const tCommon = useTranslations('common');
   return (
     <section className={styles.closing} aria-labelledby="resume-contact" data-closing="">
       <h2 id="resume-contact" className={styles.sectionHeading}>
-        {t('getInTouch')}
+        {tCommon('getInTouch')}
       </h2>
       <Image
         src={profile.photo}
@@ -173,16 +175,16 @@ export function ResumeClosing() {
       />
       <ul className={styles.contactLinks}>
         <li>
-          <a href={resumeContact.linkedin}>{t('linkedin')}</a>
+          <a href={resumeContact.linkedin}>{tCommon('linkedin')}</a>
         </li>
         <li>
-          <a href={resumeContact.github}>{t('github')}</a>
+          <a href={resumeContact.github}>{tCommon('github')}</a>
         </li>
         <li>
-          <a href={`mailto:${resumeContact.email}`}>{t('email')}</a>
+          <a href={`mailto:${resumeContact.email}`}>{tCommon('email')}</a>
         </li>
       </ul>
-      <p className={styles.closingNote}>{t('closingNote')}</p>
+      <p className={styles.closingNote}>{tCommon('closingNote')}</p>
     </section>
   );
 }

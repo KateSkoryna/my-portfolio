@@ -33,6 +33,7 @@ export async function Landing() {
   const t = await getTranslations('landing');
   const tProfile = await getTranslations('profile');
   const tItems = await getTranslations('items');
+  const tCommon = await getTranslations('common');
   const items = localizeItems(tItems);
   const [roleLead, roleLast] = splitFirstWord(tProfile('role'));
 
@@ -101,7 +102,7 @@ export async function Landing() {
                   d="M1.6 3.6A1.6 1.6 0 0 1 3.2 2h9.6a1.6 1.6 0 0 1 1.6 1.6v8.8a1.6 1.6 0 0 1-1.6 1.6H3.2a1.6 1.6 0 0 1-1.6-1.6V3.6Zm1.72.2 4.86 3.65a.6.6 0 0 0 .72 0l4.86-3.65a.4.4 0 0 0-.24-.72H3.56a.4.4 0 0 0-.24.72Z"
                 />
               </svg>
-              {t('email')}
+              {tCommon('email')}
             </a>
           </div>
         </div>
@@ -109,10 +110,10 @@ export async function Landing() {
 
       <Carousel
         slides={slides}
-        prevLabel={t('prevItem')}
-        nextLabel={t('nextItem')}
+        prevLabel={tCommon('prevItem')}
+        nextLabel={tCommon('nextItem')}
         defaultIndex={DEFAULT_INDEX}
-        goToShelfLabel={t('goToShelf')}
+        goToShelfLabel={tCommon('goToShelf')}
         pileNote={t('pileNote')}
         pileNoteCaption={t('pileNoteCaption')}
         flipLabel={t('flipBook')}

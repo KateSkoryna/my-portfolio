@@ -78,8 +78,8 @@ describe.each([
     const { container } = render(
       <Shelf
         slides={buildSlides(messages)}
-        prevLabel={messages.shelf.prevItem}
-        nextLabel={messages.shelf.nextItem}
+        prevLabel={messages.common.prevItem}
+        nextLabel={messages.common.nextItem}
       />,
     );
 
