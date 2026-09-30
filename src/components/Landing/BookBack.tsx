@@ -134,8 +134,11 @@ export function BookBack({ item }: { item: PortfolioItem }) {
 
   return (
     <div className={styles.book} style={style}>
-      {/* A spiral-bound notebook has no spine: the coils bind the board itself. */}
-      {item.kind !== 'notebook' && <span className={styles.spine} aria-hidden="true" />}
+      {/* The notebook has no hardcover spine: its strip is the stacked page edges, under the coils. */}
+      <span
+        className={item.kind === 'notebook' ? styles.pageEdge : styles.spine}
+        aria-hidden="true"
+      />
       <div className={boardClasses}>
         <div className={styles.decor} aria-hidden="true">
           {decor(item.kind)}

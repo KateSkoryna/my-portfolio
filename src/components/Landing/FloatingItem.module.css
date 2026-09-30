@@ -13,19 +13,8 @@
   flex-shrink: 0;
   width: 322px;
   height: 408px;
-  /* Advancing reorders — a cross-fade, not the "drop to the bottom of the
-     pile" animation DESIGN.md §4.1 explicitly rejects. `prefers-reduced-
-     motion` zeroes animation-duration globally (reset.css). */
-  animation: fadeIn var(--motion-select) var(--motion-ease);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  /* Changing book is animated by `Carousel.module.css` (`.floatingWrap`,
+     `.leaving`): the book slides out and in, it does not travel to the pile. */
 }
 
 .spine {
@@ -41,6 +30,33 @@
     inset 2px 0 3px -1px rgba(255, 255, 255, 0.2),
     inset -3px 0 5px -2px rgba(0, 0, 0, 0.28),
     var(--shadow-raised);
+}
+
+/* The notebook's stand-in for the spine: same size and volume, but it reads as
+   the stacked page edges of a spiral-bound pad (the cover's own ruling over its sage) instead of a bound slab, so it is still not a
+   hardcover. The gold coils overhang onto it. DESIGN.md §2.1. */
+.pageEdge {
+  composes: spine;
+  /* One coil every 20px at the cover's scale, so each hole sits level with a
+     coil and on a rule of the cover's ruling. The first centre is 20 units
+     down the cover, less the strip's 8px top inset. */
+  --pitch: calc(20px * var(--cover-scale));
+  --hole-x: 17px;
+  background-image:
+    radial-gradient(
+      circle calc(2.5px * var(--cover-scale)) at var(--hole-x) calc(var(--pitch) / 2),
+      rgba(21, 82, 70, 0.4) 0 90%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      transparent calc(var(--pitch) / 2 - 0.5px),
+      rgba(31, 111, 95, 0.11) calc(var(--pitch) / 2 - 0.5px) calc(var(--pitch) / 2 + 0.5px),
+      transparent calc(var(--pitch) / 2 + 0.5px)
+    );
+  background-size: 100% var(--pitch);
+  background-position: 0 calc(var(--pitch) / 2 - 8px);
+  background-repeat: repeat-y;
 }
 
 .coverWrap {
@@ -67,5 +83,35 @@
 @media (max-width: 800px) {
   .desktopLink {
     display: none;
+  }
+}
+
+/*
+ * Intro — after the pile has landed, the book lifts off it: starts low and
+ * faint, rises past its resting place and settles. Replaces the cross-fade
+ * only while the intro plays; advancing the carousel keeps the fade.
+ */
+:global([data-intro='play']) .floating {
+  animation:
+    floatLift var(--motion-intro-lift) var(--motion-ease) backwards,
+    floatFade calc(var(--motion-intro-lift) / 3) linear backwards;
+  animation-delay: var(--motion-intro-float-at);
+}
+
+@keyframes floatFade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes floatLift {
+  0% {
+    transform: translateY(80px) scale(0.93);
+  }
+  62% {
+    transform: translateY(-14px) scale(1.01);
+  }
+  100% {
+    transform: translateY(0) scale(1);
   }
 }
