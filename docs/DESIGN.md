@@ -164,6 +164,14 @@ Per-object cover art, at 216 × 260:
   75px tall from the top — short, like a bookmark poking out, not the full
   height of the cover (Kateryna's call, halved once more from an already-
   shortened first pass; it read as a stripe at full length).
+  **On the landing page's floating book** (§2.1 hero, and its mobile back) the
+  notebook carries a 34px **page-edge strip** where the others have a spine
+  slab, so all five have the same 322px footprint: the cover's own sage
+  (`#DCE9E2`) with a rule and a 5px punched hole (`rgba(21,82,70,.4)`) at every coil,
+  on the cover's own pitch, same long-axis volume as the spine, the gold coils
+  overhanging onto it. It
+  is the stacked page edges of the pad, not a bound slab — so it is still not
+  a hardcover.
   Title in **Caveat** 37px — the one cover where the display face is the
   handwriting. A `coverFoot` line (`item.coverFoot`, existing content, not
   previously surfaced here) sits bottom-left in the same hand at 15px — a
@@ -314,8 +322,15 @@ Three-column layout at 1440 × 900: identity block left (x 80, w 340), the
 floating item centred (x 596, y 150, 268 × 340), the description panel right
 (x 1040, w 320). Circular 56px arrow buttons at x 472 and x 932, y 292.
 
-- `→` advances to the next item, `←` reverses. **The carousel simply reorders
-  to the new selection** — a cross-fade / reflow, not a physical animation.
+- `→` advances to the next item, `←` reverses. **The new book is set
+  down on top of the old one** (drops in, bounces once, settles; the old one
+  stays underneath and is removed when it lands; `motion.swap`), and
+  the counter number, type label, title and description are **typed out a character at a time** (the description much faster than the title), then the coral squiggle under the title is drawn (and at the start of a session the identity block on the left and the pile note are typed the same way); the leader line and the "/ 05" stay put. The pile is a queue in
+  the stack's own order (the book after the selection on top, the one before
+  it at the bottom): every pile book slides up one place, and the book that
+  was floating **drops straight down into the bottom slot**, in front of the
+  others until it lands (`pileArc`, 1.5 × `motion.swap`). `←` runs it the
+  other way — the old book enters at the top.
 - The pile below shows the other four, offset in x, rotated ±0.6–1.4°, each
   3px below the previous, tallest at the top of the stack.
 - A suspension shadow — a 216 × 24 radial ellipse at 30% opacity — sits
@@ -332,7 +347,9 @@ floating item centred (x 596, y 150, 268 × 340), the description panel right
   read as a second, broken set of controls.
 
 **DECIDED: the "drop to the bottom of the pile" return-trip animation will NOT
-be built.** An earlier spec described the floating item travelling down and
+be built as specified** — it slid *under* the pile. **Superseded, Kateryna's
+call:** the old book now drops straight down into the pile's bottom slot,
+in front of the other books (see §4.1 above). An earlier spec described the floating item travelling down and
 sliding in under the pile without passing through it — 420ms of hard,
 risky motion on the critical path to content. Kateryna dropped it. The advance
 is a plain reorder. This removes the single most failure-prone piece of the
