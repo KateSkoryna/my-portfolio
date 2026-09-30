@@ -27,6 +27,7 @@ const COVER_WIDTH = 216;
 export default async function ShelfPage() {
   const t = await getTranslations('shelf');
   const tItems = await getTranslations('items');
+  const tCommon = await getTranslations('common');
   const items = localizeItems(tItems);
 
   const slides: ShelfSlide[] = items.map((item) => {
@@ -71,7 +72,7 @@ export default async function ShelfPage() {
       {/* No `routeLabel` — the page's own eyebrow + `<h1>` below already
           say "The shelf", so the header's small centred label was a
           redundant "Shelf" repeated right above it. */}
-      <PageHeader backLabel={t('backToStack')} />
+      <PageHeader backLabel={tCommon('backToStack')} />
       <main id="main" className={styles.page}>
         <div className={styles.heading}>
           <Eyebrow>{t('eyebrow')}</Eyebrow>
@@ -88,8 +89,8 @@ export default async function ShelfPage() {
 
         <Shelf
           slides={slides}
-          prevLabel={t('prevItem')}
-          nextLabel={t('nextItem')}
+          prevLabel={tCommon('prevItem')}
+          nextLabel={tCommon('nextItem')}
           betweenRows={
             <div className={styles.closedHeading}>
               <hr className={styles.separator} />

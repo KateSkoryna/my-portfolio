@@ -13,18 +13,18 @@ import { getProjectIssues } from '@/lib/github/repos';
 export const revalidate = 3600;
 
 export default async function ProjectsPage() {
-  const t = await getTranslations('projects');
   const tChrome = await getTranslations('chrome');
+  const tCommon = await getTranslations('common');
   const locale = await getLocale();
   const { issues, fetchedAt } = await getProjectIssues();
 
   return (
     <>
       <PageHeader
-        backLabel={t('backToStack')}
+        backLabel={tCommon('backToStack')}
         action={
           <HeaderLink href="/shelf" arrow="forward" shortLabel={tChrome('shelfShort')}>
-            {t('goToShelf')}
+            {tCommon('goToShelf')}
           </HeaderLink>
         }
       />

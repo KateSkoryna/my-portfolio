@@ -1,4 +1,17 @@
 {
+  "common": {
+    "backToStack": "Back to the stack",
+    "goToShelf": "Go to shelf",
+    "prevItem": "Previous item",
+    "nextItem": "Next item",
+    "email": "Email",
+    "code": "Code",
+    "liveDemo": "Live demo",
+    "closingNote": "↳ Say hi. No prompt engineering required.",
+    "getInTouch": "Get in touch",
+    "linkedin": "LinkedIn",
+    "github": "GitHub"
+  },
   "chrome": {
     "skipToContent": "Skip to content",
     "languageToggle": {
@@ -16,21 +29,14 @@
   "landing": {
     "identityLabel": "About Kateryna",
     "descriptionLabel": "Selected item",
-    "prevItem": "Previous item",
-    "nextItem": "Next item",
     "flipBook": "Show details",
-    "goToShelf": "Go to shelf",
-    "email": "Email",
     "basedIn": "Based in {city}",
     "pileNote": "four more waiting their turn",
     "pileNoteCaption": "Click any spine in the pile to jump straight to it."
   },
   "shelf": {
-    "backToStack": "Back to the stack",
     "eyebrow": "The shelf",
     "title": "Everything, side by side",
-    "prevItem": "Previous item",
-    "nextItem": "Next item",
     "closedHeading": "The same five, closed",
     "closedNote": "— this is how they sit in the stack",
     "closedExplainer": "Every closed book sits directly under its own cover, resting on one line. Thickness is editorial weight rather than page count — the projects magazine is the thickest because it is what most people come for. Each book faces you spine-first, so the title reads straight off the flat spine."
@@ -108,9 +114,7 @@
     }
   },
   "projects": {
-    "backToStack": "Back to the stack",
     "title": "My Projects",
-    "goToShelf": "Go to shelf",
     "rebuilt": "Rebuilt from the GitHub API {ago} · revalidates hourly",
     "marginNote": "no star counts — commit recency is the honest metric",
     "featureProject": "Feature project",
@@ -119,8 +123,6 @@
     "language": "Language",
     "languageSplit": "Language split",
     "viewCode": "View the code",
-    "code": "Code",
-    "demo": "Live demo",
     "makeFeature": "Show {name} as the feature project",
     "nowFeatured": "{name} is now the feature project",
     "stack": "Stack",
@@ -128,30 +130,18 @@
     "selectedWork": "Selected work"
   },
   "resume": {
-    "backToStack": "Back to the stack",
     "downloadPdf": "Download PDF",
-    "goToShelf": "Go to shelf",
     "book": "Resume",
     "prev": "Previous pages",
     "next": "Next pages",
-    "linkedin": "LinkedIn",
-    "github": "GitHub",
-    "email": "Email",
-    "getInTouch": "Get in touch",
     "skills": "Skills",
     "workExperience": "Work experience",
     "projects": "Projects",
     "educationLanguages": "Education & languages",
-    "languages": "Languages",
-    "liveDemo": "Live demo",
-    "code": "Code",
-    "closingNote": "↳ Say hi. No prompt engineering required."
+    "languages": "Languages"
   },
   "handbook": {
-    "backToStack": "Back to the stack",
-    "goToShelf": "Go to shelf",
     "prev": "Previous page",
-    "next": "Next page",
-    "closingNote": "↳ Say hi. No prompt engineering required."
+    "next": "Next page"
   }
 }

@@ -388,12 +388,11 @@ function Leaf4Back() {
 }
 
 function Leaf5Front() {
-  const t = useTranslations('resume');
-  const tb = useTranslations('handbook');
+  const tCommon = useTranslations('common');
   return (
     <section className={s.closing} aria-labelledby="handbook-contact">
       <h2 id="handbook-contact" className={s.closingHeading}>
-        {t('getInTouch')}
+        {tCommon('getInTouch')}
       </h2>
       <Image
         src={profile.photo}
@@ -404,16 +403,16 @@ function Leaf5Front() {
       />
       <ul className={s.closingLinks}>
         <li>
-          <a href={resumeContact.linkedin}>{t('linkedin')}</a>
+          <a href={resumeContact.linkedin}>{tCommon('linkedin')}</a>
         </li>
         <li>
-          <a href={resumeContact.github}>{t('github')}</a>
+          <a href={resumeContact.github}>{tCommon('github')}</a>
         </li>
         <li>
-          <a href={`mailto:${resumeContact.email}`}>{t('email')}</a>
+          <a href={`mailto:${resumeContact.email}`}>{tCommon('email')}</a>
         </li>
       </ul>
-      <p className={s.closingNote}>{tb('closingNote')}</p>
+      <p className={s.closingNote}>{tCommon('closingNote')}</p>
     </section>
   );
 }

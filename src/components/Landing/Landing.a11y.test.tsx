@@ -71,10 +71,10 @@ describe.each([
       <NextIntlClientProvider locale={locale} messages={messages}>
         <Carousel
           slides={buildSlides(items, messages.landing.descriptionLabel)}
-          prevLabel={messages.landing.prevItem}
-          nextLabel={messages.landing.nextItem}
+          prevLabel={messages.common.prevItem}
+          nextLabel={messages.common.nextItem}
           defaultIndex={0}
-          goToShelfLabel={messages.landing.goToShelf}
+          goToShelfLabel={messages.common.goToShelf}
           pileNote={messages.landing.pileNote}
           pileNoteCaption={messages.landing.pileNoteCaption}
           flipLabel={messages.landing.flipBook}

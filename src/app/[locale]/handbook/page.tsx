@@ -12,15 +12,16 @@ import { PageFooter } from '@/components/PageFooter/PageFooter';
 export default async function HandbookPage() {
   const t = await getTranslations('handbook');
   const tChrome = await getTranslations('chrome');
+  const tCommon = await getTranslations('common');
   const locale = await getLocale();
 
   return (
     <>
       <PageHeader
-        backLabel={t('backToStack')}
+        backLabel={tCommon('backToStack')}
         action={
           <HeaderLink href="/shelf" arrow="forward" shortLabel={tChrome('shelfShort')}>
-            {t('goToShelf')}
+            {tCommon('goToShelf')}
           </HeaderLink>
         }
       />
