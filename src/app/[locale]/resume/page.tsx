@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { HeaderDownload, HeaderLink, PageHeader } from '@/components/PageHeader/PageHeader';
@@ -5,6 +6,17 @@ import { PageFooter } from '@/components/PageFooter/PageFooter';
 import { resumePdfPath } from '@/content/resume';
 import { ResumeClosing, ResumeContent } from '@/components/Resume/ResumePages';
 import { PagedBook } from '@/components/PagedBook/PagedBook';
+import { pageMetadata } from '@/lib/seo';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'items.resume' });
+  return pageMetadata({ locale, path: '/resume', title: t('title'), description: t('blurb') });
+}
 
 /**
  * DESIGN.md §4.3 — the opened book: two spreads on desktop, one page at a
