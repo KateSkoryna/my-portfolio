@@ -409,27 +409,32 @@ page-arrows drive one shared `sel` state, and the folio numbers track it.
 
 ### 4.3b Journal (`/journal`) — the spiral notebook
 
-**Proposed — layout details await Kateryna's confirmation** (spiral in the
-centre of the spread is confirmed). The notebook opens
-like `/resume`: two cream (`#FFF7ED`) pages side by side, but bound by a
-**spiral down the centre gutter** instead of a hinge shadow. Coils use the same
-construction as the cover (§2.1), 20px pitch, drawn with CSS gradients — no
-canvas, no images. Both pages carry the punched holes beside the coils and the
-ruled lines from the cover.
+Confirmed by Kateryna: a blog, spiral-bound. The notebook opens like `/resume`
+(same `PagedBook`): two cream (`#FFF7ED`) ruled pages side by side, bound by a
+**spiral down the centre gutter** instead of a hinge shadow. Each coil is two
+thin **gold** wires (`mustard`, 1.5px, 4px apart) on a 20px pitch, ending in a
+5px round punched hole in the page; wires and holes share one pitch and offset
+so they line up, and the run starts half a coil below the text and is a whole
+number of coils tall so none is cut. CSS gradients — no canvas, no images.
 
-- **Left page: the index.** Entries newest first — date, title, one-line
-  excerpt, tag chips. Each entry is a real `<a href>` to its own URL.
-- **Right page: the open entry**, MDX rendered in the body type (§1.3). Tags as
-  `Chip`s, a Caveat margin note allowed for asides only (§1.3).
-- **Mobile:** one page at a time, coil down the left edge; index first, entry
-  on its own page.
-- Long entries scroll **inside the page**, not the site; the binding stays put.
-- Arrows / dots page through entries; dots-only with `aria-current` (§4.3).
-  Arrows disable at the ends — a notebook does not loop.
+- **The book holds one post.** Its text flows across the pages exactly like the
+  CV: columns, one per page, nothing scrolls. Arrows and dots turn the pages of
+  *that post*; arrows disable at its first and last page.
+- **Post navigation lives outside the book**, so the number of posts never
+  changes the layout (100 posts cost the same as 2): an **"All posts" menu** in
+  the header's centre cell — a button opening a panel of real links grouped by
+  year, newest first, the open post `aria-current`; the list scrolls inside the
+  panel only. There are no newer / older links: the menu is the way between posts.
+  `/journal` is the newest post; every post also has `/journal/<slug>`.
+- **Mobile:** one page at a time, coil down the left edge.
+- Posts are `.mdx` (`docs/posts.md`): date, title (the page's `<h1>`), tag
+  `Chip`s, body, a Caveat margin note for asides only (§1.3), then a "have a look at" pointer to at least one other post or the handbook (`related`
+  in `posts.json`), and at the end a handwritten
+  invitation ("Got a thought about this? Write me.") with LinkedIn and Gmail buttons —
+  the same icon pills as the landing page's identity block (`SocialLink`).
 - Page turn is the `/resume` hinged leaf, `duration.turn`, disabled under
   `prefers-reduced-motion`. Coils never animate.
-- Entry text is Kateryna's; nothing is invented. Until real posts exist the
-  entries are clearly marked samples in `[BRACKETS]`.
+- Entry text is Kateryna's; nothing is invented. Anything unfinished is marked in `[BRACKETS]`.
 
 ### 4.4 Shared page chrome (every route)
 
