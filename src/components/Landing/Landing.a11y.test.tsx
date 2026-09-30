@@ -11,7 +11,7 @@ import deMessages from '../../../messages/de.json';
 
 import { Carousel } from './Carousel';
 import { FloatingItem } from './FloatingItem';
-import { Pile } from './Pile';
+import { PileBook } from './Pile';
 import { DescriptionPanel } from './DescriptionPanel';
 import { ItemCta } from './ItemCta';
 import { BookBack } from './BookBack';
@@ -49,12 +49,19 @@ function buildItems(messages: Messages): readonly PortfolioItem[] {
   }));
 }
 
+function buildPileBooks(items: readonly PortfolioItem[]) {
+  return items.map((item) => ({
+    id: item.id,
+    thickness: item.thickness,
+    node: <PileBook item={item} />,
+  }));
+}
+
 function buildSlides(items: readonly PortfolioItem[], descriptionLabel: string) {
-  return items.map((item, i) => ({
+  return items.map((item) => ({
     id: item.id,
     back: <BookBack item={item} />,
     floating: <FloatingItem item={item} />,
-    pile: <Pile items={items.filter((_, j) => j !== i)} />,
     description: <DescriptionPanel item={item} descriptionLabel={descriptionLabel} />,
     cta: <ItemCta item={item} withDownload />,
   }));
@@ -71,6 +78,7 @@ describe.each([
       <NextIntlClientProvider locale={locale} messages={messages}>
         <Carousel
           slides={buildSlides(items, messages.landing.descriptionLabel)}
+          pileBooks={buildPileBooks(items)}
           prevLabel={messages.common.prevItem}
           nextLabel={messages.common.nextItem}
           defaultIndex={0}
