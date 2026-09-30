@@ -104,6 +104,8 @@ export function BookCover({
       {item.kind === 'notebook' && (
         <>
           <div className={styles.ruledField} aria-hidden="true" />
+          <div className={styles.holes} aria-hidden="true" />
+          <div className={styles.spiral} aria-hidden="true" />
           <div className={styles.elasticBand} aria-hidden="true" />
           <div className={styles.ribbon} aria-hidden="true" />
           <p className={styles.notebookTitle}>{item.coverTitle}</p>

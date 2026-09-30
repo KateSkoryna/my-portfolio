@@ -1,0 +1,67 @@
+„Ich glaube, ich werde unter einem Berg von KI-Tools erdrückt.“ Das hat mir mein Freund vor Kurzem gestanden, und er ist damit nicht allein.
+
+Bei dem endlosen Strom an Updates (Custom GPTs, Projects, Skills, Gems, NotebookLM, Claude Code) fühlt man sich schnell völlig begraben. In meinem AI-Automation-Programm an der WBS CODING SCHOOL habe ich Menschen aus Marketing, Immobilienbranche und Tierpflege genau damit ringen sehen. Das hat mich motiviert, als Brücke zwischen Technik und Mensch einzuspringen.
+
+## Die Kurzfassung
+
+Wenn du nicht weißt, welches Tool du wann nehmen sollst, hier ein schneller Überblick über die Tools von OpenAI und Claude (Googles Gemini Gems funktionieren wie Custom GPTs):
+
+- **Custom GPTs / Gemini Gems** sind ein Spezialist, den du einmal einrichtest, für eine wiederkehrende Rolle.
+- **Projects** sind ein Arbeitsbereich, der deine Dateien, deinen Kontext und deine Regeln über viele Chats hinweg behält.
+- **Skills / eigene Tools** sind Aktionen, die die KI ausführen kann, etwa Code laufen lassen oder eine API aufrufen.
+
+## 1. Custom GPTs und Gemini Gems: der „höfliche Spezialist“
+
+- **Was es ist:** ein vorkonfigurierter Assistent mit festen Vorgaben für eine wiederkehrende Rolle.
+- **Gelöstes Problem:** Du musst nicht mehr in jedem neuen Chat „Du bist ein Marketing-Experte …“ eintippen.
+- **Am besten für:** Fragen und Antworten mit einem klaren Zweck und festem Ablauf.
+- **Einschränkung:** Der Kontext wird in einem neuen Chat zurückgesetzt. Es gibt kein Langzeitgedächtnis über mehrere Gespräche.
+
+<Callout label="Wie ich es nutze">
+
+Für die Prüfung von Lebenslauf und Anschreiben, als Englisch-Tutor, als persönliche Ernährungsberatung und für den Aufbau von Prompts.
+
+</Callout>
+
+## 2. Projects: der „dauerhafte Arbeitsbereich“
+
+- **Was es ist:** eine eigene Umgebung, die gemeinsame Dateien, Kontext und Regeln über mehrere Gespräche hinweg hält.
+- **Am besten für:** laufende Aufgaben, die eine dauerhafte „einzige Wahrheitsquelle“ brauchen.
+- **Einschränkung:** Es ist an die Oberfläche dieser einen Plattform gebunden und kann von sich aus keine externen Workflows auslösen.
+
+<Callout label="Wie ich es nutze">
+
+Ich lade Lebenslauf-Vorlagen und Styleguides als Projektwissen hoch. Das Modell holt sie per RAG nur bei Bedarf, so werden keine Tokens verschwendet.
+
+</Callout>
+
+<Callout label="Gut zu wissen">
+
+**RAG** steht für **Retrieval-Augmented Generation**. Statt jedes Mal **alle deine Dateien** zu lesen, sucht das Modell zuerst **die Stellen heraus**, die für deine Frage wichtig sind, und antwortet auf dieser Grundlage.
+
+</Callout>
+
+## 3. Skills und eigene Tools: die „spezialisierte Fähigkeit“
+
+- **Was es ist:** eine modulare Funktion mit einem einzigen Zweck, die etwas ausführt, zum Beispiel Code laufen lassen oder eine API aufrufen.
+- **Der Unterschied:** Ein Project hält Wissen; ein Skill führt eine Aktion aus. Einen Skill rufst du im Chat deines Projects auf.
+
+<Callout label="Wie ich es nutze">
+
+Ich verbinde eigene Tools über MCP (Model Context Protocol), um die KI direkt mit GitHub, Jira oder lokalen Entwicklungswerkzeugen zu verknüpfen.
+
+</Callout>
+
+<Callout label="Gut zu wissen">
+
+**MCP** ist ein **offener Standard**, um KI-Anwendungen mit **Tools und Daten** zu verbinden. Sobald ein Tool MCP spricht, können **verschiedene KI-Apps** es nutzen, ohne dass jede eine eigene Anbindung braucht.
+
+</Callout>
+
+## Welches wann
+
+- Immer wieder dieselbe Rolle? Ein **Custom GPT oder Gem**.
+- Laufende Arbeit, bei der deine Dateien und Regeln erhalten bleiben sollen? Ein **Project**.
+- Die KI soll etwas _tun_, nicht nur antworten? Ein **Skill oder eigenes Tool**.
+
+Es gibt jede Menge Tools, deshalb kommt es darauf an zu verstehen, **welches dein Problem am besten löst**.

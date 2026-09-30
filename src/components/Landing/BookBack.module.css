@@ -27,6 +27,12 @@
   border-radius: 9px 2px 2px 9px;
 }
 
+/* The notebook turned over: square on the right, where the coils bind it, and
+   rounded on the left. */
+.book > .mirroredNotebookCorners {
+  border-radius: calc(9px * var(--cover-scale)) 0 0 calc(9px * var(--cover-scale));
+}
+
 /* The same gradients as `BookCover.module.css` `.book` / `.notebook`, with the
    angle mirrored so the light end sits next to the spine. */
 .book > .mirroredBook {
@@ -156,63 +162,53 @@
   text-decoration: none;
 }
 
-/* Where the text starts, per cover — clear of the decoration above/beside it.
-   Values are the front's own offsets at hero scale (×293/216). */
-
-/* The coral circle bleeds down to ~125px (book) / ~100px (field guide). The
-   counter row keeps its usual place at the very top, full width, and the
-   title is pushed down below the circle (cream text on coral fails contrast).
-   The row's number still sits on the circle, in cream, by Kateryna's call —
-   2.56:1 there, under the 3:1 large-text minimum; move the circle if that
-   ever needs fixing. */
-.belowCircles {
+/* The text starts in the same place on every back (the resume's), so the layout
+   is written once here, not per cover. Values are the front's own offsets at hero
+   scale (×293/216). */
+.aligned {
   padding-top: 28px;
 }
 
-.belowCircles .counterLine {
-  background: var(--color-cream);
-  opacity: 0.7;
-}
-
-/* 128px from the top of the board, less the counter row and the flex gap. */
-.belowCircles .title {
-  margin-top: 68px;
-}
-
-/* The resume only: title and blurb 60px higher than the other covers, up over
-   the coral circle's lower edge (Kateryna's call — cream on coral there is
-   under 3:1); the title is smaller, the description bigger. */
-.raisedTitle .title {
+.aligned .title {
   margin-top: 8px;
   font-size: 28px;
 }
 
-.raisedTitle .blurb {
+.aligned .blurb {
   font-size: 17px;
 }
 
-/* The handbook's back has no chips, so its description gets the room: bigger
-   still. */
-.largeBlurb .blurb {
+/* The coral circle bleeds down to ~125px (book) / ~100px (field guide), so the
+   counter row's line is cream there. The row's number still sits on the circle,
+   in cream, by Kateryna's call — 2.56:1 there, under the 3:1 large-text minimum;
+   move the circle if that ever needs fixing. */
+.onCircle .counterLine {
+  background: var(--color-cream);
+  opacity: 0.7;
+}
+
+/* The notebook's coils overhang the right edge and their holes sit inside it, so
+   the text keeps clear of them. */
+.aligned.spiralBound {
+  padding-right: 48px;
+}
+
+/* A bigger description: the handbook's (no chips, so room to spare) and the
+   notebook's. */
+.aligned.largeBlurb .blurb {
   font-size: 20px;
 }
 
-/* The elastic band, mirrored, occupies 43–63px from the left edge. */
-.besideElastic {
-  padding-left: 84px;
+/* Decoration kept clear of the text. All of it sits in `.decor`, which is
+   flipped left↔right, so `right` here lands on the left. */
+
+/* Magazine: the coral masthead is a thin strip across the very top. */
+.decor .thinBand {
+  height: calc(14px * var(--cover-scale));
 }
 
-/* The coral masthead band takes the top 52px × scale. */
-.belowBand {
-  padding-top: calc(52px * var(--cover-scale) + 22px);
-}
-
-/* Counter row sits between the two masthead rules; the title clears the lower
-   one before the blurb starts. */
-.betweenRules {
-  padding-top: 30px;
-}
-
-.betweenRules .title {
-  margin-bottom: 30px;
+/* Newspaper: the lower rule moves to the bottom edge, under the chips. */
+.decor .bottomRule {
+  top: auto;
+  bottom: calc(10px * var(--cover-scale));
 }

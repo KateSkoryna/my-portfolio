@@ -14,9 +14,11 @@ import { ArrowButton } from '@/components/ArrowButton/ArrowButton';
 import { DotIndicator } from '@/components/DotIndicator/DotIndicator';
 import { motion } from '@/lib/design/tokens';
 
-import styles from './Resume.module.css';
+// The book's mechanics (frame, columns, leaf, arrows, dots) live in the resume's
+// stylesheet, next to the CV styles they grew up with; `/journal` shares them.
+import styles from '../Resume/Resume.module.css';
 
-/** Must match the `@media (min-width: 900px)` breakpoint in `Resume.module.css`. */
+/** Must match the `@media (min-width: 900px)` breakpoint in `../Resume/Resume.module.css`. */
 const SPREAD_QUERY = '(min-width: 900px)';
 
 function subscribe(onChange: () => void) {
@@ -100,8 +102,8 @@ function PageClone({
 }
 
 /**
- * DESIGN.md §4.3 — the opened book. The book is a fixed-size frame; `children`
- * is the whole CV as one flow that CSS lays out in columns, one per page, each
+ * DESIGN.md §4.3 — the opened book, for `/resume` and `/journal`. The book is a
+ * fixed-size frame; `children` is the whole text (the CV, or one journal entry) as one flow that CSS lays out in columns, one per page, each
  * exactly a page tall (see `Resume.module.css`). Text therefore runs on from
  * one page to the next and nothing scrolls inside a page. Turning the page
  * scrolls the flow by whole columns — no transforms, so reduced-motion needs
@@ -116,16 +118,19 @@ function PageClone({
  * screen readers read the whole CV; if focus moves into a clipped column the
  * browser scrolls it into view and the scroll handler catches the page up.
  */
-export function ResumeBook({
+export function PagedBook({
   children,
   closing,
+  binding = 'hinge',
   prevLabel,
   nextLabel,
   lang,
 }: {
   children: ReactNode;
-  /** The last leaf. Always starts on a right-hand page — see `spacer`. */
-  closing: ReactNode;
+  /** The last leaf, if any. Always starts on a right-hand page — see `spacer`. */
+  closing?: ReactNode;
+  /** `hinge` is the resume's spine shadow; `spiral` the notebook's coils, ruled pages. */
+  binding?: 'hinge' | 'spiral';
   prevLabel: string;
   nextLabel: string;
   /** Language of the CV text, for the `lang` attribute on the book. */
@@ -261,7 +266,7 @@ export function ResumeBook({
   }, [goToView, view, atStart, atEnd]);
 
   return (
-    <div className={styles.stage}>
+    <div className={styles.stage} data-binding={binding}>
       <div className={styles.prev}>
         <ArrowButton
           direction="prev"
@@ -272,6 +277,7 @@ export function ResumeBook({
       </div>
       <div
         className={styles.book}
+        data-binding={binding}
         lang={lang}
         onPointerDown={(event) => {
           // A mouse drag is a text selection, not a swipe.
@@ -292,6 +298,12 @@ export function ResumeBook({
           swipeStart.current = null;
         }}
       >
+        {binding === 'spiral' && (
+          <>
+            <div className={styles.holes} aria-hidden="true" />
+            <div className={styles.spiral} aria-hidden="true" />
+          </>
+        )}
         <div className={styles.frames} aria-hidden="true">
           <div className={`${styles.frame} ${styles.frameLeft}`} />
           <div className={`${styles.frame} ${styles.frameRight}`} />

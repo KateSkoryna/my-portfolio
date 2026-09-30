@@ -7,9 +7,9 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import messages from '../../../messages/en.json';
 
 import { ResumeClosing, ResumeContent } from './ResumePages';
-import { ResumeBook } from './ResumeBook';
+import { PagedBook } from '../PagedBook/PagedBook';
 
-// jsdom does no layout, so the column geometry `ResumeBook` measures is
+// jsdom does no layout, so the column geometry `PagedBook` measures is
 // stubbed: 400px columns, 80px gaps, and text that fills 4 columns.
 const COLUMN = 400;
 const GAP = 80;
@@ -28,14 +28,14 @@ function mockViewport(spread: boolean) {
 function renderBook() {
   return render(
     <NextIntlClientProvider locale="en" messages={messages}>
-      <ResumeBook
+      <PagedBook
         prevLabel="Previous pages"
         nextLabel="Next pages"
         lang="en"
         closing={<ResumeClosing />}
       >
         <ResumeContent />
-      </ResumeBook>
+      </PagedBook>
     </NextIntlClientProvider>,
   );
 }

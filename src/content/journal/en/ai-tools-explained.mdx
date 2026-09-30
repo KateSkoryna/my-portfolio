@@ -1,0 +1,67 @@
+"I think I'm being crushed under a mountain of AI tools." My boyfriend confessed this to me recently, and he is not alone.
+
+With the endless stream of updates (Custom GPTs, Projects, Skills, Gems, NotebookLM, Claude Code) it is easy to feel completely buried. I saw people from marketing, real estate and animal care struggle with exactly this during my AI Automation program at WBS CODING SCHOOL. That is what made me want to step in as a tech-to-human translator.
+
+## The short version
+
+If you are confused about which tool to use and when, this is a quick breakdown of the OpenAI and Claude tools (Google's Gemini Gems work like Custom GPTs):
+
+- **Custom GPTs / Gemini Gems** are a specialist you set up once, for one repeatable role.
+- **Projects** are a workspace that keeps your files, context and rules across many chats.
+- **Skills / custom tools** are actions the AI can perform, like running code or calling an API.
+
+## 1. Custom GPTs and Gemini Gems: the "Polite Specialist"
+
+- **What it is:** a pre-configured assistant with specific guidelines for a repeatable role.
+- **Problem solved:** you stop re-typing "You are a marketing expert…" at the start of every new chat.
+- **Best for:** single-purpose, deterministic Q&A tasks.
+- **Limitation:** the context resets in a new chat. There is no long-term memory across threads.
+
+<Callout label="How I use it">
+
+A CV and cover letter reviewer, an English tutor, a personal nutritionist, and a prompt architect.
+
+</Callout>
+
+## 2. Projects: the "Persistent Workspace"
+
+- **What it is:** a dedicated environment that holds shared files, context and rules across multiple threads.
+- **Best for:** ongoing tasks that need a persistent "Single Source of Truth".
+- **Limitation:** it is locked to that one platform's interface, and it cannot trigger external workflows on its own.
+
+<Callout label="How I use it">
+
+I upload resume templates and style guides as Project Knowledge. The model pulls them in via RAG only when needed, so no tokens are wasted.
+
+</Callout>
+
+<Callout label="Good to know">
+
+**RAG** stands for **retrieval-augmented generation**. Instead of reading **all your files** every time, the model first **looks up the passages** that matter for your question and answers from those.
+
+</Callout>
+
+## 3. Skills and custom tools: the "Specialized Capability"
+
+- **What it is:** a modular, single-purpose executable function, for example running code or calling an API.
+- **The difference:** a Project holds knowledge; a Skill performs an action. You call a Skill inside your Project chat.
+
+<Callout label="How I use it">
+
+I connect custom tools via MCP (Model Context Protocol) to link the AI directly with GitHub, Jira or local dev tools.
+
+</Callout>
+
+<Callout label="Good to know">
+
+**MCP** is an **open standard** for connecting AI applications to **tools and data**. Once a tool speaks MCP, **different AI apps** can use it without a separate integration for each.
+
+</Callout>
+
+## Which one, and when
+
+- The same role again and again? A **Custom GPT or Gem**.
+- Ongoing work that needs your files and rules to stay put? A **Project**.
+- The AI has to _do_ something, not only answer? A **Skill or custom tool**.
+
+There are plenty of tools, so the trick is to understand **which one solves your problem best**.

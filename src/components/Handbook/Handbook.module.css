@@ -1256,6 +1256,25 @@ h2.title {
   color: var(--color-emerald-deep);
   text-decoration: none;
 }
+.closingMore {
+  margin: 22px 0 0;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 12.5px;
+  color: var(--color-muted);
+}
+.closingMore a {
+  /* On its own row, under the question. */
+  display: block;
+  margin-top: 4px;
+  font-weight: 800;
+  color: var(--color-emerald-deep);
+  text-decoration: underline;
+  text-decoration-color: var(--color-mustard);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
 .closingNote {
   margin: 18px 0 0;
   font-family: var(--font-hand), cursive;
@@ -1267,6 +1286,11 @@ h2.title {
 /* Phones: the page is scaled down to fit, so 16px ends up a few px tall on
    screen — three times the size keeps it readable after scaling. */
 @media (max-width: 800px) {
+  .closingMore {
+    font-size: 30px;
+    line-height: 1.2;
+  }
+
   .closingNote {
     font-size: 48px;
     line-height: 1.05;

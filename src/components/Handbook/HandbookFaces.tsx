@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { getHandbookContent } from '@/content/handbook';
 import { profile } from '@/content/items';
 import { resumeContact } from '@/content/resume';
+import { Link } from '@/i18n/navigation';
 
 import styles from './Handbook.module.css';
 import { HandbookPage } from './HandbookPage';
@@ -389,6 +390,7 @@ function Leaf4Back() {
 
 function Leaf5Front() {
   const tCommon = useTranslations('common');
+  const t = useTranslations('handbook');
   return (
     <section className={s.closing} aria-labelledby="handbook-contact">
       <h2 id="handbook-contact" className={s.closingHeading}>
@@ -412,6 +414,10 @@ function Leaf5Front() {
           <a href={`mailto:${resumeContact.email}`}>{tCommon('email')}</a>
         </li>
       </ul>
+      {/* A pointer to the journal post on choosing between AI tools. */}
+      <p className={s.closingMore}>
+        {t('moreQuestion')} <Link href="/journal/ai-tools-explained">{t('moreLink')}</Link>
+      </p>
       <p className={s.closingNote}>{tCommon('closingNote')}</p>
     </section>
   );

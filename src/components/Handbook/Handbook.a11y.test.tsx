@@ -9,6 +9,14 @@ import messages from '../../../messages/en.json';
 import { handbookLeaves } from './HandbookFaces';
 import { HandbookBook } from './HandbookBook';
 
+vi.mock('@/i18n/navigation', () => ({
+  Link: ({ href, children, ...rest }: React.ComponentProps<'a'>) => (
+    <a href={String(href)} {...rest}>
+      {children}
+    </a>
+  ),
+}));
+
 // jsdom has no layout, `matchMedia` or `ResizeObserver`. Reduced motion is
 // stubbed on so leaves land instantly instead of waiting for a transition;
 // `mobile` stands in for the ≤ 800px one-page layout.

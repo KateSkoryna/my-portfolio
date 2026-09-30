@@ -59,36 +59,43 @@ function decor(kind: Kind): ReactNode {
         </>
       );
     case 'notebook':
-      // The elastic wraps round to the back, still by the fore-edge.
+      // Ruled, and bound by the same spiral as the front's — flipped, so the
+      // coils are on the right, where a book turned over has its binding.
       return (
         <>
           <div className={coverStyles.ruledField} />
-          <div className={coverStyles.elasticBand} />
+          <div className={coverStyles.holes} />
+          <div className={coverStyles.spiral} />
         </>
       );
     case 'magazine':
-      return <div className={coverStyles.mastheadBand} />;
+      return <div className={`${coverStyles.mastheadBand} ${styles.thinBand}`} />;
     case 'newspaper':
       return (
         <>
           <div className={`${coverStyles.mastheadRule} ${coverStyles.mastheadRuleTop}`} />
-          <div className={`${coverStyles.mastheadRule} ${coverStyles.mastheadRuleBottom}`} />
+          <div
+            className={`${coverStyles.mastheadRule} ${coverStyles.mastheadRuleBottom} ${styles.bottomRule}`}
+          />
         </>
       );
   }
 }
 
 /**
- * Where the printed text has to start so it stays clear of that cover's
- * decoration (and, on the dark covers, off the coral circle, where cream text
- * would fail contrast).
+ * The printed text starts at the same place on every back — the resume's: the
+ * counter row, the kind, the title and the description all on the same lines,
+ * whichever book it is. So each cover's decoration is drawn to stay clear of
+ * that text (a thin band, a slim strap, rules at the edges) instead of the text
+ * moving to clear the decoration. On the two dark covers the coral circle still
+ * reaches the counter row, so its line is drawn in cream there.
  */
 const CONTENT_CLEARANCE: Record<Kind, string> = {
-  book: `${styles.belowCircles} ${styles.raisedTitle}`,
-  fieldguide: `${styles.belowCircles} ${styles.raisedTitle} ${styles.largeBlurb}`,
-  notebook: styles.besideElastic,
-  magazine: styles.belowBand,
-  newspaper: styles.betweenRules,
+  book: `${styles.aligned} ${styles.onCircle}`,
+  fieldguide: `${styles.aligned} ${styles.onCircle} ${styles.largeBlurb}`,
+  notebook: `${styles.aligned} ${styles.largeBlurb} ${styles.spiralBound}`,
+  magazine: styles.aligned,
+  newspaper: styles.aligned,
 };
 
 /**
@@ -120,14 +127,15 @@ export function BookBack({ item }: { item: PortfolioItem }) {
     coverStyles[item.kind],
     styles.board,
     MIRRORED_FILL[item.kind],
-    item.kind === 'notebook' ? undefined : styles.mirroredCorners,
+    item.kind === 'notebook' ? styles.mirroredNotebookCorners : styles.mirroredCorners,
   ]
     .filter(Boolean)
     .join(' ');
 
   return (
     <div className={styles.book} style={style}>
-      <span className={styles.spine} aria-hidden="true" />
+      {/* A spiral-bound notebook has no spine: the coils bind the board itself. */}
+      {item.kind !== 'notebook' && <span className={styles.spine} aria-hidden="true" />}
       <div className={boardClasses}>
         <div className={styles.decor} aria-hidden="true">
           {decor(item.kind)}

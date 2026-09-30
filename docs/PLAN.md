@@ -715,23 +715,45 @@ download (also linked from the landing page). Notes for review:
 
 ### 4c `/journal` — the notebook
 
-- [ ] Design first: spiral notebook, `docs/DESIGN.md` §2.1, §2.2, §4.3b.
-      Confirm the proposed layout with Kateryna before building.
-- [ ] Shared components: add the left-edge spiral to `BookCover` (notebook),
+- [x] Design first: spiral notebook, `docs/DESIGN.md` §2.1, §2.2, §4.3b.
+      Direction confirmed by Kateryna: a blog, spiral-bound.
+- [x] Shared components: add the left-edge spiral to `BookCover` (notebook),
       keep the dark-green elastic band on the right, widen the coral ribbon to
       18px; replace the two bands in `ClosedBook` with the coil-edge row
       for the notebook. This also changes the landing pile and `/shelf` —
       re-check both.
-- [ ] MDX entries, tags, reverse-chronological.
-- [ ] Entry index + open entry views, bound by a centre spiral (§4.3b).
-- [ ] Dots-only indicator where paged.
-- [ ] Sample entries in `[BRACKETS]` until Kateryna supplies the real posts.
-- [ ] Share button (Web Share API, copy-link fallback) on an open entry.
+- [x] MDX entries, tags, reverse-chronological.
+- [x] Entry index + open entry views, bound by a centre spiral (§4.3b).
+- [x] Dots-only indicator where paged.
+- [x] Sample entries in `[BRACKETS]` until Kateryna supplies the real posts. *(Replaced by her two real posts; the samples are removed.)*
+- [x] ~~Share button on an open entry~~ — dropped by Kateryna; a handwritten
+      "write me" note with LinkedIn and Gmail buttons ends each post instead.
       Likes and comments are out of scope for 4c.
 
 **Done when:** an MDX file added to the content directory appears in the index
 and at its own URL with no code change; the spiral renders on the cover, the
 closed book and the open notebook with no image or canvas; axe clean.
+
+**4c result** — `/en/journal` and `/de/journal` (the newest post) and `/journal/[slug]`
+per post, all static. Posts are listed, with their properties (date, draft, and per language title,
+excerpt, tags), in `src/content/journal/posts.json`; the text is one `.mdx` file per language
+in `src/content/journal/<locale>/<slug>.mdx`. A post with no German block shows in English;
+the build fails on a malformed or incomplete entry (`docs/posts.md` documents the format). The notebook reuses the resume's book
+(`ResumeBook` became `PagedBook`, with `binding="spiral"`): one post flows across the pages
+like the CV, nothing scrolls. Post navigation is outside the book — an "All posts" menu in
+the header (links grouped by year) — so any number of posts works. The notebook cover has the left-edge gold two-wire spiral, round holes, a
+square left edge and the 18px ribbon; `ClosedBook` shows a coil edge; the landing's floating
+notebook has no spine slab. `journal.published` is `true`. Lint, typecheck, vitest and build
+pass; axe (jsdom) clean in EN and DE. Notes for review:
+- **New dependencies:** `@next/mdx`, `@mdx-js/loader`, `@mdx-js/react`, `@types/mdx` — the
+  platform cannot compile MDX. Approved by Kateryna.
+- A first post, `numeronyms`, is Kateryna's text; its ending is a `[BRACKETED]` placeholder
+  and the German version is a translation by Claude that needs her read.
+- The book's mechanics still live in `Resume.module.css`, shared by `/resume` and `/journal`
+  — worth splitting out if a third book appears.
+- No human look at 390 / 768 / 1280, no Lighthouse run, and the landing pile and `/shelf`
+  were not re-checked by eye after the cover and closed-book change.
+- The 12px the spec has the elastic band run past the cover's top and bottom is not drawn.
 
 ### 4d `/about` — the newspaper
 

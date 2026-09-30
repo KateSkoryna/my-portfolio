@@ -13,7 +13,7 @@ import {
 import styles from './Resume.module.css';
 
 /**
- * The CV's sections, server-rendered. `ResumeBook` flows them across the
+ * The CV's sections, server-rendered. `PagedBook` flows them across the
  * pages of the book; on print they become one plain document
  * (`Resume.module.css`).
  * Text comes from `content/resume.ts` for the current locale (English is
@@ -154,7 +154,7 @@ function PageFour() {
 }
 
 /**
- * The whole CV as one continuous flow. `ResumeBook` lays it out in columns,
+ * The whole CV as one continuous flow. `PagedBook` lays it out in columns,
  * one per page, so where a page ends depends on the size of the book — there
  * are no fixed "pages" here, only sections in reading order.
  */

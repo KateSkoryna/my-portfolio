@@ -1,0 +1,74 @@
+{
+  "posts": [
+    {
+      "slug": "ai-tools-explained",
+      "date": "2026-09-30",
+      "related": ["handbook"],
+      "en": {
+        "title": "Which AI tool, and when?",
+        "excerpt": "Custom GPTs, Projects and Skills: a tech-to-human guide to which tool to use, with how I use each.",
+        "tags": [
+          "AI tools",
+          "Custom GPTs",
+          "Gemini Gems",
+          "Projects",
+          "Skills",
+          "MCP",
+          "RAG",
+          "Claude",
+          "ChatGPT"
+        ]
+      },
+      "de": {
+        "title": "Welches KI-Tool, und wann?",
+        "excerpt": "Custom GPTs, Projects und Skills: ein Technik-für-Menschen-Überblick, welches Tool wann passt, und wie ich jedes nutze.",
+        "tags": [
+          "KI-Tools",
+          "Custom GPTs",
+          "Gemini Gems",
+          "Projects",
+          "Skills",
+          "MCP",
+          "RAG",
+          "Claude",
+          "ChatGPT"
+        ]
+      }
+    },
+    {
+      "slug": "numeronyms",
+      "date": "2026-09-30",
+      "related": ["ai-tools-explained"],
+      "en": {
+        "title": "Why a11y is spelled a11y",
+        "excerpt": "a11y, i18n, k8s, n8n: what a numeronym is, how to read one, and the difference between i18n and l10n.",
+        "tags": [
+          "Numeronyms",
+          "a11y",
+          "i18n",
+          "l10n",
+          "Accessibility",
+          "Internationalization",
+          "Kubernetes",
+          "n8n",
+          "Developer vocabulary"
+        ]
+      },
+      "de": {
+        "title": "Was hinter a11y und i18n steckt",
+        "excerpt": "a11y, i18n, k8s, n8n: was ein Numeronym ist, wie man eines liest und worin sich i18n und l10n unterscheiden.",
+        "tags": [
+          "Numeronyme",
+          "a11y",
+          "i18n",
+          "l10n",
+          "Barrierefreiheit",
+          "Internationalisierung",
+          "Kubernetes",
+          "n8n",
+          "Fachbegriffe"
+        ]
+      }
+    }
+  ]
+}
