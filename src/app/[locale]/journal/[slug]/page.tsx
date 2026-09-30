@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { JournalView } from '@/components/Journal/JournalView';
 import { routing } from '@/i18n/routing';
 import { getEntry, getSlugs } from '@/lib/journal';
+import { pageMetadata } from '@/lib/seo';
 
 type Params = Promise<{ locale: string; slug: string }>;
 
@@ -17,7 +18,14 @@ export function generateStaticParams(): Array<{ locale: string; slug: string }> 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale, slug } = await params;
   const found = await getEntry(locale, slug);
-  return found ? { title: found.entry.title, description: found.entry.excerpt } : {};
+  return found
+    ? pageMetadata({
+        locale,
+        path: `/journal/${slug}`,
+        title: found.entry.title,
+        description: found.entry.excerpt,
+      })
+    : {};
 }
 
 export default async function JournalEntryPage({ params }: { params: Params }) {

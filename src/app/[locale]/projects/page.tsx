@@ -1,9 +1,11 @@
+import type { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { HeaderLink, PageHeader } from '@/components/PageHeader/PageHeader';
 import { PageFooter } from '@/components/PageFooter/PageFooter';
 import { Projects } from '@/components/Projects/Projects';
 import { getProjectIssues } from '@/lib/github/repos';
+import { pageMetadata } from '@/lib/seo';
 
 /**
  * ISR: the repo stats are fetched on the server and the rendered page is
@@ -11,6 +13,16 @@ import { getProjectIssues } from '@/lib/github/repos';
  * — Next needs a literal here, so it cannot import the constant.
  */
 export const revalidate = 3600;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'items.projects' });
+  return pageMetadata({ locale, path: '/projects', title: t('title'), description: t('blurb') });
+}
 
 export default async function ProjectsPage() {
   const tChrome = await getTranslations('chrome');

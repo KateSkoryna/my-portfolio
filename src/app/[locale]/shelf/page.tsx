@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
 import { localizeItems } from '@/content/items';
@@ -8,11 +9,22 @@ import { ClosedBook } from '@/components/ClosedBook/ClosedBook';
 import { Eyebrow } from '@/components/Eyebrow/Eyebrow';
 import { MarginNote } from '@/components/MarginNote/MarginNote';
 import { Shelf, type ShelfSlide } from '@/components/Shelf/Shelf';
+import { pageMetadata } from '@/lib/seo';
 
 import styles from '@/components/Shelf/Shelf.module.css';
 
 /** DESIGN.md §4.2's 216×260 reference cover, shared by `BookCover` and `ClosedBook`. */
 const COVER_WIDTH = 216;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'shelf' });
+  return pageMetadata({ locale, path: '/shelf', title: t('title') });
+}
 
 /**
  * DESIGN.md §4.2 — five covers (each captioned with its title and blurb)
