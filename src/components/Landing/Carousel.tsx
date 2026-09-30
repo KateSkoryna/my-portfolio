@@ -86,6 +86,8 @@ export function Carousel({
   const [flipped, setFlipped] = useState(false);
   /** Scale of the whole stack; only applied on phones (`Carousel.module.css`). */
   const [fit, setFit] = useState(1);
+  /** True once `fit` has been measured (see the no-CSS-arithmetic fallback in the CSS). */
+  const [fitReady, setFitReady] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
@@ -94,6 +96,7 @@ export function Carousel({
     const measure = () => {
       const scale = (stage.clientWidth * STACK_FILL) / STACK_DESIGN_WIDTH;
       setFit(Math.min(STACK_FIT_MAX, Math.max(STACK_FIT_MIN, scale)));
+      setFitReady(true);
     };
     measure();
     if (typeof ResizeObserver === 'undefined') return;
@@ -177,7 +180,11 @@ export function Carousel({
     <SelectItemContext.Provider value={selectById}>
       <div ref={stageRef} className={styles.stage}>
         <ArrowButton direction="prev" label={prevLabel} onClick={() => advance(-1)} />
-        <div className={styles.stack} style={{ '--fit': fit } as CSSProperties}>
+        <div
+          className={styles.stack}
+          data-ready={fitReady}
+          style={{ '--fit': fit } as CSSProperties}
+        >
           <div className={styles.floatingStage} style={{ '--swap-dir': swapDir } as CSSProperties}>
             {leaving !== null && (
               /* The book being replaced, kept just long enough to slide out. */
