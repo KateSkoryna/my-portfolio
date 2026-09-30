@@ -8,6 +8,9 @@ export const INTRO_STORAGE_KEY = 'landing-intro-seen';
 /** A little past the last text finishing typing (`Carousel.module.css`, ~3.7s). */
 export const INTRO_DURATION_MS = 4200;
 
+/** Phones get one wave instead (`Landing.module.css`), about 2s. */
+export const INTRO_DURATION_MOBILE_MS = 2200;
+
 /**
  * Runs while the HTML is parsed — before first paint — so a visitor who has
  * already seen the intro never sees it start and then get cut. Sits as the

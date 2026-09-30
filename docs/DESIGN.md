@@ -325,7 +325,7 @@ floating item centred (x 596, y 150, 268 × 340), the description panel right
 - `→` advances to the next item, `←` reverses. **The new book is set
   down on top of the old one** (drops in, bounces once, settles; the old one
   stays underneath and is removed when it lands; `motion.swap`), and
-  the counter number, type label, title and description are **typed out a character at a time** (the description much faster than the title), then the coral squiggle under the title is drawn (and at the start of a session the identity block on the left and the pile note are typed the same way); the leader line and the "/ 05" stay put. The pile is a queue in
+  the counter number, type label, title and description are **typed out a character at a time** (the description much faster than the title), then the coral squiggle under the title is drawn (and at the start of a session the identity block on the left and the pile note are typed the same way; on phones the session start is one wave instead: everything rises with the same long, gentle swell, each element starting while the one before is still moving, from the photo down to the dots); the leader line and the "/ 05" stay put. The pile is a queue in
   the stack's own order (the book after the selection on top, the one before
   it at the bottom): every pile book slides up one place, and the book that
   was floating **drops straight down into the bottom slot**, in front of the

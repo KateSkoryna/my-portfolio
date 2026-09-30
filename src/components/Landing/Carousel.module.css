@@ -285,6 +285,26 @@
     zoom: var(--fit, 1);
   }
 
+  /* The same scale worked out in CSS, so it is right on the very first paint:
+     the page is server-rendered, and `--fit` only exists once the browser has
+     measured — until then the book and pile showed at full size, then snapped
+     down. This mirrors `Carousel.tsx` (the stage is the viewport less the
+     page's side padding, the pile fills `STACK_FILL` of it, 384px wide,
+     kept within 0.6–1.1). */
+  @supports (width: calc(10px / 1px)) {
+    .stack {
+      zoom: clamp(0.6, calc(((100vw - 2 * clamp(16px, 5vw, 48px)) * 0.8) / 384px), 1.1);
+    }
+  }
+
+  /* A browser without that arithmetic still has to wait for the measurement:
+     hide the stack until `Carousel.tsx` has set it, rather than show it huge. */
+  @supports not (width: calc(10px / 1px)) {
+    .stack:not([data-ready='true']) {
+      visibility: hidden;
+    }
+  }
+
   .description {
     align-items: center;
     text-align: center;
@@ -788,4 +808,67 @@
 :global([data-intro='play']) .typed[data-type='intro'] .char {
   animation: charIn 1ms steps(1) backwards;
   animation-delay: calc(var(--type-start) + var(--i) * var(--type-step));
+}
+
+/*
+ * Intro on phones (see `Landing.module.css`): no typing, drawing or lifting —
+ * the text is simply there, and the rest of the page is the tail of the wave:
+ * the book's shadow and button with the book, the pile's shadow with the pile,
+ * then the note and the dots.
+ */
+@media (max-width: 800px) {
+  :global([data-intro='play']) .typed[data-type='intro'] .char {
+    animation: none;
+  }
+
+  :global([data-intro='play']) .suspensionShadow,
+  :global([data-intro='play']) .mobileCta,
+  :global([data-intro='play']) .pileShadow,
+  :global([data-intro='play']) .pileNote,
+  :global([data-intro='play']) .dots {
+    animation: waveIn calc(var(--motion-intro-lift) * 1.2) linear backwards;
+    animation-delay: calc(var(--wave-i) * var(--motion-intro-stagger) * 0.7);
+  }
+
+  :global([data-intro='play']) .suspensionShadow,
+  :global([data-intro='play']) .mobileCta {
+    --wave-i: 9;
+  }
+
+  :global([data-intro='play']) .pileShadow {
+    --wave-i: 12;
+  }
+
+  :global([data-intro='play']) .pileNote {
+    --wave-i: 14;
+  }
+
+  :global([data-intro='play']) .dots {
+    --wave-i: 15;
+  }
+
+  /* The note's button comes with the note, not on its own later timer. */
+  :global([data-intro='play']) .pileShelfLink,
+  :global([data-intro='play']) .pileNoteArrow {
+    animation: none;
+  }
+}
+
+/* One swell: rises from below, lifts a touch past its place and settles —
+   every segment eased like a sine, so nothing starts or stops abruptly. */
+@keyframes waveIn {
+  0% {
+    opacity: 0;
+    transform: translateY(26px);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-3px);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -231,3 +231,66 @@
     opacity: 0;
   }
 }
+
+/*
+ * Phones (same 800px break as the layout): no typing or drawing — one wave.
+ * Every element rises with the same long, gentle swell (`waveIn`), each
+ * starting while the one before is still moving, so the page flows in from the
+ * top like a wave passing down it: photo, role, name, stack line, bio,
+ * buttons, then the book, the pile and the note (`FloatingItem.module.css`,
+ * `Pile.module.css`, `Carousel.module.css`). Element `n` starts `n` steps in
+ * (`--wave-i`), a step being 0.7 of the intro stagger.
+ */
+@media (max-width: 800px) {
+  :global([data-intro='play']) .photo,
+  :global([data-intro='play']) .photoImage,
+  :global([data-intro='play']) .role,
+  :global([data-intro='play']) .name,
+  :global([data-intro='play']) .stack,
+  :global([data-intro='play']) .bio,
+  :global([data-intro='play']) .socials > * {
+    animation: waveIn calc(var(--motion-intro-lift) * 1.2) linear backwards;
+    animation-delay: calc(var(--wave-i, 0) * var(--motion-intro-stagger) * 0.7);
+  }
+
+  :global([data-intro='play']) .role {
+    --wave-i: 1;
+  }
+  :global([data-intro='play']) .name {
+    --wave-i: 2;
+  }
+  :global([data-intro='play']) .stack {
+    --wave-i: 3;
+  }
+  :global([data-intro='play']) .bio {
+    --wave-i: 4;
+  }
+  :global([data-intro='play']) .socials > :nth-child(1) {
+    --wave-i: 5;
+  }
+  :global([data-intro='play']) .socials > :nth-child(2) {
+    --wave-i: 6;
+  }
+  :global([data-intro='play']) .socials > :nth-child(3) {
+    --wave-i: 7;
+  }
+}
+
+/* One swell: rises from below, lifts a touch past its place and settles —
+   every segment eased like a sine, so nothing starts or stops abruptly. */
+@keyframes waveIn {
+  0% {
+    opacity: 0;
+    transform: translateY(26px);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-3px);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

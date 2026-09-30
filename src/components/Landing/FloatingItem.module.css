@@ -115,3 +115,30 @@
     transform: translateY(0) scale(1);
   }
 }
+
+/* Phones: the book is the next swell of the wave (`Landing.module.css`). */
+@media (max-width: 800px) {
+  :global([data-intro='play']) .floating {
+    animation: waveIn calc(var(--motion-intro-lift) * 1.2) linear backwards;
+    animation-delay: calc(8 * var(--motion-intro-stagger) * 0.7);
+  }
+}
+
+/* One swell: rises from below, lifts a touch past its place and settles —
+   every segment eased like a sine, so nothing starts or stops abruptly. */
+@keyframes waveIn {
+  0% {
+    opacity: 0;
+    transform: translateY(26px);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-3px);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

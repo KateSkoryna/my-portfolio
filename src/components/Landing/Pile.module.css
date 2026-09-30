@@ -157,3 +157,29 @@
     transform: translate(var(--pile-x), var(--pile-y)) rotate(var(--pile-rotate));
   }
 }
+
+/* Phones: the pile books follow the book in the wave, bottom one first
+   (`--pile-i`). Their own transform is kept, so the swell is added to it. */
+@media (max-width: 800px) {
+  :global([data-intro='play']) .slot {
+    animation: pileWave calc(var(--motion-intro-lift) * 1.2) linear backwards;
+    animation-delay: calc((10 + var(--pile-i, 0)) * var(--motion-intro-stagger) * 0.7);
+  }
+}
+
+@keyframes pileWave {
+  0% {
+    opacity: 0;
+    transform: translate(var(--pile-x), calc(var(--pile-y) + 26px)) rotate(var(--pile-rotate));
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(var(--pile-x), calc(var(--pile-y) - 3px)) rotate(var(--pile-rotate));
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(var(--pile-x), var(--pile-y)) rotate(var(--pile-rotate));
+  }
+}

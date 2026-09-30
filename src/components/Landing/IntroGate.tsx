@@ -2,7 +2,7 @@
 
 import { useLayoutEffect } from 'react';
 
-import { INTRO_DURATION_MS, INTRO_STORAGE_KEY } from './intro';
+import { INTRO_DURATION_MOBILE_MS, INTRO_DURATION_MS, INTRO_STORAGE_KEY } from './intro';
 
 /**
  * Marks the session as having seen the intro once it has played. It does NOT
@@ -30,13 +30,17 @@ export function IntroGate() {
       return;
     }
 
-    const timer = window.setTimeout(() => {
-      try {
-        sessionStorage.setItem(INTRO_STORAGE_KEY, '1');
-      } catch {
-        // See above.
-      }
-    }, INTRO_DURATION_MS);
+    const isPhone = window.matchMedia('(max-width: 800px)').matches;
+    const timer = window.setTimeout(
+      () => {
+        try {
+          sessionStorage.setItem(INTRO_STORAGE_KEY, '1');
+        } catch {
+          // See above.
+        }
+      },
+      isPhone ? INTRO_DURATION_MOBILE_MS : INTRO_DURATION_MS,
+    );
     return () => window.clearTimeout(timer);
   }, []);
 
