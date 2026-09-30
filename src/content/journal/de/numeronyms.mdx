@@ -1,0 +1,61 @@
+Ich tippe seit Jahren a11y und i18n. Ich habe Übersetzungspakete importiert, Barrierefreiheits-Einstellungen angepasst und Workflows aufgesetzt – und nie gefragt, warum die Begriffe so geschrieben werden. Heute hat es Klick gemacht.
+
+<MarginNote>die ganze Zeit direkt vor meiner Nase</MarginNote>
+
+## Was ein Numeronym ist
+
+Ein Numeronym ist ein Wort, das auf seinen ersten und letzten Buchstaben verkürzt wird, dazwischen steht die Zahl der ausgelassenen Buchstaben. Die Regel ist immer dieselbe: `erster Buchstabe + Anzahl + letzter Buchstabe`.
+
+Nehmen wir **accessibility**. Das Wort hat 13 Buchstaben. Ohne den ersten und den letzten bleiben 11, also `a` + `11` + `y`: **a11y**.
+
+## Die, denen man täglich begegnet
+
+- **a11y** = accessibility (a + 11 Buchstaben + y): eine Website für alle nutzbar machen, auch für Menschen mit Screenreader, nur mit Tastatur oder mit Bedarf an starkem Kontrast.
+- **i18n** = internationalization (i + 18 Buchstaben + n): die App so bauen, dass sie übersetzt _werden kann_.
+- **l10n** = localization (l + 10 Buchstaben + n): die eigentliche Anpassung an eine Sprache und Region.
+- **k8s** = Kubernetes (k + 8 Buchstaben + s).
+- **o11y** = observability (o + 11 Buchstaben + y).
+
+<Callout label="Gut zu wissen" title="i18n und l10n sind nicht dasselbe">
+
+Sie stehen in jedem Projekt nebeneinander und werden leicht verwechselt. Internationalisierung ist die Grundlage: kein Text fest in Komponenten, Datum und Zahlen nach Region formatiert, ein Layout, das auch ein längeres deutsches Wort aushält. Lokalisierung ist das, was man danach für einen Markt tut: die Übersetzung selbst und die regionalen Formate.
+
+Anders gesagt: i18n macht man einmal, im Code. l10n macht man einmal pro Sprache.
+
+</Callout>
+
+## Das, das mich erwischt hat
+
+Beim Einrichten von Automatisierungen bin ich auf **n8n** gestoßen: n + 8 Buchstaben + n. Es steht für _nodemation_ – so hatte der Gründer Jan Oberhauser es ursprünglich genannt, und dann auf dieselbe Weise gekürzt.
+
+## Die andere Art von Zahl
+
+B2B, B2C und P2P funktionieren anders: Die Zahl ersetzt ein Wort nach dem Klang (2 = „to"). Dieselbe Angewohnheit, Buchstaben durch Ziffern zu ersetzen, nur ein anderer Trick.
+
+<Callout label="Fun Facts" icon="star">
+
+Auch viele berühmte Namen sind verkürzte Wörter:
+
+- **LEGO** kommt vom dänischen _leg godt_, „spiel gut".
+- **IKEA** sind die Initialen des Gründers, Ingvar Kamprad, dazu der Hof, auf dem er aufwuchs, Elmtaryd, und das Dorf in der Nähe, Agunnaryd.
+- **ASOS** hieß ursprünglich _As Seen On Screen_, so der Name des Online-Shops am Anfang.
+
+</Callout>
+
+## Zum Selbstausprobieren
+
+Die ganze Regel passt in eine Zeile JavaScript:
+
+```js
+const numeronym = (word) => (word.length > 3 ? `${word[0]}${word.length - 2}${word.at(-1)}` : word);
+
+numeronym('accessibility'); // "a11y"
+numeronym('internationalization'); // "i18n"
+numeronym('nodemation'); // "n8n"
+```
+
+## Was ich gelernt habe
+
+Ich habe jahrelang i18n benutzt und nie darüber nachgedacht, wofür es steht. a11y, i18n und k8s sind keine zufälligen Paketnamen. Es sind Abkürzungen, gemacht, um lange Wörter zu verkürzen, und die Regel dahinter ist einfach. Es ist Allgemeinwissen im Alltag von Entwicklern, und ich hatte es einfach nicht aufgeschnappt. Das hätte ich früher wissen sollen.
+
+Es hat auch verändert, wie ich auf Pakete und die Sprache der Programmierung schaue. Solche Namen wirkten früher wie die zufälligen Namen von Paketen und Tools, und ich dachte, in dieser Sprache sei nichts logisch. Jetzt lese ich sie als verkürzte Wörter und kann mir das ganze Wort dahinter erschließen. Oft ist der Grund, dass Entwickler faul sind: selbst erfahrene kürzen ein langes Wort lieber, als es auszuschreiben.

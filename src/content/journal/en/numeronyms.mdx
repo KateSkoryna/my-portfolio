@@ -1,0 +1,61 @@
+I have typed a11y and i18n for years. I have imported translation packages, adjusted accessibility settings and set up workflows, and not once did I stop to ask why they are spelled like that. Today it clicked.
+
+<MarginNote>right in front of me the whole time</MarginNote>
+
+## What a numeronym is
+
+A numeronym is a word shortened to its first letter, its last letter, and the number of letters left out in between. The rule is always the same: `first letter + count + last letter`.
+
+Take **accessibility**. It has 13 letters. Remove the first and the last and 11 remain, so it becomes `a` + `11` + `y`: **a11y**.
+
+## The ones you meet every day
+
+- **a11y** = accessibility (a + 11 letters + y): making a site usable for everyone, including people who use a screen reader, only a keyboard, or need strong contrast.
+- **i18n** = internationalization (i + 18 letters + n): building the app so it _can_ be translated.
+- **l10n** = localization (l + 10 letters + n): the actual adaptation for one language and region.
+- **k8s** = Kubernetes (k + 8 letters + s).
+- **o11y** = observability (o + 11 letters + y).
+
+<Callout label="Good to know" title="i18n and l10n are not the same thing">
+
+They sit side by side in every project, and they are easy to mix up. Internationalization is the groundwork: no text hard-coded into components, dates and numbers formatted by locale, a layout that survives a longer German word. Localization is what you then do for one market: the translation itself and the local formats.
+
+Put differently: i18n is done once, in the code. l10n is done once per language.
+
+</Callout>
+
+## The one that got me
+
+While setting up automations I ran into **n8n**: n + 8 letters + n. It is _nodemation_, the name its founder, Jan Oberhauser, originally gave it, compressed the same way.
+
+## The other kind of number
+
+B2B, B2C and P2P work differently: the number stands in for a word by sound (2 = "to"). Same habit of swapping letters for digits, a different trick.
+
+<Callout label="Fun facts" icon="star">
+
+Plenty of famous names are shortened words too:
+
+- **LEGO** comes from the Danish _leg godt_, "play well".
+- **IKEA** is the founder's initials, Ingvar Kamprad, plus the farm he grew up on, Elmtaryd, and the village nearby, Agunnaryd.
+- **ASOS** was originally _As Seen On Screen_, the name of the online shop when it started.
+
+</Callout>
+
+## Try it yourself
+
+The whole rule fits in one line of JavaScript:
+
+```js
+const numeronym = (word) => (word.length > 3 ? `${word[0]}${word.length - 2}${word.at(-1)}` : word);
+
+numeronym('accessibility'); // "a11y"
+numeronym('internationalization'); // "i18n"
+numeronym('nodemation'); // "n8n"
+```
+
+## What I learned
+
+I used i18n for years and never once thought about what it stands for. a11y, i18n and k8s are not random names for packages. They are shorthand, made to shorten long words, and the rule behind them is simple. It is common knowledge in a developer's everyday work, and I simply had not picked it up. I should have known that earlier.
+
+It also changed how I see packages and programming vocabulary. Names like these used to look like the random names of packages and tools, and I had assumed that nothing in this vocabulary is logical. Now I read them as shortened words and can work out the full word behind them. Often the reason is that developers are lazy: even experienced ones would rather shorten a long word than type it out.

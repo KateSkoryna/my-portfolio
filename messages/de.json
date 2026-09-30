@@ -140,6 +140,15 @@
     "stackPlaceholder": "[STACK]",
     "selectedWork": "Ausgewählte Arbeiten"
   },
+  "journal": {
+    "related": "Wenn dich das interessiert hat, schau dir auch das an",
+    "allPosts": "Alle Beiträge",
+    "prev": "Vorherige Seiten",
+    "next": "Nächste Seiten",
+    "cta": "Hast du einen Gedanken dazu? Schreib mir!",
+    "signoff": "Liebe Grüße, Katja",
+    "empty": "[Noch keine Einträge.]"
+  },
   "handbook": {
     "moreQuestion": "Du fragst dich, welches KI-Tool wofür passt?",
     "moreLink": "Lies meinen Journal-Beitrag →",
