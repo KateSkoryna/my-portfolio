@@ -141,6 +141,8 @@
     "selectedWork": "Ausgewählte Arbeiten"
   },
   "handbook": {
+    "moreQuestion": "Du fragst dich, welches KI-Tool wofür passt?",
+    "moreLink": "Lies meinen Journal-Beitrag →",
     "prev": "Vorherige Seite",
     "next": "Nächste Seite"
   }

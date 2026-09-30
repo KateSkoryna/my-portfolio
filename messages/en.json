@@ -141,6 +141,8 @@
     "languages": "Languages"
   },
   "handbook": {
+    "moreQuestion": "Wondering which AI tool fits which job?",
+    "moreLink": "Read my journal post →",
     "prev": "Previous page",
     "next": "Next page"
   }
