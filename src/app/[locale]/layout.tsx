@@ -4,7 +4,9 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Bricolage_Grotesque, Caveat, Manrope } from 'next/font/google';
 
+import { getResumeContent } from '@/content/resume';
 import { routing } from '@/i18n/routing';
+import { SITE_NAME, SITE_URL, pageMetadata } from '@/lib/seo';
 
 import '@/styles/tokens.css';
 import '@/styles/reset.css';
@@ -42,10 +44,20 @@ export function generateStaticParams(): Array<{ locale: string }> {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  title: 'Kateryna Skoryna',
-  description: 'Frontend developer. React, TypeScript, Next.js.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const { headline, headlineStack } = getResumeContent(locale);
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
+    ...pageMetadata({ locale, path: '', description: `${headline}. ${headlineStack}.` }),
+    twitter: { card: 'summary' },
+  };
+}
 
 export default async function LocaleLayout({
   children,
