@@ -1,0 +1,40 @@
+/*
+ * Badge pill, DESIGN.md's Main canvas §identity — sage-tinted fill and an
+ * emerald outline, distinct from the filled CTA pill and from `.shelfLink`'s
+ * cream one. `min-height` reaches the §5.3 44px target without inflating the
+ * padding past the design's drawn size.
+ */
+.link {
+  min-height: var(--a11y-min-target);
+  min-width: 112px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 9px 15px;
+  border-radius: var(--radius-pill);
+  background: rgba(220, 233, 226, 0.42);
+  border: 1.5px solid var(--color-emerald);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 11.5px;
+  color: var(--color-emerald-deep);
+  text-decoration: none;
+  transition: transform var(--motion-hover) var(--motion-ease);
+}
+
+.link:hover {
+  transform: scale(1.03);
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link:hover {
+    transform: none;
+  }
+}
