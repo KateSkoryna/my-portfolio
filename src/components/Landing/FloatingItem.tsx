@@ -27,7 +27,10 @@ export function FloatingItem({ item }: { item: PortfolioItem }) {
 
   const assembly = (
     <>
-      <span className={styles.spine} style={style} aria-hidden="true" />
+      {/* A spiral-bound notebook has no spine: the coils bind the cover itself. */}
+      {item.kind !== 'notebook' && (
+        <span className={styles.spine} style={style} aria-hidden="true" />
+      )}
       <div className={styles.coverWrap}>
         <BookCover item={item} size="hero" />
       </div>

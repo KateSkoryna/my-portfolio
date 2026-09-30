@@ -59,8 +59,15 @@ export function ClosedBook({
        */}
       <span className={styles.edgeTop} />
       <span className={styles.label}>{item.title}</span>
-      <span className={styles.band} style={{ right: `calc(var(--closed-band-inset) + 7px)` }} />
-      <span className={styles.band} style={{ right: 'var(--closed-band-inset)' }} />
+      {/* A spiral has no spine: the notebook shows its coil edge, not two bands. */}
+      {item.kind === 'notebook' ? (
+        <span className={styles.coils} style={{ right: 'var(--closed-band-inset)' }} />
+      ) : (
+        <>
+          <span className={styles.band} style={{ right: `calc(var(--closed-band-inset) + 7px)` }} />
+          <span className={styles.band} style={{ right: 'var(--closed-band-inset)' }} />
+        </>
+      )}
       <span className={styles.edgeBottom} />
     </div>
   );

@@ -53,3 +53,12 @@
   border-radius: 1px;
   background: var(--closed-band);
 }
+
+/* DESIGN.md §2.2: edge-on, a spiral is a row of 2px loops every 9px. */
+.coils {
+  position: absolute;
+  top: 24%;
+  bottom: 24%;
+  width: 45px;
+  background: repeating-linear-gradient(90deg, var(--closed-band) 0 2px, transparent 2px 9px);
+}

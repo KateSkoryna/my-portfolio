@@ -61,4 +61,15 @@ describe('ClosedBook', () => {
     expect(ink(sage)).toBe('#155246');
     expect(ink(coral)).toBe('#232323');
   });
+
+  it('shows a coil edge instead of two spine bands for the notebook', () => {
+    const { container: book } = render(<ClosedBook item={baseItem} width={220} />);
+    const { container: notebook } = render(
+      <ClosedBook item={{ ...baseItem, kind: 'notebook' }} width={220} />,
+    );
+
+    // edgeTop + label + two bands + edgeBottom, versus edgeTop + label + coils + edgeBottom.
+    expect(book.firstElementChild?.children.length).toBe(5);
+    expect(notebook.firstElementChild?.children.length).toBe(4);
+  });
 });

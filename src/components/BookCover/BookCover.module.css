@@ -240,12 +240,65 @@
 
 .notebook {
   background: linear-gradient(160deg, var(--cover-fill), #c3d6cb);
-  border-radius: calc(9px * var(--cover-scale));
+  /* Square on the left, where the coils bind it (DESIGN.md §2.1). */
+  border-radius: 0 calc(9px * var(--cover-scale)) calc(9px * var(--cover-scale)) 0;
+  /* The coils overhang the left edge, so the cover cannot clip them. Every
+     other layer is kept inside the cover by its own `inset` / radius below. */
+  overflow: visible;
+}
+
+.notebook .foreEdge {
+  border-radius: 0 calc(9px * var(--cover-scale)) calc(9px * var(--cover-scale)) 0;
+}
+
+/* Two thin gold wires per coil, 4px apart, centred on a ruled line: from past
+   the cover's left edge into the slot punched for it. Wires and slots share the
+   20px pitch and offset, so they line up. CSS gradients only — no image, no
+   canvas. */
+.spiral {
+  position: absolute;
+  z-index: 2;
+  left: calc(-8px * var(--cover-scale));
+  /* Half a coil down, a whole number of coils tall: none is cut at either end,
+     and each lands on a rule. */
+  top: calc(10px * var(--cover-scale));
+  height: calc(100% - 20px * var(--cover-scale));
+  height: round(down, calc(100% - 20px * var(--cover-scale)), calc(20px * var(--cover-scale)));
+  width: calc(26px * var(--cover-scale));
+  background: linear-gradient(
+      180deg,
+      transparent 0 calc(8px * var(--cover-scale)),
+      var(--color-mustard) calc(8px * var(--cover-scale)) calc(9.5px * var(--cover-scale)),
+      transparent calc(9.5px * var(--cover-scale)) calc(10.5px * var(--cover-scale)),
+      var(--color-mustard) calc(10.5px * var(--cover-scale)) calc(12px * var(--cover-scale)),
+      transparent calc(12px * var(--cover-scale))
+    )
+    0 0 / 100% calc(20px * var(--cover-scale)) repeat-y;
+}
+
+/* The 5px round hole each coil goes through, just inside the cover. */
+.holes {
+  position: absolute;
+  left: calc(14px * var(--cover-scale));
+  /* Half a coil down, a whole number of coils tall: none is cut at either end,
+     and each lands on a rule. */
+  top: calc(10px * var(--cover-scale));
+  height: calc(100% - 20px * var(--cover-scale));
+  height: round(down, calc(100% - 20px * var(--cover-scale)), calc(20px * var(--cover-scale)));
+  width: calc(8px * var(--cover-scale));
+  background: radial-gradient(
+      circle calc(2.5px * var(--cover-scale)) at calc(4px * var(--cover-scale))
+        calc(10px * var(--cover-scale)),
+      rgba(21, 82, 70, 0.4) 0 90%,
+      transparent 100%
+    )
+    0 0 / 100% calc(20px * var(--cover-scale)) repeat-y;
 }
 
 .ruledField {
   position: absolute;
   inset: 0;
+  border-radius: inherit;
   background: repeating-linear-gradient(
     180deg,
     rgba(31, 111, 95, 0.11) 0 1px,
@@ -256,8 +309,10 @@
 .elasticBand {
   position: absolute;
   right: calc(32px * var(--cover-scale));
-  top: calc(-12px * var(--cover-scale));
-  bottom: calc(-12px * var(--cover-scale));
+  /* The spec has the band run 12px past the top and bottom; it used to be
+     clipped flush by the cover's `overflow: hidden`, so it is flush here. */
+  top: 0;
+  bottom: 0;
   width: calc(15px * var(--cover-scale));
   background: linear-gradient(180deg, #123f36, var(--color-emerald) 45%, #123f36);
 }
@@ -269,14 +324,14 @@
   right: calc(76px * var(--cover-scale));
   top: 0;
   height: calc(75px * var(--cover-scale));
-  width: calc(11px * var(--cover-scale));
+  width: calc(18px * var(--cover-scale));
   background: var(--color-coral);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 80%, 0 100%);
 }
 
 .notebookTitle {
   position: absolute;
-  left: calc(20px * var(--cover-scale));
+  left: calc(30px * var(--cover-scale));
   top: 26%;
   right: calc(60px * var(--cover-scale));
   font-family: var(--font-hand), cursive;
@@ -291,7 +346,7 @@
    on this background. */
 .notebookFoot {
   position: absolute;
-  left: calc(20px * var(--cover-scale));
+  left: calc(30px * var(--cover-scale));
   /* `.elasticBand` sits at right: 32px, 15px wide (spans to right: 47px) —
      18px let the note's text run under it. 52px clears the band. */
   right: calc(52px * var(--cover-scale));
