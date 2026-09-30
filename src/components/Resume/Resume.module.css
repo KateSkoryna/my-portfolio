@@ -1,7 +1,7 @@
 /*
  * `/resume` — the opened book (DESIGN.md §4.3). Desktop: two pages side by
  * side with inset spine shadows facing each other. Mobile: one page at a
- * time. The breakpoint must match `SPREAD_QUERY` in `ResumeBook.tsx`.
+ * time. The breakpoint must match `SPREAD_QUERY` in `PagedBook.tsx`.
  *
  * The book is a fixed-size frame (it fills the space between header and
  * footer). The CV is ONE continuous flow of text laid out in CSS columns, one
@@ -166,6 +166,8 @@
 
 .dotsPage > div {
   width: 100%;
+  /* Few dots (a short post) would otherwise sit at the left edge. */
+  justify-content: center;
   gap: clamp(0px, 1vw, 6px);
 }
 
@@ -224,11 +226,101 @@
   }
 }
 
+/* --- Spiral binding (`/journal`, `binding="spiral"`) --------------------
+   Ruled pages and gold coils instead of the hinge's spine shadow. Phones: one
+   page, coils down its left edge. Desktop: coils down the centre gutter. The
+   coils are two thin gold wires on a 20px pitch, each ending in a round hole in
+   the page; wires and holes are drawn from the same pitch and offset, so they
+   line up, and both start half a coil below where the text starts and run a
+   whole number of coils, so none is cut. CSS gradients only. */
+
+.book[data-binding='spiral'] {
+  --line: 20px;
+  /* Room for the coils and their holes beside the text. */
+  --pad: clamp(36px, 7vw, 52px);
+}
+
+/* A little wider and taller than the resume: the notebook gets more of the
+   screen, as the handbook does. */
+.stage[data-binding='spiral'] {
+  max-width: 1360px;
+  padding-top: clamp(8px, 1.6vh, 20px);
+}
+
+/* Text sits on the ruling: one rule per line. */
+.book[data-binding='spiral'] .flow {
+  font-size: 14px;
+  line-height: var(--line);
+}
+
+.book[data-binding='spiral'] .frame {
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(31, 111, 95, 0.11) 0 1px,
+    transparent 1px var(--line)
+  );
+  background-position: 0 var(--pad);
+}
+
+.spiral,
+.holes {
+  position: absolute;
+  top: calc(var(--pad) - var(--line) / 2);
+  height: round(down, calc(100% - var(--pad) * 2 + var(--line)), var(--line));
+  pointer-events: none;
+}
+
+.spiral {
+  z-index: 3;
+  /* Phones: the wire is shorter — it sticks out 4px past the page instead of 8 —
+     but as thick, and with the same hole, as on the desktop spread. */
+  left: -4px;
+  width: 22px;
+  background: linear-gradient(
+      180deg,
+      transparent 0 8px,
+      var(--color-mustard) 8px 9.5px,
+      transparent 9.5px 10.5px,
+      var(--color-mustard) 10.5px 12px,
+      transparent 12px
+    )
+    0 0 / 100% var(--line) repeat-y;
+}
+
+.holes {
+  z-index: 1;
+  left: 14px;
+  width: 8px;
+  background: radial-gradient(
+      circle 2.5px at 4px 10px,
+      rgba(21, 82, 70, 0.4) 0 90%,
+      transparent 100%
+    )
+    0 0 / 100% var(--line) repeat-y;
+}
+
+@media (min-width: 900px) {
+  .spiral {
+    left: calc(50% - 18px);
+    width: 36px;
+  }
+
+  .holes {
+    left: calc(50% - 22px);
+    width: 44px;
+    background:
+      radial-gradient(circle 2.5px at 4px 10px, rgba(21, 82, 70, 0.4) 0 90%, transparent 100%) 0 0 /
+        8px var(--line) repeat-y,
+      radial-gradient(circle 2.5px at 4px 10px, rgba(21, 82, 70, 0.4) 0 90%, transparent 100%) 36px
+        0 / 8px var(--line) repeat-y;
+  }
+}
+
 /* --- Page turn (desktop) ------------------------------------------------
    A leaf hinged on the spine, drawn over the book while the flow underneath
    has already moved on. Front and back are `PageClone`s of the real pages, so
    the page you are leaving turns over to reveal the next one. CSS transform +
-   animation only; `ResumeBook` skips the whole thing under reduced motion. */
+   animation only; `PagedBook` skips the whole thing under reduced motion. */
 
 .book {
   perspective: 2400px;
@@ -623,6 +715,8 @@ section + .role {
   .next,
   .dots,
   .pageNums,
+  .spiral,
+  .holes,
   .frames,
   .filler,
   .half,
