@@ -75,8 +75,8 @@ export type ItemStructural = Omit<
   | 'secondaryCta'
 >;
 
-// `journal.title` ("Dev Journal") and `about.title` ("Off the Clock") in the
-// message files are still provisional placeholders awaiting a rename call.
+// `about.title` ("Off the Clock") in the message files is still a provisional
+// placeholder awaiting a rename call. `journal.title` is "Blog".
 export const itemsBase: readonly ItemStructural[] = [
   {
     id: 'resume',

@@ -48,6 +48,7 @@ const entry = {
   slug: 'middle',
   title: '[MIDDLE]',
   date: '2026-03-15',
+  category: 'mylearning' as const,
   excerpt: '[One line.]',
   tags: ['[A]', '[B]'],
   related: [

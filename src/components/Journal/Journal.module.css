@@ -6,6 +6,23 @@
 
 /* --- The entry, inside the book's flow ----------------------------------- */
 
+/* The kind of post, then the date, on one line. */
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 8px;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.category {
+  color: var(--color-emerald-deep);
+}
+
 .date {
   display: block;
   font-weight: 800;

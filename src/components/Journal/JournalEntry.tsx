@@ -35,9 +35,13 @@ export function JournalEntry({ entry, children }: { entry: Entry; children: Reac
   return (
     <article>
       <header>
-        <time className={styles.date} dateTime={entry.date}>
-          {date.format(new Date(entry.date))}
-        </time>
+        <p className={styles.meta}>
+          <span className={styles.category}>{t(`categories.${entry.category}`)}</span>
+          <span aria-hidden="true">·</span>
+          <time className={styles.date} dateTime={entry.date}>
+            {date.format(new Date(entry.date))}
+          </time>
+        </p>
         <h1 className={styles.title}>{entry.title}</h1>
         {entry.tags.length > 0 && (
           <ul className={styles.tags}>
