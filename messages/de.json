@@ -21,7 +21,18 @@
     "back": "Zurück",
     "shelfShort": "Regal",
     "pdfShort": "PDF",
-    "footer": "© 2026 Kateryna Skoryna · All rights reserved"
+    "footer": "© 2026 Kateryna Skoryna · All rights reserved",
+    "impressum": "Impressum",
+    "privacy": "Datenschutz"
+  },
+  "legal": {
+    "eyebrow": "Rechtliches",
+    "title": "Impressum",
+    "infoHeading": "Angaben gemäß § 5 DDG",
+    "country": "Deutschland",
+    "contactHeading": "Kontakt",
+    "email": "E-Mail",
+    "responsibleHeading": "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV"
   },
   "dots": {
     "goTo": "Zu {n} wechseln"
@@ -235,5 +246,59 @@
         "caption": "Mit meiner Familie."
       }
     }
+  },
+  "privacy": {
+    "eyebrow": "Rechtliches",
+    "title": "Datenschutzerklärung",
+    "updated": "Stand: 1. Oktober 2026",
+    "controllerHeading": "Verantwortlich",
+    "controllerNote": "E-Mail",
+    "sections": [
+      {
+        "title": "Kurz gesagt",
+        "body": [
+          "Diese Seite hat keine Benutzerkonten, keine Formulare, keine Analyse, keine Werbung und kein Tracking. In deinem Browser wird nichts von anderen Unternehmen geladen."
+        ]
+      },
+      {
+        "title": "Hosting bei Vercel",
+        "body": [
+          "Die Seite wird von Vercel Inc. (USA) gehostet. Wenn du eine Seite öffnest, verarbeitet der Server automatisch technische Daten: deine IP-Adresse, Datum und Uhrzeit, die angeforderte Seite, die Seite, von der du kommst, sowie Browser- und Gerätetyp. Das nennt man Server-Logfile. Es ist nötig, um die Seite auszuliefern und sicher zu betreiben. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO: mein berechtigtes Interesse an einer funktionierenden und sicheren Website.",
+          "Vercel verarbeitet diese Daten in meinem Auftrag auf Grundlage eines Auftragsverarbeitungsvertrags. Die Daten können in den USA verarbeitet werden. Vercel Inc. ist nach dem EU-U.S. Data Privacy Framework zertifiziert, und der Vertrag enthält die EU-Standardvertragsklauseln."
+        ]
+      },
+      {
+        "title": "Cookies und Speicher im Browser",
+        "body": [
+          "Die Seite setzt ein Cookie namens NEXT_LOCALE. Es speichert die Sprache, die du nutzt (Englisch oder Deutsch). Es enthält keine personenbezogenen Daten und wird gelöscht, wenn du den Browser schließt. Es ist nötig, um die Seite in deiner Sprache anzuzeigen (§ 25 Abs. 2 Nr. 2 TDDDG).",
+          "Die Startseite merkt sich innerhalb einer Browsersitzung, dass ihr kurzes Intro schon gezeigt wurde. Das bleibt in deinem Browser und wird nie an mich gesendet."
+        ]
+      },
+      {
+        "title": "Schriften, Skripte und Projektdaten",
+        "body": [
+          "Die Schriften liegen auf dem eigenen Server dieser Seite. Dein Browser lädt keine Schriften, Skripte oder Bilder von anderen Unternehmen. Die Zahlen zu meinen Projekten holt der Server von GitHub, nicht dein Browser, sodass GitHub deinen Besuch nicht erfährt."
+        ]
+      },
+      {
+        "title": "Links zu anderen Seiten",
+        "body": [
+          "Links zu LinkedIn, GitHub, den Demos und den Quellen, die ich nenne, führen zu anderen Websites mit eigenen Datenschutzerklärungen. Sie öffnen sich in einem neuen Tab, und bis zum Klick wird nichts an sie gesendet."
+        ]
+      },
+      {
+        "title": "Wenn du mir schreibst",
+        "body": [
+          "Wenn du mir schreibst, verarbeite ich deine E-Mail-Adresse und deine Nachricht, um dir zu antworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, bei Fragen zu einer Zusammenarbeit Art. 6 Abs. 1 lit. b DSGVO. Mein Postfach wird von Google (Gmail) bereitgestellt. Ich lösche Nachrichten, wenn das Gespräch beendet ist, es sei denn, das Gesetz verlangt eine Aufbewahrung."
+        ]
+      },
+      {
+        "title": "Deine Rechte",
+        "body": [
+          "Du hast das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Schreib mir dazu an die oben genannte E-Mail-Adresse.",
+          "Du hast außerdem das Recht, dich bei einer Datenschutzaufsichtsbehörde zu beschweren. Für mich ist das: Berliner Beauftragte für Datenschutz und Informationsfreiheit, Alt-Moabit 59–61, 10555 Berlin, mailbox@datenschutz-berlin.de."
+        ]
+      }
+    ]
   }
 }

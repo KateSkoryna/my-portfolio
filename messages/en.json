@@ -21,7 +21,18 @@
     "back": "Back",
     "shelfShort": "Shelf",
     "pdfShort": "PDF",
-    "footer": "© 2026 Kateryna Skoryna · All rights reserved"
+    "footer": "© 2026 Kateryna Skoryna · All rights reserved",
+    "impressum": "Legal notice",
+    "privacy": "Privacy"
+  },
+  "legal": {
+    "eyebrow": "Impressum",
+    "title": "Legal notice",
+    "infoHeading": "Information according to § 5 DDG",
+    "country": "Germany",
+    "contactHeading": "Contact",
+    "email": "Email",
+    "responsibleHeading": "Responsible for content according to § 18 (2) MStV"
   },
   "dots": {
     "goTo": "Go to {n}"
@@ -235,5 +246,59 @@
         "caption": "With my family."
       }
     }
+  },
+  "privacy": {
+    "eyebrow": "Impressum",
+    "title": "Privacy notice",
+    "updated": "As of 1 October 2026",
+    "controllerHeading": "Who is responsible",
+    "controllerNote": "Email",
+    "sections": [
+      {
+        "title": "In short",
+        "body": [
+          "This site has no accounts, no forms, no analytics, no advertising and no tracking. It does not load anything from other companies in your browser."
+        ]
+      },
+      {
+        "title": "Hosting by Vercel",
+        "body": [
+          "The site is hosted by Vercel Inc. (USA). When you open a page, the server automatically processes technical data: your IP address, the date and time, the page you asked for, the page you came from, and your browser and device type. This is called a server log. It is needed to deliver the site and keep it secure. The legal basis is Art. 6 (1) (f) GDPR: my legitimate interest in a working and safe website.",
+          "Vercel processes this data on my behalf under a data processing agreement. Data may be processed in the USA. Vercel Inc. is certified under the EU-U.S. Data Privacy Framework, and the agreement includes the EU standard contractual clauses."
+        ]
+      },
+      {
+        "title": "Cookies and storage in your browser",
+        "body": [
+          "The site sets one cookie, called NEXT_LOCALE. It stores the language you are using (English or German). It contains no personal data and is deleted when you close your browser. It is needed to show the site in your language (§ 25 (2) no. 2 TDDDG).",
+          "The start page remembers within one browser session that its short intro has already been shown. This stays in your browser and is never sent to me."
+        ]
+      },
+      {
+        "title": "Fonts, scripts and project data",
+        "body": [
+          "The fonts are stored on this site's own server. Your browser does not load fonts, scripts or images from other companies. The figures about my projects are fetched from GitHub by the server, not by your browser, so GitHub does not receive your visit."
+        ]
+      },
+      {
+        "title": "Links to other sites",
+        "body": [
+          "Links to LinkedIn, GitHub, the demos and the sources I cite lead to other websites with their own privacy policies. They open in a new tab, and nothing is sent to them until you click."
+        ]
+      },
+      {
+        "title": "If you email me",
+        "body": [
+          "If you write to me, I process your email address and your message to answer you. The legal basis is Art. 6 (1) (f) GDPR, or Art. 6 (1) (b) GDPR if you ask about working together. My mailbox is provided by Google (Gmail). I delete messages when the conversation is finished, unless the law requires me to keep them."
+        ]
+      },
+      {
+        "title": "Your rights",
+        "body": [
+          "You have the right to access (Art. 15 GDPR), correction (Art. 16), deletion (Art. 17), restriction of processing (Art. 18), data portability (Art. 20) and objection (Art. 21). Write to me at the email address above.",
+          "You also have the right to complain to a data protection authority. For me that is: Berliner Beauftragte für Datenschutz und Informationsfreiheit, Alt-Moabit 59–61, 10555 Berlin, mailbox@datenschutz-berlin.de."
+        ]
+      }
+    ]
   }
 }
