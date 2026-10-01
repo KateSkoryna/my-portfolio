@@ -1,6 +1,21 @@
 {
   "posts": [
     {
+      "slug": "perfection-is-a-threat",
+      "date": "2026-10-01",
+      "related": ["ai-tools-explained"],
+      "en": {
+        "title": "Perfection is a threat. Isn't it?",
+        "excerpt": "A trailer for Wicker made me think of people who already marry AI, and of what makes a person a person.",
+        "tags": ["AI", "Loneliness", "Wicker", "Chinese Room", "Consciousness"]
+      },
+      "de": {
+        "title": "Perfektion ist eine Bedrohung. Oder?",
+        "excerpt": "Ein Trailer zu Wicker ließ mich an Menschen denken, die schon heute eine KI heiraten, und daran, was einen Menschen zum Menschen macht.",
+        "tags": ["KI", "Einsamkeit", "Wicker", "Chinesisches Zimmer", "Bewusstsein"]
+      }
+    },
+    {
       "slug": "ai-tools-explained",
       "date": "2026-09-30",
       "related": ["handbook"],
