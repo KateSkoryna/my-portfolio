@@ -142,6 +142,7 @@
   },
   "journal": {
     "related": "Wenn dich das interessiert hat, schau dir auch das an",
+    "opensInNewTab": "öffnet in neuem Tab",
     "allPosts": "Alle Beiträge",
     "prev": "Vorherige Seiten",
     "next": "Nächste Seiten",
