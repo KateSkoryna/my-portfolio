@@ -60,7 +60,7 @@
       "coverFoot": "Stündlich aktualisiert von GitHub",
       "blurb": "Ein Magazin mit einer Ausgabe pro Projekt. Stars, Sprachverteilung und letzte Commit-Daten kommen live von der GitHub-API auf dem Server und werden stündlich aktualisiert, damit nichts veraltet.",
       "shortBlurb": "Eine Ausgabe pro Projekt. Repo-Statistiken live von GitHub.",
-      "chips": ["Live-GitHub-Daten", "ISR · 1 Std."],
+      "chips": ["Live-GitHub-Daten", "ISR · 1 Std.", "Live-Demo"],
       "cta": "Magazin öffnen"
     },
     "journal": {
@@ -71,18 +71,18 @@
       "coverFoot": "Dinge, die ich falsch gemacht habe, und was sie behoben hat",
       "blurb": "Arbeitsnotizen — was kaputtging, wo ich meine Meinung geändert habe, was ich diesen Monat lerne. An den Rand geschrieben, nicht für ein Publikum poliert.",
       "shortBlurb": "Arbeitsnotizen. Was kaputtging und wo ich meine Meinung geändert habe.",
-      "chips": [],
+      "chips": ["Blog", "Dev-Notizen", "Gelerntes"],
       "cta": "Notizbuch öffnen"
     },
     "about": {
       "kindLabel": "Zeitung",
       "title": "Feierabend",
-      "coverKicker": "Wochenendausgabe · [DEINE STADT]",
+      "coverKicker": "Wochenendausgabe · Berlin, Deutschland",
       "coverTitle": "Feierabend",
-      "coverFoot": "Elf Dinge, die auf keinen Lebenslauf passen",
+      "coverFoot": "Dreizehn Dinge, die auf keinen Lebenslauf passen",
       "blurb": "Die menschliche Kolumne — woher ich komme, was ich abseits der Tastatur mache, und die Fakten, die auf keinem Lebenslauf etwas verloren haben, aber der Grund sind, warum man sich an dich erinnert.",
       "shortBlurb": "Die menschliche Kolumne — alles, was auf keinem Lebenslauf etwas verloren hat.",
-      "chips": ["[DEINE FAKTEN]", "Fotoessay"],
+      "chips": ["Über mich", "Hobbys", "Persönliches"],
       "cta": "Zeitung öffnen"
     },
     "handbook": {
@@ -93,7 +93,7 @@
       "coverFoot": "Acht Doppelseiten · EN / DE",
       "blurb": "Der bereits veröffentlichte Blätter-Feldführer: wie ich LLM-Ausgaben verlässlich genug für den Produktivbetrieb mache. Acht Doppelseiten, Englisch und Deutsch.",
       "shortBlurb": "Der bereits veröffentlichte Blätter-Feldführer. Englisch und Deutsch.",
-      "chips": [],
+      "chips": ["Profi-Richtlinien", "Best Practice", "Tipps & Tricks"],
       "cta": "Handbuch öffnen"
     }
   },
@@ -154,5 +154,80 @@
     "moreLink": "Lies meinen Journal-Beitrag →",
     "prev": "Vorherige Seite",
     "next": "Nächste Seite"
+  },
+  "about": {
+    "marginNote": "aber gern würden",
+    "facts": [
+      {
+        "title": "Die Leute halten mich für sehr selbstbewusst.",
+        "body": "Ich versuche es zu sein, mit kleinen Schritten jeden Tag: neue Technologien lernen, neue Fragen stellen, scheitern, kleine Erfolge sammeln und mit gutem Gewissen einschlafen."
+      },
+      {
+        "title": "Meine Favoriten in einer Zeile.",
+        "body": "Gericht: Ramen. Getränk: Kaffee. Lied: „Sex on Fire“. Film: La La Land. Sport: Fußball. Aktiver Sport: Snowboarden. Jahreszeit: Frühling."
+      },
+      {
+        "title": "Die neueste Technologie, die mir Spaß macht: n8n.",
+        "body": "Ich genieße alles daran: die Oberfläche, die flüssigen Übergänge, die Logik. Alles ist klar und offensichtlich, leicht zu lernen und leicht zu bedienen. Ich hoste es lokal, und es automatisiert meine Jobsuche, meine Nachrichtensammlung, Projektverbesserungen und mehr."
+      },
+      {
+        "title": "Worin ich peinlich schlecht bin: Spiele, bei denen man lügen muss.",
+        "body": "Poker, Mafia. Mir fällt es schwer, ein Pokerface zu behalten und nicht zu erröten. Meine Freunde sagen, ich bin ein offenes Buch. Ich weiß nicht, ob das gut oder schlecht für mich ist, aber sie finden es erfrischend."
+      },
+      {
+        "title": "Das Seltsamste, was ich aus Neugier gelernt habe: Softwareentwicklung.",
+        "body": "Ich war Managerin in der Beauty-Branche. Mein ganzes Leben war ich nah an der Softwareentwicklung, aber nie mittendrin. Dann habe ich es zum Spaß ausprobiert, und es wurde meine Leidenschaft."
+      },
+      {
+        "title": "Mit 16 dachte ich, Arbeit sei langweilig.",
+        "body": "Ich glaubte, sie könne mir nie gute Gefühle geben. Ich lag so falsch."
+      },
+      {
+        "title": "Was ich zuletzt gelesen habe.",
+        "body": "Fachbuch: Algorithmen kapieren. Allgemein: Don Quijote. Es ist schockierend, wie sehr ein Buch aus dem Spanien des 17. Jahrhunderts noch zu unserer Zeit passt."
+      },
+      {
+        "title": "Wie ich aus dieser Realität abschalte.",
+        "body": "Ich koche, gehe spazieren und lese Liebesromane oder Science-Fiction."
+      },
+      {
+        "title": "Mein heimliches Vergnügen: Liebesromane.",
+        "body": "Ich lese sie zum Spaß, und kein Lebenslauf wird das je erwähnen. Sie haben immer ein Happy End."
+      },
+      {
+        "title": "Mein Lieblingsort auf der Welt.",
+        "body": "Eine Kreuzfahrt mit meiner Familie."
+      },
+      {
+        "title": "Was meine Freunde meine beste Angewohnheit nennen würden.",
+        "body": "Ich verurteile niemanden."
+      },
+      {
+        "title": "Mein Lieblingszitat.",
+        "body": "„Denk daran: Manchmal ist es ein großes Glück, nicht zu bekommen, was man will.“ — dem Dalai Lama zugeschrieben"
+      },
+      {
+        "title": "Ich wünschte, ich…",
+        "body": "…hätte früher mit dem Programmieren angefangen."
+      }
+    ],
+    "photos": {
+      "snow": {
+        "alt": "Zwei Snowboarderinnen halten ihre Boards auf einer sonnigen Bergpiste über den Kopf.",
+        "caption": "Snowboarden."
+      },
+      "walk": {
+        "alt": "Ich auf einer Fußgängerbrücke, das Gesicht nach oben zu den grünen Blättern gewandt.",
+        "caption": "Ein Spaziergang."
+      },
+      "book": {
+        "alt": "Eine Seite aus Grokking Algorithms: Kapitel 4, Big-O-Notation noch einmal.",
+        "caption": "Grokking Algorithms."
+      },
+      "cruise": {
+        "alt": "Meine Familie steht zusammen auf einer Steinmole, dahinter eine Küstenstadt mit Kirchturm.",
+        "caption": "Mit meiner Familie."
+      }
+    }
   }
 }

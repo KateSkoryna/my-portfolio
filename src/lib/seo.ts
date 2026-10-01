@@ -24,6 +24,7 @@ export const STATIC_PATHS = [
   '/shelf',
   '/handbook',
   '/journal',
+  '/about',
 ] as const;
 
 /** `/en/resume`-style path for one locale; `path` is `''` for the landing page. */

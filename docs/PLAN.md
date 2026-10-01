@@ -249,7 +249,7 @@ Accessibility and Lighthouse lead because they are the stated priority.
 | 1 — Design system | `done` | five covers + five closed books, axe clean. Merged (PR #8). |
 | 2 — Landing `/` | `done` | carousel cycles, keyboard, Lighthouse 96/100/96/100. Awaiting human review. |
 | 3 — Shelf `/shelf` | `done` | closed row aligns under covers. Lighthouse 96/100/96/100 (`/shelf`), 95/96/96/100 (`/`). Awaiting human review. |
-| 4 — Item routes | `in progress` (4a, 4b done; 4c–4e todo) | every `docs/DESIGN.md` §3 route resolves |
+| 4 — Item routes | `in progress` (4a, 4b, 4c, 4e done bar removing `index.html`; 4d built, awaiting review) | every `docs/DESIGN.md` §3 route resolves |
 | 5 — Keystatic | `todo` | she can add an item in the browser |
 | 6 — Gates | `todo` | CI green on axe, Lighthouse, Playwright |
 
@@ -757,14 +757,27 @@ pass; axe (jsdom) clean in EN and DE. Notes for review:
 
 ### 4d `/about` — the newspaper
 
-- [ ] Multi-column with centre fold (desktop); single column, no fold
+- [x] Multi-column with centre fold (desktop); single column, no fold
       (mobile).
-- [ ] Photo essay. Natural height ~1260, scrolls (§4.5).
-- [ ] Same flat `#F3EFE4` background as every other route — not a different
+- [ ] Photo essay. Natural height ~1260, scrolls (§4.5). *Thirteen facts and four
+      photos are in, her own words and files (`public/snow.jpg`, `walk.webp`,
+      `book.webp`, `cruise.webp`); captions are drafts. Height not measured.*
+- [x] Same flat `#F3EFE4` background as every other route — not a different
       stock (§1.2).
 
 **Done when:** columns reflow to one at mobile; no horizontal scroll at any
 width; axe clean.
+
+**4d result** — `/about` is a static route (`/en/about`, `/de/about`):
+`src/components/About/`, copy in `messages/*.json` under `about`. Four columns
+with a centre fold from 1100px, two from 700px, one below; the fold and column
+rules are the charcoal token mixed down, no new colours. Fact numbers are
+emerald, not coral (coral on paper is ~2.3:1). `/about` is in the sitemap.
+`npm run build`, lint, typecheck and vitest (52) pass; axe (jsdom) clean in EN
+and DE. **Not checked:** no browser look at 390 / 768 / 1280, so reflow and "no
+horizontal scroll" are unverified; no Lighthouse run. Needs from her: a read of
+the German text and the photo captions; the source of `book.webp`, and a
+decision on the faces in `cruise.webp`.
 
 ### 4e `/handbook` — port the flip-book
 
