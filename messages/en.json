@@ -76,7 +76,7 @@
       "coverFoot": "Updated hourly from GitHub",
       "blurb": "An issue-per-project magazine. Stars, language split and last-commit dates arrive live from the GitHub API on the server and refresh every hour, so it never goes stale.",
       "shortBlurb": "One issue per project. Repo stats pulled live from GitHub.",
-      "chips": ["Live GitHub data", "ISR · 1h"],
+      "chips": ["Live GitHub data", "ISR · 1h", "Live demo"],
       "cta": "Open the magazine"
     },
     "journal": {
@@ -87,7 +87,7 @@
       "coverFoot": "things I got wrong, and what fixed them",
       "blurb": "Working notes — what broke, what I changed my mind about, what I am learning this month. Written in the margins, not polished for an audience.",
       "shortBlurb": "Working notes. What broke, and what I changed my mind about.",
-      "chips": [],
+      "chips": ["Blog", "Dev notes", "Lessons learned"],
       "cta": "Open the notebook"
     },
     "about": {
@@ -98,7 +98,7 @@
       "coverFoot": "Eleven things that never fit on a CV",
       "blurb": "The human column — where I am from, what I do away from a keyboard, and the facts that have no business being on a CV but are the reason people remember you.",
       "shortBlurb": "The human column — everything that has no business on a CV.",
-      "chips": ["[YOUR FACTS]", "Photo essay"],
+      "chips": ["About me", "Hobbies", "Personal"],
       "cta": "Open the paper"
     },
     "handbook": {
@@ -109,7 +109,7 @@
       "coverFoot": "Eight spreads · EN / DE",
       "blurb": "The page-flip field guide already published: how I make LLM output predictable enough to put in production. Eight spreads, English and German.",
       "shortBlurb": "The page-flip field guide, already published. English and German.",
-      "chips": [],
+      "chips": ["Pro guidelines", "Best practice", "Tips & tricks"],
       "cta": "Open the handbook"
     }
   },
