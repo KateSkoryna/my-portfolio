@@ -13,7 +13,7 @@
   gap: clamp(24px, 4vw, 64px);
   /* No bottom padding — `PageFooter`'s own top padding is what separates this
      from the footer now. */
-  padding: clamp(24px, 4vw, 56px) clamp(16px, 5vw, 48px) 0;
+  padding: clamp(12px, 2vw, 28px) clamp(16px, 5vw, 48px) 0;
   /* `width: 100%` — see the note on `.header` in `PageHeader.module.css`:
      without it, being a `body` (column flexbox) item with cross-axis auto
      margins shrinks this to fit-content instead of stretching first. */
