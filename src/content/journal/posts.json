@@ -1,13 +1,45 @@
 {
   "posts": [
     {
+      "slug": "perfection-is-a-threat",
+      "date": "2026-10-01",
+      "category": "justtalkoutloud",
+      "related": ["ai-tools-explained"],
+      "en": {
+        "title": "Perfection is a threat. Isn't it?",
+        "excerpt": "A trailer for Wicker made me think of people who already marry AI, and of what makes a person a person.",
+        "tags": [
+          "Just talk out loud",
+          "AI",
+          "Loneliness",
+          "Wicker",
+          "Chinese Room",
+          "Consciousness"
+        ]
+      },
+      "de": {
+        "title": "Perfektion ist eine Bedrohung. Oder?",
+        "excerpt": "Ein Trailer zu Wicker ließ mich an Menschen denken, die schon heute eine KI heiraten, und daran, was einen Menschen zum Menschen macht.",
+        "tags": [
+          "Einfach laut gedacht",
+          "KI",
+          "Einsamkeit",
+          "Wicker",
+          "Chinesisches Zimmer",
+          "Bewusstsein"
+        ]
+      }
+    },
+    {
       "slug": "ai-tools-explained",
       "date": "2026-09-30",
+      "category": "myexperience",
       "related": ["handbook"],
       "en": {
         "title": "Which AI tool, and when?",
         "excerpt": "Custom GPTs, Projects and Skills: a tech-to-human guide to which tool to use, with how I use each.",
         "tags": [
+          "My experience",
           "AI tools",
           "Custom GPTs",
           "Gemini Gems",
@@ -23,6 +55,7 @@
         "title": "Welches KI-Tool, und wann?",
         "excerpt": "Custom GPTs, Projects und Skills: ein Technik-für-Menschen-Überblick, welches Tool wann passt, und wie ich jedes nutze.",
         "tags": [
+          "Meine Erfahrung",
           "KI-Tools",
           "Custom GPTs",
           "Gemini Gems",
@@ -38,11 +71,13 @@
     {
       "slug": "numeronyms",
       "date": "2026-09-30",
+      "category": "mylearning",
       "related": ["ai-tools-explained"],
       "en": {
         "title": "Why a11y is spelled a11y",
         "excerpt": "a11y, i18n, k8s, n8n: what a numeronym is, how to read one, and the difference between i18n and l10n.",
         "tags": [
+          "My learning",
           "Numeronyms",
           "a11y",
           "i18n",
@@ -58,6 +93,7 @@
         "title": "Was hinter a11y und i18n steckt",
         "excerpt": "a11y, i18n, k8s, n8n: was ein Numeronym ist, wie man eines liest und worin sich i18n und l10n unterscheiden.",
         "tags": [
+          "Mein Lernen",
           "Numeronyme",
           "a11y",
           "i18n",

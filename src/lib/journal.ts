@@ -6,6 +6,10 @@ import type { ComponentType } from 'react';
 import registry from '@/content/journal/posts.json';
 import { routing } from '@/i18n/routing';
 
+/** The three kinds of post; the blog is published in this order. */
+export const CATEGORIES = ['mylearning', 'myexperience', 'justtalkoutloud'] as const;
+export type Category = (typeof CATEGORIES)[number];
+
 /** What `posts.json` holds for one post in one language. */
 interface Translation {
   title: string;
@@ -19,6 +23,8 @@ interface Post {
   slug: string;
   /** ISO date, `YYYY-MM-DD`. Posts are listed newest first by this. */
   date: string;
+  /** What kind of post it is: my learning, my experience, or just talking out loud. */
+  category: Category;
   /** Set to hide a post everywhere without deleting it. */
   draft?: boolean;
   /** What to read next: another post's slug, or `handbook`. At least one. */
@@ -33,6 +39,7 @@ export type Related = { kind: 'post'; slug: string; title: string } | { kind: 'h
 export interface Entry extends Translation {
   slug: string;
   date: string;
+  category: Category;
   related: Related[];
 }
 
@@ -50,6 +57,8 @@ function readPosts(): Post[] {
     if (seen.has(post.slug)) throw new Error(`${where}: duplicate slug`);
     seen.add(post.slug);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(post.date)) throw new Error(`${where}: date is not YYYY-MM-DD`);
+    if (!CATEGORIES.includes(post.category))
+      throw new Error(`${where}: category must be one of ${CATEGORIES.join(', ')}`);
 
     if (!post.related?.length)
       throw new Error(`${where}: at least one related post (or "handbook") is required`);
@@ -97,7 +106,13 @@ function toEntry(post: Post, locale: string): Entry {
     const other = posts.find((p) => p.slug === target)!;
     return { kind: 'post', slug: target, title: other[languageOf(other, locale)]!.title };
   });
-  return { slug: post.slug, date: post.date, related, ...post[languageOf(post, locale)]! };
+  return {
+    slug: post.slug,
+    date: post.date,
+    category: post.category,
+    related,
+    ...post[languageOf(post, locale)]!,
+  };
 }
 
 /** All posts for a language, newest first. */

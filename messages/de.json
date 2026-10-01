@@ -65,13 +65,13 @@
     },
     "journal": {
       "kindLabel": "Notizbuch",
-      "title": "Dev-Tagebuch",
-      "coverKicker": "Nr. 03 · Arbeitsnotizen",
-      "coverTitle": "Dev-Tagebuch",
-      "coverFoot": "Dinge, die ich falsch gemacht habe, und was sie behoben hat",
-      "blurb": "Arbeitsnotizen — was kaputtging, wo ich meine Meinung geändert habe, was ich diesen Monat lerne. An den Rand geschrieben, nicht für ein Publikum poliert.",
-      "shortBlurb": "Arbeitsnotizen. Was kaputtging und wo ich meine Meinung geändert habe.",
-      "chips": ["Blog", "Dev-Notizen", "Gelerntes"],
+      "title": "Blog",
+      "coverKicker": "Nr. 03 · Blog",
+      "coverTitle": "Blog",
+      "coverFoot": "mein Lernen, meine Erfahrung, einfach laut gedacht",
+      "blurb": "Ein Blog mit drei Arten von Beiträgen: mein Lernen, meine Erfahrung und einfach laut gedacht.",
+      "shortBlurb": "Mein Lernen, meine Erfahrung und einfach laut gedacht.",
+      "chips": ["Mein Lernen", "Meine Erfahrung", "Einfach laut gedacht"],
       "cta": "Notizbuch öffnen"
     },
     "about": {
@@ -141,7 +141,13 @@
     "selectedWork": "Ausgewählte Arbeiten"
   },
   "journal": {
+    "categories": {
+      "mylearning": "Mein Lernen",
+      "myexperience": "Meine Erfahrung",
+      "justtalkoutloud": "Einfach laut gedacht"
+    },
     "related": "Wenn dich das interessiert hat, schau dir auch das an",
+    "opensInNewTab": "öffnet in neuem Tab",
     "allPosts": "Alle Beiträge",
     "prev": "Vorherige Seiten",
     "next": "Nächste Seiten",

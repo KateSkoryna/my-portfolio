@@ -37,3 +37,6 @@ yarn-error.log*
 # editor / os
 .DS_Store
 *.pem
+
+# Claude Code: personal permissions and runtime files, not shared
+.claude/

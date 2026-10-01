@@ -81,13 +81,13 @@
     },
     "journal": {
       "kindLabel": "Notebook",
-      "title": "Dev Journal",
-      "coverKicker": "No. 03 · Working notes",
-      "coverTitle": "Dev Journal",
-      "coverFoot": "things I got wrong, and what fixed them",
-      "blurb": "Working notes — what broke, what I changed my mind about, what I am learning this month. Written in the margins, not polished for an audience.",
-      "shortBlurb": "Working notes. What broke, and what I changed my mind about.",
-      "chips": ["Blog", "Dev notes", "Lessons learned"],
+      "title": "Blog",
+      "coverKicker": "No. 03 · Blog",
+      "coverTitle": "Blog",
+      "coverFoot": "my learning, my experience, just talking out loud",
+      "blurb": "A blog with three kinds of posts: my learning, my experience, and just talking out loud.",
+      "shortBlurb": "My learning, my experience, and just talking out loud.",
+      "chips": ["My learning", "My experience", "Just talk out loud"],
       "cta": "Open the notebook"
     },
     "about": {
@@ -141,7 +141,13 @@
     "languages": "Languages"
   },
   "journal": {
+    "categories": {
+      "mylearning": "My learning",
+      "myexperience": "My experience",
+      "justtalkoutloud": "Just talk out loud"
+    },
     "related": "If you found this interesting, have a look at",
+    "opensInNewTab": "opens in a new tab",
     "allPosts": "All posts",
     "prev": "Previous pages",
     "next": "Next pages",

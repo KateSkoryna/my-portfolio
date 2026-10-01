@@ -6,6 +6,23 @@
 
 /* --- The entry, inside the book's flow ----------------------------------- */
 
+/* The kind of post, then the date, on one line. */
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 8px;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.category {
+  color: var(--color-emerald-deep);
+}
+
 .date {
   display: block;
   font-weight: 800;
@@ -146,7 +163,8 @@
 }
 
 .related {
-  margin-top: calc(var(--line, 20px) * 2);
+  /* One line closer to the text than two whole lines, so the pointer fits on the last page. */
+  margin-top: var(--line, 20px);
   break-inside: avoid;
 }
 
@@ -178,8 +196,8 @@
 }
 
 .cta {
-  /* Well clear of the text above it. */
-  margin-top: calc(var(--line, 20px) * 3);
+  /* Clear of the text above it, but close enough to stay on the last page. */
+  margin-top: calc(var(--line, 20px) * 2);
   break-inside: avoid;
   text-align: center;
 }

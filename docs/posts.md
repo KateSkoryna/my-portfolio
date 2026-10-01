@@ -18,6 +18,7 @@ Two places, because the properties and the text change for different reasons:
 {
   "slug": "my-post",
   "date": "2026-09-30",
+  "category": "mylearning",
   "draft": false,
   "related": ["another-post-slug", "handbook"],
   "en": { "title": "…", "excerpt": "…", "tags": ["Tag", "Another"] },
@@ -29,6 +30,7 @@ Two places, because the properties and the text change for different reasons:
 | ----------------- | ----------------------------------------------------------------------- |
 | `slug`            | The URL: `/journal/<slug>`. Lowercase words joined with `-`. Unique.    |
 | `date`            | `YYYY-MM-DD`. Sort order (newest first) and the year group in the menu. |
+| `category`        | `mylearning`, `myexperience` or `justtalkoutloud`: "My learning", "My experience" (at work, in projects), or "Just talk out loud". Shown above the date. |
 | `draft`           | Optional. `true` hides the post everywhere without deleting it.         |
 | `related`         | At least one: another post's `slug`, or `handbook`. Shown at the end of the post as "If you found this interesting, have a look at…". |
 | `title`           | Page heading, index, browser tab, share.                                |
@@ -37,7 +39,7 @@ Two places, because the properties and the text change for different reasons:
 | `de` block        | Optional. Without it the post shows in English in German too.           |
 
 The build stops, with the file and post named, if a slug is repeated or badly
-formed, a date is not `YYYY-MM-DD`, a title, excerpt, tag or `related` entry is missing, a `related` entry names a post that does not exist, or a listed
+formed, a category is missing or not one of the three, a date is not `YYYY-MM-DD`, a title, excerpt, tag or `related` entry is missing, a `related` entry names a post that does not exist, or a listed
 post has no `.mdx` file. A test also fails for a `.mdx` file that is not listed.
 
 The text is Markdown. `##` becomes a sub-heading (the post title is the page's
@@ -45,6 +47,13 @@ The text is Markdown. `##` becomes a sub-heading (the post title is the page's
 `<Callout label="Good to know" title="…">` followed by the text (blank lines around it) adds a
 lightbulb box; `icon="star"` gives the star used for "Fun facts". Pass the label in that
 post's language.
+
+## Publishing order
+
+Posts rotate through the three kinds, in this order: **My learning**, **My
+experience**, **Just talk out loud**, then again. Next up: **My experience**
+(from her work). Ask "what is the next topic?" and the answer is the kind that is
+due, with a few ideas drawn only from what is documented here.
 
 ## Adding my experience to a post
 
@@ -187,3 +196,70 @@ Needs Kateryna:
   stops after Skills); the post now ends with a one-sentence summary instead of
   sections for them.
 - The date equals the `numeronyms` post's; this post is listed first.
+
+### perfection-is-a-threat — draft, started 2026-10-01
+
+Properties: `posts.json` → `perfection-is-a-threat` (`draft: true`). Text: `src/content/journal/en/perfection-is-a-threat.mdx`, `src/content/journal/de/perfection-is-a-threat.mdx`.
+
+Original text, as received (in progress):
+
+> Perfection is a threat. Isn't it?
+>
+> First I thought immediately about AI and how people marry AI already. I thought about Japan and the loneliness that pushes people to AI. Because AI does not judge, does not interrupt, it is not selfish, it is empathic, even if it is not real.
+
+Her notes for the rest: the film *Wicker* (a woman's perfect husband makes others jealous); the Chinese Room: when a simulation becomes so real that I start to believe it has a consciousness; when is it enough to say "I don't care any more if it is a machine or not"; what makes a person a person, choice?
+
+Film facts come from the trailer coverage (The Playlist, Esquire India, The Movie Waffler): she asks the basketmaker to weave her a husband; adapted from Ursula Wills's "The Wicker Husband". Her recollection that the villagers try to kill them is unconfirmed and left out.
+
+Draft written by Claude from her notes and questions; no new facts. Her conclusion ("perhaps perfection is a threat because it has no choice in it") is built from her "choice?" question and is a suggestion for her to confirm or rewrite. Marginal note and the kind-answers line are Claude's wording.
+
+Needs Kateryna: read and rewrite in her own voice; a source for the Japan example if she wants one; the German version (translation by Claude).
+
+Added later by her (perfection-is-a-threat), as received:
+
+> How many people think about [you] when talking to you?
+>
+> After all this thought I started a philosophical task with AI. Not with my partner, not with my mom. With AI, Carl, about AI. Is it OK today? So my main question was: when does a simulation start to be real? Stops to be a simulation? I found out about the Chinese Room experiment.
+
+"Carl" is her AI; the post leaves it as she wrote it. "Is it OK today?" is kept as her question.
+
+Rewritten 2026-10-01 from her own full text (replaces the earlier Claude draft). Changes made to it:
+
+- Film description corrected to match the sources: a fisherwoman mocked for being unmarried, a basketmaker, a **wicker** husband (not straw); "unattractive", "poor village" and "men grow to hate him" removed as unconfirmed.
+- "According to research, AI outperforms humans as a therapist" replaced, at her request "therapist → emotional support", with the BBC Future sentence (Emily Kasriel, 20 Jan 2026): AI replies are *rated* more compassionate than human ones, even trained crisis-line responders. The JAMA study (Ayers et al. 2023) compares doctors answering Reddit questions, not therapists, so it is not used.
+- "massive rk" → "rulebook"; headings in sentence case; the last three paragraphs merged into one.
+- Claude had added a closing Kasriel quote; removed at her request, it was not in her text.
+
+Not changed, for her to decide: "it just genuinely listens and hears you" sits against Searle's "zero understanding"; the BBC article also warns about dependence on AI; her earlier "what makes a person a person? choice?" is not in the post. German is a translation by Claude.
+
+LinkedIn version (perfection-is-a-threat), derived from the blog post:
+
+> Perfection is a threat. Isn't it?
+>
+> I recently saw the trailer for the movie Wicker. A fisherwoman, mocked by her village for being unmarried, asks the local basketmaker to weave her a husband out of wicker. He turns out so perfect that it sets off jealousy and upheaval in the village. Nobody comes close in comparison.
+>
+> My thoughts instantly jumped to AI.
+>
+> People are already marrying AI. Just imagine the depth of loneliness that drives them there. And it doesn't seem so crazy anymore: when it comes to emotional support, AI replies are rated as more compassionate than human ones, even those of trained crisis-line responders (BBC Future). It doesn't interrupt. It doesn't tell its own story. It doesn't judge.
+>
+> So ask yourself honestly: how often do people actually listen to you, rather than wait for their turn to speak?
+>
+> After turning this over in my head, I discussed it with AI. Not with my partner, not with my mom. With AI, about AI. And my main question was: when does a simulation stop being a simulation?
+>
+> That's how I learned about John Searle's Chinese Room. A person who doesn't know Chinese sits in a room and follows a rulebook to answer notes in Chinese. From outside it looks like fluent Chinese. Inside, there is zero understanding.
+>
+> And then the uncomfortable question: when do I stop caring whether you're human or machine, if your answers are kind and arrive when I need them?
+>
+> Maybe perfection frightens us not because it's artificial, but because deep down we realize it really is better, in the one thing where we humans constantly fail: listening without ego.
+>
+> Full post: [LINK TO THE POST]
+>
+> What do you think? 👇
+
+Added to the end of perfection-is-a-threat, her closing (English):
+
+> P.S. The one thing still buzzing around in my head like a bee...
+>
+> How much does it matter that AI has no choice? A real person can leave or stay. And if a real person stays with you even when you're at your worst, doesn't that make them the better choice?
+
+Her wording, put into natural spoken English. Replaces the Kasriel quote she did not want. German is a translation by Claude.
