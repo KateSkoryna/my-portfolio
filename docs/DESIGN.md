@@ -183,7 +183,7 @@ Per-object cover art, at 216 × 260:
   sandwich the title/kicker block, one above and one below — was only one
   rule, between the title and kicker, until the reference mockup showed the
   masthead needs both. Title 21px centred, dateline 6.5px/.22em. A 14.5px
-  headline (`item.coverFoot`: "Eleven things that never fit on a CV"), then a
+  headline (`item.coverFoot`: "Thirteen things that never fit on a CV"), then a
   short (70px) three-column grid: two
   columns of hairline "text" (`repeating-linear-gradient(180deg,
   rgba(35,35,35,.24) 0 1px, transparent 1px 6px)`), and the **last** column a

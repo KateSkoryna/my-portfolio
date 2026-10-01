@@ -93,9 +93,9 @@
     "about": {
       "kindLabel": "Newspaper",
       "title": "Off the Clock",
-      "coverKicker": "Weekend edition · [YOUR CITY]",
+      "coverKicker": "Weekend edition · Berlin, Germany",
       "coverTitle": "Off the Clock",
-      "coverFoot": "Eleven things that never fit on a CV",
+      "coverFoot": "Thirteen things that never fit on a CV",
       "blurb": "The human column — where I am from, what I do away from a keyboard, and the facts that have no business being on a CV but are the reason people remember you.",
       "shortBlurb": "The human column — everything that has no business on a CV.",
       "chips": ["About me", "Hobbies", "Personal"],
@@ -154,5 +154,80 @@
     "moreLink": "Read my journal post →",
     "prev": "Previous page",
     "next": "Next page"
+  },
+  "about": {
+    "marginNote": "but wish they did",
+    "facts": [
+      {
+        "title": "People think I'm very self-confident.",
+        "body": "I try to be, with small steps every day: learning new technology, asking new questions, failing, getting small wins, and going to sleep with a clear conscience."
+      },
+      {
+        "title": "My favourites, in one line.",
+        "body": "Dish: ramen. Drink: coffee. Song: “Sex on Fire”. Movie: La La Land. Sport: football. Active sport: snowboarding. Season: spring."
+      },
+      {
+        "title": "The latest technology I enjoy: n8n.",
+        "body": "I enjoy everything about it: the UI, the smooth transitions, the logic. Everything is clean and obvious, easy to learn and easy to work with. I host it locally, and it automates my job search, news collection, project improvements and more."
+      },
+      {
+        "title": "What I'm embarrassingly bad at: games where you need to lie.",
+        "body": "Poker, mafia. It's hard for me to keep a poker face and not to blush. My friends say I'm an open book. I don't know if that's good or bad for me, but they find it refreshing."
+      },
+      {
+        "title": "The strangest thing I learned out of curiosity: software development.",
+        "body": "I was a manager in the beauty industry. My whole life I was close to software development, but never in it. Then I tried it for fun, and it became my passion."
+      },
+      {
+        "title": "At 16, I thought work was boring.",
+        "body": "I believed it could never give me good emotions. I was so wrong."
+      },
+      {
+        "title": "What I've read recently.",
+        "body": "Technical: Grokking Algorithms. General: Don Quixote. It's shocking how much a book from 17th-century Spain still relates to our days."
+      },
+      {
+        "title": "How I switch off from this reality.",
+        "body": "I cook, I take a walk, and I read love novels or science fiction."
+      },
+      {
+        "title": "My guilty pleasure: love novels.",
+        "body": "I read them for fun, and no CV will ever say so. They always have a happy ending."
+      },
+      {
+        "title": "My favourite place in the world.",
+        "body": "A cruise with my family."
+      },
+      {
+        "title": "What my friends would call my best habit.",
+        "body": "I don't judge."
+      },
+      {
+        "title": "My favourite quote.",
+        "body": "“Remember that sometimes not getting what you want is a wonderful stroke of luck.” — attributed to the Dalai Lama"
+      },
+      {
+        "title": "I wish I…",
+        "body": "…had started programming earlier."
+      }
+    ],
+    "photos": {
+      "snow": {
+        "alt": "Two snowboarders hold their boards above their heads on a sunny mountain slope.",
+        "caption": "Snowboarding."
+      },
+      "walk": {
+        "alt": "Me on a footbridge, face turned up towards the green leaves above.",
+        "caption": "A walk."
+      },
+      "book": {
+        "alt": "A page of Grokking Algorithms: chapter 4, Big O notation revisited.",
+        "caption": "Grokking Algorithms."
+      },
+      "cruise": {
+        "alt": "My family standing together on a stone pier, with a seaside town and a church tower behind us.",
+        "caption": "With my family."
+      }
+    }
   }
 }
