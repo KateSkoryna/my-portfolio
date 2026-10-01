@@ -18,6 +18,7 @@ Two places, because the properties and the text change for different reasons:
 {
   "slug": "my-post",
   "date": "2026-09-30",
+  "category": "mylearning",
   "draft": false,
   "related": ["another-post-slug", "handbook"],
   "en": { "title": "…", "excerpt": "…", "tags": ["Tag", "Another"] },
@@ -29,6 +30,7 @@ Two places, because the properties and the text change for different reasons:
 | ----------------- | ----------------------------------------------------------------------- |
 | `slug`            | The URL: `/journal/<slug>`. Lowercase words joined with `-`. Unique.    |
 | `date`            | `YYYY-MM-DD`. Sort order (newest first) and the year group in the menu. |
+| `category`        | `mylearning`, `myexperience` or `justtalkoutloud`: "My learning", "My experience" (at work, in projects), or "Just talk out loud". Shown above the date. |
 | `draft`           | Optional. `true` hides the post everywhere without deleting it.         |
 | `related`         | At least one: another post's `slug`, or `handbook`. Shown at the end of the post as "If you found this interesting, have a look at…". |
 | `title`           | Page heading, index, browser tab, share.                                |
@@ -37,7 +39,7 @@ Two places, because the properties and the text change for different reasons:
 | `de` block        | Optional. Without it the post shows in English in German too.           |
 
 The build stops, with the file and post named, if a slug is repeated or badly
-formed, a date is not `YYYY-MM-DD`, a title, excerpt, tag or `related` entry is missing, a `related` entry names a post that does not exist, or a listed
+formed, a category is missing or not one of the three, a date is not `YYYY-MM-DD`, a title, excerpt, tag or `related` entry is missing, a `related` entry names a post that does not exist, or a listed
 post has no `.mdx` file. A test also fails for a `.mdx` file that is not listed.
 
 The text is Markdown. `##` becomes a sub-heading (the post title is the page's
@@ -45,6 +47,13 @@ The text is Markdown. `##` becomes a sub-heading (the post title is the page's
 `<Callout label="Good to know" title="…">` followed by the text (blank lines around it) adds a
 lightbulb box; `icon="star"` gives the star used for "Fun facts". Pass the label in that
 post's language.
+
+## Publishing order
+
+Posts rotate through the three kinds, in this order: **My learning**, **My
+experience**, **Just talk out loud**, then again. Next up: **My experience**
+(from her work). Ask "what is the next topic?" and the answer is the kind that is
+due, with a few ideas drawn only from what is documented here.
 
 ## Adding my experience to a post
 

@@ -107,7 +107,7 @@ and edge-on.
 |---|---|---|---|---|---|---|
 | 01 | Resume | `/resume` | Hardcover book | `#1F6F5F` | `#103C33` | 28px |
 | 02 | My Projects | `/projects` | Glossy magazine | `#FF6F61` | `#B8453A` | **36px** |
-| 03 | Dev Journal | `/journal` | Spiral-bound notebook | `#DCE9E2` | `#8FAE9F` | 20px |
+| 03 | Blog | `/journal` | Spiral-bound notebook | `#DCE9E2` | `#8FAE9F` | 20px |
 | 04 | Off the Clock | `/about` | Folded newspaper | `#E9B44C` | `#A97C22` | 16px |
 | 05 | Prompting Handbook | `/handbook` | Field guide | `#155246` | `#08241E` | 24px |
 
@@ -123,7 +123,7 @@ carries hierarchy edge-on — never hardcode a slab height per item, read it fro
 earlier the surfaces disagreed.
 
 Item names: **"My Projects"** is set (was "Selected Work"). "Resume",
-"Dev Journal" and "Off the Clock" are still placeholders Kateryna may rename.
+"Off the Clock" is still a placeholder Kateryna may rename. The journal is now **"Blog"**: three kinds of post, set per post with `category` in `posts.json`: *My learning*, *My experience*, *Just talk out loud*.
 
 ### 2.1 Cover construction (face-on)
 
@@ -608,8 +608,8 @@ Kept so they are not re-litigated or re-broken.
   anyway (`docs/BUILD.md` Phase 6), so the repo name doesn't need to double
   as the site's public host. Built with relative paths throughout, so the
   move cost nothing.
-- **Item names** — *Off the Clock* and *Dev Journal* are still invented
-  ("My Projects" is now set). Rename if you want.
+- **Item names** — *Off the Clock* is still invented
+  ("My Projects" and "Blog" are now set). Rename if you want.
 - **Every `[BRACKET]`** is waiting on real content. **This is now the critical
   path**: the design is essentially done and the site is still empty. A
   recruiter hires for what the page *says*; start with `/resume` (experience +
