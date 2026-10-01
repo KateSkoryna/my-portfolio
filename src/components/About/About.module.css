@@ -128,6 +128,18 @@
   color: var(--color-muted);
 }
 
+/* Phones: more room between the dateline and the title, and no extra space
+   under the last column. */
+@media (max-width: 699px) {
+  .page {
+    padding-bottom: 0;
+  }
+
+  .title {
+    margin-top: 16px;
+  }
+}
+
 @media (min-width: 700px) {
   .columns {
     column-count: 2;
