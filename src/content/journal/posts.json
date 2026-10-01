@@ -1,6 +1,41 @@
 {
   "posts": [
     {
+      "slug": "no-longer-a-junior",
+      "date": "2026-09-27",
+      "category": "myexperience",
+      "draft": true,
+      "related": ["ai-tools-explained"],
+      "en": {
+        "title": "The moment you realize you're no longer a Junior developer",
+        "excerpt": "Four things I used to install automatically, and the question that flipped: not \"why not?\" but \"why yes?\"",
+        "tags": [
+          "My experience",
+          "Software engineering",
+          "Dependencies",
+          "Bundle size",
+          "CSS",
+          "React",
+          "JavaScript",
+          "Frontend"
+        ]
+      },
+      "de": {
+        "title": "Der Moment, in dem du merkst, dass du kein Junior mehr bist",
+        "excerpt": "Vier Dinge, die ich früher automatisch installiert habe, und die Frage, die sich gedreht hat: nicht „warum nicht?“, sondern „warum ja?“",
+        "tags": [
+          "Meine Erfahrung",
+          "Softwareentwicklung",
+          "Abhängigkeiten",
+          "Bundle-Größe",
+          "CSS",
+          "React",
+          "JavaScript",
+          "Frontend"
+        ]
+      }
+    },
+    {
       "slug": "perfection-is-a-threat",
       "date": "2026-10-01",
       "category": "justtalkoutloud",
