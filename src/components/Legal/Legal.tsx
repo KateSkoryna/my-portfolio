@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import { Eyebrow } from '@/components/Eyebrow/Eyebrow';
 import { profile } from '@/content/items';
+import { Link } from '@/i18n/navigation';
 
 import { Address } from './Address';
 
@@ -28,6 +29,9 @@ export function Legal() {
         <h2 className={styles.heading}>{t('contactHeading')}</h2>
         <p className={styles.text}>
           {t('email')}: <a href={`mailto:${profile.email}`}>{profile.email}</a>
+        </p>
+        <p className={styles.text}>
+          {t('contactForm')}: <Link href="/contact">{t('contactFormLink')}</Link>
         </p>
       </section>
 

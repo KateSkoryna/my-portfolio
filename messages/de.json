@@ -32,7 +32,9 @@
     "country": "Deutschland",
     "contactHeading": "Kontakt",
     "email": "E-Mail",
-    "responsibleHeading": "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV"
+    "responsibleHeading": "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV",
+    "contactForm": "Kontaktformular",
+    "contactFormLink": "Nachricht schreiben"
   },
   "dots": {
     "goTo": "Zu {n} wechseln"
@@ -257,7 +259,7 @@
       {
         "title": "Kurz gesagt",
         "body": [
-          "Diese Seite hat keine Benutzerkonten, keine Formulare, keine Analyse, keine Werbung und kein Tracking. In deinem Browser wird nichts von anderen Unternehmen geladen."
+          "Diese Seite hat keine Benutzerkonten, keine Analyse, keine Werbung und kein Tracking. Das einzige Formular ist das Kontaktformular. In deinem Browser wird nichts von anderen Unternehmen geladen."
         ]
       },
       {
@@ -290,6 +292,13 @@
         "title": "Wenn du mir schreibst",
         "body": [
           "Wenn du mir schreibst, verarbeite ich deine E-Mail-Adresse und deine Nachricht, um dir zu antworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, bei Fragen zu einer Zusammenarbeit Art. 6 Abs. 1 lit. b DSGVO. Mein Postfach wird von Google (Gmail) bereitgestellt. Ich lösche Nachrichten, wenn das Gespräch beendet ist, es sei denn, das Gesetz verlangt eine Aufbewahrung."
+        ]
+      },
+      {
+        "title": "Das Kontaktformular",
+        "body": [
+          "Wenn du das Kontaktformular nutzt, verarbeite ich, was du eingibst: deinen Namen (optional), deine E-Mail-Adresse und deine Nachricht. Sie werden per E-Mail über Resend (USA) versendet, das in meinem Auftrag auf Grundlage eines Auftragsverarbeitungsvertrags arbeitet. Resend ist nach dem EU-U.S. Data Privacy Framework zertifiziert, und der Vertrag enthält die EU-Standardvertragsklauseln. Die Nachricht landet in meinem Postfach, das von Google (Gmail) bereitgestellt wird.",
+          "Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO, bei Fragen zu einer Zusammenarbeit Art. 6 Abs. 1 lit. b DSGVO. Diese Seite speichert deine Nachricht nicht. Ich lösche sie, wenn das Gespräch beendet ist, es sei denn, das Gesetz verlangt eine Aufbewahrung."
         ]
       },
       {

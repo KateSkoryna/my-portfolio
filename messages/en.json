@@ -32,7 +32,9 @@
     "country": "Germany",
     "contactHeading": "Contact",
     "email": "Email",
-    "responsibleHeading": "Responsible for content according to § 18 (2) MStV"
+    "responsibleHeading": "Responsible for content according to § 18 (2) MStV",
+    "contactForm": "Contact form",
+    "contactFormLink": "Write a message"
   },
   "dots": {
     "goTo": "Go to {n}"
@@ -257,7 +259,7 @@
       {
         "title": "In short",
         "body": [
-          "This site has no accounts, no forms, no analytics, no advertising and no tracking. It does not load anything from other companies in your browser."
+          "This site has no accounts, no analytics, no advertising and no tracking. The only form is the contact form. Nothing is loaded from other companies in your browser."
         ]
       },
       {
@@ -290,6 +292,13 @@
         "title": "If you email me",
         "body": [
           "If you write to me, I process your email address and your message to answer you. The legal basis is Art. 6 (1) (f) GDPR, or Art. 6 (1) (b) GDPR if you ask about working together. My mailbox is provided by Google (Gmail). I delete messages when the conversation is finished, unless the law requires me to keep them."
+        ]
+      },
+      {
+        "title": "The contact form",
+        "body": [
+          "If you use the contact form, I process what you enter: your name (optional), your email address and your message. They are sent by email through Resend (USA), which acts as my processor under a data processing agreement. Resend is certified under the EU-U.S. Data Privacy Framework, and the agreement includes the EU standard contractual clauses. The message arrives in my mailbox, which is provided by Google (Gmail).",
+          "The legal basis is Art. 6 (1) (f) GDPR, or Art. 6 (1) (b) GDPR if you ask about working together. This site does not store your message. I delete it when the conversation is finished, unless the law requires me to keep it."
         ]
       },
       {
