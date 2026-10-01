@@ -146,7 +146,8 @@
 }
 
 .related {
-  margin-top: calc(var(--line, 20px) * 2);
+  /* One line closer to the text than two whole lines, so the pointer fits on the last page. */
+  margin-top: var(--line, 20px);
   break-inside: avoid;
 }
 
@@ -178,8 +179,8 @@
 }
 
 .cta {
-  /* Well clear of the text above it. */
-  margin-top: calc(var(--line, 20px) * 3);
+  /* Clear of the text above it, but close enough to stay on the last page. */
+  margin-top: calc(var(--line, 20px) * 2);
   break-inside: avoid;
   text-align: center;
 }
