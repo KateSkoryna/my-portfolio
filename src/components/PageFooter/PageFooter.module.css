@@ -18,12 +18,41 @@
   gap: 16px;
 }
 
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 16px;
+  width: 100%;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 16px;
+}
+
+/* A text link kept at the minimum target size; the footer's quiet colour, underlined. */
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--a11y-min-target);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  color: var(--color-quiet);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .copyright {
   font-family: var(--font-body), system-ui, sans-serif;
   font-weight: 700;
   font-size: 10px;
   color: var(--color-quiet);
-  text-align: right;
+  text-align: left;
 }
 
 /* Phones: more air above the footer, and everything in it centred. */
@@ -31,6 +60,10 @@
   .footer {
     padding-top: 40px;
     align-items: center;
+  }
+
+  .row {
+    justify-content: center;
   }
 
   .copyright {

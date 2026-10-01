@@ -260,6 +260,8 @@ export const profile = {
   name: 'Kateryna Skoryna',
   stackLine: 'React · TypeScript · Next.js · Node.js · PostgreSQL',
   email: 'k.skoryna@gmail.com',
+  /** Published in the legal notice (`/impressum`). The country is copy: `legal.country`. */
+  address: { street: 'Wiltbergstr. 50, Haus 14e', postalCode: '13125', city: 'Berlin' },
   github: 'https://github.com/KateSkoryna',
   linkedin: 'https://www.linkedin.com/in/kateskoryna/',
   photo: '/photo2.webp',

@@ -2,6 +2,8 @@ import type { ReactNode } from 'react';
 
 import { useTranslations } from 'next-intl';
 
+import { Link } from '@/i18n/navigation';
+
 import styles from './PageFooter.module.css';
 
 /**
@@ -15,7 +17,17 @@ export function PageFooter({ sequential }: { sequential?: ReactNode }) {
   return (
     <footer className={styles.footer}>
       {sequential && <div className={styles.sequential}>{sequential}</div>}
-      <p className={styles.copyright}>{t('footer')}</p>
+      <div className={styles.row}>
+        <p className={styles.copyright}>{t('footer')}</p>
+        <div className={styles.links}>
+          <Link href="/privacy" className={styles.link}>
+            {t('privacy')}
+          </Link>
+          <Link href="/impressum" className={styles.link}>
+            {t('impressum')}
+          </Link>
+        </div>
+      </div>
     </footer>
   );
 }
