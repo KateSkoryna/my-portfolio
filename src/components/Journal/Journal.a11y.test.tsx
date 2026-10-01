@@ -229,7 +229,7 @@ describe('JournalEntry', () => {
   });
 
   it.each([
-    ['en', 'Kind regards, Katja'],
+    ['en', 'Best, Katja'],
     ['de', 'Liebe Grüße, Katja'],
   ] as const)('signs off on its own line, with a heart (%s)', (locale, text) => {
     const { container } = render(

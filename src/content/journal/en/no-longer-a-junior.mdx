@@ -1,0 +1,101 @@
+How I reduced the initial JavaScript bundle by **65%** in the dashboard at **Sono Solar**, and the mobile LCP went from **17.2 s to 8.9 s**.
+
+Besides **code splitting** with `React.lazy` and `Suspense`, I **removed dependencies that were not needed**. In that dashboard, I **removed Axios**. In this portfolio, I use **plain CSS instead of Sass**. In my Task Manager, **TanStack Query handles the caching**. The first part is a technique. The second part changed how I think.
+
+<Callout label="Good to know" title="Code splitting with lazy and Suspense">
+
+`React.lazy` loads a component's code only when it is first rendered, so the first screen does not download the whole app. `Suspense` shows a fallback, for example a spinner, while that code arrives.
+
+</Callout>
+
+When I first started out, every shiny framework, utility library, or build tool felt like a must-have. My default mindset was always: "Why NOT add this? Everyone says it's amazing!"
+
+Fast forward a few years into production engineering, and my baseline question has completely flipped to: **"Why YES? What actual problem does this solve?"**
+
+When we started to build our installation tool, the temptation to use Tailwind was huge. Then I understood that **the extra dependency was not worth it**.
+
+**Because every dependency is weight.** It's not just extra bundle size, it's the **"Iceberg Effect"** of `npm install`. You think you're adding one package, but your `node_modules` fills up with its transitive dependencies:
+
+<Callout label="What npm install adds" icon="star">
+
+- Tailwind CSS 3: **73 packages** in total, including PostCSS, Chokidar and fast-glob. (They are build tools, so they never reach the browser, but they are still more to install, update and secure.)
+- Formik: **10 packages** in total, including the full `lodash` and `lodash-es`, for just a few helper functions.
+- Axios: **27 packages** in total, including `form-data`, `follow-redirects` and proxy helpers.
+
+(I counted with a fresh `npm install` of each package in an empty folder, on 1 October 2026.)
+
+</Callout>
+
+You're not just importing code, you're importing **a whole supply chain**.
+
+Here is how my perspective shifted on things I used to install automatically:
+
+## 1. Formik, or React Hook Form
+
+I chose React Hook Form specifically because it has **zero dependencies**. Formik pulls in `lodash` for a few helper functions, while React Hook Form needs nothing but React. Less weight, no hidden passengers, better performance.
+
+<Callout label="In my projects">
+
+In my [Task Manager](https://github.com/KateSkoryna/task-manager) ([live demo](https://todo-list-frontend-six-drab.vercel.app/)), the forms use **React Hook Form**.
+
+</Callout>
+
+## 2. Tailwind and Sass, or modern plain CSS + AI
+
+The old argument: "Tailwind saves time because you don't have to write custom CSS or name classes!"
+
+The modern reality: with AI coding assistants generating clean, semantic CSS instantly, the speed argument for utility frameworks is fading fast. Modern native CSS now has native nesting, CSS variables, `@container` queries, and the `:has()` selector.
+
+Do we really need build-step transpilation, complex PostCSS setups, or thousands of inline utility classes just to style a page? Plain CSS has become incredibly powerful on its own.
+
+<Callout label="In my projects">
+
+In [this portfolio](https://github.com/KateSkoryna/my-portfolio) I use plain CSS in CSS Modules, with **no Sass and no Tailwind**.
+
+</Callout>
+
+## 3. Axios, or native fetch
+
+The Junior mindset: "Axios makes HTTP requests so clean and easy!"
+
+The pragmatist shift: if you're not heavily relying on interceptors or complex request transforms, modern `fetch` + `async/await` paired with a 10-line wrapper handles 90% of use cases with **zero extra bundle weight**.
+
+<Callout label="In my projects">
+
+At Sono Solar, I **removed Axios** from the dashboard. In [this portfolio](https://github.com/KateSkoryna/my-portfolio), the GitHub data on the projects page is fetched with **native `fetch`**.
+
+</Callout>
+
+## 4. Date libraries (Day.js, date-fns), or browser APIs
+
+The Junior mindset: "Dates in JavaScript are pain. Just pull in a date library!"
+
+The pragmatist shift: native browser APIs like `Intl.DateTimeFormat` have evolved massively. Unless you're doing heavy timezone math, native JS handles formatting and localization out of the box.
+
+<Callout label="In my projects">
+
+In [this portfolio](https://github.com/KateSkoryna/my-portfolio), the dates of the posts are formatted with `Intl.DateTimeFormat`, with **no date library**.
+
+</Callout>
+
+## 5. Zustand / Redux, or React Query + local state
+
+The Junior mindset: "New project? Time to set up global state management right away!"
+
+The pragmatist shift: **80%** of what developers put in global state is just **server state**. Pair TanStack Query for data fetching with local state or React Context for UI, and your client state vanishes.
+
+(And when your app actually grows into a massive component tree with complex interaction logic, THAT is when a store like Zustand earns its place.)
+
+<Callout label="In my projects">
+
+In my [Task Manager](https://github.com/KateSkoryna/task-manager) ([live demo](https://todo-list-frontend-six-drab.vercel.app/)), **TanStack Query** handles the server data and the caching. **Zustand only keeps small client state**: the logged-in user, notifications and the theme.
+
+</Callout>
+
+## The difference
+
+The difference between a Junior and a mature engineer isn't knowing how to install 50 libraries to solve a problem.
+
+It's **knowing how NOT to install them**, and shipping a **fast, maintainable, lightweight product** instead.
+
+Now that AI can write clean CSS instantly and modern browsers natively support nesting and variables: are utility CSS frameworks like Tailwind becoming obsolete, or do you still swear by them?
