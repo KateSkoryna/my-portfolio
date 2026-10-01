@@ -300,5 +300,29 @@
         ]
       }
     ]
+  },
+  "contact": {
+    "eyebrow": "Kontakt",
+    "title": "Kontaktformular",
+    "intro": "Schick mir eine Nachricht, ich antworte dir per E-Mail.",
+    "name": "Name (optional)",
+    "email": "Deine E-Mail",
+    "message": "Nachricht",
+    "submit": "Nachricht senden",
+    "sending": "Wird gesendet…",
+    "privacyNote": "Ich nutze deine Angaben nur, um dir zu antworten.",
+    "privacyLink": "Datenschutzerklärung",
+    "sentTitle": "Danke, deine Nachricht ist unterwegs.",
+    "sentText": "Ich antworte an die E-Mail-Adresse, die du angegeben hast.",
+    "sendAnother": "Weitere Nachricht schreiben",
+    "errors": {
+      "email_invalid": "Bitte gib eine gültige E-Mail-Adresse ein.",
+      "message_short": "Bitte schreib mindestens 10 Zeichen.",
+      "message_long": "Bitte halte die Nachricht unter 4000 Zeichen.",
+      "name_long": "Der Name ist zu lang (höchstens 100 Zeichen).",
+      "unavailable": "Das Formular ist gerade nicht verfügbar. Bitte schreib mir direkt:",
+      "failed": "Die Nachricht konnte nicht gesendet werden. Bitte versuch es erneut oder schreib mir direkt:"
+    },
+    "errorSummary": "Die Nachricht wurde nicht gesendet."
   }
 }

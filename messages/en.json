@@ -300,5 +300,29 @@
         ]
       }
     ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Contact form",
+    "intro": "Send me a message and I will reply by email.",
+    "name": "Name (optional)",
+    "email": "Your email",
+    "message": "Message",
+    "submit": "Send message",
+    "sending": "Sending…",
+    "privacyNote": "I use your details only to reply to you.",
+    "privacyLink": "Privacy notice",
+    "sentTitle": "Thank you, your message is on its way.",
+    "sentText": "I will reply to the email address you gave.",
+    "sendAnother": "Write another message",
+    "errors": {
+      "email_invalid": "Please enter a valid email address.",
+      "message_short": "Please write at least 10 characters.",
+      "message_long": "Please keep the message under 4000 characters.",
+      "name_long": "The name is too long (100 characters at most).",
+      "unavailable": "The form is not available right now. Please write to me directly:",
+      "failed": "The message could not be sent. Please try again, or write to me directly:"
+    },
+    "errorSummary": "The message was not sent."
   }
 }

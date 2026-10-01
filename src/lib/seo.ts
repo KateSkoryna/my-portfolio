@@ -27,6 +27,7 @@ export const STATIC_PATHS = [
   '/about',
   '/impressum',
   '/privacy',
+  '/contact',
 ] as const;
 
 /** `/en/resume`-style path for one locale; `path` is `''` for the landing page. */
