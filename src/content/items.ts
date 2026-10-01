@@ -240,7 +240,7 @@ export const featuredRepos: readonly FeaturedRepo[] = [
     title: 'This Portfolio',
     summary:
       'A personal portfolio designed as a stack of physical objects - book, magazine, notebook, newspaper, field guide - each one a route. Built with Next.js 16, React 19, and TypeScript, it features live GitHub data via ISR, EN/DE i18n, and zero animation libraries.',
-    demoUrl: 'https://prompting-handbook-olive.vercel.app/de',
+    demoUrl: 'https://katerynaskoryna.com',
     screenshot: {
       src: '/my-portfolio.webp',
       width: 2860,
