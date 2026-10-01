@@ -91,7 +91,7 @@ export const resumeDe: ResumeContent = {
       bullets: [
         {
           label: 'Frontend-Performance',
-          text: 'Das initiale JavaScript-Bundle durch Code Splitting um 65 % verkleinert und dadurch den mobilen LCP von 17,2 s auf 8,9 s sowie den Lighthouse-Accessibility-Wert von 88 auf 100 verbessert.',
+          text: 'Das initiale JavaScript-Bundle durch Code Splitting und das Entfernen unnötiger Abhängigkeiten um 65 % verkleinert und dadurch den mobilen LCP von 17,2 s auf 8,9 s sowie den Lighthouse-Accessibility-Wert von 88 auf 100 verbessert.',
         },
         {
           label: 'API-Performance',

@@ -100,7 +100,8 @@
 /* "Good to know": a box with a lightbulb. Padding and line height are whole
    lines, so the text inside still sits on the ruling; it never splits across pages. */
 .callout {
-  margin-bottom: var(--line, 20px);
+  /* Half a line, so a box does not leave a big gap before the text that follows. */
+  margin-bottom: calc(var(--line, 20px) / 2);
   padding: calc(var(--line, 20px) / 2) 14px;
   border-left: 3px solid var(--color-mustard);
   border-radius: 2px 8px 8px 2px;
@@ -112,11 +113,12 @@
   margin-bottom: 0;
 }
 
-.calloutLabel {
+/* `.callout` in the selector so this beats `.prose p`, which would otherwise set a full line. */
+.callout .calloutLabel {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 0;
+  margin-bottom: calc(var(--line, 20px) / 2);
   font-weight: 800;
   font-size: 11px;
   letter-spacing: 0.16em;
@@ -197,7 +199,7 @@
 
 .cta {
   /* Clear of the text above it, but close enough to stay on the last page. */
-  margin-top: calc(var(--line, 20px) * 2);
+  margin-top: var(--line, 20px);
   break-inside: avoid;
   text-align: center;
 }

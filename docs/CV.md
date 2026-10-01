@@ -17,7 +17,7 @@ Tooling: Vercel · GCP (Cloud Logging) · Figma · Jira · Confluence · Miro
 WORK EXPERIENCE
 Frontend Developer · Sono Solar GmbH · Remote (Munich, Germany) Jul 2024 – Aug 2026
 •
-Frontend performance: Reduced the initial JavaScript bundle by 65% through code splitting, improving mobile LCP from 17.2 s to
+Frontend performance: Reduced the initial JavaScript bundle by 65% through code splitting and by removing unnecessary dependencies, improving mobile LCP from 17.2 s to
 8.9 s and Lighthouse Accessibility from 88 to 100.
 •
 API performance: Reduced a production fleet-analytics endpoint from 6.91 s to 1.17 s by profiling the full request path and

@@ -1,0 +1,101 @@
+Wie ich das initiale JavaScript-Bundle im Dashboard bei **Sono Solar** um **65 %** verkleinert habe, und der mobile LCP von **17,2 s auf 8,9 s** sank.
+
+Neben **Code Splitting** mit `React.lazy` und `Suspense` habe ich **Abhängigkeiten entfernt, die nicht nötig waren**. In diesem Dashboard habe ich **Axios entfernt**. In diesem Portfolio nutze ich **reines CSS statt Sass**. In meinem Task Manager übernimmt **TanStack Query das Caching**. Der erste Teil ist eine Technik. Der zweite Teil hat verändert, wie ich denke.
+
+<Callout label="Gut zu wissen" title="Code Splitting mit lazy und Suspense">
+
+`React.lazy` lädt den Code einer Komponente erst, wenn sie zum ersten Mal gerendert wird, sodass der erste Bildschirm nicht die ganze App herunterlädt. `Suspense` zeigt einen Platzhalter, zum Beispiel einen Spinner, solange dieser Code ankommt.
+
+</Callout>
+
+Als ich anfing, fühlte sich jedes glänzende Framework, jede Utility-Bibliothek und jedes Build-Tool wie ein Muss an. Meine Grundhaltung war immer: „Warum NICHT hinzufügen? Alle sagen, es ist großartig!“
+
+Ein paar Jahre Produktionsentwicklung später hat sich meine Grundfrage komplett gedreht: **„Warum JA? Welches echte Problem löst das?“**
+
+Als wir anfingen, unser Installationstool zu bauen, war die Versuchung, Tailwind zu nutzen, riesig. Dann habe ich verstanden, dass **sich die zusätzliche Abhängigkeit nicht lohnt**.
+
+**Denn jede Abhängigkeit ist Gewicht.** Es geht nicht nur um zusätzliche Bundle-Größe, es ist der **„Eisberg-Effekt“** von `npm install`. Du denkst, du fügst ein Paket hinzu, aber dein `node_modules` füllt sich mit dessen transitiven Abhängigkeiten:
+
+<Callout label="Was npm install mitbringt" icon="star">
+
+- Tailwind CSS 3: insgesamt **73 Pakete**, darunter PostCSS, Chokidar und fast-glob. (Das sind Build-Werkzeuge, sie landen also nie im Browser, aber sie müssen trotzdem installiert, aktualisiert und abgesichert werden.)
+- Formik: insgesamt **10 Pakete**, darunter das komplette `lodash` und `lodash-es`, für nur ein paar Hilfsfunktionen.
+- Axios: insgesamt **27 Pakete**, darunter `form-data`, `follow-redirects` und Proxy-Helfer.
+
+(Ich habe mit einem frischen `npm install` jedes Pakets in einem leeren Ordner gezählt, am 1. Oktober 2026.)
+
+</Callout>
+
+Du importierst nicht nur Code, du importierst **eine ganze Lieferkette**.
+
+So hat sich mein Blick auf Dinge verschoben, die ich früher automatisch installiert habe:
+
+## 1. Formik, oder React Hook Form
+
+Ich habe mich ganz bewusst für React Hook Form entschieden, weil es **keine Abhängigkeiten** hat. Formik zieht `lodash` für ein paar Hilfsfunktionen hinein, React Hook Form braucht nichts außer React. Weniger Gewicht, keine blinden Passagiere, bessere Performance.
+
+<Callout label="In meinen Projekten">
+
+In meinem [Task Manager](https://github.com/KateSkoryna/task-manager) ([Live-Demo](https://todo-list-frontend-six-drab.vercel.app/)) nutzen die Formulare **React Hook Form**.
+
+</Callout>
+
+## 2. Tailwind und Sass, oder modernes reines CSS + KI
+
+Das alte Argument: „Tailwind spart Zeit, weil man kein eigenes CSS schreiben und keine Klassen benennen muss!“
+
+Die moderne Realität: Wenn KI-Coding-Assistenten sofort sauberes, semantisches CSS erzeugen, verliert das Geschwindigkeitsargument für Utility-Frameworks schnell an Gewicht. Modernes natives CSS kennt inzwischen Nesting, CSS-Variablen, `@container`-Abfragen und den `:has()`-Selektor.
+
+Brauchen wir wirklich Transpilierung im Build, komplizierte PostCSS-Setups oder Tausende Inline-Utility-Klassen, nur um eine Seite zu gestalten? Reines CSS ist von sich aus unglaublich mächtig geworden.
+
+<Callout label="In meinen Projekten">
+
+In [diesem Portfolio](https://github.com/KateSkoryna/my-portfolio) nutze ich reines CSS in CSS Modules, **ohne Sass und ohne Tailwind**.
+
+</Callout>
+
+## 3. Axios, oder natives fetch
+
+Die Junior-Denkweise: „Axios macht HTTP-Anfragen so sauber und einfach!“
+
+Die pragmatische Wende: Wenn du dich nicht stark auf Interceptors oder komplexe Request-Transformationen verlässt, deckt modernes `fetch` + `async/await` mit einem Wrapper von 10 Zeilen 90 % der Fälle ab, **ganz ohne zusätzliches Bundle-Gewicht**.
+
+<Callout label="In meinen Projekten">
+
+Bei Sono Solar habe ich **Axios** aus dem Dashboard **entfernt**. In [diesem Portfolio](https://github.com/KateSkoryna/my-portfolio) werden die GitHub-Daten auf der Projektseite mit **nativem `fetch`** geladen.
+
+</Callout>
+
+## 4. Datums-Bibliotheken (Day.js, date-fns), oder Browser-APIs
+
+Die Junior-Denkweise: „Datumsangaben in JavaScript sind Schmerz. Nimm einfach eine Datums-Bibliothek!“
+
+Die pragmatische Wende: Native Browser-APIs wie `Intl.DateTimeFormat` haben sich enorm weiterentwickelt. Solange du keine aufwendige Zeitzonenrechnung machst, erledigt natives JS Formatierung und Lokalisierung von Haus aus.
+
+<Callout label="In meinen Projekten">
+
+In [diesem Portfolio](https://github.com/KateSkoryna/my-portfolio) werden die Daten der Beiträge mit `Intl.DateTimeFormat` formatiert, **ohne Datums-Bibliothek**.
+
+</Callout>
+
+## 5. Zustand / Redux, oder React Query + lokaler State
+
+Die Junior-Denkweise: „Neues Projekt? Dann sofort globales State-Management aufsetzen!“
+
+Die pragmatische Wende: **80 %** dessen, was Entwickler in den globalen State packen, ist reiner **Server-State**. Kombiniere TanStack Query für das Laden der Daten mit lokalem State oder React Context für die Oberfläche, und dein Client-State verschwindet.
+
+(Und wenn deine App wirklich zu einem riesigen Komponentenbaum mit komplexer Interaktionslogik wächst, DANN hat ein Store wie Zustand seinen Platz verdient.)
+
+<Callout label="In meinen Projekten">
+
+In meinem [Task Manager](https://github.com/KateSkoryna/task-manager) ([Live-Demo](https://todo-list-frontend-six-drab.vercel.app/)) übernimmt **TanStack Query** die Serverdaten und das Caching. **Zustand hält nur kleinen Client-State**: den angemeldeten Nutzer, Benachrichtigungen und das Theme.
+
+</Callout>
+
+## Der Unterschied
+
+Der Unterschied zwischen einem Junior und einem erfahrenen Entwickler ist nicht, wie man 50 Bibliotheken installiert, um ein Problem zu lösen.
+
+Es ist **zu wissen, wie man sie NICHT installiert**, und stattdessen ein **schnelles, wartbares, schlankes Produkt** auszuliefern.
+
+Jetzt, da KI sofort sauberes CSS schreiben kann und moderne Browser Nesting und Variablen nativ unterstützen: Werden Utility-CSS-Frameworks wie Tailwind überflüssig, oder schwörst du immer noch auf sie?

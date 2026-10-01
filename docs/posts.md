@@ -213,7 +213,7 @@ Film facts come from the trailer coverage (The Playlist, Esquire India, The Movi
 
 Draft written by Claude from her notes and questions; no new facts. Her conclusion ("perhaps perfection is a threat because it has no choice in it") is built from her "choice?" question and is a suggestion for her to confirm or rewrite. Marginal note and the kind-answers line are Claude's wording.
 
-Needs Kateryna: read and rewrite in her own voice; a source for the Japan example if she wants one; the German version (translation by Claude).
+Needs Kateryna: read and rewrite in her own voice; the German version (translation by Claude).
 
 Added later by her (perfection-is-a-threat), as received:
 
@@ -263,3 +263,33 @@ Added to the end of perfection-is-a-threat, her closing (English):
 > How much does it matter that AI has no choice? A real person can leave or stay. And if a real person stays with you even when you're at your worst, doesn't that make them the better choice?
 
 Her wording, put into natural spoken English. Replaces the Kasriel quote she did not want. German is a translation by Claude.
+
+### no-longer-a-junior — draft, started 2026-10-01
+
+Properties: `posts.json` → `no-longer-a-junior` (`category: myexperience`, `draft: true`). Text: `src/content/journal/en/no-longer-a-junior.mdx`, `src/content/journal/de/no-longer-a-junior.mdx`.
+
+Original text, as received (the LinkedIn version, so this post runs the usual order in reverse: LinkedIn text first, blog derived from it):
+
+> The moment you realize you're no longer a Junior developer: …
+>
+> (Four sections: Tailwind / Sass vs plain CSS + AI; Axios vs native fetch; Day.js / date-fns vs browser APIs; Zustand / Redux vs React Query + local state. Closing: "The difference between a Junior and a mature engineer isn't knowing how to install 50 libraries… It's knowing how NOT to install them." A hot-take question about Tailwind. Hashtags #softwareengineering #webdevelopment #frontend #reactjs #javascript #css #cleanarchitecture #developerlife.)
+
+What changed for the journal:
+
+- Emojis, hashtags and "Let's fight in the comments! 👇" dropped; the numbered items became sub-headings; her wording otherwise kept.
+- **Opening (her call):** the post now starts with the result, "How I reduced the initial JavaScript bundle by 65%", then code splitting with `React.lazy` and `Suspense` and removing unneeded dependencies, with a "Good to know" box explaining lazy and Suspense (standard facts). She named what she removed, by project: Axios in the work dashboard; plain CSS instead of Sass in this portfolio; TanStack Query for caching in Task Manager. Checked against the code (read-only): this portfolio has no Sass, Tailwind, Axios, Zustand, TanStack Query or date library (27 CSS Modules); the Task Manager frontend (`apps/todo`, [apiClient.ts](https://github.com/KateSkoryna/task-manager/blob/main/apps/todo/src/app/lib/apiClient.ts)) still uses Axios, Zustand (auth, notifications, date, theme stores), Sass (`.scss`) and TanStack Query (34 `useQuery`/`useMutation` calls), and no `lazy`/`Suspense`; so "TanStack without Axios" does not hold there. The work dashboard is private and was not checked; she confirmed the 65% is the real dashboard at Sono Solar GmbH (named in her CV), where she removed Axios. The post now names Sono Solar and has an "In my projects" box under each of the four points, with links to the portfolio and Task Manager repos and the Task Manager demo; every claim in them was checked against the code. Task Manager still uses Axios, Day.js, Sass and Zustand, so the boxes say only what it does with TanStack Query and Zustand. The "weight" paragraph follows; the separate CV sentence further down was dropped, since the opening now carries it.
+- **Added from her CV** (`docs/CV.md`, "Frontend performance"), right after the "every dependency is weight" paragraph: "I reduced the initial JavaScript bundle by 65% through code splitting, and the mobile LCP went from 17.2 s to 8.9 s." The CV first said only code splitting; at her request it now says "code splitting and removing unnecessary dependencies", here and in the CV files. The CV's Lighthouse Accessibility 88 → 100 is left out here: different story.
+- German is a translation by Claude.
+
+Needs Kateryna: read the German; decide whether to add examples from her own projects (this portfolio uses CSS Modules, native `fetch` and `Intl.DateTimeFormat`, and no Tailwind, no Axios, no date library, `docs`/`CLAUDE.md` rule 6; her Task Manager and Solar Calculator use Tailwind, which the post's "used to install automatically" fits); "80% of global state is server state" and "90% of use cases" are her rules of thumb, not sourced; set `draft` to `false` when it is ready.
+
+Added to `no-longer-a-junior`, her words (item 1 box): "When we started to build installation Tool the temptation to use tailwind was huge, but then i understand that extra depencency not worth it because of...". The reason is the paragraph she pasted next ("Because every dependency is weight… the Iceberg Effect"): the story sentence now sits directly before it, in the main text, and the gap is gone.
+
+Her second version of the "weight" paragraph (the "Iceberg Effect", with Formik vs React Hook Form added as item 1; items renumbered). Checked against the npm registry and a fresh `npm install` of each package on 2026-10-01, and changed where wrong:
+
+- Tailwind CSS 3.4.19: 73 packages in total (PostCSS, Chokidar, fast-glob, glob-parent…). It does **not** depend on Autoprefixer or Browserslist (separate packages, usually installed beside it), so those two were removed. Tailwind 4 has no dependencies at all, so the post says "Tailwind CSS 3". Its packages are build tools and do not reach the browser; the post says so (Claude's wording).
+- Formik 2.4.9: 10 packages in total, including `lodash` and `lodash-es`. Correct. "1 or 2 helper functions" became "a few".
+- "Chart.js wrappers pulled lodash": wrong (`react-chartjs-2` has only peer dependencies), removed.
+- Axios 1.20.0: 27 packages in total (`form-data`, `follow-redirects`, `proxy-from-env`, `https-proxy-agent`). "Node/browser adapters" are inside Axios, not dependencies; reworded.
+- React Hook Form 7.89.0: no dependencies, only React as a peer. Correct. "The team built lightweight internal utilities" cannot be checked and was dropped.
+- Her Task Manager uses React Hook Form (`useForm` in `TodoForm.tsx` and others), so item 1 has an "In my projects" box.

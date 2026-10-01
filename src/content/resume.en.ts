@@ -91,7 +91,7 @@ export const resumeEn: ResumeContent = {
       bullets: [
         {
           label: 'Frontend performance',
-          text: 'Reduced the initial JavaScript bundle by 65% through code splitting, improving mobile LCP from 17.2 s to 8.9 s and Lighthouse Accessibility from 88 to 100.',
+          text: 'Reduced the initial JavaScript bundle by 65% through code splitting and by removing unnecessary dependencies, improving mobile LCP from 17.2 s to 8.9 s and Lighthouse Accessibility from 88 to 100.',
         },
         {
           label: 'API performance',
