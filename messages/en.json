@@ -32,7 +32,9 @@
     "country": "Germany",
     "contactHeading": "Contact",
     "email": "Email",
-    "responsibleHeading": "Responsible for content according to § 18 (2) MStV"
+    "responsibleHeading": "Responsible for content according to § 18 (2) MStV",
+    "contactForm": "Contact form",
+    "contactFormLink": "Write a message"
   },
   "dots": {
     "goTo": "Go to {n}"
@@ -257,7 +259,7 @@
       {
         "title": "In short",
         "body": [
-          "This site has no accounts, no forms, no analytics, no advertising and no tracking. It does not load anything from other companies in your browser."
+          "This site has no accounts, no analytics, no advertising and no tracking. The only form is the contact form. Nothing is loaded from other companies in your browser."
         ]
       },
       {
@@ -293,6 +295,13 @@
         ]
       },
       {
+        "title": "The contact form",
+        "body": [
+          "If you use the contact form, I process what you enter: your name (optional), your email address and your message. They are sent by email through Resend (USA), which acts as my processor under a data processing agreement. Resend is certified under the EU-U.S. Data Privacy Framework, and the agreement includes the EU standard contractual clauses. The message arrives in my mailbox, which is provided by Google (Gmail).",
+          "The legal basis is Art. 6 (1) (f) GDPR, or Art. 6 (1) (b) GDPR if you ask about working together. This site does not store your message. I delete it when the conversation is finished, unless the law requires me to keep it."
+        ]
+      },
+      {
         "title": "Your rights",
         "body": [
           "You have the right to access (Art. 15 GDPR), correction (Art. 16), deletion (Art. 17), restriction of processing (Art. 18), data portability (Art. 20) and objection (Art. 21). Write to me at the email address above.",
@@ -300,5 +309,29 @@
         ]
       }
     ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Contact form",
+    "intro": "Send me a message and I will reply by email.",
+    "name": "Name (optional)",
+    "email": "Your email",
+    "message": "Message",
+    "submit": "Send message",
+    "sending": "Sending…",
+    "privacyNote": "I use your details only to reply to you.",
+    "privacyLink": "Privacy notice",
+    "sentTitle": "Thank you, your message is on its way.",
+    "sentText": "I will reply to the email address you gave.",
+    "sendAnother": "Write another message",
+    "errors": {
+      "email_invalid": "Please enter a valid email address.",
+      "message_short": "Please write at least 10 characters.",
+      "message_long": "Please keep the message under 4000 characters.",
+      "name_long": "The name is too long (100 characters at most).",
+      "unavailable": "The form is not available right now. Please write to me directly:",
+      "failed": "The message could not be sent. Please try again, or write to me directly:"
+    },
+    "errorSummary": "The message was not sent."
   }
 }
