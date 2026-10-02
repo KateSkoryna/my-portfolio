@@ -5,6 +5,8 @@
  * dependency).
  */
 
+import { renderHtml } from './contactEmail';
+
 export const LIMITS = { name: 100, email: 254, messageMin: 10, messageMax: 4000 } as const;
 
 /** What the form can say went wrong. The page maps each code to a sentence in the visitor's language. */
@@ -71,6 +73,7 @@ export async function send(
         // Hitting "reply" in the mailbox answers the visitor, not the form.
         reply_to: data.email,
         subject: `Message from ${who} via the contact form`,
+        html: renderHtml(data, who),
         text: `${data.message}\n\n--\n${data.name || '(no name)'} <${data.email}>`,
       }),
     });
