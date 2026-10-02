@@ -28,7 +28,7 @@ export function renderHtml(data: ContactInput, who: string): string {
 <tr><td align="center" style="padding:32px 16px;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:${color.cream};border-radius:${radius.card};overflow:hidden;">
     <tr><td style="background:${color.emerald};padding:18px 28px;font-family:${emailFont.body};font-size:11px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:${color.cream};">
-      New message &middot; katerynaskoryna.com
+      New message &middot; <a href="https://katerynaskoryna.com" style="color:${color.cream};text-decoration:none;">katerynaskoryna.com</a>
     </td></tr>
     <tr><td style="padding:28px 28px 8px;">
       <table role="presentation" cellpadding="0" cellspacing="0"><tr>
