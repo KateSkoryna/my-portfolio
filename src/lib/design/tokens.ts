@@ -60,6 +60,15 @@ export const font = {
   hand: 'var(--font-caveat)',
 } as const;
 
+/**
+ * Mail clients cannot load the site's web fonts or read CSS variables, so the
+ * contact email uses system stacks that sit closest to them.
+ */
+export const emailFont = {
+  display: "'Trebuchet MS', 'Helvetica Neue', Arial, sans-serif",
+  body: "'Helvetica Neue', Arial, sans-serif",
+} as const;
+
 /** Recurring type patterns. DESIGN.md §1.3 */
 export const type = {
   eyebrow: {
