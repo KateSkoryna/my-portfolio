@@ -29,6 +29,9 @@ email address, so it is safe to deploy before setting them up.
 
 ## How it behaves
 
+- **The email**: HTML in the site's colours (`src/lib/contactEmail.ts`, inline styles from
+  `tokens.ts`) with the sender's name, address, the message and a Reply button, plus a
+  plain-text part. Everything the visitor typed is escaped.
 - **Replying**: the visitor's address is the `reply_to` of the email, so "Reply" answers them.
 - **Spam**: a hidden field (`website`) that people never see; if it is filled the message
   is dropped and the form still says "sent". There is no CAPTCHA, because that would load a
