@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
+import { DotIndicator } from '@/components/DotIndicator/DotIndicator';
 import { motion } from '@/lib/design/tokens';
 import type { ProjectIssue, RepoLanguage } from '@/lib/github/repos';
 
@@ -110,7 +111,7 @@ export function Projects({
       </div>
 
       <article ref={featureRef} className={styles.feature} data-accent={featureAccent}>
-        <FeatureContent feature={feature} locale={locale} />
+        <FeatureContent feature={feature} locale={locale} sizers={issues} />
         {sweep && (
           <div className={styles.sweep} aria-hidden="true">
             <div
@@ -152,22 +153,27 @@ export function Projects({
               </p>
 
               <div className={styles.cardMobileOnly}>
-                {languages.length > 0 && (
-                  <dl className={styles.facts}>
-                    <div className={styles.languageSplit}>
-                      <dt>{t('languageSplit')}</dt>
-                      <dd>
-                        <LanguageBar languages={languages} />
-                        <span className={styles.splitText}>
-                          {languages.map((l) => `${l.name} ${l.percent}%`).join(' · ')}
-                        </span>
-                      </dd>
-                    </div>
-                  </dl>
+                {issue.challenge && <ChallengeBlock text={issue.challenge} />}
+                {issue.highlights ? (
+                  <HighlightsBlock highlights={issue.highlights} />
+                ) : (
+                  languages.length > 0 && (
+                    <dl className={styles.facts}>
+                      <div className={styles.languageSplit}>
+                        <dt>{t('languageSplit')}</dt>
+                        <dd>
+                          <LanguageBar languages={languages} />
+                          <span className={styles.splitText}>
+                            {languages.map((l) => `${l.name} ${l.percent}%`).join(' · ')}
+                          </span>
+                        </dd>
+                      </div>
+                    </dl>
+                  )
                 )}
                 <StackBlock stack={issue.stack} />
                 <div className={styles.cardScreenshot}>
-                  <ScreenshotImage screenshot={issue.screenshot} />
+                  <Screenshots key={issue.repo} shots={issue.screenshots} />
                 </div>
               </div>
 
@@ -213,7 +219,20 @@ export function Projects({
 }
 
 /** The three panels of the feature card. Rendered once live and, during a project change, again inside every flipping tile. */
-function FeatureContent({ feature, locale }: { feature: ProjectIssue; locale: string }) {
+function FeatureContent({
+  feature,
+  locale,
+  sizers,
+}: {
+  feature: ProjectIssue;
+  locale: string;
+  /**
+   * Every project, so the text column can be as tall as the longest one: the
+   * others are laid out invisibly in the same grid cell, and swapping the
+   * feature never resizes the card.
+   */
+  sizers?: readonly ProjectIssue[];
+}) {
   const t = useTranslations('projects');
   const tCommon = useTranslations('common');
   const date = new Intl.DateTimeFormat(locale === 'en' ? 'en-GB' : locale, {
@@ -221,8 +240,6 @@ function FeatureContent({ feature, locale }: { feature: ProjectIssue; locale: st
     month: 'short',
     year: 'numeric',
   });
-  const featureSummary = summaryOf(feature);
-  const featureLanguages = feature.stats?.languages ?? [];
 
   return (
     <>
@@ -243,52 +260,43 @@ function FeatureContent({ feature, locale }: { feature: ProjectIssue; locale: st
               </a>
             )}
           </p>
+          {feature.stack && (
+            <ul className={`${styles.stack} ${styles.panelStack}`} aria-label={t('stack')}>
+              {feature.stack.map((name) => (
+                <li key={name}>{name}</li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
 
       <div className={styles.featureBody}>
-        <div className={styles.featureMobileHead}>
-          <span className={styles.tab} aria-hidden="true" />
-          <h2 className={styles.cardTitle}>{feature.title}</h2>
-        </div>
-        <p className={isPlaceholder(featureSummary) ? styles.placeholder : styles.summary}>
-          {featureSummary}
-        </p>
-
-        {feature.stats && (
-          <dl className={styles.facts}>
-            <div className={styles.factDesktopOnly}>
-              <dt>{t('lastCommit')}</dt>
-              <dd>{date.format(new Date(feature.stats.pushedAt))}</dd>
-            </div>
-            {featureLanguages.length > 0 && (
-              <>
-                {!feature.stack && (
-                  <div className={styles.factDesktopOnly}>
-                    <dt>{t('language')}</dt>
-                    <dd>{featureLanguages[0].name}</dd>
-                  </div>
-                )}
-                <div className={styles.languageSplit}>
-                  <dt>{t('languageSplit')}</dt>
-                  <dd>
-                    <LanguageBar languages={featureLanguages} />
-                    <span className={styles.splitText}>
-                      {featureLanguages.map((l) => `${l.name} ${l.percent}%`).join(' · ')}
-                    </span>
-                  </dd>
-                </div>
-              </>
-            )}
-          </dl>
-        )}
-
-        <StackBlock stack={feature.stack} />
+        {(sizers ?? [feature]).map((item) => (
+          <div
+            key={item.repo}
+            className={
+              item === feature ? styles.bodyLayer : `${styles.bodyLayer} ${styles.bodyGhost}`
+            }
+            aria-hidden={item === feature ? undefined : true}
+            inert={item !== feature}
+          >
+            <FeatureBody feature={item} />
+          </div>
+        ))}
       </div>
 
       <div className={styles.screenshot}>
-        <ScreenshotImage screenshot={feature.screenshot} />
+        <Screenshots key={feature.repo} shots={feature.screenshots} />
       </div>
+
+      {feature.stats && (
+        <p className={styles.featureDate}>
+          {t('lastCommit')}{' '}
+          <time dateTime={feature.stats.pushedAt}>
+            {date.format(new Date(feature.stats.pushedAt))}
+          </time>
+        </p>
+      )}
 
       <div className={styles.featureMobileFoot}>
         <p className={styles.links}>
@@ -311,6 +319,84 @@ function FeatureContent({ feature, locale }: { feature: ProjectIssue; locale: st
   );
 }
 
+/** The text column of the feature card: description, facts, highlights and stack. */
+function FeatureBody({ feature }: { feature: ProjectIssue }) {
+  const t = useTranslations('projects');
+  const featureSummary = summaryOf(feature);
+  const featureLanguages = feature.stats?.languages ?? [];
+
+  return (
+    <>
+      <div className={styles.featureMobileHead}>
+        <span className={styles.tab} aria-hidden="true" />
+        <h2 className={styles.cardTitle}>{feature.title}</h2>
+      </div>
+      <p
+        className={
+          isPlaceholder(featureSummary) ? styles.placeholder : `${styles.summary} ${styles.lead}`
+        }
+      >
+        {featureSummary}
+      </p>
+      {feature.challenge && <ChallengeBlock text={feature.challenge} />}
+
+      {featureLanguages.length > 0 && (!feature.stack || !feature.highlights) && (
+        <dl className={styles.facts}>
+          {!feature.stack && (
+            <div className={styles.factDesktopOnly}>
+              <dt>{t('language')}</dt>
+              <dd>{featureLanguages[0].name}</dd>
+            </div>
+          )}
+          {!feature.highlights && (
+            <div className={styles.languageSplit}>
+              <dt>{t('languageSplit')}</dt>
+              <dd>
+                <LanguageBar languages={featureLanguages} />
+                <span className={styles.splitText}>
+                  {featureLanguages.map((l) => `${l.name} ${l.percent}%`).join(' · ')}
+                </span>
+              </dd>
+            </div>
+          )}
+        </dl>
+      )}
+
+      {feature.highlights && <HighlightsBlock highlights={feature.highlights} />}
+      {/* On desktop the stack is printed on the cover panel instead. */}
+      <div className={feature.stack ? styles.bodyStack : undefined}>
+        <StackBlock stack={feature.stack} />
+      </div>
+    </>
+  );
+}
+
+/** The hard problem and the decision, set apart from the one-line description. */
+function ChallengeBlock({ text }: { text: string }) {
+  const t = useTranslations('projects');
+  return (
+    <div className={styles.challengeBlock}>
+      <p className={styles.stackLabel}>{t('challenge')}</p>
+      <p className={styles.challenge}>{text}</p>
+    </div>
+  );
+}
+
+/** What is special about the project — shown where the language split was. */
+function HighlightsBlock({ highlights }: { highlights: readonly string[] }) {
+  const t = useTranslations('projects');
+  return (
+    <div className={styles.highlightsBlock}>
+      <p className={styles.stackLabel}>{t('highlights')}</p>
+      <ul className={styles.highlights}>
+        {highlights.map((line) => (
+          <li key={line}>{line}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function StackBlock({ stack }: { stack: readonly string[] | undefined }) {
   const t = useTranslations('projects');
   return (
@@ -327,18 +413,83 @@ function StackBlock({ stack }: { stack: readonly string[] | undefined }) {
   );
 }
 
-function ScreenshotImage({ screenshot }: { screenshot: ProjectIssue['screenshot'] }) {
+/**
+ * The project's screenshots, one at a time. With more than one there are
+ * previous/next buttons over the image and a dot row under it; it loops, like
+ * the landing carousel. Every image is cropped to one frame, so the card is
+ * the same size whichever project or screenshot it shows.
+ */
+function Screenshots({ shots }: { shots: ProjectIssue['screenshots'] }) {
   const t = useTranslations('projects');
-  if (!screenshot) return <p>{t('screenshot')}</p>;
+  const [index, setIndex] = useState(0);
+  if (!shots?.length) return <p>{t('screenshot')}</p>;
+
+  const shot = shots[index];
+  const many = shots.length > 1;
+  const step = (by: number) => setIndex((i) => (i + by + shots.length) % shots.length);
+
   return (
-    <Image
-      src={screenshot.src}
-      width={screenshot.width}
-      height={screenshot.height}
-      alt={screenshot.alt}
-      sizes="(min-width: 1200px) 25vw, 100vw"
-      className={styles.screenshotImage}
-    />
+    <div className={styles.shots}>
+      <div className={styles.shotFrame}>
+        {shot ? (
+          <Image
+            key={shot.src}
+            src={shot.src}
+            width={shot.width}
+            height={shot.height}
+            alt={shot.alt}
+            sizes="(min-width: 1200px) 25vw, 100vw"
+            className={styles.screenshotImage}
+          />
+        ) : (
+          <span className={styles.shotPlaceholder}>{t('screenshot')}</span>
+        )}
+        {many && (
+          <>
+            <button
+              type="button"
+              className={`${styles.shotArrow} ${styles.shotPrev}`}
+              aria-label={t('prevScreenshot')}
+              onClick={() => step(-1)}
+            >
+              <ShotChevron d="M12.5 4L6.5 10L12.5 16" />
+            </button>
+            <button
+              type="button"
+              className={`${styles.shotArrow} ${styles.shotNext}`}
+              aria-label={t('nextScreenshot')}
+              onClick={() => step(1)}
+            >
+              <ShotChevron d="M7.5 4L13.5 10L7.5 16" />
+            </button>
+          </>
+        )}
+      </div>
+      {many && (
+        <>
+          <DotIndicator count={shots.length} activeIndex={index} onSelect={setIndex} />
+          <span className={styles.srOnly} role="status">
+            {t('screenshotStatus', { n: index + 1, count: shots.length })}
+          </span>
+        </>
+      )}
+    </div>
+  );
+}
+
+function ShotChevron({ d }: { d: string }) {
+  return (
+    <span className={styles.shotArrowDisc}>
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <path
+          d={d}
+          stroke="currentColor"
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
   );
 }
 

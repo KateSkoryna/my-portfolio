@@ -151,6 +151,11 @@
     "makeFeature": "{name} als Hauptprojekt anzeigen",
     "nowFeatured": "{name} ist jetzt das Hauptprojekt",
     "stack": "Stack",
+    "challenge": "Die Herausforderung",
+    "highlights": "Highlights",
+    "prevScreenshot": "Vorheriger Screenshot",
+    "nextScreenshot": "Nächster Screenshot",
+    "screenshotStatus": "Screenshot {n} von {count}",
     "stackPlaceholder": "[STACK]",
     "selectedWork": "Ausgewählte Arbeiten"
   },

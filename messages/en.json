@@ -140,6 +140,11 @@
     "makeFeature": "Show {name} as the feature project",
     "nowFeatured": "{name} is now the feature project",
     "stack": "Stack",
+    "challenge": "The hard part",
+    "highlights": "Highlights",
+    "prevScreenshot": "Previous screenshot",
+    "nextScreenshot": "Next screenshot",
+    "screenshotStatus": "Screenshot {n} of {count}",
     "stackPlaceholder": "[STACK]",
     "selectedWork": "Selected work"
   },

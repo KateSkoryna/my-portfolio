@@ -167,6 +167,13 @@ export function localizeItems(t: ItemsTranslator): readonly PortfolioItem[] {
  * Descriptions are intentionally empty: they are written by Kateryna, not
  * inferred from repo names.
  */
+export interface ProjectScreenshot {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+
 export interface FeaturedRepo {
   /** Repo name under github.com/KateSkoryna */
   repo: string;
@@ -175,11 +182,10 @@ export interface FeaturedRepo {
    * it says what the project is, for someone who has never opened the repo.
    */
   title: string;
-  /**
-   * Two sentences, same shape for every project: what it is and who it is
-   * for; then "Built with <technologies>, it features <features>."
-   */
+  /** One sentence: what it is and who it is for. The technologies are in `stack`. */
   summary: string;
+  /** Two short sentences: the hard problem, then what she decided. */
+  challenge?: string;
   /** Optional live deployment. */
   demoUrl?: string;
   /**
@@ -188,8 +194,19 @@ export interface FeaturedRepo {
    * MongoDB/NestJS/AI project reads as just "TypeScript").
    */
   stack?: readonly string[];
-  /** Image under `public/`. Without one the feature card shows a `[SCREENSHOT]` placeholder. */
-  screenshot?: { src: string; width: number; height: number; alt: string };
+  /**
+   * Three short lines on what is special about the project. Shown in place of
+   * the GitHub language split, which repeats what `stack` already says.
+   */
+  highlights?: readonly string[];
+  /**
+   * Images under `public/`, shown as a small carousel on the card; the first
+   * is the one a visitor sees before clicking. `null` is a slide still waiting
+   * for its image and shows a `[SCREENSHOT]` placeholder — to fill one, put
+   * the file in `public/` and replace the `null` with its `src`, pixel
+   * `width` and `height`, and an `alt` describing what the screen shows.
+   */
+  screenshots?: readonly (ProjectScreenshot | null)[];
 }
 
 export const featuredRepos: readonly FeaturedRepo[] = [
@@ -197,57 +214,119 @@ export const featuredRepos: readonly FeaturedRepo[] = [
     repo: 'task-manager',
     title: 'AI Task Manager',
     demoUrl: 'https://todo-list-frontend-six-drab.vercel.app/',
-    screenshot: {
-      src: '/task-manager.webp',
-      width: 3386,
-      height: 1898,
-      alt: 'The task-manager dashboard: today’s completion, top-priority tasks, a weekly task-status view and today’s task list.',
-    },
+    screenshots: [
+      {
+        src: '/task-manager.webp',
+        width: 3386,
+        height: 1898,
+        alt: 'The task-manager dashboard: today’s completion, top-priority tasks, a weekly task-status view and today’s task list.',
+      },
+      null,
+      null,
+      null,
+    ],
     stack: ['React', 'TypeScript', 'NestJS', 'MongoDB', 'Firebase', 'Tailwind CSS', 'Gemini AI'],
+    highlights: [
+      'Six assistant tools, validated on the server',
+      '22-case evaluation suite for the assistant',
+      'Reports in English, German and Ukrainian',
+    ],
     summary:
-      'A modern full-stack productivity app with a conversational AI assistant for managing tasks through natural language. Built with React, NestJS, MongoDB, Firebase, and Gemini, it features analytics, AI-powered reports, secure user-scoped access, and multilingual support.',
+      'A task app with an AI assistant that creates, updates and deletes tasks from plain language.',
+    challenge:
+      'The assistant could confirm its own delete request. Confirmation now happens on the server and only counts when the user clicks Confirm.',
   },
   {
     repo: 'quizdom-react-app',
     title: 'QuizDOM — AI Learning App',
     demoUrl: 'https://kateskoryna.github.io/quizdom-react-app/',
-    screenshot: {
-      src: '/quizdom.webp',
-      width: 2908,
-      height: 1898,
-      alt: 'The Quizdom home page: a search box for describing the quiz you want, and a grid of quiz cards showing difficulty, rating and completion.',
-    },
+    screenshots: [
+      {
+        src: '/quizdom.webp',
+        width: 2908,
+        height: 1898,
+        alt: 'The Quizdom home page: a search box for describing the quiz you want, and a grid of quiz cards showing difficulty, rating and completion.',
+      },
+      null,
+      null,
+      null,
+    ],
     stack: ['React', 'TypeScript', 'Firebase', 'Genkit', 'Gemini AI', 'Sass'],
-    summary:
-      'An educational app where an LLM assists users with learning, generating quizzes by topic, level and language with hints and scoring. Built with React 19, TypeScript, Firebase, Genkit, and Gemini, it features semantic quiz search and an admin lab where Gemini scores generated quizzes.',
+    highlights: [
+      'Typed output schema with automatic retries',
+      'Admin lab with LLM-as-judge scoring',
+      'Search by meaning, not only by title',
+    ],
+    summary: 'A learning app where an LLM generates quizzes by topic, level and language.',
+    challenge:
+      'Generated quizzes repeated questions and drifted off topic. I built an evaluation lab where a second model scores them, and tuned the prompt against the scores.',
   },
   {
     repo: 'solar-calculator',
     title: 'Fleet Solar Calculator',
     demoUrl: 'https://solar-calculator-azure.vercel.app',
-    screenshot: {
-      src: '/solar-calculator.webp',
-      width: 3030,
-      height: 1898,
-      alt: 'The Solar Calculator landing page, in German: a heading for a solar calculator for commercial vehicles over an aerial forest photo, four feature panels and a “Get started” button.',
-    },
+    screenshots: [
+      {
+        src: '/solar-calculator.webp',
+        width: 3030,
+        height: 1898,
+        alt: 'The Solar Calculator landing page, in German: a heading for a solar calculator for commercial vehicles over an aerial forest photo, four feature panels and a “Get started” button.',
+      },
+      null,
+      null,
+      null,
+    ],
     stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Prisma', 'NextAuth', 'Tailwind CSS'],
+    highlights: [
+      'Role checks on every request, per fleet',
+      'Audit log in the same transaction as each change',
+      'Sign-in with Google or an email link',
+    ],
     summary:
-      'A multi-tenant web app that helps commercial fleet operators evaluate solar panel investments for buses, trucks, vans and trailers. Built with Next.js 16, React 19, TypeScript, PostgreSQL, and Prisma, it features fleet-scoped role-based access, a vehicle and calculation data model, and EN/DE/ES i18n.',
+      'A multi-tenant app that helps fleet operators evaluate solar panels for buses, trucks, vans and trailers.',
+    challenge:
+      'A visitor’s answers must survive sign-up. They wait in the browser and are saved to the new fleet exactly once, guarded by a hash and a unique database constraint.',
   },
   {
     repo: 'my-portfolio',
     title: 'This Portfolio',
     summary:
-      'A personal portfolio designed as a stack of physical objects - book, magazine, notebook, newspaper, field guide - each one a route. Built with Next.js 16, React 19, and TypeScript, it features live GitHub data via ISR, EN/DE i18n, and zero animation libraries.',
+      'A portfolio built as a stack of physical objects - book, magazine, notebook, newspaper, field guide - each one a route.',
+    challenge:
+      'Two languages without rendering on every request: the language is part of the URL, so every page is built once per language.',
     demoUrl: 'https://katerynaskoryna.com',
-    screenshot: {
-      src: '/my-portfolio.webp',
-      width: 2860,
-      height: 1898,
-      alt: 'The portfolio landing page: a floating Resume book with a pile of four more books beneath it, an identity block on the left and a description panel on the right.',
-    },
-    stack: ['Next.js', 'React', 'TypeScript', 'next-intl', 'CSS Modules'],
+    screenshots: [
+      {
+        src: '/my-portfolio.webp',
+        width: 2860,
+        height: 1898,
+        alt: 'The portfolio landing page: a floating Resume book with a pile of four more books beneath it, an identity block on the left and a description panel on the right.',
+      },
+      {
+        src: '/my-portfolio-resume.jpg',
+        width: 2860,
+        height: 1740,
+        alt: 'The resume page: an open book with the CV set across two pages, arrows to turn them and a Download CV button above.',
+      },
+      {
+        src: '/my-portfolio-journal.jpg',
+        width: 2860,
+        height: 1740,
+        alt: 'The blog page: a spiral notebook open on a post, with ruled pages and gold coils down the middle.',
+      },
+      {
+        src: '/my-portfolio-about.jpg',
+        width: 2860,
+        height: 1740,
+        alt: 'The about page: a newspaper called Off the Clock, with numbered facts and photos in four columns.',
+      },
+    ],
+    stack: ['Next.js', 'React', 'TypeScript', 'SSG + ISR', 'next-intl', 'CSS Modules'],
+    highlights: [
+      'Live GitHub data, refreshed hourly',
+      'All motion in plain CSS, no animation library',
+      'Accessibility checked on every pull request',
+    ],
   },
 ] as const;
 
