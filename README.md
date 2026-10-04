@@ -1,36 +1,37 @@
-# Kateryna Skoryna — Frontend Developer
+# Kateryna Skoryna — Frontend-Focused Full-Stack Developer
 
-**[Read the Prompting Handbook →](https://kateskoryna.github.io/my-portfolio/)**
+**[katerynaskoryna.com →](https://katerynaskoryna.com)**
 
-React · TypeScript · Next.js
+React · TypeScript · Next.js · Node.js · PostgreSQL
 [GitHub](https://github.com/KateSkoryna) · [LinkedIn](https://www.linkedin.com/in/kateskoryna/)
+
+![The portfolio landing page: a floating Resume book above a pile of four more books.](public/my-portfolio.webp)
 
 ---
 
 ## What this is
 
-My portfolio, built as a stack of physical objects — a book, a magazine, a
-notebook, a newspaper, a field guide — that the visitor flips through.
-Each object is a route: `/resume` is the CV, `/projects` is the work,
-`/journal` is working notes, and so on.
+My portfolio, built as a stack of physical objects that the visitor flips
+through. Each object is a route:
 
-**The first finished piece is live today:** *The Developer's Prompting
-Handbook*, a written guide to production prompting practice — how I make
-LLM output reliable enough to ship, drawn from real commits in my own
-projects, not generic advice. Read it at the link above.
+- **`/resume`** — a book: the CV, typeset as pages, with a PDF download.
+- **`/projects`** — a magazine: four projects with live GitHub data.
+- **`/journal`** — a spiral notebook: the blog, written in MDX.
+- **`/about`** — a newspaper: the things that never fit on a CV.
+- **`/handbook`** — a field guide: *The Developer's Prompting Handbook*, how
+  I make LLM output reliable enough to ship.
 
-The rest of the site — the stack itself — is in active development. What's
-built so far: the full design-token system, the accessibility-first
-component library (every closed book, cover, and piece of chrome the site
-uses), and English/German localization. The landing carousel and the
-individual item routes are next.
+What I built: the design-token system, the component library (every cover,
+closed book and piece of page chrome), the carousel and page-turn motion in
+plain CSS, English and German localization, and a contact form that sends
+email from a server action.
 
 ## Why it's built this way
 
 A portfolio is also a chance to show real engineering judgement, not just
 list it, so a few choices here are deliberate:
 
-- **Server rendering only where it earns its keep.** `/projects` will pull
+- **Server rendering only where it earns its keep.** `/projects` pulls
   live GitHub repo data with `revalidate: 3600` — real ISR with a reason,
   not "Next.js for the CV line."
 - **Accessibility is a build gate, not a pass at the end.** Every route is
@@ -47,8 +48,8 @@ list it, so a few choices here are deliberate:
 ## Stack
 
 Next.js 16 (App Router) · TypeScript, `strict: true` · React 19 · CSS
-Modules + a design-token system · `next-intl` (EN/DE) · Keystatic (git-based
-content) · Vercel.
+Modules + a design-token system · `next-intl` (EN/DE) · MDX · Vitest +
+axe-core · Vercel. No animation library, no canvas.
 
 ---
 
