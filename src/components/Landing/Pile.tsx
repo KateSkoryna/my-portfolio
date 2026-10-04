@@ -14,9 +14,8 @@ import styles from './Pile.module.css';
  * between slots instead of being rebuilt on every selection.
  *
  * On desktop every book is a direct link to its own route — no bring-to-
- * front-then-click — published or not; the unbuilt routes 404 for now *(Kateryna's
- * call)*. DESIGN.md's canvas draws the pile with no publish-status marker
- * at all, so the closed spine's title is the only label.
+ * front-then-click. DESIGN.md's canvas draws the pile with no publish-status
+ * marker at all, so the closed spine's title is the only label.
  */
 export function PileBook({ item }: { item: PortfolioItem }) {
   return (

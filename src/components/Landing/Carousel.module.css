@@ -131,11 +131,7 @@
 }
 
 /* Extra breathing room above the CTA beyond the `.description` column's
-   10px gap — it reads too close to the chips row otherwise. `:last-child`
-   alone (not `a:last-child`) because `PillButton` renders a `<button>`,
-   not an `<a>`, for every unpublished item — `href={item.published ?
-   item.route : ''}` is falsy for those, so the old `a`-scoped selector
-   silently never matched on any slide but the one published item. */
+   10px gap — it reads too close to the chips row otherwise. */
 .description > *:last-child {
   margin-top: 12px;
 }

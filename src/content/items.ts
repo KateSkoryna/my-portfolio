@@ -56,7 +56,7 @@ export interface PortfolioItem {
    * magazine is thickest because it is what most visitors come for.
    */
   thickness: number;
-  /** False = designed but not yet built. Drives a "coming soon" state. */
+  /** False = designed but not yet built. All five are built; nothing reads this yet. */
   published: boolean;
 }
 
@@ -116,7 +116,7 @@ export const itemsBase: readonly ItemStructural[] = [
     cover: '#E9B44C',
     coverDark: '#A97C22',
     thickness: 26,
-    published: false,
+    published: true,
   },
   {
     id: 'handbook',
