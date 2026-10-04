@@ -45,7 +45,7 @@ export interface PortfolioItem {
   chips: readonly string[];
   /** Call-to-action label. "Open the book", "Open the magazine"… */
   cta: string;
-  /** Optional second action beside the CTA, e.g. the resume's "Download PDF". */
+  /** Optional second action beside the CTA, e.g. the resume's "Download CV". */
   secondaryCta?: string;
   /** Front cover colour. Also the flat spine fill — see DESIGN.md §2.2. */
   cover: string;

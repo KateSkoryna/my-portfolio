@@ -63,9 +63,9 @@
       "coverFoot": "Kateryna Skoryna · 2026",
       "blurb": "Der Lebenslauf als typografisches Objekt — Erfahrung, Tech-Stack und Ausbildung gesetzt wie eine gedruckte Seite statt als exportiertes PDF. Jede Zeile bleibt als reiner Text lesbar, auch für einen Recruiting-Parser.",
       "shortBlurb": "Erfahrung, Tech-Stack und Ausbildung, gesetzt wie eine gedruckte Seite.",
-      "chips": [],
+      "chips": ["Kenntnisse", "Erfahrung", "Ausbildung"],
       "cta": "Buch öffnen",
-      "secondaryCta": "PDF herunterladen"
+      "secondaryCta": "CV herunterladen"
     },
     "projects": {
       "kindLabel": "Magazin",
@@ -129,7 +129,7 @@
     "heroSize": "Heldengröße (244×340)"
   },
   "resume": {
-    "downloadPdf": "PDF herunterladen",
+    "downloadPdf": "CV herunterladen",
     "book": "Lebenslauf",
     "prev": "Vorherige Seiten",
     "next": "Nächste Seiten",

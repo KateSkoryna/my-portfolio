@@ -147,11 +147,12 @@
   display: none;
 }
 
-/* The panel's own buttons: the item's main button plus its download, same
-   size, side by side — wrapping onto a second line in a narrow column. */
+/* The panel's own buttons: the item's download, then its main button on a
+   row of its own below. */
 .descriptionCta {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 12px;
 }
 

@@ -9,7 +9,7 @@ import styles from './Carousel.module.css';
  * panel (desktop) and under the floating book's shadow (mobile) — with CSS
  * showing one at a time, so the two never drift apart.
  *
- * `withDownload` adds the item's secondary action (the CV's "Download PDF")
+ * `withDownload` adds the item's secondary action (the CV's "Download CV")
  * to its left, the same size. Mobile passes it, because the book's back cover no longer holds
  * that link; on desktop it stays with the chips in the description panel.
  */
