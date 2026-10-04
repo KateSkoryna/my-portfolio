@@ -40,3 +40,7 @@ yarn-error.log*
 
 # Claude Code: personal permissions and runtime files, not shared
 .claude/
+
+# private notes — never commit
+docs/questions.md
+docs/HR-REVIEW.md
