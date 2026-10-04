@@ -274,6 +274,10 @@
   :global([data-intro='play']) .socials > :nth-child(3) {
     --wave-i: 7;
   }
+  /* The status line under the buttons rises after them, not with the stack line. */
+  :global([data-intro='play']) .status {
+    --wave-i: 8;
+  }
 }
 
 /* One swell: rises from below, lifts a touch past its place and settles —

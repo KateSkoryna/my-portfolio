@@ -42,6 +42,8 @@ export async function Landing() {
   const items = localizeItems(tItems);
   const bio = tProfile('bio');
   const basedIn = t('basedIn', { city: tProfile('city') });
+  const status = tProfile('status');
+  const workModel = tProfile('workModel');
   const [roleLead, roleLast] = splitFirstWord(tProfile('role'));
 
   const slides = items.map((item) => ({
@@ -113,14 +115,6 @@ export async function Landing() {
               start="calc(var(--motion-intro-text-at) + 12 * var(--motion-intro-stagger))"
               step="var(--motion-type-char-fast)"
             />
-            <br />
-            <TypedText
-              text={basedIn}
-              intro
-              start="calc(var(--motion-intro-text-at) + 12 * var(--motion-intro-stagger))"
-              step="var(--motion-type-char-fast)"
-              startIndex={profile.stackLine.length + 1}
-            />
           </p>
           <p className={styles.bio}>
             <TypedText
@@ -141,6 +135,30 @@ export async function Landing() {
               {tCommon('email')}
             </SocialLink>
           </div>
+          <p className={`${styles.stack} ${styles.status}`}>
+            <TypedText
+              text={status}
+              intro
+              start="calc(var(--motion-intro-text-at) + 18 * var(--motion-intro-stagger) + var(--bio-chars) * var(--motion-type-char-fast))"
+              step="var(--motion-type-char-fast)"
+            />
+            <br />
+            <TypedText
+              text={basedIn}
+              intro
+              start="calc(var(--motion-intro-text-at) + 18 * var(--motion-intro-stagger) + var(--bio-chars) * var(--motion-type-char-fast))"
+              step="var(--motion-type-char-fast)"
+              startIndex={status.length + 1}
+            />
+            <br />
+            <TypedText
+              text={workModel}
+              intro
+              start="calc(var(--motion-intro-text-at) + 18 * var(--motion-intro-stagger) + var(--bio-chars) * var(--motion-type-char-fast))"
+              step="var(--motion-type-char-fast)"
+              startIndex={status.length + basedIn.length + 2}
+            />
+          </p>
         </div>
       </section>
 

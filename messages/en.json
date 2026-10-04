@@ -66,7 +66,9 @@
   "profile": {
     "role": "Frontend-Focused Full-Stack Developer",
     "city": "Berlin, Germany",
-    "bio": "I'm a Frontend-focused Full-Stack Developer with three years of experience building production React and TypeScript applications for B2B and B2C products — from the UI through REST APIs and the PostgreSQL data layer, including authentication and claims-based authorization. I'm especially drawn to AI-powered products, shipping LLM features with validated, predictable output alongside measurable frontend and API performance gains."
+    "status": "Open to work · available now · EU citizen",
+    "workModel": "Berlin: on-site or hybrid · Germany: hybrid or remote",
+    "bio": "I'm a frontend-focused full-stack developer with three years in production React and TypeScript. At Sono Solar I built the frontend of the Solar Analytics Dashboard and of the Installation Tool, which now runs on three OEM production lines, and cut a fleet-analytics endpoint from 6.9 s to 1.2 s. I build features from the UI through REST APIs to PostgreSQL, and ship LLM features with validated output."
   },
   "items": {
     "resume": {

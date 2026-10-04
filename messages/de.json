@@ -50,7 +50,9 @@
   "profile": {
     "role": "Frontend-fokussierte Full-Stack-Entwicklerin",
     "city": "Berlin, Deutschland",
-    "bio": "Ich bin eine Frontend-fokussierte Full-Stack-Entwicklerin mit drei Jahren Erfahrung in der Entwicklung produktiver React- und TypeScript-Anwendungen für B2B- und B2C-Produkte — von der UI über REST-APIs bis zur PostgreSQL-Datenschicht, einschließlich Authentifizierung und claims-basierter Autorisierung. Besonders reizen mich KI-gestützte Produkte: Ich entwickle LLM-Funktionen mit validierten, vorhersagbaren Ergebnissen und messbar besserer Frontend- und API-Performance."
+    "status": "Offen für neue Rollen · ab sofort verfügbar · EU-Bürgerin",
+    "workModel": "Berlin: vor Ort oder hybrid · Deutschland: hybrid oder remote",
+    "bio": "Ich bin Frontend-fokussierte Full-Stack-Entwicklerin mit drei Jahren Erfahrung mit React und TypeScript in Produktion. Bei Sono Solar habe ich das Frontend des Solar Analytics Dashboards und des Installation Tools entwickelt, das heute auf drei OEM-Produktionslinien läuft, und einen Flottenanalyse-Endpunkt von 6,9 s auf 1,2 s beschleunigt. Ich entwickle Features von der UI über REST-APIs bis PostgreSQL und liefere LLM-Funktionen mit validierter Ausgabe."
   },
   "items": {
     "resume": {
