@@ -50,11 +50,12 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { headline, headlineStack } = getResumeContent(locale);
+  const { headline, headlineStack, city } = getResumeContent(locale);
+  const title = `${SITE_NAME} | ${headline}, ${city}`;
   return {
     metadataBase: new URL(SITE_URL),
-    title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
-    ...pageMetadata({ locale, path: '', description: `${headline}. ${headlineStack}.` }),
+    ...pageMetadata({ locale, path: '', title, description: `${headline}. ${headlineStack}.` }),
+    title: { default: title, template: `%s | ${SITE_NAME}` },
     twitter: { card: 'summary_large_image', images: [PREVIEW_IMAGE] },
   };
 }
