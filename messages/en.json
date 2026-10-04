@@ -89,7 +89,7 @@
       "coverKicker": "Code · Live Demo",
       "coverTitle": "My Projects",
       "coverFoot": "Updated hourly from GitHub",
-      "blurb": "An issue-per-project magazine. Stars, language split and last-commit dates arrive live from the GitHub API on the server and refresh every hour, so it never goes stale.",
+      "blurb": "An issue-per-project magazine. Language split and last-commit dates arrive live from the GitHub API on the server and refresh every hour, so it never goes stale.",
       "shortBlurb": "One issue per project. Repo stats pulled live from GitHub.",
       "chips": ["Live GitHub data", "ISR · 1h", "Live demo"],
       "cta": "Open the magazine"
@@ -131,7 +131,6 @@
   "projects": {
     "title": "My Projects",
     "rebuilt": "Rebuilt from the GitHub API {ago} · revalidates hourly",
-    "marginNote": "no star counts — commit recency is the honest metric",
     "featureProject": "Feature project",
     "screenshot": "[SCREENSHOT]",
     "lastCommit": "Last commit",

@@ -64,11 +64,6 @@
   .strip {
     padding-block: 12px;
   }
-
-  /* The shared `MarginNote` (19px) read small here; only this route bumps it. */
-  .strip > p:last-child {
-    font-size: 24px;
-  }
 }
 
 .status {

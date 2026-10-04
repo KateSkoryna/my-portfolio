@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
-import { MarginNote } from '@/components/MarginNote/MarginNote';
 import { motion } from '@/lib/design/tokens';
 import type { ProjectIssue, RepoLanguage } from '@/lib/github/repos';
 
@@ -108,7 +107,6 @@ export function Projects({
           <span className={styles.dot} aria-hidden="true" />
           <FetchedAgo iso={fetchedAt} />
         </p>
-        <MarginNote>{t('marginNote')}</MarginNote>
       </div>
 
       <article ref={featureRef} className={styles.feature} data-accent={featureAccent}>
