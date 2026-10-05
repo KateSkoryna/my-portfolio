@@ -267,14 +267,29 @@ export const featuredRepos: readonly FeaturedRepo[] = [
     demoUrl: 'https://solar-calculator-azure.vercel.app',
     screenshots: [
       {
-        src: '/solar-calculator.webp',
-        width: 3030,
-        height: 1898,
-        alt: 'The Solar Calculator landing page, in German: a heading for a solar calculator for commercial vehicles over an aerial forest photo, four feature panels and a “Get started” button.',
+        src: '/solar/sol-1.webp',
+        width: 2798,
+        height: 1808,
+        alt: 'The Solar Calculator landing page, in German: a headline asking whether solar modules pay off for vans and trucks, a “start estimate” button and an example result card showing a payback of 1.5 years.',
       },
-      null,
-      null,
-      null,
+      {
+        src: '/solar/sol-2.webp',
+        width: 2798,
+        height: 1808,
+        alt: 'Step 3 of the calculator, in German: a city field and overnight parking options on the left, and a live summary of the answers so far with an estimate accuracy bar on the right.',
+      },
+      {
+        src: '/solar/sol-3.webp',
+        width: 2798,
+        height: 1808,
+        alt: 'Step 4 of the calculator, in German: four cards for where to mount the modules (roof, roof and rear, sides, rear), with the answers summary on the right.',
+      },
+      {
+        src: '/solar/sol-4.webp',
+        width: 2798,
+        height: 1808,
+        alt: 'The result page, in German: payback in about 3 years 11 months, followed by cards for yearly savings, one-time cost after subsidy, avoided CO₂ and ten-year profit.',
+      },
     ],
     stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Prisma', 'NextAuth', 'Tailwind CSS'],
     highlights: [

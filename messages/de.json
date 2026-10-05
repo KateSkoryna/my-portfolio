@@ -195,7 +195,10 @@
           "Anmeldung mit Google oder E-Mail-Link"
         ],
         "alts": [
-          "Die Startseite des Solar Calculators, auf Deutsch: eine Überschrift für einen Solarrechner für Nutzfahrzeuge über einem Luftbild eines Waldes, vier Funktionskacheln und ein Button zum Starten."
+          "Die Startseite des Solar Calculators: eine Überschrift, ob sich Solarmodule für Transporter und Lkw lohnen, ein Button zum Starten der Schätzung und eine Beispielkarte mit 1,5 Jahren Amortisation.",
+          "Schritt 3 des Rechners: links ein Stadtfeld und Optionen zum nächtlichen Parken, rechts eine Zusammenfassung der bisherigen Antworten mit Genauigkeitsbalken.",
+          "Schritt 4 des Rechners: vier Karten, wo die Module angebracht werden (Dach, Dach und Heck, Seiten, Heck), rechts die Zusammenfassung der Antworten.",
+          "Die Ergebnisseite: Amortisation nach etwa 3 Jahren und 11 Monaten, darunter Karten für Ersparnis pro Jahr, Einmalkosten nach Förderung, vermiedenes CO₂ und Gesamtgewinn über 10 Jahre."
         ]
       },
       "my-portfolio": {
