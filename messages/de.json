@@ -43,14 +43,18 @@
     "identityLabel": "Über Kateryna",
     "descriptionLabel": "Ausgewähltes Element",
     "flipBook": "Details anzeigen",
-    "basedIn": "Ansässig in {city}",
     "pileNote": "vier weitere warten dran",
     "pileNoteCaption": "Auf einen Buchrücken im Stapel klicken, um direkt dorthin zu springen."
   },
   "profile": {
     "role": "Frontend-fokussierte Full-Stack-Entwicklerin",
     "city": "Berlin, Deutschland",
-    "bio": "Ich bin eine Frontend-fokussierte Full-Stack-Entwicklerin mit drei Jahren Erfahrung in der Entwicklung produktiver React- und TypeScript-Anwendungen für B2B- und B2C-Produkte — von der UI über REST-APIs bis zur PostgreSQL-Datenschicht, einschließlich Authentifizierung und claims-basierter Autorisierung. Besonders reizen mich KI-gestützte Produkte: Ich entwickle LLM-Funktionen mit validierten, vorhersagbaren Ergebnissen und messbar besserer Frontend- und API-Performance."
+    "noteWhere": "Berlin",
+    "noteWork": "Offen für neue Rollen",
+    "noteEu": "EU-Bürgerin",
+    "languages": "Englisch C1 · Deutsch: auf dem Weg zu C1",
+    "workModel": "Berlin: vor Ort, hybrid oder remote · Deutschland: remote",
+    "bio": "Ich bin Frontend-fokussierte Full-Stack-Entwicklerin mit drei Jahren Erfahrung mit React und TypeScript in Produktion. Bei Sono Solar habe ich das Frontend des Solar Analytics Dashboards und des Installation Tools entwickelt, das heute auf drei OEM-Produktionslinien läuft, und einen Flottenanalyse-Endpunkt von 6,9 s auf 1,2 s beschleunigt. Ich entwickle Features von der UI über REST-APIs bis PostgreSQL und liefere LLM-Funktionen mit validierter Ausgabe."
   },
   "items": {
     "resume": {
@@ -61,9 +65,9 @@
       "coverFoot": "Kateryna Skoryna · 2026",
       "blurb": "Der Lebenslauf als typografisches Objekt — Erfahrung, Tech-Stack und Ausbildung gesetzt wie eine gedruckte Seite statt als exportiertes PDF. Jede Zeile bleibt als reiner Text lesbar, auch für einen Recruiting-Parser.",
       "shortBlurb": "Erfahrung, Tech-Stack und Ausbildung, gesetzt wie eine gedruckte Seite.",
-      "chips": [],
+      "chips": ["Kenntnisse", "Erfahrung", "Projekte", "Ausbildung"],
       "cta": "Buch öffnen",
-      "secondaryCta": "PDF herunterladen"
+      "secondaryCta": "CV herunterladen"
     },
     "projects": {
       "kindLabel": "Magazin",
@@ -71,7 +75,7 @@
       "coverKicker": "Code · Live-Demo",
       "coverTitle": "Meine Projekte",
       "coverFoot": "Stündlich aktualisiert von GitHub",
-      "blurb": "Ein Magazin mit einer Ausgabe pro Projekt. Stars, Sprachverteilung und letzte Commit-Daten kommen live von der GitHub-API auf dem Server und werden stündlich aktualisiert, damit nichts veraltet.",
+      "blurb": "Ein Magazin mit einer Ausgabe pro Projekt. Sprachverteilung und letzte Commit-Daten kommen live von der GitHub-API auf dem Server und werden stündlich aktualisiert, damit nichts veraltet.",
       "shortBlurb": "Eine Ausgabe pro Projekt. Repo-Statistiken live von GitHub.",
       "chips": ["Live-GitHub-Daten", "ISR · 1 Std.", "Live-Demo"],
       "cta": "Magazin öffnen"
@@ -127,7 +131,7 @@
     "heroSize": "Heldengröße (244×340)"
   },
   "resume": {
-    "downloadPdf": "PDF herunterladen",
+    "downloadPdf": "CV herunterladen",
     "book": "Lebenslauf",
     "prev": "Vorherige Seiten",
     "next": "Nächste Seiten",
@@ -140,7 +144,6 @@
   "projects": {
     "title": "Meine Projekte",
     "rebuilt": "Neu erstellt aus der GitHub-API {ago} · stündlich aktualisiert",
-    "marginNote": "keine Stern-Zahlen — die Aktualität der Commits ist die ehrliche Kennzahl",
     "featureProject": "Hauptprojekt",
     "screenshot": "[SCREENSHOT]",
     "lastCommit": "Letzter Commit",
@@ -150,8 +153,77 @@
     "makeFeature": "{name} als Hauptprojekt anzeigen",
     "nowFeatured": "{name} ist jetzt das Hauptprojekt",
     "stack": "Stack",
+    "challenge": "Die Herausforderung",
+    "highlights": "Highlights",
+    "prevScreenshot": "Vorheriger Screenshot",
+    "nextScreenshot": "Nächster Screenshot",
+    "screenshotStatus": "Screenshot {n} von {count}",
     "stackPlaceholder": "[STACK]",
-    "selectedWork": "Ausgewählte Arbeiten"
+    "selectedWork": "Ausgewählte Arbeiten",
+    "items": {
+      "task-manager": {
+        "summary": "Eine Aufgaben-App mit KI-Assistent, der Aufgaben aus natürlicher Sprache erstellt, ändert und löscht.",
+        "challenge": "Der Assistent konnte seine eigene Löschanfrage bestätigen. Die Bestätigung läuft jetzt auf dem Server und zählt nur, wenn der Nutzer auf „Bestätigen“ klickt.",
+        "highlights": [
+          "Sechs Assistenten-Tools, serverseitig validiert",
+          "Evaluationssuite mit 22 Testfällen für den Assistenten",
+          "Berichte auf Englisch, Deutsch und Ukrainisch"
+        ],
+        "alts": [
+          "Das Dashboard: Tagesfortschritt, ein Feld zum Hinzufügen von Aufgaben, das ganze Sätze versteht, Aufgaben mit höchster Priorität, eine Wochenübersicht nach Status und die heutige Aufgabenliste.",
+          "Die Seite „Meine Aufgaben“: Aufgaben in Listen wie Bildung und Gesundheit gruppiert, rechts ein Detailbereich der gewählten Aufgabe mit Status, Fälligkeitsdatum und Priorität.",
+          "Die Statistikseite: Abschlussquote, Planungslast, ein Diagramm geplant gegenüber erledigt, Arbeitsverteilung und Alter unerledigter Aufgaben.",
+          "Die Berichtsseite: ein Monatsbericht für August 2026 mit Kennzahlen, Diagrammen und einem Button zum Drucken oder Speichern als PDF."
+        ]
+      },
+      "quizdom-react-app": {
+        "title": "QuizDOM — KI-Lernapp",
+        "summary": "Eine Lern-App, in der ein LLM Quizze nach Thema, Niveau und Sprache erstellt.",
+        "challenge": "Erzeugte Quizze wiederholten Fragen und wichen vom Thema ab. Ich habe ein Evaluationslabor gebaut, in dem ein zweites Modell sie bewertet, und den Prompt anhand der Bewertungen angepasst.",
+        "highlights": [
+          "Typisiertes Ausgabeschema mit automatischen Wiederholungen",
+          "Admin-Labor mit LLM-as-Judge-Bewertung",
+          "Suche nach Bedeutung, nicht nur nach Titel"
+        ],
+        "alts": [
+          "Die Startseite von Quizdom: ein dunkler Hero-Bereich mit der Überschrift „Dive into the depths of coding wisdom“, Buttons zum Entdecken von Quizzen und zur Themensuche und ein Suchfeld, um das gewünschte Quiz zu beschreiben.",
+          "Das Quizraster: eine Karte zum Hinzufügen eines Quiz und Quizkarten mit Thema, Schwierigkeit, Bewertung, Fragenanzahl und Abschluss-Badge.",
+          "Ein laufendes Quiz in einem Dialog: Frage 1 von 12 mit Hinweis-Button, zwei Antwortoptionen sowie Zurück- und Weiter-Button.",
+          "Die Profilseite im Tab „Meine Ergebnisse“: links bestandene Quizze, Durchschnittsergebnis und Quizdom-Bewertung, rechts eine Liste abgeschlossener Quizze mit Ergebnis und Bewertung."
+        ]
+      },
+      "solar-calculator": {
+        "summary": "Eine mandantenfähige App, die Flottenbetreibern hilft, Solarpanels für Busse, Lkw, Transporter und Anhänger zu bewerten.",
+        "challenge": "Die Antworten eines Besuchers müssen die Registrierung überstehen. Sie warten im Browser und werden genau einmal in der neuen Flotte gespeichert, abgesichert durch einen Hash und eine Unique-Constraint in der Datenbank.",
+        "highlights": [
+          "Rollenprüfung bei jeder Anfrage, pro Flotte",
+          "Audit-Log in derselben Transaktion wie jede Änderung",
+          "OAuth-Anmeldung (Google) und passwortlose E-Mail-Links"
+        ],
+        "alts": [
+          "Die Startseite des Solar Calculators: eine Überschrift, ob sich Solarmodule für Transporter und Lkw lohnen, ein Button zum Starten der Schätzung und eine Beispielkarte mit 1,5 Jahren Amortisation.",
+          "Schritt 3 des Rechners: links ein Stadtfeld und Optionen zum nächtlichen Parken, rechts eine Zusammenfassung der bisherigen Antworten mit Genauigkeitsbalken.",
+          "Schritt 4 des Rechners: vier Karten, wo die Module angebracht werden (Dach, Dach und Heck, Seiten, Heck), rechts die Zusammenfassung der Antworten.",
+          "Die Ergebnisseite: Amortisation nach etwa 3 Jahren und 11 Monaten, darunter Karten für Ersparnis pro Jahr, Einmalkosten nach Förderung, vermiedenes CO₂ und Gesamtgewinn über 10 Jahre."
+        ]
+      },
+      "my-portfolio": {
+        "title": "Dieses Portfolio",
+        "summary": "Ein Portfolio als Stapel physischer Objekte – Buch, Magazin, Notizbuch, Zeitung, Feldführer –, jedes davon eine eigene Route.",
+        "challenge": "Zwei Sprachen ohne Rendering bei jeder Anfrage: Die Sprache ist Teil der URL, deshalb wird jede Seite einmal pro Sprache gebaut.",
+        "highlights": [
+          "Live-GitHub-Daten, stündlich aktualisiert",
+          "Alle Animationen in reinem CSS, ohne Animationsbibliothek",
+          "Barrierefreiheit bei jedem Pull Request geprüft"
+        ],
+        "alts": [
+          "Die Startseite des Portfolios: ein schwebendes Lebenslauf-Buch über einem Stapel aus vier weiteren Büchern, links ein Profilblock, rechts ein Beschreibungsfeld.",
+          "Die Lebenslauf-Seite: ein aufgeschlagenes Buch mit dem Lebenslauf auf zwei Seiten, Pfeile zum Blättern und oben ein Button zum Herunterladen.",
+          "Die Blog-Seite: ein aufgeschlagenes Spiralnotizbuch mit liniertem Papier und goldenen Spiralen in der Mitte.",
+          "Die Über-mich-Seite: eine Zeitung namens „Feierabend“ mit nummerierten Fakten und Fotos in vier Spalten."
+        ]
+      }
+    }
   },
   "journal": {
     "categories": {

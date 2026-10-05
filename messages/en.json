@@ -43,7 +43,6 @@
     "identityLabel": "About Kateryna",
     "descriptionLabel": "Selected item",
     "flipBook": "Show details",
-    "basedIn": "Based in {city}",
     "pileNote": "four more waiting their turn",
     "pileNoteCaption": "Click any spine in the pile to jump straight to it."
   },
@@ -66,7 +65,12 @@
   "profile": {
     "role": "Frontend-Focused Full-Stack Developer",
     "city": "Berlin, Germany",
-    "bio": "I'm a Frontend-focused Full-Stack Developer with three years of experience building production React and TypeScript applications for B2B and B2C products — from the UI through REST APIs and the PostgreSQL data layer, including authentication and claims-based authorization. I'm especially drawn to AI-powered products, shipping LLM features with validated, predictable output alongside measurable frontend and API performance gains."
+    "noteWhere": "{city}",
+    "noteWork": "Open to work",
+    "noteEu": "EU citizen",
+    "languages": "English C1 · German: progressing toward C1",
+    "workModel": "Berlin: onsite, hybrid or remote · Germany: remote",
+    "bio": "I'm a frontend-focused full-stack developer with three years in production React and TypeScript. At Sono Solar I built the frontend of the Solar Analytics Dashboard and of the Installation Tool, which now runs on three OEM production lines, and cut a fleet-analytics endpoint from 6.9 s to 1.2 s. I build features from the UI through REST APIs to PostgreSQL, and ship LLM features with validated output."
   },
   "items": {
     "resume": {
@@ -77,9 +81,9 @@
       "coverFoot": "Kateryna Skoryna · 2026",
       "blurb": "The CV as a typeset object — experience, stack and education set like a printed page rather than an exported PDF. Every line still reads as plain text for a recruiter parser.",
       "shortBlurb": "Experience, stack and education, typeset like a printed page.",
-      "chips": [],
+      "chips": ["Skills", "Experience", "Projects", "Education"],
       "cta": "Open the book",
-      "secondaryCta": "Download PDF"
+      "secondaryCta": "Download CV"
     },
     "projects": {
       "kindLabel": "Magazine",
@@ -87,7 +91,7 @@
       "coverKicker": "Code · Live Demo",
       "coverTitle": "My Projects",
       "coverFoot": "Updated hourly from GitHub",
-      "blurb": "An issue-per-project magazine. Stars, language split and last-commit dates arrive live from the GitHub API on the server and refresh every hour, so it never goes stale.",
+      "blurb": "An issue-per-project magazine. Language split and last-commit dates arrive live from the GitHub API on the server and refresh every hour, so it never goes stale.",
       "shortBlurb": "One issue per project. Repo stats pulled live from GitHub.",
       "chips": ["Live GitHub data", "ISR · 1h", "Live demo"],
       "cta": "Open the magazine"
@@ -129,7 +133,6 @@
   "projects": {
     "title": "My Projects",
     "rebuilt": "Rebuilt from the GitHub API {ago} · revalidates hourly",
-    "marginNote": "no star counts — commit recency is the honest metric",
     "featureProject": "Feature project",
     "screenshot": "[SCREENSHOT]",
     "lastCommit": "Last commit",
@@ -139,11 +142,16 @@
     "makeFeature": "Show {name} as the feature project",
     "nowFeatured": "{name} is now the feature project",
     "stack": "Stack",
+    "challenge": "The hard part",
+    "highlights": "Highlights",
+    "prevScreenshot": "Previous screenshot",
+    "nextScreenshot": "Next screenshot",
+    "screenshotStatus": "Screenshot {n} of {count}",
     "stackPlaceholder": "[STACK]",
     "selectedWork": "Selected work"
   },
   "resume": {
-    "downloadPdf": "Download PDF",
+    "downloadPdf": "Download CV",
     "book": "Resume",
     "prev": "Previous pages",
     "next": "Next pages",

@@ -1,7 +1,7 @@
 /**
  * The CV. Structure and types live here; the text is one `ResumeContent` per
  * locale — `resume.en.ts` (verbatim from `docs/CV.md`) and `resume.de.ts` (a
- * German translation of it). Interface strings (arrow labels, "Download PDF")
+ * German translation of it). Interface strings (arrow labels, "Download CV")
  * live in `messages/<locale>.json` under `resume`.
  *
  * The downloadable PDF is the English CV only. When the CV changes, edit the

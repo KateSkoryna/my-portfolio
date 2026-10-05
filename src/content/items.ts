@@ -45,7 +45,7 @@ export interface PortfolioItem {
   chips: readonly string[];
   /** Call-to-action label. "Open the book", "Open the magazine"… */
   cta: string;
-  /** Optional second action beside the CTA, e.g. the resume's "Download PDF". */
+  /** Optional second action beside the CTA, e.g. the resume's "Download CV". */
   secondaryCta?: string;
   /** Front cover colour. Also the flat spine fill — see DESIGN.md §2.2. */
   cover: string;
@@ -56,7 +56,7 @@ export interface PortfolioItem {
    * magazine is thickest because it is what most visitors come for.
    */
   thickness: number;
-  /** False = designed but not yet built. Drives a "coming soon" state. */
+  /** False = designed but not yet built. All five are built; nothing reads this yet. */
   published: boolean;
 }
 
@@ -116,7 +116,7 @@ export const itemsBase: readonly ItemStructural[] = [
     cover: '#E9B44C',
     coverDark: '#A97C22',
     thickness: 26,
-    published: false,
+    published: true,
   },
   {
     id: 'handbook',
@@ -167,6 +167,13 @@ export function localizeItems(t: ItemsTranslator): readonly PortfolioItem[] {
  * Descriptions are intentionally empty: they are written by Kateryna, not
  * inferred from repo names.
  */
+export interface ProjectScreenshot {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+
 export interface FeaturedRepo {
   /** Repo name under github.com/KateSkoryna */
   repo: string;
@@ -175,11 +182,10 @@ export interface FeaturedRepo {
    * it says what the project is, for someone who has never opened the repo.
    */
   title: string;
-  /**
-   * Two sentences, same shape for every project: what it is and who it is
-   * for; then "Built with <technologies>, it features <features>."
-   */
+  /** One sentence: what it is and who it is for. The technologies are in `stack`. */
   summary: string;
+  /** Two short sentences: the hard problem, then what she decided. */
+  challenge?: string;
   /** Optional live deployment. */
   demoUrl?: string;
   /**
@@ -188,8 +194,19 @@ export interface FeaturedRepo {
    * MongoDB/NestJS/AI project reads as just "TypeScript").
    */
   stack?: readonly string[];
-  /** Image under `public/`. Without one the feature card shows a `[SCREENSHOT]` placeholder. */
-  screenshot?: { src: string; width: number; height: number; alt: string };
+  /**
+   * Three short lines on what is special about the project. Shown in place of
+   * the GitHub language split, which repeats what `stack` already says.
+   */
+  highlights?: readonly string[];
+  /**
+   * Images under `public/`, shown as a small carousel on the card; the first
+   * is the one a visitor sees before clicking. `null` is a slide still waiting
+   * for its image and shows a `[SCREENSHOT]` placeholder — to fill one, put
+   * the file in `public/` and replace the `null` with its `src`, pixel
+   * `width` and `height`, and an `alt` describing what the screen shows.
+   */
+  screenshots?: readonly (ProjectScreenshot | null)[];
 }
 
 export const featuredRepos: readonly FeaturedRepo[] = [
@@ -197,57 +214,164 @@ export const featuredRepos: readonly FeaturedRepo[] = [
     repo: 'task-manager',
     title: 'AI Task Manager',
     demoUrl: 'https://todo-list-frontend-six-drab.vercel.app/',
-    screenshot: {
-      src: '/task-manager.webp',
-      width: 3386,
-      height: 1898,
-      alt: 'The task-manager dashboard: today’s completion, top-priority tasks, a weekly task-status view and today’s task list.',
-    },
+    screenshots: [
+      {
+        src: '/tasks/t-1.webp',
+        width: 3386,
+        height: 1898,
+        alt: 'The dashboard: today’s completion, an add-task box that parses plain sentences, top-priority tasks, a weekly task-status view and today’s task list.',
+      },
+      {
+        src: '/tasks/t-2.webp',
+        width: 3380,
+        height: 1878,
+        alt: 'The My Tasks page: tasks grouped into lists such as Education and Health, and a detail panel for the selected task with its status, due date and priority.',
+      },
+      {
+        src: '/tasks/t-3.webp',
+        width: 3380,
+        height: 1878,
+        alt: 'The Statistics page: completion rate, planning load, a planned-versus-completed chart, workload distribution and unfinished-task aging.',
+      },
+      {
+        src: '/tasks/t-4.webp',
+        width: 3380,
+        height: 1878,
+        alt: 'The Reports page: a monthly report for August 2026 with key figures, charts and a Print / Save as PDF button.',
+      },
+    ],
     stack: ['React', 'TypeScript', 'NestJS', 'MongoDB', 'Firebase', 'Tailwind CSS', 'Gemini AI'],
+    highlights: [
+      'Six assistant tools, validated on the server',
+      '22-case evaluation suite for the assistant',
+      'Reports in English, German and Ukrainian',
+    ],
     summary:
-      'A modern full-stack productivity app with a conversational AI assistant for managing tasks through natural language. Built with React, NestJS, MongoDB, Firebase, and Gemini, it features analytics, AI-powered reports, secure user-scoped access, and multilingual support.',
+      'A task app with an AI assistant that creates, updates and deletes tasks from plain language.',
+    challenge:
+      'The assistant could confirm its own delete request. Confirmation now happens on the server and only counts when the user clicks Confirm.',
   },
   {
     repo: 'quizdom-react-app',
     title: 'QuizDOM — AI Learning App',
     demoUrl: 'https://kateskoryna.github.io/quizdom-react-app/',
-    screenshot: {
-      src: '/quizdom.webp',
-      width: 2908,
-      height: 1898,
-      alt: 'The Quizdom home page: a search box for describing the quiz you want, and a grid of quiz cards showing difficulty, rating and completion.',
-    },
+    screenshots: [
+      {
+        src: '/quizdom/q-1.webp',
+        width: 2948,
+        height: 1900,
+        alt: 'The Quizdom home page: a dark hero reading “Dive into the depths of coding wisdom” with Explore quizzes and Find a topic buttons, and a search box for describing the quiz you want.',
+      },
+      {
+        src: '/quizdom/q-2.webp',
+        width: 2948,
+        height: 1900,
+        alt: 'The quiz grid: an Add quiz card and quiz cards with topic, difficulty, rating, question count and a Completed badge.',
+      },
+      {
+        src: '/quizdom/q-3.webp',
+        width: 2948,
+        height: 1900,
+        alt: 'A quiz in progress in a dialog: question 1 of 12 with a Show hint button, two answer options, and Previous and Next buttons.',
+      },
+      {
+        src: '/quizdom/q-4.webp',
+        width: 2948,
+        height: 1900,
+        alt: 'The profile page on the My results tab: quizzes passed, average score and Quizdom rating on the left, and a list of completed quizzes with scores and ratings.',
+      },
+    ],
     stack: ['React', 'TypeScript', 'Firebase', 'Genkit', 'Gemini AI', 'Sass'],
-    summary:
-      'An educational app where an LLM assists users with learning, generating quizzes by topic, level and language with hints and scoring. Built with React 19, TypeScript, Firebase, Genkit, and Gemini, it features semantic quiz search and an admin lab where Gemini scores generated quizzes.',
+    highlights: [
+      'Typed output schema with automatic retries',
+      'Admin lab with LLM-as-judge scoring',
+      'Search by meaning, not only by title',
+    ],
+    summary: 'A learning app where an LLM generates quizzes by topic, level and language.',
+    challenge:
+      'Generated quizzes repeated questions and drifted off topic. I built an evaluation lab where a second model scores them, and tuned the prompt against the scores.',
   },
   {
     repo: 'solar-calculator',
     title: 'Fleet Solar Calculator',
     demoUrl: 'https://solar-calculator-azure.vercel.app',
-    screenshot: {
-      src: '/solar-calculator.webp',
-      width: 3030,
-      height: 1898,
-      alt: 'The Solar Calculator landing page, in German: a heading for a solar calculator for commercial vehicles over an aerial forest photo, four feature panels and a “Get started” button.',
-    },
+    screenshots: [
+      {
+        src: '/solar/sol-1.webp',
+        width: 2798,
+        height: 1808,
+        alt: 'The Solar Calculator landing page, in German: a headline asking whether solar modules pay off for vans and trucks, a “start estimate” button and an example result card showing a payback of 1.5 years.',
+      },
+      {
+        src: '/solar/sol-2.webp',
+        width: 2798,
+        height: 1808,
+        alt: 'Step 3 of the calculator, in German: a city field and overnight parking options on the left, and a live summary of the answers so far with an estimate accuracy bar on the right.',
+      },
+      {
+        src: '/solar/sol-3.webp',
+        width: 2798,
+        height: 1808,
+        alt: 'Step 4 of the calculator, in German: four cards for where to mount the modules (roof, roof and rear, sides, rear), with the answers summary on the right.',
+      },
+      {
+        src: '/solar/sol-4.webp',
+        width: 2798,
+        height: 1808,
+        alt: 'The result page, in German: payback in about 3 years 11 months, followed by cards for yearly savings, one-time cost after subsidy, avoided CO₂ and ten-year profit.',
+      },
+    ],
     stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Prisma', 'NextAuth', 'Tailwind CSS'],
+    highlights: [
+      'Role checks on every request, per fleet',
+      'Audit log in the same transaction as each change',
+      'OAuth sign-in (Google) and passwordless email links',
+    ],
     summary:
-      'A multi-tenant web app that helps commercial fleet operators evaluate solar panel investments for buses, trucks, vans and trailers. Built with Next.js 16, React 19, TypeScript, PostgreSQL, and Prisma, it features fleet-scoped role-based access, a vehicle and calculation data model, and EN/DE/ES i18n.',
+      'A multi-tenant app that helps fleet operators evaluate solar panels for buses, trucks, vans and trailers.',
+    challenge:
+      'A visitor’s answers must survive sign-up. They wait in the browser and are saved to the new fleet exactly once, guarded by a hash and a unique database constraint.',
   },
   {
     repo: 'my-portfolio',
     title: 'This Portfolio',
     summary:
-      'A personal portfolio designed as a stack of physical objects - book, magazine, notebook, newspaper, field guide - each one a route. Built with Next.js 16, React 19, and TypeScript, it features live GitHub data via ISR, EN/DE i18n, and zero animation libraries.',
+      'A portfolio built as a stack of physical objects - book, magazine, notebook, newspaper, field guide - each one a route.',
+    challenge:
+      'Two languages without rendering on every request: the language is part of the URL, so every page is built once per language.',
     demoUrl: 'https://katerynaskoryna.com',
-    screenshot: {
-      src: '/my-portfolio.webp',
-      width: 2860,
-      height: 1898,
-      alt: 'The portfolio landing page: a floating Resume book with a pile of four more books beneath it, an identity block on the left and a description panel on the right.',
-    },
-    stack: ['Next.js', 'React', 'TypeScript', 'next-intl', 'CSS Modules'],
+    screenshots: [
+      {
+        src: '/my-portfolio.webp',
+        width: 2860,
+        height: 1898,
+        alt: 'The portfolio landing page: a floating Resume book with a pile of four more books beneath it, an identity block on the left and a description panel on the right.',
+      },
+      {
+        src: '/my-portfolio-resume.jpg',
+        width: 2860,
+        height: 1740,
+        alt: 'The resume page: an open book with the CV set across two pages, arrows to turn them and a Download CV button above.',
+      },
+      {
+        src: '/my-portfolio-journal.jpg',
+        width: 2860,
+        height: 1740,
+        alt: 'The blog page: a spiral notebook open on a post, with ruled pages and gold coils down the middle.',
+      },
+      {
+        src: '/my-portfolio-about.jpg',
+        width: 2860,
+        height: 1740,
+        alt: 'The about page: a newspaper called Off the Clock, with numbered facts and photos in four columns.',
+      },
+    ],
+    stack: ['Next.js', 'React', 'TypeScript', 'SSG + ISR', 'next-intl', 'CSS Modules'],
+    highlights: [
+      'Live GitHub data, refreshed hourly',
+      'All motion in plain CSS, no animation library',
+      'Accessibility checked on every pull request',
+    ],
   },
 ] as const;
 
@@ -269,3 +393,28 @@ export const profile = {
   lookingFor:
     '[TWO SENTENCES. The kind of team, the kind of problem, and whether you want onsite, hybrid or remote.]',
 } as const;
+
+/**
+ * Overlays the translated project texts from `messages/<locale>.json`
+ * (`projects.items.<repo>`) onto a featured repo. English has none — its
+ * copy is the one above — so it comes back unchanged; so does any field a
+ * locale leaves out. `alts` is one description per screenshot, in order.
+ * `t` is a translator scoped to the `projects` namespace.
+ */
+export function localizeFeaturedRepo<T extends FeaturedRepo>(repo: T, t: ItemsTranslator): T {
+  const key = `items.${repo.repo}`;
+  if (!t.has(`${key}.summary`)) return repo;
+  const alts = t.has(`${key}.alts`) ? (t.raw(`${key}.alts`) as readonly string[]) : [];
+  return {
+    ...repo,
+    title: t.has(`${key}.title`) ? t(`${key}.title`) : repo.title,
+    summary: t(`${key}.summary`),
+    challenge: t.has(`${key}.challenge`) ? t(`${key}.challenge`) : repo.challenge,
+    highlights: t.has(`${key}.highlights`)
+      ? (t.raw(`${key}.highlights`) as readonly string[])
+      : repo.highlights,
+    screenshots: repo.screenshots?.map((shot, i) =>
+      shot ? { ...shot, alt: alts[i] ?? shot.alt } : shot,
+    ),
+  };
+}

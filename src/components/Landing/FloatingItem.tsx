@@ -12,9 +12,8 @@ import styles from './FloatingItem.module.css';
  * as a book seen slightly edge-on rather than a flat poster.
  *
  * On desktop every item links straight to its route (one click, no bring-to-
- * front step — §4.1), published or not — the unbuilt routes 404 for now
- * *(Kateryna's call)*. No publish-status badge either way — DESIGN.md's
- * canvas draws every cover as finished art.
+ * front step — §4.1). No publish-status badge — DESIGN.md's canvas draws
+ * every cover as finished art.
  *
  * Plain and synchronous — `Landing` resolves labels once via
  * `next-intl/server` and passes them down, rather than every slide calling
