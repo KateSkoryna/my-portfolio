@@ -43,15 +43,17 @@
     "identityLabel": "Über Kateryna",
     "descriptionLabel": "Ausgewähltes Element",
     "flipBook": "Details anzeigen",
-    "basedIn": "Ansässig in {city}",
     "pileNote": "vier weitere warten dran",
     "pileNoteCaption": "Auf einen Buchrücken im Stapel klicken, um direkt dorthin zu springen."
   },
   "profile": {
     "role": "Frontend-fokussierte Full-Stack-Entwicklerin",
     "city": "Berlin, Deutschland",
-    "status": "Offen für neue Rollen · ab sofort verfügbar · EU-Bürgerin",
-    "workModel": "Berlin: vor Ort oder hybrid · Deutschland: hybrid oder remote",
+    "noteWhere": "Berlin",
+    "noteWork": "Offen für neue Rollen",
+    "noteEu": "EU-Bürgerin",
+    "languages": "Englisch C1 · Deutsch: auf dem Weg zu C1",
+    "workModel": "Berlin: vor Ort, hybrid oder remote · Deutschland: remote",
     "bio": "Ich bin Frontend-fokussierte Full-Stack-Entwicklerin mit drei Jahren Erfahrung mit React und TypeScript in Produktion. Bei Sono Solar habe ich das Frontend des Solar Analytics Dashboards und des Installation Tools entwickelt, das heute auf drei OEM-Produktionslinien läuft, und einen Flottenanalyse-Endpunkt von 6,9 s auf 1,2 s beschleunigt. Ich entwickle Features von der UI über REST-APIs bis PostgreSQL und liefere LLM-Funktionen mit validierter Ausgabe."
   },
   "items": {

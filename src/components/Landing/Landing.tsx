@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 
 import { itemsBase, localizeItems, profile } from '@/content/items';
+import { MarginNote } from '@/components/MarginNote/MarginNote';
 import { SocialLink } from '@/components/SocialLink/SocialLink';
 
 import { FloatingItem } from './FloatingItem';
@@ -41,9 +42,11 @@ export async function Landing() {
   const tCommon = await getTranslations('common');
   const items = localizeItems(tItems);
   const bio = tProfile('bio');
-  const basedIn = t('basedIn', { city: tProfile('city') });
-  const status = tProfile('status');
+  const noteWhere = tProfile('noteWhere', { city: tProfile('city') });
+  const noteWork = tProfile('noteWork');
+  const noteEu = tProfile('noteEu');
   const workModel = tProfile('workModel');
+  const languages = tProfile('languages');
   const [roleLead, roleLast] = splitFirstWord(tProfile('role'));
 
   const slides = items.map((item) => ({
@@ -98,14 +101,76 @@ export async function Landing() {
               startIndex={roleLead.length + 1}
             />
           </p>
-          <h1 className={styles.name}>
-            <TypedText
-              text={profile.name}
-              intro
-              start="calc(var(--motion-intro-text-at) + 2 * var(--motion-intro-stagger))"
-              step="var(--motion-type-char)"
-            />
-          </h1>
+          {/* The name with a handwritten aside to its right: a dotted arrow leads
+              from the last letter of the first name to the note, the same device
+              as the note beside the pile. */}
+          <div className={styles.nameRow}>
+            <h1 className={styles.name}>
+              <TypedText
+                text={profile.name}
+                intro
+                start="calc(var(--motion-intro-text-at) + 2 * var(--motion-intro-stagger))"
+                step="var(--motion-type-char)"
+              />
+            </h1>
+            <div className={styles.noteRow}>
+              <svg className={styles.noteArrow} viewBox="0 0 145 40" fill="none" aria-hidden="true">
+                <path
+                  d="M2 6 C 70 6, 60 32, 141 34"
+                  stroke="var(--color-emerald)"
+                  strokeWidth="1.6"
+                  strokeDasharray="1 7"
+                  strokeLinecap="round"
+                />
+                <circle cx="141" cy="34" r="3" fill="var(--color-emerald)" />
+              </svg>
+              {/* Desktop: the same arrow drawn the other way up, rising from the
+                  end of the last name to the note. */}
+              <svg
+                className={styles.noteArrowUp}
+                viewBox="0 0 145 40"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M2 34 C 70 34, 60 8, 141 6"
+                  stroke="var(--color-emerald)"
+                  strokeWidth="1.6"
+                  strokeDasharray="1 7"
+                  strokeLinecap="round"
+                />
+                <circle cx="141" cy="6" r="3" fill="var(--color-emerald)" />
+              </svg>
+              <div className={styles.noteText}>
+                <MarginNote>
+                  <TypedText
+                    text={noteWhere}
+                    intro
+                    start="calc(var(--motion-intro-text-at) + 10 * var(--motion-intro-stagger))"
+                    step="var(--motion-type-char-fast)"
+                  />
+                </MarginNote>
+                <MarginNote>
+                  <TypedText
+                    text={noteWork}
+                    intro
+                    start="calc(var(--motion-intro-text-at) + 10 * var(--motion-intro-stagger))"
+                    step="var(--motion-type-char-fast)"
+                    startIndex={noteWhere.length + 1}
+                  />
+                </MarginNote>
+                <MarginNote>
+                  <TypedText
+                    text={noteEu}
+                    intro
+                    start="calc(var(--motion-intro-text-at) + 10 * var(--motion-intro-stagger))"
+                    step="var(--motion-type-char-fast)"
+                    startIndex={noteWhere.length + noteWork.length + 2}
+                  />
+                </MarginNote>
+              </div>
+            </div>
+          </div>
         </div>
         <div className={styles.identityAbout}>
           <p className={styles.stack}>
@@ -135,28 +200,20 @@ export async function Landing() {
               {tCommon('email')}
             </SocialLink>
           </div>
-          <p className={`${styles.stack} ${styles.status}`}>
-            <TypedText
-              text={status}
-              intro
-              start="calc(var(--motion-intro-text-at) + 18 * var(--motion-intro-stagger) + var(--bio-chars) * var(--motion-type-char-fast))"
-              step="var(--motion-type-char-fast)"
-            />
-            <br />
-            <TypedText
-              text={basedIn}
-              intro
-              start="calc(var(--motion-intro-text-at) + 18 * var(--motion-intro-stagger) + var(--bio-chars) * var(--motion-type-char-fast))"
-              step="var(--motion-type-char-fast)"
-              startIndex={status.length + 1}
-            />
-            <br />
+          <p className={styles.details}>
             <TypedText
               text={workModel}
               intro
               start="calc(var(--motion-intro-text-at) + 18 * var(--motion-intro-stagger) + var(--bio-chars) * var(--motion-type-char-fast))"
               step="var(--motion-type-char-fast)"
-              startIndex={status.length + basedIn.length + 2}
+            />
+            <br />
+            <TypedText
+              text={languages}
+              intro
+              start="calc(var(--motion-intro-text-at) + 18 * var(--motion-intro-stagger) + var(--bio-chars) * var(--motion-type-char-fast))"
+              step="var(--motion-type-char-fast)"
+              startIndex={workModel.length + 1}
             />
           </p>
         </div>
