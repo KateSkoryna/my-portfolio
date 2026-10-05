@@ -81,7 +81,7 @@
       "coverFoot": "Kateryna Skoryna · 2026",
       "blurb": "The CV as a typeset object — experience, stack and education set like a printed page rather than an exported PDF. Every line still reads as plain text for a recruiter parser.",
       "shortBlurb": "Experience, stack and education, typeset like a printed page.",
-      "chips": ["Skills", "Experience", "Education"],
+      "chips": ["Skills", "Experience", "Projects", "Education"],
       "cta": "Open the book",
       "secondaryCta": "Download CV"
     },
