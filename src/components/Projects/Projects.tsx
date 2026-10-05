@@ -424,26 +424,34 @@ function Screenshots({ shots }: { shots: ProjectIssue['screenshots'] }) {
   const [index, setIndex] = useState(0);
   if (!shots?.length) return <p>{t('screenshot')}</p>;
 
-  const shot = shots[index];
   const many = shots.length > 1;
   const step = (by: number) => setIndex((i) => (i + by + shots.length) % shots.length);
 
   return (
     <div className={styles.shots}>
-      <div className={styles.shotFrame}>
-        {shot ? (
-          <Image
-            key={shot.src}
-            src={shot.src}
-            width={shot.width}
-            height={shot.height}
-            alt={shot.alt}
-            sizes="(min-width: 1200px) 25vw, 100vw"
-            className={styles.screenshotImage}
-          />
-        ) : (
-          <span className={styles.shotPlaceholder}>{t('screenshot')}</span>
-        )}
+      <div className={styles.shotStage}>
+        <div className={styles.shotFrame}>
+          {shots.map((shot, i) => (
+            <div
+              key={shot?.src ?? `placeholder-${i}`}
+              className={`${styles.shotSlide} ${i === index ? styles.shotSlideActive : ''}`}
+              aria-hidden={i === index ? undefined : true}
+            >
+              {shot ? (
+                <Image
+                  src={shot.src}
+                  width={shot.width}
+                  height={shot.height}
+                  alt={shot.alt}
+                  sizes="(min-width: 1200px) 25vw, 100vw"
+                  className={styles.screenshotImage}
+                />
+              ) : (
+                <span className={styles.shotPlaceholder}>{t('screenshot')}</span>
+              )}
+            </div>
+          ))}
+        </div>
         {many && (
           <>
             <button

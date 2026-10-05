@@ -209,7 +209,7 @@
 .screenshot {
   display: flex;
   padding: clamp(18px, 2.4vw, 28px);
-  padding-left: 0;
+  padding-left: 16px;
 }
 
 /* Above a small card's whole-card click target, so the arrows and dots work. */
@@ -225,6 +225,11 @@
 
 /* One frame for every screenshot: they are cropped to it, top-left kept, so
    projects with differently shaped images still give the same card. */
+.shotStage {
+  position: relative;
+  width: 100%;
+}
+
 .shotFrame {
   position: relative;
   width: 100%;
@@ -240,6 +245,19 @@
   height: 100%;
   object-fit: cover;
   object-position: left top;
+}
+
+/* Every slide sits in the frame at once and the current one fades in, so a
+   change is a crossfade and an image that was seen is already loaded. */
+.shotSlide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity var(--motion-select) var(--motion-ease);
+}
+
+.shotSlideActive {
+  opacity: 1;
 }
 
 /* A slide whose image has not been added yet. */
@@ -270,11 +288,11 @@
 }
 
 .shotPrev {
-  left: 0;
+  left: calc(var(--a11y-min-target) / -2);
 }
 
 .shotNext {
-  right: 0;
+  right: calc(var(--a11y-min-target) / -2);
 }
 
 .shotArrowDisc {
@@ -662,6 +680,7 @@
 /* Links left, last-commit date in the bottom-right corner. */
 .cardBottom {
   display: flex;
+  padding-top: 14px;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
