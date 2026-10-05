@@ -348,3 +348,28 @@ export const profile = {
   lookingFor:
     '[TWO SENTENCES. The kind of team, the kind of problem, and whether you want onsite, hybrid or remote.]',
 } as const;
+
+/**
+ * Overlays the translated project texts from `messages/<locale>.json`
+ * (`projects.items.<repo>`) onto a featured repo. English has none — its
+ * copy is the one above — so it comes back unchanged; so does any field a
+ * locale leaves out. `alts` is one description per screenshot, in order.
+ * `t` is a translator scoped to the `projects` namespace.
+ */
+export function localizeFeaturedRepo<T extends FeaturedRepo>(repo: T, t: ItemsTranslator): T {
+  const key = `items.${repo.repo}`;
+  if (!t.has(`${key}.summary`)) return repo;
+  const alts = t.has(`${key}.alts`) ? (t.raw(`${key}.alts`) as readonly string[]) : [];
+  return {
+    ...repo,
+    title: t.has(`${key}.title`) ? t(`${key}.title`) : repo.title,
+    summary: t(`${key}.summary`),
+    challenge: t.has(`${key}.challenge`) ? t(`${key}.challenge`) : repo.challenge,
+    highlights: t.has(`${key}.highlights`)
+      ? (t.raw(`${key}.highlights`) as readonly string[])
+      : repo.highlights,
+    screenshots: repo.screenshots?.map((shot, i) =>
+      shot ? { ...shot, alt: alts[i] ?? shot.alt } : shot,
+    ),
+  };
+}

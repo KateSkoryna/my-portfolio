@@ -159,7 +159,62 @@
     "nextScreenshot": "Nächster Screenshot",
     "screenshotStatus": "Screenshot {n} von {count}",
     "stackPlaceholder": "[STACK]",
-    "selectedWork": "Ausgewählte Arbeiten"
+    "selectedWork": "Ausgewählte Arbeiten",
+    "items": {
+      "task-manager": {
+        "summary": "Eine Aufgaben-App mit KI-Assistent, der Aufgaben aus natürlicher Sprache erstellt, ändert und löscht.",
+        "challenge": "Der Assistent konnte seine eigene Löschanfrage bestätigen. Die Bestätigung läuft jetzt auf dem Server und zählt nur, wenn der Nutzer auf „Bestätigen“ klickt.",
+        "highlights": [
+          "Sechs Assistenten-Tools, serverseitig validiert",
+          "Evaluationssuite mit 22 Testfällen für den Assistenten",
+          "Berichte auf Englisch, Deutsch und Ukrainisch"
+        ],
+        "alts": [
+          "Das Dashboard des Task Managers: Tagesfortschritt, Aufgaben mit höchster Priorität, eine Wochenübersicht nach Status und die heutige Aufgabenliste."
+        ]
+      },
+      "quizdom-react-app": {
+        "title": "QuizDOM — KI-Lernapp",
+        "summary": "Eine Lern-App, in der ein LLM Quizze nach Thema, Niveau und Sprache erstellt.",
+        "challenge": "Erzeugte Quizze wiederholten Fragen und wichen vom Thema ab. Ich habe ein Evaluationslabor gebaut, in dem ein zweites Modell sie bewertet, und den Prompt anhand der Bewertungen angepasst.",
+        "highlights": [
+          "Typisiertes Ausgabeschema mit automatischen Wiederholungen",
+          "Admin-Labor mit LLM-as-Judge-Bewertung",
+          "Suche nach Bedeutung, nicht nur nach Titel"
+        ],
+        "alts": [
+          "Die Startseite von Quizdom: ein Suchfeld, um das gewünschte Quiz zu beschreiben, und ein Raster aus Quizkarten mit Schwierigkeit, Bewertung und Abschlussquote."
+        ]
+      },
+      "solar-calculator": {
+        "summary": "Eine mandantenfähige App, die Flottenbetreibern hilft, Solarpanels für Busse, Lkw, Transporter und Anhänger zu bewerten.",
+        "challenge": "Die Antworten eines Besuchers müssen die Registrierung überstehen. Sie warten im Browser und werden genau einmal in der neuen Flotte gespeichert, abgesichert durch einen Hash und eine Unique-Constraint in der Datenbank.",
+        "highlights": [
+          "Rollenprüfung bei jeder Anfrage, pro Flotte",
+          "Audit-Log in derselben Transaktion wie jede Änderung",
+          "Anmeldung mit Google oder E-Mail-Link"
+        ],
+        "alts": [
+          "Die Startseite des Solar Calculators, auf Deutsch: eine Überschrift für einen Solarrechner für Nutzfahrzeuge über einem Luftbild eines Waldes, vier Funktionskacheln und ein Button zum Starten."
+        ]
+      },
+      "my-portfolio": {
+        "title": "Dieses Portfolio",
+        "summary": "Ein Portfolio als Stapel physischer Objekte – Buch, Magazin, Notizbuch, Zeitung, Feldführer –, jedes davon eine eigene Route.",
+        "challenge": "Zwei Sprachen ohne Rendering bei jeder Anfrage: Die Sprache ist Teil der URL, deshalb wird jede Seite einmal pro Sprache gebaut.",
+        "highlights": [
+          "Live-GitHub-Daten, stündlich aktualisiert",
+          "Alle Animationen in reinem CSS, ohne Animationsbibliothek",
+          "Barrierefreiheit bei jedem Pull Request geprüft"
+        ],
+        "alts": [
+          "Die Startseite des Portfolios: ein schwebendes Lebenslauf-Buch über einem Stapel aus vier weiteren Büchern, links ein Profilblock, rechts ein Beschreibungsfeld.",
+          "Die Lebenslauf-Seite: ein aufgeschlagenes Buch mit dem Lebenslauf auf zwei Seiten, Pfeile zum Blättern und oben ein Button zum Herunterladen.",
+          "Die Blog-Seite: ein aufgeschlagenes Spiralnotizbuch mit liniertem Papier und goldenen Spiralen in der Mitte.",
+          "Die Über-mich-Seite: eine Zeitung namens „Feierabend“ mit nummerierten Fakten und Fotos in vier Spalten."
+        ]
+      }
+    }
   },
   "journal": {
     "categories": {

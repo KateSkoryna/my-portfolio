@@ -4,6 +4,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import { HeaderLink, PageHeader } from '@/components/PageHeader/PageHeader';
 import { PageFooter } from '@/components/PageFooter/PageFooter';
 import { Projects } from '@/components/Projects/Projects';
+import { localizeFeaturedRepo } from '@/content/items';
 import { getProjectIssues } from '@/lib/github/repos';
 import { pageMetadata } from '@/lib/seo';
 
@@ -28,7 +29,9 @@ export default async function ProjectsPage() {
   const tChrome = await getTranslations('chrome');
   const tCommon = await getTranslations('common');
   const locale = await getLocale();
-  const { issues, fetchedAt } = await getProjectIssues();
+  const tProjects = await getTranslations('projects');
+  const { issues: rawIssues, fetchedAt } = await getProjectIssues();
+  const issues = rawIssues.map((issue) => localizeFeaturedRepo(issue, tProjects));
 
   return (
     <>

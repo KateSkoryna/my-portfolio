@@ -169,7 +169,7 @@ export const resumeDe: ResumeContent = {
       name: 'Solar Calculator',
       repo: 'solar-calculator',
       stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Prisma', 'NextAuth', 'Tailwind CSS'],
-      text: 'Eine mandantenfähige Web-App, die Flottenbetreibern hilft, Investitionen in Solarpanels für Busse, Lkw, Transporter und Anhänger zu bewerten. Gebaut mit Next.js 16, React 19, TypeScript, PostgreSQL und Prisma; sie bietet flottenbezogenen rollenbasierten Zugriff, ein Fahrzeug- und Berechnungsdatenmodell sowie i18n für EN/DE/ES.',
+      text: 'Eine mandantenfähige App, die Flottenbetreibern hilft, Solarpanels für Busse, Lkw, Transporter und Anhänger zu bewerten.',
       bookOnly: true,
     },
   ],
