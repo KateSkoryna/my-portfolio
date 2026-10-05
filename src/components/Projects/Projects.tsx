@@ -190,11 +190,21 @@ export function Projects({
                 )}
                 <div className={styles.cardBottom}>
                   <p className={styles.links}>
-                    <a href={issue.url} className={styles.link}>
+                    <a
+                      href={issue.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.link}
+                    >
                       {tCommon('code')} <span aria-hidden="true">→</span>
                     </a>
                     {issue.demoUrl && (
-                      <a href={issue.demoUrl} className={styles.link}>
+                      <a
+                        href={issue.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.link}
+                      >
                         {tCommon('liveDemo')} <span aria-hidden="true">→</span>
                       </a>
                     )}
@@ -251,11 +261,16 @@ function FeatureContent({
         <div className={styles.featurePanelFoot}>
           <h2 className={styles.panelName}>{feature.title}</h2>
           <p className={`${styles.links} ${styles.linksOnDark}`}>
-            <a href={feature.url} className={styles.link}>
+            <a href={feature.url} target="_blank" rel="noopener noreferrer" className={styles.link}>
               {t('viewCode')} <span aria-hidden="true">→</span>
             </a>
             {feature.demoUrl && (
-              <a href={feature.demoUrl} className={styles.link}>
+              <a
+                href={feature.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.link}
+              >
                 {tCommon('liveDemo')} <span aria-hidden="true">→</span>
               </a>
             )}
@@ -300,11 +315,16 @@ function FeatureContent({
 
       <div className={styles.featureMobileFoot}>
         <p className={styles.links}>
-          <a href={feature.url} className={styles.link}>
+          <a href={feature.url} target="_blank" rel="noopener noreferrer" className={styles.link}>
             {tCommon('code')} <span aria-hidden="true">→</span>
           </a>
           {feature.demoUrl && (
-            <a href={feature.demoUrl} className={styles.link}>
+            <a
+              href={feature.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.link}
+            >
               {tCommon('liveDemo')} <span aria-hidden="true">→</span>
             </a>
           )}
