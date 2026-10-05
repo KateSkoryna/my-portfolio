@@ -170,7 +170,10 @@
           "Berichte auf Englisch, Deutsch und Ukrainisch"
         ],
         "alts": [
-          "Das Dashboard des Task Managers: Tagesfortschritt, Aufgaben mit höchster Priorität, eine Wochenübersicht nach Status und die heutige Aufgabenliste."
+          "Das Dashboard: Tagesfortschritt, ein Feld zum Hinzufügen von Aufgaben, das ganze Sätze versteht, Aufgaben mit höchster Priorität, eine Wochenübersicht nach Status und die heutige Aufgabenliste.",
+          "Die Seite „Meine Aufgaben“: Aufgaben in Listen wie Bildung und Gesundheit gruppiert, rechts ein Detailbereich der gewählten Aufgabe mit Status, Fälligkeitsdatum und Priorität.",
+          "Die Statistikseite: Abschlussquote, Planungslast, ein Diagramm geplant gegenüber erledigt, Arbeitsverteilung und Alter unerledigter Aufgaben.",
+          "Die Berichtsseite: ein Monatsbericht für August 2026 mit Kennzahlen, Diagrammen und einem Button zum Drucken oder Speichern als PDF."
         ]
       },
       "quizdom-react-app": {
@@ -183,7 +186,10 @@
           "Suche nach Bedeutung, nicht nur nach Titel"
         ],
         "alts": [
-          "Die Startseite von Quizdom: ein Suchfeld, um das gewünschte Quiz zu beschreiben, und ein Raster aus Quizkarten mit Schwierigkeit, Bewertung und Abschlussquote."
+          "Die Startseite von Quizdom: ein dunkler Hero-Bereich mit der Überschrift „Dive into the depths of coding wisdom“, Buttons zum Entdecken von Quizzen und zur Themensuche und ein Suchfeld, um das gewünschte Quiz zu beschreiben.",
+          "Das Quizraster: eine Karte zum Hinzufügen eines Quiz und Quizkarten mit Thema, Schwierigkeit, Bewertung, Fragenanzahl und Abschluss-Badge.",
+          "Ein laufendes Quiz in einem Dialog: Frage 1 von 12 mit Hinweis-Button, zwei Antwortoptionen sowie Zurück- und Weiter-Button.",
+          "Die Profilseite im Tab „Meine Ergebnisse“: links bestandene Quizze, Durchschnittsergebnis und Quizdom-Bewertung, rechts eine Liste abgeschlossener Quizze mit Ergebnis und Bewertung."
         ]
       },
       "solar-calculator": {
@@ -192,7 +198,7 @@
         "highlights": [
           "Rollenprüfung bei jeder Anfrage, pro Flotte",
           "Audit-Log in derselben Transaktion wie jede Änderung",
-          "Anmeldung mit Google oder E-Mail-Link"
+          "OAuth-Anmeldung (Google) und passwortlose E-Mail-Links"
         ],
         "alts": [
           "Die Startseite des Solar Calculators: eine Überschrift, ob sich Solarmodule für Transporter und Lkw lohnen, ein Button zum Starten der Schätzung und eine Beispielkarte mit 1,5 Jahren Amortisation.",

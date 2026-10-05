@@ -216,14 +216,29 @@ export const featuredRepos: readonly FeaturedRepo[] = [
     demoUrl: 'https://todo-list-frontend-six-drab.vercel.app/',
     screenshots: [
       {
-        src: '/task-manager.webp',
+        src: '/tasks/t-1.webp',
         width: 3386,
         height: 1898,
-        alt: 'The task-manager dashboard: today’s completion, top-priority tasks, a weekly task-status view and today’s task list.',
+        alt: 'The dashboard: today’s completion, an add-task box that parses plain sentences, top-priority tasks, a weekly task-status view and today’s task list.',
       },
-      null,
-      null,
-      null,
+      {
+        src: '/tasks/t-2.webp',
+        width: 3380,
+        height: 1878,
+        alt: 'The My Tasks page: tasks grouped into lists such as Education and Health, and a detail panel for the selected task with its status, due date and priority.',
+      },
+      {
+        src: '/tasks/t-3.webp',
+        width: 3380,
+        height: 1878,
+        alt: 'The Statistics page: completion rate, planning load, a planned-versus-completed chart, workload distribution and unfinished-task aging.',
+      },
+      {
+        src: '/tasks/t-4.webp',
+        width: 3380,
+        height: 1878,
+        alt: 'The Reports page: a monthly report for August 2026 with key figures, charts and a Print / Save as PDF button.',
+      },
     ],
     stack: ['React', 'TypeScript', 'NestJS', 'MongoDB', 'Firebase', 'Tailwind CSS', 'Gemini AI'],
     highlights: [
@@ -242,14 +257,29 @@ export const featuredRepos: readonly FeaturedRepo[] = [
     demoUrl: 'https://kateskoryna.github.io/quizdom-react-app/',
     screenshots: [
       {
-        src: '/quizdom.webp',
-        width: 2908,
-        height: 1898,
-        alt: 'The Quizdom home page: a search box for describing the quiz you want, and a grid of quiz cards showing difficulty, rating and completion.',
+        src: '/quizdom/q-1.webp',
+        width: 2948,
+        height: 1900,
+        alt: 'The Quizdom home page: a dark hero reading “Dive into the depths of coding wisdom” with Explore quizzes and Find a topic buttons, and a search box for describing the quiz you want.',
       },
-      null,
-      null,
-      null,
+      {
+        src: '/quizdom/q-2.webp',
+        width: 2948,
+        height: 1900,
+        alt: 'The quiz grid: an Add quiz card and quiz cards with topic, difficulty, rating, question count and a Completed badge.',
+      },
+      {
+        src: '/quizdom/q-3.webp',
+        width: 2948,
+        height: 1900,
+        alt: 'A quiz in progress in a dialog: question 1 of 12 with a Show hint button, two answer options, and Previous and Next buttons.',
+      },
+      {
+        src: '/quizdom/q-4.webp',
+        width: 2948,
+        height: 1900,
+        alt: 'The profile page on the My results tab: quizzes passed, average score and Quizdom rating on the left, and a list of completed quizzes with scores and ratings.',
+      },
     ],
     stack: ['React', 'TypeScript', 'Firebase', 'Genkit', 'Gemini AI', 'Sass'],
     highlights: [
@@ -295,7 +325,7 @@ export const featuredRepos: readonly FeaturedRepo[] = [
     highlights: [
       'Role checks on every request, per fleet',
       'Audit log in the same transaction as each change',
-      'Sign-in with Google or an email link',
+      'OAuth sign-in (Google) and passwordless email links',
     ],
     summary:
       'A multi-tenant app that helps fleet operators evaluate solar panels for buses, trucks, vans and trailers.',
