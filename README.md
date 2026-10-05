@@ -5,6 +5,9 @@
 React · TypeScript · Next.js · Node.js · PostgreSQL
 [GitHub](https://github.com/KateSkoryna) · [LinkedIn](https://www.linkedin.com/in/kateskoryna/)
 
+Open to work · EU citizen · Berlin: onsite, hybrid or remote · Germany: remote
+· English C1, German progressing toward C1
+
 ![The portfolio landing page: a floating Resume book above a pile of four more books.](public/my-portfolio.webp)
 
 ---
@@ -15,7 +18,8 @@ My portfolio, built as a stack of physical objects that the visitor flips
 through. Each object is a route:
 
 - **`/resume`** — a book: the CV, typeset as pages, with a PDF download.
-- **`/projects`** — a magazine: four projects with live GitHub data.
+- **`/projects`** — a magazine: four projects, each with the hard problem I
+  solved and a screenshot carousel, plus live GitHub data.
 - **`/journal`** — a spiral notebook: the blog, written in MDX.
 - **`/about`** — a newspaper: the things that never fit on a CV.
 - **`/handbook`** — a field guide: *The Developer's Prompting Handbook*, how
@@ -31,9 +35,12 @@ email from a server action.
 A portfolio is also a chance to show real engineering judgement, not just
 list it, so a few choices here are deliberate:
 
-- **Server rendering only where it earns its keep.** `/projects` pulls
-  live GitHub repo data with `revalidate: 3600` — real ISR with a reason,
-  not "Next.js for the CV line."
+- **Static by default, one ISR page.** The language is part of the URL
+  (`/en/…`, `/de/…`), so every page is built once per language and served
+  as a static file; reading it from a cookie would have made every page
+  render on each request. Only `/projects` is re-rendered on the server,
+  hourly (`revalidate: 3600`), because it shows live GitHub data. The token
+  never reaches the browser. No page uses per-request rendering.
 - **Accessibility is a build gate, not a pass at the end.** Every route is
   scanned with `axe-core` in CI before it can merge; zero violations,
   checked automatically, not asserted.
@@ -48,8 +55,8 @@ list it, so a few choices here are deliberate:
 ## Stack
 
 Next.js 16 (App Router) · TypeScript, `strict: true` · React 19 · CSS
-Modules + a design-token system · `next-intl` (EN/DE) · MDX · Vitest +
-axe-core · Vercel. No animation library, no canvas.
+Modules + a design-token system · `next-intl` (EN/DE) · MDX · SSG + ISR ·
+Vitest + axe-core · Vercel. No animation library, no canvas.
 
 ---
 
