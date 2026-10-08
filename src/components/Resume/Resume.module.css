@@ -433,12 +433,11 @@
   height: 1px;
 }
 
-/* Keep a bullet, a skills row or an education line whole across a page break, and a
-   heading with the text under it. */
-.bullets li,
+/* Keep a skills row or an education line whole across a page break, and a
+   heading with the text under it. Bullets may split: some run to 18 lines on a
+   phone and would otherwise jump to the next page, leaving a blank one behind. */
 .skillRow,
-.education li,
-.summary {
+.education li {
   break-inside: avoid;
 }
 
@@ -566,10 +565,14 @@ section + .role {
 }
 
 .bullets {
-  display: grid;
-  gap: 8px;
   margin: 10px 0 0;
   padding-left: 18px;
+}
+
+/* Block, not grid: Safari will not split a grid across columns, so the whole
+   list would jump to the next page. */
+.bullets li + li {
+  margin-top: 8px;
 }
 
 .bullets li::marker {
@@ -594,10 +597,12 @@ section + .role {
 }
 
 .education {
-  display: grid;
-  gap: 10px;
   margin: 0;
   padding-left: 18px;
+}
+
+.education li + li {
+  margin-top: 10px;
 }
 
 .education li::marker {
@@ -690,8 +695,21 @@ section + .role {
    on tablets. */
 @media (max-width: 800px) {
   .closingNote {
-    font-size: 32px;
+    font-size: 26px;
     line-height: 1.05;
+  }
+
+  .photo {
+    width: 112px;
+    height: 112px;
+  }
+
+  .closing .sectionHeading::after {
+    margin-bottom: 16px;
+  }
+
+  .contactLinks {
+    margin-top: 20px;
   }
 }
 
@@ -743,8 +761,7 @@ section + .role {
   .filler,
   .half,
   .leaf,
-  .closing,
-  .bookOnly {
+  .closing {
     display: none !important;
   }
 
@@ -770,7 +787,7 @@ section + .role {
     columns: auto;
     column-gap: normal;
     font-size: 8.1pt;
-    line-height: 1.28;
+    line-height: 1.3;
     color: #000;
   }
 
@@ -833,7 +850,7 @@ section + .role {
 
   .role + .role,
   section + .role {
-    margin-top: 5pt;
+    margin-top: 9pt;
   }
 
   .roleTitle {
@@ -848,9 +865,12 @@ section + .role {
   }
 
   .bullets {
-    gap: 1.5pt;
     margin-top: 2pt;
     padding-left: 11pt;
+  }
+
+  .bullets li + li {
+    margin-top: 2pt;
   }
 
   .bulletLabel,
@@ -869,8 +889,11 @@ section + .role {
   }
 
   .education {
-    gap: 1pt;
     padding-left: 11pt;
+  }
+
+  .education li + li {
+    margin-top: 1pt;
   }
 
   .languages {

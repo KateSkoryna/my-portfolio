@@ -504,6 +504,11 @@
     font-size: 17px;
   }
 
+  /* Half the desktop gap above and below the shadow: the stack is shorter here. */
+  .suspensionShadow {
+    margin: clamp(8px, 2vh, 20px) 0;
+  }
+
   /*
    * The note lines up with the description: its left edge sits on the
    * description column's left edge, in the same vertical line. That column

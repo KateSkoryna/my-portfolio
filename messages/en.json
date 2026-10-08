@@ -70,7 +70,7 @@
     "noteEu": "EU citizen",
     "languages": "English C1 · German: progressing toward C1",
     "workModel": "Berlin: onsite, hybrid or remote · Germany: remote",
-    "bio": "I'm a frontend-focused full-stack developer with three years in production React and TypeScript. At Sono Solar I built the frontend of the Solar Analytics Dashboard and of the Installation Tool, which now runs on three OEM production lines, and cut a fleet-analytics endpoint from 6.9 s to 1.2 s. I build features from the UI through REST APIs to PostgreSQL, and ship LLM features with validated output."
+    "bio": "I’m a frontend-focused full-stack developer who makes B2B products fast, secure and easy to use. I made the Solar Analytics Dashboard, used by 10+ fleets, 5 times faster (JavaScript down 65%, accessibility score 100), built the multi-tenant access control that keeps each fleet’s data separate, and delivered the frontend of the Installation Tool, now running on three OEM production lines. Three years of React and TypeScript, Node.js and PostgreSQL on the backend, and AI features with validated LLM output. I take a feature from user interview to production."
   },
   "items": {
     "resume": {

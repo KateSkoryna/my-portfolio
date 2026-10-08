@@ -38,8 +38,6 @@ export interface ResumeProject {
   repo: string;
   stack: readonly string[];
   text: string;
-  /** Shown in the book on the site only — left out of print and the PDF. */
-  bookOnly?: boolean;
 }
 
 /** Every piece of CV text that changes with the locale. */

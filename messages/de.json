@@ -54,7 +54,7 @@
     "noteEu": "EU-Bürgerin",
     "languages": "Englisch C1 · Deutsch: auf dem Weg zu C1",
     "workModel": "Berlin: vor Ort, hybrid oder remote · Deutschland: remote",
-    "bio": "Ich bin Frontend-fokussierte Full-Stack-Entwicklerin mit drei Jahren Erfahrung mit React und TypeScript in Produktion. Bei Sono Solar habe ich das Frontend des Solar Analytics Dashboards und des Installation Tools entwickelt, das heute auf drei OEM-Produktionslinien läuft, und einen Flottenanalyse-Endpunkt von 6,9 s auf 1,2 s beschleunigt. Ich entwickle Features von der UI über REST-APIs bis PostgreSQL und liefere LLM-Funktionen mit validierter Ausgabe."
+    "bio": "Ich bin Frontend-fokussierte Full-Stack-Entwicklerin und mache B2B-Produkte schnell, sicher und einfach bedienbar. Ich habe das Solar Analytics Dashboard, das 10+ Flotten nutzen, 5-mal schneller gemacht (JavaScript um 65 % reduziert, Barrierefreiheits-Wert 100), die mandantenfähige Zugriffskontrolle gebaut, die die Daten jeder Flotte trennt, und das Frontend des Installation Tools geliefert, das heute an drei OEM-Produktionslinien läuft. Drei Jahre React und TypeScript, Node.js und PostgreSQL im Backend sowie KI-Features mit validierter LLM-Ausgabe. Ich bringe ein Feature vom Nutzerinterview bis in die Produktion."
   },
   "items": {
     "resume": {

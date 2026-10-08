@@ -10,7 +10,7 @@ export const resumeDe: ResumeContent = {
   headline: 'Frontend-orientierter Full-Stack-Entwickler',
   headlineStack: 'React · TypeScript · Node.js · KI-gestützte Produkte',
   summary:
-    'Frontend-orientierter Full-Stack-Entwickler mit drei Jahren Erfahrung in der Entwicklung produktiver React- und TypeScript-Anwendungen für B2B- und B2C-Produkte. Verantwortet Features von der React-Oberfläche über REST-APIs bis zur PostgreSQL-Datenschicht, einschließlich Anbindung externer Daten, Authentifizierung und Claims-basierter Autorisierung. Messbare Performance-Verbesserungen in Frontend und API sowie KI-Features mit validierter LLM-Ausgabe.',
+    'Frontend-orientierter Full-Stack-Entwickler, der B2B-Produkte schnell, sicher und einfach bedienbar macht. Das Solar Analytics Dashboard, das 10+ Flotten nutzen, 5-mal schneller gemacht (JavaScript um 65 % reduziert, Barrierefreiheits-Wert 100), die mandantenfähige Zugriffskontrolle gebaut, die die Daten jeder Flotte trennt, und das Frontend des Installation Tools geliefert, das heute an drei OEM-Produktionslinien läuft. Drei Jahre React und TypeScript, Node.js und PostgreSQL im Backend sowie KI-Features mit validierter LLM-Ausgabe. Bringt ein Feature vom Nutzerinterview bis in die Produktion.',
   skills: [
     {
       group: 'Frontend',
@@ -19,15 +19,17 @@ export const resumeDe: ResumeContent = {
         'TypeScript',
         'JavaScript',
         'Next.js',
-        'React Hooks',
         'Material UI',
         'Zustand',
-        'Axios',
         'Vite',
         'Recharts',
         'Sass',
         'Tailwind CSS',
-        'HTML',
+        'Mapbox',
+        'Responsive Design',
+        'Barrierefreiheit',
+        'Core Web Vitals',
+        'State Management',
       ],
     },
     {
@@ -38,17 +40,12 @@ export const resumeDe: ResumeContent = {
         'PostgreSQL',
         'TypeORM',
         'REST APIs',
-        'BigQuery',
         'MongoDB',
         'Prisma',
         'Zod',
         'Firebase Auth',
         'Claims-basierte Autorisierung, RBAC, Multi-Tenant',
       ],
-    },
-    {
-      group: 'Integrationen',
-      items: ['Teltonika-Telematikdaten', 'Mapbox', 'SendGrid', 'Slack-Alerting', 'Retry-Logik'],
     },
     {
       group: 'KI / Automatisierung',
@@ -62,7 +59,6 @@ export const resumeDe: ResumeContent = {
         'Cursor',
         'Python',
         'n8n',
-        'Make',
       ],
     },
     {
@@ -79,7 +75,7 @@ export const resumeDe: ResumeContent = {
     },
     {
       group: 'Tooling',
-      items: ['Vercel', 'GCP (Cloud Logging)', 'Figma', 'Jira', 'Confluence', 'Miro'],
+      items: ['Vercel', 'GCP (Cloud Logging)', 'Figma', 'Jira'],
     },
   ],
   roles: [
@@ -91,39 +87,27 @@ export const resumeDe: ResumeContent = {
       bullets: [
         {
           label: 'Frontend-Performance',
-          text: 'Eine Performance-Überarbeitung des React/Vite-Flotten-Dashboards angestoßen und geleitet: Desktop-LCP von 8,2 s auf 1,7 s, Lighthouse-Performance von Orange auf Grün. Das Bundle mit rollup-plugin-visualizer analysiert, eine 518 kB große JavaScript-Datei in getrennte Chunks aufgeteilt und Recharts lazy geladen, wodurch Seiten ohne Diagramme 65 % weniger JavaScript laden; Axios durch natives fetch ersetzt, das CSS pro Route aufgeteilt und Bilder auf WebP umgestellt. Den Lighthouse-Accessibility-Wert von 88 auf 100 verbessert.',
+          text: 'Eine Performance-Überarbeitung des React/Vite-Solar-Analytics-Dashboards (10+ Flotten) in einem Team von 5 geleitet: Desktop-LCP von 8,2 s auf 1,7 s (Core Web Vitals) und 65 % weniger JavaScript auf Seiten ohne Diagramme (518 kB auf 180 kB) durch Bundle-Analyse, Code-Splitting und lazy geladenes Recharts. Barrierefreiheit (Lighthouse) von 88 auf 100 verbessert.',
         },
         {
           label: 'Datenladen',
-          text: 'Die gesamte Ladezeit des Dashboards (Network „Finish“) von 6,91 s auf 1,17 s und die übertragene Datenmenge von etwa 765 kB auf unter 300 kB gesenkt: eine kombinierte Datenanfrage in drei aufgeteilt, serverseitige Paginierung eingeführt und Kacheln mit Zustand-Selektoren vor ihren Daten gerendert.',
+          text: 'Die gesamte Ladezeit des Dashboards von 6,91 s auf 1,17 s und die übertragene Datenmenge von etwa 765 kB auf unter 300 kB gesenkt: eine kombinierte Anfrage in drei aufgeteilt, serverseitige Paginierung eingeführt und Kacheln mit der State-Management-Bibliothek Zustand vor ihren Daten gerendert.',
         },
         {
-          label: 'Komponentenentwicklung',
-          text: 'Rund 25 wiederverwendbare React/TypeScript-Komponenten (Formulare, Modals, Tabellen, Diagramme, Kartenmarker, Lade- und Fehlerzustände) nach dem Design-System und den Figma-Vorgaben des Teams gebaut und gepflegt, in mehreren Dashboard-Features wiederverwendet und mit dem Installation Tool geteilt. CSS auf Sass migriert, danach von @import auf @use/@forward und von einer globalen index.scss auf CSS Modules pro Route umgestellt, sodass Vite das CSS pro Route aufteilen kann. Eine schichtbasierte Frontend-Architektur eingeführt.',
+          label: 'Komponentenbibliothek und Live-Karte',
+          text: 'Rund 25 wiederverwendbare, responsive React/TypeScript-Komponenten nach Design-System und Figma-Vorgaben des Teams gebaut, geteilt zwischen dem Flotten-Dashboard und dem Installation Tool, dazu Recharts-Analysen und eine Mapbox-Live-Fahrzeugkarte.',
         },
         {
-          label: 'Mandantenfähige Autorisierung',
-          text: 'Ein Claims-basiertes Autorisierungsmodell (OEM-, Flotten- und Benutzerrollen: Viewer, Admin, Fleet Admin) in eine B2B-React-Plattform integriert, das den Zugriff auf zwei Produkte (Solar Analytics Dashboard, Installation Tool) steuert und Datenabfragen auf den Flottenkontext des jeweiligen Benutzers begrenzt.',
-        },
-        {
-          label: 'Authentifizierung',
-          text: 'Einen Login-Flow mit E-Mail-Einmalcode von Anfang bis Ende gebaut: React-Zustände für Anforderung, Eingabe, ungültige und abgelaufene Codes sowie Backend-Validierung mit einmaligen, zeitlich begrenzten Codes, Versuchslimits und Session-Erstellung.',
-        },
-        {
-          label: 'Anbindung externer Daten',
-          text: 'Teltonika-Telematikdaten aus BigQuery verarbeitet, verspätete und unvollständige Payloads behandelt und „keine Daten“ von „veralteten Daten“ unterschieden. Begrenzte Wiederholungsversuche (temporäre vs. dauerhafte Fehler) sowie Slack-Alerting für fehlende Telemetrie und fehlgeschlagene Jobs ergänzt. SendGrid für Login-Codes integriert.',
-        },
-        {
-          label: 'Dashboards und Live-Karte',
-          text: 'Fleet-Analytics-Dashboards mit Recharts und eine Mapbox-Fahrzeugkarte mit periodischer Datenaktualisierung gebaut; den Kartenzustand isoliert, um unnötige Re-Renders zu vermeiden.',
-        },
-        {
-          label: 'Backend, Testing und CI/CD',
-          text: 'Node.js-, TypeORM- und PostgreSQL-Funktionalität (Datenmodelle, Migrationen, REST-API-Routen, Validierung, Jest-Tests) gebaut und gepflegt; über 30 End-to-End-Abläufe mit Magnitude AI (Playwright-basiert) geschrieben; mit GitLab CI/CD und Docker für automatisierte Tests und Qualitätsprüfungen gearbeitet.',
+          label: 'Backend, Autorisierung und Sicherheit',
+          text: 'Die Zugriffsschicht einer mandantenfähigen B2B-Plattform gebaut: Claims-basierte Rollen (OEM, Flotte, Benutzer), die jede Datenabfrage über zwei Produkte hinweg auf die Flotte des Benutzers begrenzen, und einen Login mit E-Mail-Einmalcode mit einmaligen, zeitlich begrenzten Codes, Versuchslimits und Sessions. Node.js, TypeORM und PostgreSQL mit Migrationen, Validierung und Jest-Tests sowie über 30 End-to-End-Abläufe mit Magnitude AI in GitLab CI/CD.',
         },
         {
           label: 'Produktverantwortung',
-          text: 'Nutzerinterviews und Nutzungsanalysen für einen Installations-Workflow durchgeführt, unterschiedliche Nutzerbedürfnisse identifiziert und das Frontend eines eigenständigen Produkts gebaut, das heute an drei OEM-Produktionslinien läuft. Claude Code, Codex und Cursor täglich genutzt, mit manueller Prüfung vor dem Release.',
+          text: 'Nutzerinterviews und Nutzungsanalysen für einen Installations-Workflow durchgeführt und das Frontend des Installation Tools gebaut, das heute an drei OEM-Produktionslinien läuft.',
+        },
+        {
+          label: 'KI in der Entwicklung',
+          text: 'Claude Code, Codex und Cursor täglich genutzt, mit Skills, Git-Worktrees und Agent-Loops gearbeitet und allen generierten Code vor dem Release manuell geprüft.',
         },
       ],
     },
@@ -147,10 +131,10 @@ export const resumeDe: ResumeContent = {
       name: 'QuizDOM',
       repo: 'quizdom-react-app',
       stack: ['React', 'TypeScript', 'Firebase', 'Genkit', 'Gemini API', 'Zustand', 'Vite'],
-      text: 'Eine Full-Stack-KI-Quiz-App gebaut und deployt, mit schemavalidierter KI-Generierung, Retry-/Back-off-Logik, LLM-as-Judge-Evaluation und Guardrails zur Inhaltsmoderation. Firebase Authentication und nutzerbezogene Datentrennung über Firestore Security Rules umgesetzt und GCP Cloud Logging für das Produktionsmonitoring genutzt.',
+      text: 'Eine Full-Stack-KI-Quiz-Plattform gebaut und deployt, mit schemavalidierter Gemini-Generierung, semantischer Quiz-Suche (Embeddings und Firestore-Vektorsuche) und einem Admin-Labor, in dem ein zweites Gemini-Modell generierte Quizze bewertet. Firebase Authentication und nutzerbezogene Datentrennung über Firestore Security Rules umgesetzt, mit TanStack Query und Zustand im Client.',
     },
     {
-      name: 'Task Manager',
+      name: 'TaskPal',
       repo: 'task-manager',
       stack: [
         'React',
@@ -163,21 +147,20 @@ export const resumeDe: ResumeContent = {
         'Vercel',
         'GitHub Actions',
       ],
-      text: 'Eine Full-Stack-Aufgabenverwaltung mit authentifizierten REST-APIs und gemeinsamen Zod-Validierungsschemata gebaut. Auf Vercel deployt; GitHub Actions und Docker für automatisiertes Testen und Deployment eingerichtet.',
+      text: 'Eine Full-Stack-Aufgabenverwaltung mit KI-Chatbot, authentifizierten REST-APIs und gemeinsamen Zod-Validierungsschemata gebaut. Auf Vercel deployt; GitHub Actions und Docker für automatisiertes Testen und Deployment eingerichtet.',
     },
     {
       name: 'Solar Calculator',
       repo: 'solar-calculator',
-      stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Prisma', 'NextAuth', 'Tailwind CSS'],
-      text: 'Eine mandantenfähige App, die Flottenbetreibern hilft, Solarpanels für Busse, Lkw, Transporter und Anhänger zu bewerten.',
-      bookOnly: true,
+      stack: ['Next.js', 'React', 'TypeScript', 'PostgreSQL', 'Prisma', 'NextAuth', 'Jest'],
+      text: 'Eine mandantenfähige Web-App gebaut, die Flottenbetreibern hilft, Solar-Investitionen für Busse, Lkw, Transporter und Anhänger zu bewerten. Flottenbezogene Autorisierung, Audit-Logging, Rate Limiting und passwortlose Anmeldung (Google oder E-Mail-Link) umgesetzt, abgesichert durch Jest-Tests; Oberfläche auf Deutsch, Englisch und Spanisch.',
     },
   ],
   education: [
     {
       school: 'WBS Coding School',
       program: 'KI-Agenten und Automatisierung, 12-wöchiges AZAV-zertifiziertes Programm',
-      place: 'Berlin',
+      place: 'Berlin · Jun. – Sep. 2026',
     },
     {
       school: 'ReDI School of Digital Integration',
