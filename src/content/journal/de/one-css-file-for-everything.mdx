@@ -1,0 +1,52 @@
+Das ist der Teil der Geschichte, in dem das Problem ich war.
+
+<MarginNote>Teil 2 von 3</MarginNote>
+
+Unser Dashboard bei **Sono Solar** war langsam: Auf dem Desktop lag der LCP bei **8,2 Sekunden**. Einer der Gründe war das CSS. In diesem Beitrag erzähle ich eine Geschichte über **CSS**.
+
+## Eine Datei für die ganze App
+
+Alle unsere Styles landeten in einer einzigen `index.scss`, zusammengezogen mit Sass `@import`. Der Browser bekam also **eine CSS-Datei** für die ganze App, und jede Seite hat die Styles aller anderen Seiten mit heruntergeladen.
+
+Und `@import` war die falsche Direktive. Sie machte alles global, sie kompilierte die gemeinsamen Variablen und Mixins immer wieder neu, und sie erzeugte CSS, das niemand bestellt hatte.
+
+<Callout label="Gut zu wissen" title="@import, @use und @forward in Sass">
+
+`@import` kopiert die importierten Styles bei jeder Verwendung in die Datei und macht alles darin global. `@use` lädt eine Datei einmal, als Modul mit eigenem Namensraum. `@forward` reicht ein Modul weiter, sodass eine Datei die gemeinsamen Variablen und Mixins für die anderen sammeln kann. Sass hat `@import` seit Dart Sass 1.80 (Oktober 2024) als veraltet markiert und entfernt es in Version 3.
+
+</Callout>
+
+## Was ich gemacht habe
+
+Ich habe unsere Stylesheets umgebaut, in drei Schritten.
+
+1. **`@use` statt `@import`.** Ich bin von `@import` auf `@use` und `@forward` umgestiegen. Damit endeten der globale Geltungsbereich, das doppelte Kompilieren gemeinsamer Variablen und Mixins und die ungewollte CSS-Ausgabe.
+2. **Von einer Datei zu Modulen.** Ich bin von der einen `index.scss` zu CSS Modules gewechselt, die direkt zu den Routen-Komponenten gehören: `.module.scss`-Dateien.
+3. **Den Bundler aufteilen lassen.** Die Styles werden jetzt neben den lazy geladenen Seiten-Routen importiert. So kann Vite sie in eine `.css`-Datei pro Route aufteilen, statt ein riesiges initiales Bundle zu bauen.
+
+<Callout label="Gut zu wissen" title="Warum CSS für die Geschwindigkeit zählt">
+
+Der Browser zeichnet eine Seite erst, wenn er das CSS in ihrem Kopf heruntergeladen und gelesen hat. Ein großes Stylesheet bedeutet nicht nur mehr Kilobyte: Es ist Zeit, in der man auf nichts schaut.
+
+</Callout>
+
+## Das Ergebnis
+
+Der Code ist viel aufgeräumter, und der Browser lädt **nur das CSS für die Seite, die er anzeigt**. Zusammen mit den beiden anderen Teilen ging der Desktop-LCP von **8,2 s auf 1,7 s**.
+
+<Callout label="Meine Regeln jetzt" icon="star">
+
+- In Sass: `@use` und `@forward`, nicht `@import`.
+- Styles liegen **neben der Komponente**, die sie benutzt.
+- Eine Seite lädt **ihr eigenes CSS**, nicht das von allen.
+- **Verlass dich auf Zahlen, nicht auf Gefühle.**
+
+</Callout>
+
+<Callout label="Ein Gedanke" title="Nächstes Mal: reines CSS">
+
+Reines CSS hat sich so weit entwickelt. Es hat jetzt natives Nesting, Custom Properties (Variablen), Container Queries, den `:has()`-Selektor und mehr: die Dinge, für die ich früher zu Sass gegriffen habe. Wenn ich das nächste Mal eine App von Grund auf starte, nehme ich also reines CSS und füge das Sass-Paket gar nicht erst hinzu. Eine Abhängigkeit weniger, und kein `@import` oder `@use`, bei dem man etwas falsch machen kann.
+
+</Callout>
+
+Und wie prüft man, ob ein Bundle groß ist oder nicht? Schau in [meinen ersten Beitrag](/de/journal/faster-dashboard-packages-data-and-state): Dort steht, wo man hinschaut.

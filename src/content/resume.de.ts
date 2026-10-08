@@ -24,7 +24,7 @@ export const resumeDe: ResumeContent = {
         'Zustand',
         'Axios',
         'Vite',
-        'Chart.js',
+        'Recharts',
         'Sass',
         'Tailwind CSS',
         'HTML',
@@ -91,15 +91,15 @@ export const resumeDe: ResumeContent = {
       bullets: [
         {
           label: 'Frontend-Performance',
-          text: 'Das initiale JavaScript-Bundle durch Code Splitting und das Entfernen unnötiger Abhängigkeiten um 65 % verkleinert und dadurch den mobilen LCP von 17,2 s auf 8,9 s sowie den Lighthouse-Accessibility-Wert von 88 auf 100 verbessert.',
+          text: 'Eine Performance-Überarbeitung des React/Vite-Flotten-Dashboards angestoßen und geleitet: Desktop-LCP von 8,2 s auf 1,7 s, Lighthouse-Performance von Orange auf Grün. Das Bundle mit rollup-plugin-visualizer analysiert, eine 518 kB große JavaScript-Datei in getrennte Chunks aufgeteilt und Recharts lazy geladen, wodurch Seiten ohne Diagramme 65 % weniger JavaScript laden; Axios durch natives fetch ersetzt, das CSS pro Route aufgeteilt und Bilder auf WebP umgestellt. Den Lighthouse-Accessibility-Wert von 88 auf 100 verbessert.',
         },
         {
-          label: 'API-Performance',
-          text: 'Die Antwortzeit eines produktiven Fleet-Analytics-Endpunkts von 6,91 s auf 1,17 s gesenkt, indem der gesamte Request-Pfad profiliert und die Zeitreihenverarbeitung auf Node-Seite als Hauptengpass identifiziert wurde.',
+          label: 'Datenladen',
+          text: 'Die gesamte Ladezeit des Dashboards (Network „Finish“) von 6,91 s auf 1,17 s und die übertragene Datenmenge von etwa 765 kB auf unter 300 kB gesenkt: eine kombinierte Datenanfrage in drei aufgeteilt, serverseitige Paginierung eingeführt und Kacheln mit Zustand-Selektoren vor ihren Daten gerendert.',
         },
         {
           label: 'Komponentenentwicklung',
-          text: 'Rund 25 wiederverwendbare React/TypeScript-Komponenten (Formulare, Modals, Tabellen, Diagramme, Kartenmarker, Lade- und Fehlerzustände) nach dem Design-System und den Figma-Vorgaben des Teams gebaut und gepflegt, in mehreren Dashboard-Features wiederverwendet und mit dem Installation Tool geteilt. CSS auf Sass migriert und eine schichtbasierte Frontend-Architektur eingeführt.',
+          text: 'Rund 25 wiederverwendbare React/TypeScript-Komponenten (Formulare, Modals, Tabellen, Diagramme, Kartenmarker, Lade- und Fehlerzustände) nach dem Design-System und den Figma-Vorgaben des Teams gebaut und gepflegt, in mehreren Dashboard-Features wiederverwendet und mit dem Installation Tool geteilt. CSS auf Sass migriert, danach von @import auf @use/@forward und von einer globalen index.scss auf CSS Modules pro Route umgestellt, sodass Vite das CSS pro Route aufteilen kann. Eine schichtbasierte Frontend-Architektur eingeführt.',
         },
         {
           label: 'Mandantenfähige Autorisierung',
@@ -115,7 +115,7 @@ export const resumeDe: ResumeContent = {
         },
         {
           label: 'Dashboards und Live-Karte',
-          text: 'Fleet-Analytics-Dashboards mit Chart.js und eine Mapbox-Fahrzeugkarte mit periodischer Datenaktualisierung gebaut; den Kartenzustand isoliert, um unnötige Re-Renders zu vermeiden.',
+          text: 'Fleet-Analytics-Dashboards mit Recharts und eine Mapbox-Fahrzeugkarte mit periodischer Datenaktualisierung gebaut; den Kartenzustand isoliert, um unnötige Re-Renders zu vermeiden.',
         },
         {
           label: 'Backend, Testing und CI/CD',

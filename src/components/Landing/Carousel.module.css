@@ -52,7 +52,7 @@
   width: 380px;
   height: 28px;
   /* Same `vh`-flexible reasoning as `.suspensionShadow`'s bottom margin. */
-  margin-top: clamp(18px, 5vh, 56px);
+  margin-top: clamp(6px, 2vh, 20px);
   border-radius: 50%;
   background: var(--shadow-suspension);
 }

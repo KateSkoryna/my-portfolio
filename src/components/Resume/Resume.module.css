@@ -106,7 +106,9 @@
 .viewport {
   position: absolute;
   inset: 0;
-  padding: var(--pad);
+  /* Top, right, bottom, left. The top and right may be set smaller than the
+     rest (`--pad-top`, `--pad-right`, the notebook on phones). */
+  padding: var(--pad-top, var(--pad)) var(--pad-right, var(--pad)) var(--pad) var(--pad);
   container-type: size;
 }
 
@@ -125,7 +127,8 @@
   color: var(--color-body-text);
   /* One column per page. Column pitch = text width + gap = page width. */
   column-width: 100cqw;
-  column-gap: calc(var(--pad) * 2);
+  /* One page: the padding on its two sides. */
+  column-gap: calc(var(--pad) + var(--pad-right, var(--pad)));
   column-fill: auto;
 }
 
@@ -253,20 +256,39 @@
   line-height: var(--line);
 }
 
+/* Phones, every post: slightly smaller text on the same ruling, so a post
+   takes fewer pages. */
+@media (max-width: 899px) {
+  /* Less padding at the top and on the right; the left keeps room for the coil
+     and its holes, the bottom for the page number. */
+  .book[data-binding='spiral'] {
+    --pad-top: 20px;
+    --pad-right: 20px;
+  }
+
+  .book[data-binding='spiral'] .flow {
+    font-size: 13px;
+  }
+}
+
 .book[data-binding='spiral'] .frame {
   background-image: repeating-linear-gradient(
     180deg,
     rgba(31, 111, 95, 0.11) 0 1px,
     transparent 1px var(--line)
   );
-  background-position: 0 var(--pad);
+  background-position: 0 var(--pad-top, var(--pad));
 }
 
 .spiral,
 .holes {
   position: absolute;
-  top: calc(var(--pad) - var(--line) / 2);
-  height: round(down, calc(100% - var(--pad) * 2 + var(--line)), var(--line));
+  top: calc(var(--pad-top, var(--pad)) - var(--line) / 2);
+  height: round(
+    down,
+    calc(100% - var(--pad-top, var(--pad)) - var(--pad) + var(--line)),
+    var(--line)
+  );
   pointer-events: none;
 }
 

@@ -77,7 +77,8 @@
   --motion-intro-text-at:  1300ms;
 
   /* Accessibility — DESIGN.md §5 */
-  --a11y-min-target:        44px;
-  --a11y-focus-ring:        0 0 0 3px #E9B44C;
-  --a11y-focus-ring-offset: 2px;
+  --a11y-min-target:         44px;
+  --a11y-min-target-compact: 24px;
+  --a11y-focus-ring:         0 0 0 3px #E9B44C;
+  --a11y-focus-ring-offset:  2px;
 }

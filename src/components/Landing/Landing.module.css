@@ -213,7 +213,7 @@
        wrapping. `minmax(0, 1fr)` makes the column actually respect it. */
     grid-template-columns: minmax(0, 1fr);
     /* More air between the about-me block and the book. */
-    row-gap: 56px;
+    row-gap: 28px;
   }
 
   .identity {
@@ -239,8 +239,27 @@
     font-size: 14px;
   }
 
+  /* The note sits as plain text under the name; no arrow. */
   .nameRow {
     align-self: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .nameRow .name {
+    width: auto;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .noteArrow {
+    display: none;
+  }
+
+  .noteText {
+    margin-top: 0;
+    text-align: center;
   }
 
   /* The three buttons share one row across the full width, however narrow
@@ -266,7 +285,7 @@
 @media (min-width: 801px) and (max-width: 1199px) {
   .landing {
     grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
-    row-gap: 48px;
+    row-gap: 28px;
   }
 
   .identity {
@@ -275,7 +294,7 @@
     /* The left column is as wide as its content (the name), not half the
        row; the right column takes the rest. */
     grid-template-columns: max-content minmax(0, 1fr);
-    column-gap: clamp(32px, 6vw, 80px);
+    column-gap: clamp(16px, 3vw, 40px);
     align-items: start;
   }
 
@@ -290,6 +309,33 @@
 
   .details {
     font-size: 15px;
+  }
+
+  /* The desktop note, kept in the flow: the arrow rises from the end of
+     "Kateryna" up to the last line of the note, which sits above the name. */
+
+  .nameRow {
+    --name-size: clamp(38px, 5vw, 56px);
+  }
+
+  .noteArrow {
+    display: none;
+  }
+
+  .noteArrowUp {
+    display: block;
+    flex: none;
+    width: 56px;
+    height: 16px;
+    margin-top: calc(var(--name-size) * 0.55 - 13.1px);
+  }
+
+  .noteText {
+    margin-top: calc(var(--name-size) * 0.55 - 70.8px);
+  }
+
+  .noteText > * {
+    line-height: 24px;
   }
 
   .identityMain,

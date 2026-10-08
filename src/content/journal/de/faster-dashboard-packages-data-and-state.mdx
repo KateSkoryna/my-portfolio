@@ -1,0 +1,112 @@
+Deine App ist langsam. Oder schnell? Woher weißt du das? **Bauchgefühl oder echte Zahlen?**
+
+<MarginNote>Teil 1 von 3</MarginNote>
+
+Klären wir, wo man hinschaut und was man prüft. In diesem Beitrag erzähle ich eine Geschichte über **Pakete und Daten**, aus dem Dashboard bei **Sono Solar**.
+
+## Zwei Wochen, aus Neugier
+
+Sechs Monate bevor diese Geschichte beginnt, habe ich versucht, dieses Dashboard schneller zu machen. Ohne KI, zum Spaß, nur um zu verstehen und zu experimentieren. (Ja, so sieht bei mir ein gelungener Feierabend aus.) Das hat **2 Wochen** gedauert, und es war nicht perfekt.
+
+Dann landete die Aufgabe endlich im Backlog. Ich hatte sie angestoßen, also habe ich sie geleitet. Dieses Mal hatte ich einen Plan, das Verständnis, die Werkzeuge und mein Team, um darüber zu sprechen.
+
+## Die Zahl im Bericht
+
+Lighthouse mochte unser Dashboard nicht: Die Seite brauchte lange zum Rendern. Auf dem Desktop, wo die meisten unserer Kunden arbeiteten, lag der LCP bei **8,2 Sekunden**.
+
+Alle Dateien zusammen hatten etwa **765 kB**, und die Haupt-JavaScript-Datei allein **518 kB**, so wie Vite es meldet. Ist das groß? Ich wusste es nicht. Also wollte ich versuchen, es kleiner zu machen, wenn ich konnte.
+
+## Was die Zahlen bedeuten
+
+Zahlen sind entscheidend. **LCP, übertragene Dateien, Ladezeit und Bundle-Größe**: Das sind die wichtigsten Punkte, die man prüft.
+
+Für alle, die sich wie ich mit der Dokumentation von Google schwertun, hier in einfachen Worten:
+
+- **LCP** (Largest Contentful Paint, im Lighthouse-Tab): die Zeit, bis das Größte auf dem Bildschirm sichtbar ist. Es ist der Moment, in dem sich die Seite geladen anfühlt. Google wertet bis zu 2,5 Sekunden als gut und mehr als 4 Sekunden als schlecht.
+- **Übertragene Dateien** (die untere Leiste im Network-Tab): wie viele Dateien der Browser herunterlädt und wie viele Kilobyte sie zusammen haben.
+- **Ladezeit** („Finish“, in derselben Leiste): wie lange es dauert, bis die Seite fertig geladen ist.
+- **Bundle-Größe** (ein Bundle-Visualizer): wie viel JavaScript der Browser herunterladen, parsen und ausführen muss, bevor der erste Bildschirm funktioniert.
+
+Jetzt schau dir unseren Desktop-Wert noch einmal an. Er ist mehr als das **Dreifache** der Grenze für „gut“ und das Doppelte der Grenze für „schlecht“. Wir waren nicht nur außerhalb des grünen Bereichs, wir konnten ihn von unserem Standort aus nicht einmal sehen.
+
+## Ich fühlte mich ziemlich sicher
+
+Gängige und bekannte Techniken wie `React.lazy` nutzte ich bereits, also fühlte ich mich ziemlich sicher.
+
+Zu Unrecht. `React.lazy` teilt meine eigenen Komponenten auf, hilft aber nicht bei Bibliotheken, die zusammen in einer gemeinsamen Datei liegen. Das Problem lag bei **den Bibliotheken, die wir verwendeten, und wie wir sie verwendeten**.
+
+## Also, ist das groß?
+
+Ich habe damit angefangen, den Network-Tab und die Bundles der Anwendung zu prüfen. Ich bekam **eine CSS-Datei** und **eine JavaScript-Datei** mit 518 kB. Ist das groß? Vite, mit dem unser Dashboard gebaut wurde, warnt bei jeder Datei über 500 kB. Also: ja.
+
+**Eine große Datei, die ganz benutzt wird, ist in Ordnung. Eine große Datei, die größtenteils unbenutzt ist, trägt Code für andere Seiten mit.**
+
+<Callout label="Tipp" title="Ein schneller Weg, das zu prüfen">
+
+Das Coverage-Panel in den Chrome DevTools zeigt für jede Datei, wie viel davon auf dem ersten Bildschirm gelaufen ist. Es ist der schnellste Weg, um zu sehen, ob eine große Datei benutzt oder nur mitgeschleppt wird.
+
+</Callout>
+
+Welche von beiden war unsere? Mir war nicht klar, was darin steckte.
+
+Also habe ich ein Paket gefunden, das das Bundle als Karte aus Kästen zeichnet, je größer der Kasten, desto mehr Kilobyte: `rollup-plugin-visualizer`. Vite sagt dir, dass eine Datei zu groß ist. Der Visualizer zeigt dir, warum.
+
+_„Kate, deine Lösung für ein großes Bundle ist, dem Projekt ein neues Paket hinzuzufügen? Bist du verrückt?“_
+
+Nein. Denn das habe ich auf einem **Lab-Branch** gemacht. Ich wollte dem ganzen Projekt keine Pakete hinzufügen, nur um die Performance zu messen, also kam der Visualizer nie in die Pakete des Projekts: Er lebte und starb auf diesem Branch. Dort habe ich alles getestet und behoben und **nur die nötigen Änderungen** in die Produktion gemergt.
+
+Und die Karte zeigte das Problem sofort: **React, Recharts und Axios lagen alle in einem Bundle**. Eine Datei, alles drin, für jede Seite. Der FAQ-Bereich, die Admin-Seiten und die Flottenseite haben alle Recharts heruntergeladen, eine Diagramm-Bibliothek, die sie gar nicht brauchten. Eine FAQ-Seite, die mit einer Diagramm-Bibliothek ankommt, ist sehr gut vorbereitet auf eine Frage, die niemand stellt.
+
+Wir haben es im Team besprochen und das Bundle aufgeteilt, auf zwei Wegen. Mit `manualChunks` in der Build-Konfiguration kamen die Bibliotheken in eigene Dateien: eine für React, eine für Recharts. Und das Diagramm wird jetzt lazy importiert, sodass Recharts nur dort heruntergeladen wird, wo ein Diagramm gezeigt wird.
+
+Jetzt **lädt jede Seite nur, was sie benutzt**. Auf der Flottenseite, der FAQ-Seite und den Admin-Seiten sind das nur **35 % des früheren Bundles**.
+
+## Das Paket, das wir nicht brauchten
+
+Aufteilen verschiebt Gewicht dorthin, wo es gebraucht wird. Entfernen lässt es verschwinden.
+
+Wir wussten, dass wir manche Pakete nicht entfernen konnten, zum Beispiel Recharts. Aber manche schon: **Axios** zum Beispiel. Es ist eine großartige Bibliothek, aber wir haben ihre Funktionen nicht genutzt. Wir haben nur einfache Anfragen gestellt, und das kann das native `fetch`, ohne dem Bundle etwas hinzuzufügen. Axios ist unkomprimiert etwa 51 kB groß, und wir haben all das als eine längere Schreibweise für `fetch` benutzt.
+
+## Die ganze Speisekarte, um die Suppe zu probieren
+
+Ein kleineres Bundle war nur ein Teil der Wartezeit. Der Rest waren die Daten. Im Network-Tab lag die **Finish**-Zeit des ersten Bildschirms bei **6,91 Sekunden**, und es war eine einzige große Anfrage: Die Zahlen für die Kacheln, die Daten für das Diagramm und die Fahrzeuge für die Tabelle kamen alle zusammen. Keine Zahl konnte erscheinen, bevor alles da war.
+
+Also haben wir **die große Anfrage in drei aufgeteilt**: eine für die Kacheln, eine für das Diagramm, eine für die Tabelle. Und die Tabelle bekam **serverseitige Paginierung**. Sie zeigt nur wenige Zeilen, und wir haben den Server früher nach allen gefragt. Das ist, als würde man die ganze Speisekarte bestellen, um die Suppe zu probieren.
+
+Zusammen haben diese Änderungen die Finish-Zeit auf **1,17 Sekunden** gebracht, fast **sechsmal schneller**.
+
+## Erst die Kacheln, dann die Zahlen
+
+Mit drei Anfragen statt einer kann jeder Teil des Bildschirms erscheinen, sobald seine eigenen Daten da sind. Also haben wir die Zahlen der fünf Kacheln **im Komponentenbaum nach unten verschoben**, in die Kacheln selbst. Jetzt werden zuerst die Kacheln gerendert, und jede Zahl erscheint in ihrer Kachel, sobald sie da ist.
+
+**Zustand** hat uns dabei geholfen: Wenn eine Zahl ankommt, wird nur die kleine `<p>`-Komponente aktualisiert, die sie anzeigt, statt der ganzen Seite oder der ganzen Kachel.
+
+## Von Orange auf Grün
+
+<Callout label="In Zahlen" icon="star">
+
+- Desktop-LCP (Lighthouse): **8,2 s auf 1,7 s**, fast fünfmal schneller
+- JavaScript auf Flotten-, FAQ- und Admin-Seiten: **65 % weniger**, von 518 kB auf etwa 180 kB
+- Alle Dateien des ersten Bildschirms zusammen (JavaScript, CSS und Bilder): **von etwa 765 kB auf unter 300 kB**
+- Finish-Zeit (Network-Tab): **6,91 s auf 1,17 s**
+- Lighthouse auf dem Desktop: Der orange Kreis wurde **grün**
+
+</Callout>
+
+Die 765 kB sind unter 300 kB gefallen, weil drei Dinge den ersten Ladevorgang verlassen haben: **die Bilder**, **das CSS der anderen Seiten** und **Axios**. [Teil 2](/de/journal/one-css-file-for-everything) erzählt die CSS-Geschichte, [Teil 3](/de/journal/not-every-image-should-be-lazy) die Bilder.
+
+Der Desktop-Wert war der entscheidende, denn dort waren unsere Kunden. **1,7 Sekunden** liegen in dem Bereich, den Google als gut wertet. Nach Monaten mit einem orangen Kreis ist ein grüner wie ein kleiner Urlaub.
+
+## Was ich gelernt habe
+
+Werkzeuge ändern sich. Vite, Recharts, Zustand: In zwei Jahren sieht diese Liste anders aus. Was ich mir innen in den Kopf tätowieren würde, sind die Prinzipien dahinter.
+
+<Callout label="Was bleibt" icon="star">
+
+- **Verlass dich auf Zahlen, nicht auf Gefühle.** „Die App ist langsam“ ist ein Gefühl. 8,2 Sekunden sind eine Tatsache, und nur eine Tatsache lässt sich beheben.
+- **Schau hinein, bevor du reparierst.** Ich konnte 518 kB nicht kleiner machen, bevor ich gesehen hatte, woraus sie bestehen.
+- **Eine Best Practice ist eine Vermutung, bis du sie misst.** Alle sagen, Bilder sollten lazy sein. Ich habe sie lazy gemacht, und die Seite wurde langsamer. ([Teil 3](/de/journal/not-every-image-should-be-lazy) erzählt diese Geschichte.)
+- **Bezahle nur für das, was die Seite benutzt.** Beim Code, beim CSS und bei den Daten. Wenn du etwas mit einer Browser-API oder einfachem Code lösen kannst, nutze das: Eine Bibliothek soll dem Code nützen, nicht dein Bundle ohne Mehrwert vergrößern.
+- **Lass nie alles auf das Langsamste warten.** Eine große Anfrage hat den ganzen Bildschirm aufgehalten. Teile sie auf und frage nur ab, was du anzeigst: Paginierung ist entscheidend.
+
+</Callout>

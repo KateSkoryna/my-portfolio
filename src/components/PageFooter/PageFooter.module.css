@@ -7,7 +7,7 @@
      and `.landing` — see the note on `.header` in `PageHeader.module.css`
      for why `width: 100%` is required alongside them (`body`'s column
      flexbox + cross-axis auto margins). */
-  padding: clamp(12px, 2.5vw, 24px) clamp(16px, 5vw, 48px);
+  padding: clamp(4px, 1vw, 12px) clamp(16px, 5vw, 48px);
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
@@ -55,11 +55,11 @@
   text-align: left;
 }
 
-/* Phones: more air above the footer, and everything in it centred. */
+/* Phones: everything in the footer centred; the air above it is the same as below. */
 @media (max-width: 800px) {
   .footer {
-    padding-top: 40px;
     align-items: center;
+    padding-block: 16px;
   }
 
   .row {
@@ -68,5 +68,11 @@
 
   .copyright {
     text-align: center;
+  }
+
+  /* The WCAG 2.2 AA minimum (24px) instead of 44px; the links are spaced
+     16px apart, so the targets still don't crowd each other. */
+  .link {
+    min-height: var(--a11y-min-target-compact);
   }
 }

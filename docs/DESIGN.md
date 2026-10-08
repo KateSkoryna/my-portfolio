@@ -443,7 +443,12 @@ number of coils tall so none is cut. CSS gradients — no canvas, no images.
   year, newest first, the open post `aria-current`; the list scrolls inside the
   panel only. There are no newer / older links: the menu is the way between posts.
   `/journal` is the newest post; every post also has `/journal/<slug>`.
-- **Mobile:** one page at a time, coil down the left edge.
+- **Mobile:** one page at a time, coil down the left edge. The text is 13px
+  (14px on desktop), on the same 20px ruling, the post title 20px and its sub-headings 16px, each on one ruled line per row, with 20px of padding at the top and
+  on the right of the page (36px left, for the coil, and bottom), and the footer's air above it is the
+  same as below it on every phone page (it was 40px above), so the book reaches
+  the footer. The screen never scrolls *(Kateryna's call, to make posts take
+  fewer pages)*.
 - Posts are `.mdx` (`docs/posts.md`): date, title (the page's `<h1>`), tag
   `Chip`s, body, a Caveat margin note for asides only (§1.3), then a "have a look at" pointer to at least one other post or the handbook (`related`
   in `posts.json`), and at the end a handwritten
@@ -451,6 +456,16 @@ number of coils tall so none is cut. CSS gradients — no canvas, no images.
   the same icon pills as the landing page's identity block (`SocialLink`).
 - Page turn is the `/resume` hinged leaf, `duration.turn`, disabled under
   `prefers-reduced-motion`. Coils never animate.
+- **Posts are kept short on the page** *(Kateryna's call)*: a sub-heading takes
+  one ruled line, not two, and stays on the ruling; a post can add room
+  under its sub-headings with `headingGap` in `posts.json`: `line` is one empty
+  line (the CSS and image posts), `small` is a two-line heading with a little air
+  around it (the packages-and-state post). Both stay on the ruling. A box's label and its title
+  stay on two rows, as in every post. (Tried on one line, put back.) The "have a
+  look at" links at the end are **24px** tall, not 44px *(Kateryna's call, an
+  exception to §5.3)*: three stacked 44px links left a gap of more than a line.
+  24px is the WCAG 2.2 AA minimum. Paragraph
+  gaps (one line) and the 14px / 20px text were left as they are.
 - Entry text is Kateryna's; nothing is invented. Anything unfinished is marked in `[BRACKETS]`.
 
 ### 4.4 Shared page chrome (every route)

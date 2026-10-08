@@ -49,7 +49,7 @@
   "profile": {
     "role": "Frontend-fokussierte Full-Stack-Entwicklerin",
     "city": "Berlin, Deutschland",
-    "noteWhere": "Berlin",
+    "noteWhere": "{city}",
     "noteWork": "Offen für neue Rollen",
     "noteEu": "EU-Bürgerin",
     "languages": "Englisch C1 · Deutsch: auf dem Weg zu C1",

@@ -1,0 +1,45 @@
+We all know that images should be lazy. So I made them lazy, like a good developer.
+
+<MarginNote>part 3 of 3</MarginNote>
+
+My time went **up**, not down.
+
+In this post I will share a story about **images**, from the dashboard at **Sono Solar**.
+
+## Not on the first screen
+
+I found out that if you need an image on the first screen, **keep it not lazy!** I had applied a best practice and made the page slower, with full confidence.
+
+<Callout label="Good to know" title="Why a lazy image can be slower">
+
+With `loading="lazy"`, the browser waits until it has worked out the layout and knows the image is on the screen. Only then does it start the download. For an image at the top of the page, that is a late start for something that is needed at once.
+
+The fix for the main image is two attributes: leave out `loading="lazy"`, and add `fetchpriority="high"`, which tells the browser to fetch it before the rest. Give it a `width` and a `height` too, so the page does not jump when it arrives. And make it a real `<img>`: an image set in CSS is found later by the browser.
+
+</Callout>
+
+## Where the images live
+
+Before I worked on it, the images were imported in the CSS. I moved them to the `public` folder and converted them to **WebP**. Now each image is a plain static file that the browser can keep in its cache.
+
+<Callout label="Good to know" title="WebP">
+
+WebP is an image format from Google. By Google's own figures, a WebP file is about a quarter to a third smaller than a JPEG of similar quality, and about a quarter smaller than a PNG. All current browsers can show it.
+
+</Callout>
+
+## One version, not two
+
+The page downloads **only one version** of an image, desktop or mobile, depending on the device the visitor uses. A media query in the CSS picks the version.
+
+## The result
+
+Together with the other two parts, the desktop LCP went from **8.2 s to 1.7 s**.
+
+<Callout label="My rules now" icon="star">
+
+- **Not all images should be lazy.** The ones on the first screen are needed at once.
+- One format, **WebP**, and one version per device.
+- **Rely on numbers, not feelings.**
+
+</Callout>
