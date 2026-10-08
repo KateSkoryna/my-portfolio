@@ -66,11 +66,12 @@
   padding-left: 1.4em;
 }
 
-/* A sub-heading stays with the text under it, and takes one ruled line: the
-   empty line above it comes from the paragraph before. */
+/* A sub-heading stays with the text under it, and takes one ruled line, with
+   one empty line above (from the paragraph before) and one below. */
 .prose h3,
 .prose h4 {
   break-after: avoid;
+  margin-bottom: var(--line, 20px);
   font-family: var(--font-display), system-ui, sans-serif;
   font-weight: 800;
   line-height: var(--line, 20px);

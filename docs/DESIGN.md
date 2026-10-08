@@ -452,7 +452,8 @@ number of coils tall so none is cut. CSS gradients — no canvas, no images.
 - Page turn is the `/resume` hinged leaf, `duration.turn`, disabled under
   `prefers-reduced-motion`. Coils never animate.
 - **Posts are kept short on the page** *(Kateryna's call)*: a sub-heading takes
-  one ruled line, not two, and stays on the ruling. A box's label and its title
+  one ruled line, not two, with an empty line above and below it, and stays on
+  the ruling. A box's label and its title
   stay on two rows, as in every post. (Tried on one line, put back.) Paragraph
   gaps (one line) and the 14px / 20px text were left as they are.
 - Entry text is Kateryna's; nothing is invented. Anything unfinished is marked in `[BRACKETS]`.
