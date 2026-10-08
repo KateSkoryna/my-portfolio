@@ -91,7 +91,7 @@ export const resumeEn: ResumeContent = {
       bullets: [
         {
           label: 'Frontend performance',
-          text: 'Initiated and led a performance overhaul of the React/Vite fleet dashboard: desktop LCP from 8.2 s to 1.7 s, mobile LCP from 17.2 s to 8.9 s, Lighthouse Performance from orange to green. Analysed the bundle with rollup-plugin-visualizer, split a 518 kB JavaScript file into separate chunks and lazy-loaded Recharts, cutting JavaScript by 65% on pages without charts; replaced Axios with native fetch, split the CSS per route and moved images to WebP. Raised Lighthouse Accessibility from 88 to 100.',
+          text: 'Initiated and led a performance overhaul of the React/Vite fleet dashboard: desktop LCP from 8.2 s to 1.7 s, Lighthouse Performance from orange to green. Analysed the bundle with rollup-plugin-visualizer, split a 518 kB JavaScript file into separate chunks and lazy-loaded Recharts, cutting JavaScript by 65% on pages without charts; replaced Axios with native fetch, split the CSS per route and moved images to WebP. Raised Lighthouse Accessibility from 88 to 100.',
         },
         {
           label: 'Data loading',

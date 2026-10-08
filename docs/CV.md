@@ -17,7 +17,7 @@ Tooling: Vercel · GCP (Cloud Logging) · Figma · Jira · Confluence · Miro
 WORK EXPERIENCE
 Frontend Developer · Sono Solar GmbH · Remote (Munich, Germany) Jul 2024 – Aug 2026
 •
-Frontend performance: Initiated and led a performance overhaul of the React/Vite fleet dashboard: desktop LCP from 8.2 s to 1.7 s, mobile LCP from 17.2 s to 8.9 s, Lighthouse Performance from orange to green. Analysed the bundle with rollup-plugin-visualizer, split a 518 kB JavaScript file into separate chunks and lazy-loaded Recharts, cutting JavaScript by 65% on pages without charts; replaced Axios with native fetch, split the CSS per route and moved images to WebP. Raised Lighthouse Accessibility from 88 to 100.
+Frontend performance: Initiated and led a performance overhaul of the React/Vite fleet dashboard: desktop LCP from 8.2 s to 1.7 s, Lighthouse Performance from orange to green. Analysed the bundle with rollup-plugin-visualizer, split a 518 kB JavaScript file into separate chunks and lazy-loaded Recharts, cutting JavaScript by 65% on pages without charts; replaced Axios with native fetch, split the CSS per route and moved images to WebP. Raised Lighthouse Accessibility from 88 to 100.
 •
 Data loading: Cut the dashboard’s full load time (Network “Finish”) from 6.91 s to 1.17 s and its total transfer size from about 765 kB to under 300 kB by splitting one combined data request into three, adding server-side pagination and rendering tiles ahead of their data with Zustand selectors.
 •

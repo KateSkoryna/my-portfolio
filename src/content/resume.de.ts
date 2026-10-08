@@ -91,7 +91,7 @@ export const resumeDe: ResumeContent = {
       bullets: [
         {
           label: 'Frontend-Performance',
-          text: 'Eine Performance-Überarbeitung des React/Vite-Flotten-Dashboards angestoßen und geleitet: Desktop-LCP von 8,2 s auf 1,7 s, mobiler LCP von 17,2 s auf 8,9 s, Lighthouse-Performance von Orange auf Grün. Das Bundle mit rollup-plugin-visualizer analysiert, eine 518 kB große JavaScript-Datei in getrennte Chunks aufgeteilt und Recharts lazy geladen, wodurch Seiten ohne Diagramme 65 % weniger JavaScript laden; Axios durch natives fetch ersetzt, das CSS pro Route aufgeteilt und Bilder auf WebP umgestellt. Den Lighthouse-Accessibility-Wert von 88 auf 100 verbessert.',
+          text: 'Eine Performance-Überarbeitung des React/Vite-Flotten-Dashboards angestoßen und geleitet: Desktop-LCP von 8,2 s auf 1,7 s, Lighthouse-Performance von Orange auf Grün. Das Bundle mit rollup-plugin-visualizer analysiert, eine 518 kB große JavaScript-Datei in getrennte Chunks aufgeteilt und Recharts lazy geladen, wodurch Seiten ohne Diagramme 65 % weniger JavaScript laden; Axios durch natives fetch ersetzt, das CSS pro Route aufgeteilt und Bilder auf WebP umgestellt. Den Lighthouse-Accessibility-Wert von 88 auf 100 verbessert.',
         },
         {
           label: 'Datenladen',
