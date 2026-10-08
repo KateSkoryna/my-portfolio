@@ -113,7 +113,7 @@ function PageThree() {
         {c.projects.map((p) => {
           const links = resumeProjectLinks(p);
           return (
-            <article key={p.repo} className={`${styles.role} ${p.bookOnly ? styles.bookOnly : ''}`}>
+            <article key={p.repo} className={styles.role}>
               <h3 className={styles.roleTitle}>
                 {p.name}
                 <span className={styles.projectLinks}>
