@@ -14,11 +14,13 @@ I found out that if you need an image on the first screen, **keep it not lazy!**
 
 With `loading="lazy"`, the browser waits until it has worked out the layout and knows the image is on the screen. Only then does it start the download. For an image at the top of the page, that is a late start for something that is needed at once.
 
+The fix for the main image is two attributes: leave out `loading="lazy"`, and add `fetchpriority="high"`, which tells the browser to fetch it before the rest. Give it a `width` and a `height` too, so the page does not jump when it arrives. And make it a real `<img>`: an image set in CSS is found later by the browser.
+
 </Callout>
 
 ## Where the images live
 
-Before I worked on it, the images were imported in the CSS. I moved them to the `public` folder and converted them to **WebP**. Now each image is downloaded once and then comes from the browser's cache.
+Before I worked on it, the images were imported in the CSS. I moved them to the `public` folder and converted them to **WebP**. Now each image is a plain static file that the browser can keep in its cache.
 
 <Callout label="Good to know" title="WebP">
 

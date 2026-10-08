@@ -14,7 +14,7 @@ Then the task finally came into the backlog. I had started it, so I led it. This
 
 Lighthouse did not like our dashboard: the page was slow to render. On desktop, where most of our clients worked, the LCP was **8.2 seconds**.
 
-All files together were about **765 kB**, and the main JavaScript file alone was **518 kB**. Is that big? I did not know. So I wanted to try to make it smaller, if I could.
+All files together were about **765 kB**, and the main JavaScript file alone was **518 kB**, the size Vite reports. Is that big? I did not know. So I wanted to try to make it smaller, if I could.
 
 ## What the numbers mean
 
@@ -33,7 +33,7 @@ Now look at our desktop number again. It is more than **three times** the limit 
 
 I already used common and well-known techniques like `React.lazy`, so I felt quite safe.
 
-I was not. The problem was somewhere else: in **the libraries we used and how we used them**.
+I was not. `React.lazy` splits my own components, but it does nothing for libraries that sit together in one shared file. The problem was in **the libraries we used and how we used them**.
 
 ## So, is it big?
 
@@ -63,13 +63,13 @@ Now **each page downloads only what it uses**. On the fleet page, the FAQ and th
 
 ## The package we did not need
 
-Splitting moves weight around. Removing makes it disappear.
+Splitting moves weight to where it is needed. Removing makes it disappear.
 
 We knew that some packages we could not remove, like Recharts. But some we could: **Axios**, for instance. It is a great library, but we did not use its features. We only made simple requests, and native `fetch` does that without adding anything to the bundle. Axios is about 51 kB before compression, and we were using all of that as a longer way to write `fetch`.
 
 ## The whole menu, to taste the soup
 
-A smaller bundle was only part of the wait. The rest was the data. In the Network tab, the **Finish** time of the first screen was **6.91 seconds**, and it was one big request: the numbers for the tiles, the data for the chart and the vehicles for the table all came together. Nothing could appear until everything had arrived.
+A smaller bundle was only part of the wait. The rest was the data. In the Network tab, the **Finish** time of the first screen was **6.91 seconds**, and it was one big request: the numbers for the tiles, the data for the chart and the vehicles for the table all came together. No number could appear until everything had arrived.
 
 So we **split the big request into three**: one for the tiles, one for the chart, one for the table. And the table got **server-side pagination**. It shows only a few rows, and we used to ask the server for all of them, which is like ordering the whole menu to taste the soup.
 
@@ -85,13 +85,15 @@ With three requests instead of one, each part of the screen can appear as soon a
 
 <Callout label="In numbers" icon="star">
 
-- Desktop LCP: **8.2 s to 1.7 s**, almost five times faster
+- Desktop LCP (Lighthouse): **8.2 s to 1.7 s**, almost five times faster
 - JavaScript on the fleet, FAQ and admin pages: **65% less**, from 518 kB to about 180 kB
-- All files of the first screen together: **from about 765 kB to under 300 kB**
-- Finish time in the Network tab: **6.91 s to 1.17 s**
+- All files of the first screen together (JavaScript, CSS and images): **from about 765 kB to under 300 kB**
+- Finish time (Network tab): **6.91 s to 1.17 s**
 - Lighthouse on desktop: the orange circle turned **green**
 
 </Callout>
+
+The 765 kB fell below 300 kB because three things left the first load: **the images**, **the CSS of the other pages** and **Axios**. [Part 2](/en/journal/one-css-file-for-everything) tells the CSS story, [part 3](/en/journal/not-every-image-should-be-lazy) the images.
 
 The desktop number was the key one, because that is where our clients were. **1.7 seconds** is inside what Google counts as good. After months of looking at an orange circle, a green one is a small holiday.
 

@@ -14,11 +14,13 @@ Ich habe gelernt: Wenn du ein Bild auf dem ersten Bildschirm brauchst, **lade es
 
 Mit `loading="lazy"` wartet der Browser, bis er das Layout berechnet hat und weiß, dass das Bild auf dem Bildschirm ist. Erst dann beginnt er mit dem Herunterladen. Für ein Bild ganz oben auf der Seite ist das ein später Start für etwas, das sofort gebraucht wird.
 
+Die Lösung für das Hauptbild sind zwei Attribute: `loading="lazy"` weglassen und `fetchpriority="high"` setzen, damit der Browser es vor dem Rest lädt. Dazu `width` und `height`, damit die Seite nicht springt, wenn es ankommt. Und ein echtes `<img>`: Ein Bild, das im CSS gesetzt wird, findet der Browser später.
+
 </Callout>
 
 ## Wo die Bilder liegen
 
-Bevor ich daran gearbeitet habe, wurden die Bilder im CSS importiert. Ich habe sie in den Ordner `public` verschoben und in **WebP** umgewandelt. Jetzt wird jedes Bild einmal heruntergeladen und kommt danach aus dem Cache des Browsers.
+Bevor ich daran gearbeitet habe, wurden die Bilder im CSS importiert. Ich habe sie in den Ordner `public` verschoben und in **WebP** umgewandelt. Jetzt ist jedes Bild eine einfache statische Datei, die der Browser in seinem Cache behalten kann.
 
 <Callout label="Gut zu wissen" title="WebP">
 

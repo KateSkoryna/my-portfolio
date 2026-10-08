@@ -14,7 +14,7 @@ Dann landete die Aufgabe endlich im Backlog. Ich hatte sie angestoßen, also hab
 
 Lighthouse mochte unser Dashboard nicht: Die Seite brauchte lange zum Rendern. Auf dem Desktop, wo die meisten unserer Kunden arbeiteten, lag der LCP bei **8,2 Sekunden**.
 
-Alle Dateien zusammen hatten etwa **765 kB**, und die Haupt-JavaScript-Datei allein **518 kB**. Ist das groß? Ich wusste es nicht. Also wollte ich versuchen, es kleiner zu machen, wenn ich konnte.
+Alle Dateien zusammen hatten etwa **765 kB**, und die Haupt-JavaScript-Datei allein **518 kB**, so wie Vite es meldet. Ist das groß? Ich wusste es nicht. Also wollte ich versuchen, es kleiner zu machen, wenn ich konnte.
 
 ## Was die Zahlen bedeuten
 
@@ -33,7 +33,7 @@ Jetzt schau dir unseren Desktop-Wert noch einmal an. Er ist mehr als das **Dreif
 
 Gängige und bekannte Techniken wie `React.lazy` nutzte ich bereits, also fühlte ich mich ziemlich sicher.
 
-Zu Unrecht. Das Problem lag woanders: bei **den Bibliotheken, die wir verwendeten, und wie wir sie verwendeten**.
+Zu Unrecht. `React.lazy` teilt meine eigenen Komponenten auf, hilft aber nicht bei Bibliotheken, die zusammen in einer gemeinsamen Datei liegen. Das Problem lag bei **den Bibliotheken, die wir verwendeten, und wie wir sie verwendeten**.
 
 ## Also, ist das groß?
 
@@ -63,13 +63,13 @@ Jetzt **lädt jede Seite nur, was sie benutzt**. Auf der Flottenseite, der FAQ-S
 
 ## Das Paket, das wir nicht brauchten
 
-Aufteilen verschiebt Gewicht. Entfernen lässt es verschwinden.
+Aufteilen verschiebt Gewicht dorthin, wo es gebraucht wird. Entfernen lässt es verschwinden.
 
 Wir wussten, dass wir manche Pakete nicht entfernen konnten, zum Beispiel Recharts. Aber manche schon: **Axios** zum Beispiel. Es ist eine großartige Bibliothek, aber wir haben ihre Funktionen nicht genutzt. Wir haben nur einfache Anfragen gestellt, und das kann das native `fetch`, ohne dem Bundle etwas hinzuzufügen. Axios ist unkomprimiert etwa 51 kB groß, und wir haben all das als eine längere Schreibweise für `fetch` benutzt.
 
 ## Die ganze Speisekarte, um die Suppe zu probieren
 
-Ein kleineres Bundle war nur ein Teil der Wartezeit. Der Rest waren die Daten. Im Network-Tab lag die **Finish**-Zeit des ersten Bildschirms bei **6,91 Sekunden**, und es war eine einzige große Anfrage: Die Zahlen für die Kacheln, die Daten für das Diagramm und die Fahrzeuge für die Tabelle kamen alle zusammen. Nichts konnte erscheinen, bevor alles da war.
+Ein kleineres Bundle war nur ein Teil der Wartezeit. Der Rest waren die Daten. Im Network-Tab lag die **Finish**-Zeit des ersten Bildschirms bei **6,91 Sekunden**, und es war eine einzige große Anfrage: Die Zahlen für die Kacheln, die Daten für das Diagramm und die Fahrzeuge für die Tabelle kamen alle zusammen. Keine Zahl konnte erscheinen, bevor alles da war.
 
 Also haben wir **die große Anfrage in drei aufgeteilt**: eine für die Kacheln, eine für das Diagramm, eine für die Tabelle. Und die Tabelle bekam **serverseitige Paginierung**. Sie zeigt nur wenige Zeilen, und wir haben den Server früher nach allen gefragt. Das ist, als würde man die ganze Speisekarte bestellen, um die Suppe zu probieren.
 
@@ -85,13 +85,15 @@ Mit drei Anfragen statt einer kann jeder Teil des Bildschirms erscheinen, sobald
 
 <Callout label="In Zahlen" icon="star">
 
-- Desktop-LCP: **8,2 s auf 1,7 s**, fast fünfmal schneller
+- Desktop-LCP (Lighthouse): **8,2 s auf 1,7 s**, fast fünfmal schneller
 - JavaScript auf Flotten-, FAQ- und Admin-Seiten: **65 % weniger**, von 518 kB auf etwa 180 kB
-- Alle Dateien des ersten Bildschirms zusammen: **von etwa 765 kB auf unter 300 kB**
-- Finish-Zeit im Network-Tab: **6,91 s auf 1,17 s**
+- Alle Dateien des ersten Bildschirms zusammen (JavaScript, CSS und Bilder): **von etwa 765 kB auf unter 300 kB**
+- Finish-Zeit (Network-Tab): **6,91 s auf 1,17 s**
 - Lighthouse auf dem Desktop: Der orange Kreis wurde **grün**
 
 </Callout>
+
+Die 765 kB sind unter 300 kB gefallen, weil drei Dinge den ersten Ladevorgang verlassen haben: **die Bilder**, **das CSS der anderen Seiten** und **Axios**. [Teil 2](/de/journal/one-css-file-for-everything) erzählt die CSS-Geschichte, [Teil 3](/de/journal/not-every-image-should-be-lazy) die Bilder.
 
 Der Desktop-Wert war der entscheidende, denn dort waren unsere Kunden. **1,7 Sekunden** liegen in dem Bereich, den Google als gut wertet. Nach Monaten mit einem orangen Kreis ist ein grüner wie ein kleiner Urlaub.
 
