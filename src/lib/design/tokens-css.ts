@@ -60,6 +60,7 @@ export function renderTokensCss(): string {
     ]),
     section('Accessibility — DESIGN.md §5', [
       ['--a11y-min-target', `${a11y.minTargetPx}px`],
+      ['--a11y-min-target-compact', `${a11y.minTargetCompactPx}px`],
       ['--a11y-focus-ring', a11y.focusRing],
       ['--a11y-focus-ring-offset', a11y.focusRingOffset],
     ]),

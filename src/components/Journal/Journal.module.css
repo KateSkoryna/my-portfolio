@@ -200,7 +200,8 @@
 .relatedLink {
   display: inline-flex;
   align-items: center;
-  min-height: var(--a11y-min-target);
+  /* The compact floor, not 44px: three stacked links at 44px leave a gap of a line or more. */
+  min-height: var(--a11y-min-target-compact);
   font-family: var(--font-display), system-ui, sans-serif;
   font-weight: 800;
   font-size: 16px;

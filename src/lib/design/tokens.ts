@@ -279,6 +279,8 @@ export const closedBook = {
 export const a11y = {
   /** Minimum touch/click target. The prototype's 32px dots are non-compliant. */
   minTargetPx: 44,
+  /** The WCAG 2.2 AA floor, for a stacked list of text links where 44px would leave a gap of a line or more. */
+  minTargetCompactPx: 24,
   minContrastBody: 4.5,
   minContrastLarge: 3,
   focusRing: `0 0 0 3px ${color.mustard}`,

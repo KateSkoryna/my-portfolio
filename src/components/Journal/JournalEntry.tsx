@@ -75,8 +75,11 @@ export function JournalEntry({ entry, children }: { entry: Entry; children: Reac
                 href={target.kind === 'post' ? `/journal/${target.slug}` : '/handbook'}
                 className={styles.relatedLink}
               >
-                {target.kind === 'post' ? target.title : tItems('handbook.title')}{' '}
-                <span aria-hidden="true">→</span>
+                {/* One flex item, so a title that wraps keeps the arrow after its last word. */}
+                <span>
+                  {target.kind === 'post' ? target.title : tItems('handbook.title')}{' '}
+                  <span aria-hidden="true">→</span>
+                </span>
               </Link>
             </li>
           ))}
