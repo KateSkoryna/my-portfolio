@@ -1,10 +1,42 @@
 {
   "posts": [
     {
+      "slug": "not-every-image-should-be-lazy",
+      "date": "2026-10-07",
+      "category": "myexperience",
+      "related": ["load-time-17-to-9-seconds", "one-css-file-for-everything"],
+      "en": {
+        "title": "A faster dashboard: not every image should be lazy",
+        "excerpt": "Part 3 of 3. I made the images lazy and the page got slower. What an image on the first screen needs, plus WebP and one version per device.",
+        "tags": ["My experience", "Performance", "Images", "WebP", "Lazy loading", "Frontend"]
+      },
+      "de": {
+        "title": "Ein schnelleres Dashboard: nicht jedes Bild sollte lazy sein",
+        "excerpt": "Teil 3 von 3. Ich habe die Bilder lazy gemacht, und die Seite wurde langsamer. Was ein Bild auf dem ersten Bildschirm braucht, dazu WebP und eine Version pro Gerät.",
+        "tags": ["Meine Erfahrung", "Performance", "Bilder", "WebP", "Lazy Loading", "Frontend"]
+      }
+    },
+    {
+      "slug": "one-css-file-for-everything",
+      "date": "2026-09-30",
+      "category": "myexperience",
+      "related": ["not-every-image-should-be-lazy", "load-time-17-to-9-seconds"],
+      "en": {
+        "title": "A faster dashboard: one CSS file for everything",
+        "excerpt": "Part 2 of 3. One wrong word in Sass, and every page downloaded the styles of every other page.",
+        "tags": ["My experience", "Performance", "CSS", "Sass", "Frontend"]
+      },
+      "de": {
+        "title": "Ein schnelleres Dashboard: eine CSS-Datei für alles",
+        "excerpt": "Teil 2 von 3. Ein falsches Wort in Sass, und jede Seite hat die Styles aller anderen Seiten mit heruntergeladen.",
+        "tags": ["Meine Erfahrung", "Performance", "CSS", "Sass", "Frontend"]
+      }
+    },
+    {
       "slug": "load-time-17-to-9-seconds",
       "date": "2026-09-23",
       "category": "myexperience",
-      "related": ["no-longer-a-junior"],
+      "related": ["one-css-file-for-everything", "not-every-image-should-be-lazy"],
       "en": {
         "title": "A faster dashboard: packages, data and state",
         "excerpt": "Part 1 of 3. Where to look and what to check when an app is slow: the bundle, the libraries, the requests and the state of the dashboard at Sono Solar.",
@@ -35,42 +67,8 @@
       }
     },
     {
-      "slug": "no-longer-a-junior",
-      "date": "2026-09-27",
-      "category": "myexperience",
-      "related": ["ai-tools-explained"],
-      "en": {
-        "title": "The moment you realize you're no longer a Junior developer",
-        "excerpt": "Four things I used to install automatically, and the question that flipped: not \"why not?\" but \"why yes?\"",
-        "tags": [
-          "My experience",
-          "Software engineering",
-          "Dependencies",
-          "Bundle size",
-          "CSS",
-          "React",
-          "JavaScript",
-          "Frontend"
-        ]
-      },
-      "de": {
-        "title": "Der Moment, in dem du merkst, dass du kein Junior mehr bist",
-        "excerpt": "Vier Dinge, die ich früher automatisch installiert habe, und die Frage, die sich gedreht hat: nicht „warum nicht?“, sondern „warum ja?“",
-        "tags": [
-          "Meine Erfahrung",
-          "Softwareentwicklung",
-          "Abhängigkeiten",
-          "Bundle-Größe",
-          "CSS",
-          "React",
-          "JavaScript",
-          "Frontend"
-        ]
-      }
-    },
-    {
       "slug": "perfection-is-a-threat",
-      "date": "2026-10-01",
+      "date": "2026-09-16",
       "category": "justtalkoutloud",
       "related": ["ai-tools-explained"],
       "en": {
@@ -100,7 +98,7 @@
     },
     {
       "slug": "ai-tools-explained",
-      "date": "2026-09-30",
+      "date": "2026-09-09",
       "category": "myexperience",
       "related": ["handbook"],
       "en": {
@@ -138,7 +136,7 @@
     },
     {
       "slug": "numeronyms",
-      "date": "2026-09-30",
+      "date": "2026-09-02",
       "category": "mylearning",
       "related": ["ai-tools-explained"],
       "en": {
@@ -171,6 +169,40 @@
           "Kubernetes",
           "n8n",
           "Fachbegriffe"
+        ]
+      }
+    },
+    {
+      "slug": "no-longer-a-junior",
+      "date": "2026-08-26",
+      "category": "myexperience",
+      "related": ["load-time-17-to-9-seconds", "ai-tools-explained"],
+      "en": {
+        "title": "No longer a Junior",
+        "excerpt": "Four things I used to install automatically, and the question that flipped: not \"why not?\" but \"why yes?\"",
+        "tags": [
+          "My experience",
+          "Software engineering",
+          "Dependencies",
+          "Bundle size",
+          "CSS",
+          "React",
+          "JavaScript",
+          "Frontend"
+        ]
+      },
+      "de": {
+        "title": "Kein Junior mehr",
+        "excerpt": "Vier Dinge, die ich früher automatisch installiert habe, und die Frage, die sich gedreht hat: nicht „warum nicht?“, sondern „warum ja?“",
+        "tags": [
+          "Meine Erfahrung",
+          "Softwareentwicklung",
+          "Abhängigkeiten",
+          "Bundle-Größe",
+          "CSS",
+          "React",
+          "JavaScript",
+          "Frontend"
         ]
       }
     }

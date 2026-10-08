@@ -1,0 +1,52 @@
+This is the part of the story where the problem was me.
+
+<MarginNote>part 2 of 3</MarginNote>
+
+Our dashboard at **Sono Solar** was slow: on desktop, the LCP was **8.2 seconds**. One of the reasons was the CSS. In this post I will share a story about **CSS**.
+
+## One file for the whole app
+
+All our styles ended up in a single `index.scss`, pulled together with Sass `@import`. So the browser got **one CSS file** for the whole app, and every page downloaded the styles of every other page.
+
+And `@import` was the wrong directive. It made everything global, it compiled the shared variables and mixins again and again, and it produced CSS that nobody had asked for.
+
+<Callout label="Good to know" title="@import, @use and @forward in Sass">
+
+`@import` copies the imported styles into the file every time it is used, and makes everything in them global. `@use` loads a file once, as a module with its own namespace. `@forward` passes a module on, so one file can collect the shared variables and mixins for the others. Sass has deprecated `@import` and will remove it in version 3.
+
+</Callout>
+
+## What I did
+
+I refactored our stylesheets, in three steps.
+
+1. **`@use` instead of `@import`.** I moved from `@import` to `@use` and `@forward`. That ended the global scope, the duplicate compilation of shared variables and mixins, and the unwanted CSS output.
+2. **From one file to modules.** I went from the single `index.scss` to CSS Modules that belong directly to the route components: `.module.scss` files.
+3. **Let the bundler split.** The styles are now imported next to the lazy-loaded page routes. So Vite can split them into one `.css` file per route, instead of building one giant initial bundle.
+
+<Callout label="Good to know" title="Why CSS matters for speed">
+
+The browser does not draw a page until it has downloaded and read the CSS in its head. A big stylesheet is not only more kilobytes: it is time in which the visitor looks at nothing.
+
+</Callout>
+
+## The result
+
+The codebase is much cleaner, and the browser downloads **only the CSS for the page it shows**. Together with the other two parts, the desktop LCP went from **8.2 s to 1.7 s**.
+
+<Callout label="My rules now" icon="star">
+
+- In Sass: `@use` and `@forward`, not `@import`.
+- Styles live **next to the component** that uses them.
+- A page downloads **its own CSS**, not everybody's.
+- **Rely on numbers, not feelings.**
+
+</Callout>
+
+<Callout label="A thought" title="Next time: pure CSS">
+
+Pure CSS has evolved so much. It now has native nesting, custom properties (variables), container queries, the `:has()` selector and more: the things I once reached for Sass to get. So when I start an app from scratch next time, I will use pure CSS and not add the Sass package at all. One dependency less, and no `@import` or `@use` to get wrong.
+
+</Callout>
+
+And how do you check if a bundle is big or not? Check [my first post](/en/journal/load-time-17-to-9-seconds): I wrote down where to look.

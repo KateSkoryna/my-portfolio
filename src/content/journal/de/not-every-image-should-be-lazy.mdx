@@ -1,0 +1,43 @@
+Wir alle wissen, dass Bilder lazy geladen werden sollen. Also habe ich sie lazy gemacht, ganz vorbildlich.
+
+<MarginNote>Teil 3 von 3</MarginNote>
+
+Meine Zeit wurde **länger**, nicht kürzer.
+
+In diesem Beitrag erzähle ich eine Geschichte über **Bilder**, aus dem Dashboard bei **Sono Solar**.
+
+## Nicht auf dem ersten Bildschirm
+
+Ich habe gelernt: Wenn du ein Bild auf dem ersten Bildschirm brauchst, **lade es nicht lazy!** Ich hatte eine Best Practice angewendet und die Seite langsamer gemacht, mit voller Überzeugung.
+
+<Callout label="Gut zu wissen" title="Warum ein Lazy-Bild langsamer sein kann">
+
+Mit `loading="lazy"` wartet der Browser, bis er das Layout berechnet hat und weiß, dass das Bild auf dem Bildschirm ist. Erst dann beginnt er mit dem Herunterladen. Für ein Bild ganz oben auf der Seite ist das ein später Start für etwas, das sofort gebraucht wird.
+
+</Callout>
+
+## Wo die Bilder liegen
+
+Bevor ich daran gearbeitet habe, wurden die Bilder im CSS importiert. Ich habe sie in den Ordner `public` verschoben und in **WebP** umgewandelt. Jetzt wird jedes Bild einmal heruntergeladen und kommt danach aus dem Cache des Browsers.
+
+<Callout label="Gut zu wissen" title="WebP">
+
+WebP ist ein Bildformat von Google. Nach Googles eigenen Angaben ist eine WebP-Datei etwa ein Viertel bis ein Drittel kleiner als ein JPEG ähnlicher Qualität und etwa ein Viertel kleiner als ein PNG. Alle aktuellen Browser können es anzeigen.
+
+</Callout>
+
+## Eine Version, nicht zwei
+
+Die Seite lädt **nur eine Version** eines Bildes, Desktop oder Mobil, je nach Gerät. Eine Media Query im CSS wählt die Version aus.
+
+## Das Ergebnis
+
+Zusammen mit den beiden anderen Teilen ging der Desktop-LCP von **8,2 s auf 1,7 s**.
+
+<Callout label="Meine Regeln jetzt" icon="star">
+
+- **Nicht alle Bilder sollten lazy sein.** Die auf dem ersten Bildschirm werden sofort gebraucht.
+- Ein Format, **WebP**, und eine Version pro Gerät.
+- **Verlass dich auf Zahlen, nicht auf Gefühle.**
+
+</Callout>
