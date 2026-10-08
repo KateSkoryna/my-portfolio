@@ -4,7 +4,7 @@
       "slug": "not-every-image-should-be-lazy",
       "date": "2026-10-07",
       "category": "myexperience",
-      "related": ["load-time-17-to-9-seconds", "one-css-file-for-everything"],
+      "related": ["faster-dashboard-packages-data-and-state", "one-css-file-for-everything"],
       "headingGap": "line",
       "en": {
         "title": "A faster dashboard: not every image should be lazy",
@@ -21,7 +21,7 @@
       "slug": "one-css-file-for-everything",
       "date": "2026-09-30",
       "category": "myexperience",
-      "related": ["not-every-image-should-be-lazy", "load-time-17-to-9-seconds"],
+      "related": ["not-every-image-should-be-lazy", "faster-dashboard-packages-data-and-state"],
       "headingGap": "line",
       "en": {
         "title": "A faster dashboard: one CSS file for everything",
@@ -35,7 +35,7 @@
       }
     },
     {
-      "slug": "load-time-17-to-9-seconds",
+      "slug": "faster-dashboard-packages-data-and-state",
       "date": "2026-09-23",
       "category": "myexperience",
       "related": ["one-css-file-for-everything", "not-every-image-should-be-lazy"],
@@ -179,7 +179,7 @@
       "slug": "no-longer-a-junior",
       "date": "2026-08-26",
       "category": "myexperience",
-      "related": ["load-time-17-to-9-seconds", "ai-tools-explained"],
+      "related": ["faster-dashboard-packages-data-and-state", "ai-tools-explained"],
       "en": {
         "title": "No longer a Junior",
         "excerpt": "Four things I used to install automatically, and the question that flipped: not \"why not?\" but \"why yes?\"",
