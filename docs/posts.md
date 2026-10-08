@@ -295,9 +295,9 @@ Her second version of the "weight" paragraph (the "Iceberg Effect", with Formik 
 - React Hook Form 7.89.0: no dependencies, only React as a peer. Correct. "The team built lightweight internal utilities" cannot be checked and was dropped.
 - Her Task Manager uses React Hook Form (`useForm` in `TodoForm.tsx` and others), so item 1 has an "In my projects" box.
 
-### load-time-17-to-9-seconds — published 2026-10-07 (for her read)
+### faster-dashboard-packages-data-and-state — published 2026-10-07 (for her read)
 
-Properties: `posts.json` → `load-time-17-to-9-seconds` (`category: myexperience`, `draft: true`). Text: `src/content/journal/en/load-time-17-to-9-seconds.mdx`, `src/content/journal/de/load-time-17-to-9-seconds.mdx`.
+Properties: `posts.json` → `faster-dashboard-packages-data-and-state` (`category: myexperience`, `draft: true`). Text: `src/content/journal/en/faster-dashboard-packages-data-and-state.mdx`, `src/content/journal/de/faster-dashboard-packages-data-and-state.mdx`.
 
 Original text, as received (2026-10-07, in pieces, as answers to the `[ASK]` points):
 
@@ -360,7 +360,7 @@ Answers to four questions, 2026-10-07 (chosen from options, so the wording in th
 - About 765 kB was the bundle before. "About 268 kB" after is calculated from 765 kB and 65%, not measured.
 - The endpoint's 6.91 s → 1.17 s came from both changes together: the Node-side time-series processing (wording from her CV) and pagination.
 - 8.9 s: "say it honestly": still slow, work left that she did not get to.
-- Overlap with `no-longer-a-junior`: "keep link, lets name this post about time". The post was renamed from `bundle-65-percent` to `load-time-17-to-9-seconds`, with a title and opening about the load time; the 65% is now one of the results. The link from `no-longer-a-junior` to this post is **not added yet**: this post is a draft, and a `related` entry or link to a draft breaks the page. Add it when this post is published.
+- Overlap with `no-longer-a-junior`: "keep link, lets name this post about time". The post was renamed from `bundle-65-percent` to `faster-dashboard-packages-data-and-state`, with a title and opening about the load time; the 65% is now one of the results. The link from `no-longer-a-junior` to this post is **not added yet**: this post is a draft, and a `related` entry or link to a draft breaks the page. Add it when this post is published.
 
 Answers to four more questions, 2026-10-07:
 
@@ -409,7 +409,7 @@ Made visible at her request ("create a new post in blog, I will read it, add sec
 
 Titles and dates, at her request 2026-10-07 ("make short topics for posts, fix dates make them 1 a week starting from today and reverse time"):
 
-- Dates are now one post a week, counting back from today, in the order the posts already had: `load-time-17-to-9-seconds` 2026-10-07, `perfection-is-a-threat` 2026-09-30, `ai-tools-explained` 2026-09-23, `numeronyms` 2026-09-16, `no-longer-a-junior` 2026-09-09. The "published" dates in the headings above are the days the posts were written, not these.
+- Dates are now one post a week, counting back from today, in the order the posts already had: `faster-dashboard-packages-data-and-state` 2026-10-07, `perfection-is-a-threat` 2026-09-30, `ai-tools-explained` 2026-09-23, `numeronyms` 2026-09-16, `no-longer-a-junior` 2026-09-09. The "published" dates in the headings above are the days the posts were written, not these.
 - Two long titles shortened: "How I made a dashboard load faster" (was "From 17.2 to 8.9 seconds: how I made a dashboard load faster") and "No longer a Junior" (was "The moment you realize you're no longer a Junior developer"); German: "Wie ich ein Dashboard schneller gemacht habe", "Kein Junior mehr". The other three were already short and are unchanged. Slugs are unchanged.
 
 Opening cut at her request, 2026-10-07: the mobile sentence, the "open another app" joke and "where most of our clients worked" are gone. The post now opens "At Sono Solar, the first screen of our dashboard went from 8.2 seconds to 1.7." The mobile figures remain further down.
@@ -445,17 +445,17 @@ At her request, 2026-10-07 ("reduce Five suspects section, and concentrate more 
 
 Split into three posts at her request, 2026-10-07 ("big post split it into 3: css story, image story, and this will be about state and package story"):
 
-- `load-time-17-to-9-seconds` — "A faster dashboard: packages and state". Keeps the hook, the numbers, the bundle, Axios, the request, the component tree and Zustand. The CSS, image and "What went wrong" sections moved out; the opening links to the other two and says the numbers are for all three together.
+- `faster-dashboard-packages-data-and-state` — "A faster dashboard: packages and state". Keeps the hook, the numbers, the bundle, Axios, the request, the component tree and Zustand. The CSS, image and "What went wrong" sections moved out; the opening links to the other two and says the numbers are for all three together.
 - `one-css-file-for-everything` — "One CSS file for everything". Her `@import` / `@use` story.
 - `not-every-image-should-be-lazy` — "Not every image should be lazy". Her lazy-image finding, `public` + WebP + cache, one version per device.
 
 Both new posts contain only facts already in the big post. Added by Claude, standard facts: the "Why CSS matters for speed" box (CSS blocks rendering) and the "WebP" box (Google's published size figures). "Every page downloaded the styles of every other page" is Claude's restatement of "one file for the whole app". The "My rules now" boxes in the two new posts are Claude's wording around her lines ("Not all images should be lazy", "Rely on numbers, not feelings").
 
-Dates respaced, one a week back from today: `load-time-17-to-9-seconds` 2026-10-07, `not-every-image-should-be-lazy` 09-30, `one-css-file-for-everything` 09-23, `perfection-is-a-threat` 09-16, `ai-tools-explained` 09-09, `numeronyms` 09-02, `no-longer-a-junior` 08-26. This puts three "My experience" posts in a row, outside the usual rotation.
+Dates respaced, one a week back from today: `faster-dashboard-packages-data-and-state` 2026-10-07, `not-every-image-should-be-lazy` 09-30, `one-css-file-for-everything` 09-23, `perfection-is-a-threat` 09-16, `ai-tools-explained` 09-09, `numeronyms` 09-02, `no-longer-a-junior` 08-26. This puts three "My experience" posts in a row, outside the usual rotation.
 
 Made a numbered series at her request, 2026-10-07 ("name it as part 1, part 2. connect them, publish them at different dates"):
 
-- Titles: "A faster dashboard, part 1: packages and state" (`load-time-17-to-9-seconds`), "part 2: one CSS file for everything" (`one-css-file-for-everything`), "part 3: not every image should be lazy" (`not-every-image-should-be-lazy`). Slugs unchanged.
+- Titles: "A faster dashboard, part 1: packages and state" (`faster-dashboard-packages-data-and-state`), "part 2: one CSS file for everything" (`one-css-file-for-everything`), "part 3: not every image should be lazy" (`not-every-image-should-be-lazy`). Slugs unchanged.
 - Dates in reading order, a week apart: part 1 2026-09-23, part 2 2026-09-30, part 3 2026-10-07 (part 1 and part 3 swapped dates). The other posts keep theirs.
 - Connected three ways: the opening of each names its part and links the other two; each ends with a star box "The series" listing all three, and parts 1 and 2 end with a "Next:" link; `related` lists the next part first.
 
@@ -657,3 +657,17 @@ Notebook on phones, 2026-10-08, her words "sections title oin pist also": below 
 Post header, 2026-10-08, her words "meine erfarung and date should be in 1 row and small space betwen it and title": below 900px the kind of post and the date no longer wrap (no wrapping, letter-spacing .04em instead of .16em); on every screen there is a 4px space between them and the title: the row is 16px high and the title has 4px of padding on top, which adds up to one ruled line, so the text below stays on the ruling (`Journal.module.css`). Risk: if the longest German date ("23. September 2026") does not fit a very narrow phone, the row is clipped, not wrapped. Not seen on a device.
 
 Post header, 2026-10-08, her words "add space between title and tags, make tags amaller on mobile": the tags start 24px under the title (was 4px; one ruled line more, so the text below stays on the ruling) on every screen; below 900px the tags are 16px tall (was about 24px) with 2px 6px padding and 4px between rows, so each row is one ruled line. The tag text stays 11px, the floor in DESIGN.md §5.4. (`Journal.module.css`.) Not seen on a device.
+
+2026-10-08, her words "1. fix cv with new data, 2. checked posts - good, 2. rename": part 1's slug renamed from `load-time-17-to-9-seconds` to `faster-dashboard-packages-data-and-state` (both `.mdx` files, `posts.json`, the link in part 2, and the earlier mentions in this file). The URL changes to `/journal/faster-dashboard-packages-data-and-state`; part 1 was never pushed. The CV now matches the posts: the mobile LCP (17.2 s to 8.9 s) is out of the performance bullet, as it is out of part 1 (`docs/CV.md`, `resume.en.ts`, `resume.de.ts`). Everything else in the bullets already matched the post. Not changed: `public/kateryna-skoryna-cv.pdf`.
+
+Part 1, 2026-10-08, her words "I removed images from load, css, axios lib" (taken as the answer to what made the total fall from about 765 kB to under 300 kB): the "In numbers" line now says the total is JavaScript, CSS and images together, and a sentence after the box says the total fell because the images, the CSS of the other pages and Axios left the first load, linking parts 2 and 3. This settles that the total is not a JavaScript-only figure. Still unconfirmed: whether 518 kB is minified size and 765 kB transferred, the Lighthouse and Network tab conditions, what was lazy before, the chart on the first screen.
+
+2026-10-08, her words "it is a post in blog, not a master work. Just add data to make a grate post for recruter and senior develipers": three small additions, all standard facts: the Sass `@import` deprecation date (Dart Sass 1.80, October 2024) in part 2; `fetchpriority="high"` and width/height for the main image in part 3; "no number could appear" in part 1 (the cards showed a skeleton). Not added: Recharts's own size (566 kB minified in today's version on Bundlephobia), because it is larger than the 518 kB file and would contradict the story. No further review questions.
+
+Logic pass, 2026-10-08, her words "check to make it logical, bulletproof and convinced for senior". Edits only where a claim could be attacked, using what is already known:
+
+- Part 1: 518 kB is "the size Vite reports"; the `React.lazy` line no longer contradicts "everything in one bundle" (it splits own components, not libraries in a shared file); "splitting moves weight to where it is needed"; the results box names its tool (Lighthouse for LCP, Network tab for Finish); one sentence says the changes were not measured one by one.
+- Part 3: images in `public` are "a plain static file the browser can keep in its cache" (was "downloaded once, then from cache", which depends on cache headers); the main image should be a real `<img>`, since an image set in CSS is found later.
+- Unchanged, because only she knows: whether 518 kB is minified size, the Lighthouse and Network tab settings, the 765 kB unit.
+
+Part 1, 2026-10-08, at her request: the sentence "I did not measure each change on its own…" removed, in both languages.
