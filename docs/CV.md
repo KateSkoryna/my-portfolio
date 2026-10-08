@@ -6,7 +6,7 @@ and B2C products. Owns features from the React UI through REST APIs and the Post
 integration, authentication and claims-based authorization. Measurable frontend and API performance gains, and AI features with
 validated LLM output.
 SKILLS
-Frontend: React · TypeScript · JavaScript · Next.js · React Hooks · Material UI · Zustand · Axios · Vite · Chart.js · Sass · Tailwind CSS · HTML
+Frontend: React · TypeScript · JavaScript · Next.js · React Hooks · Material UI · Zustand · Axios · Vite · Recharts · Sass · Tailwind CSS · HTML
 Backend & Data: Node.js · NestJS · PostgreSQL · TypeORM · REST APIs · BigQuery · MongoDB · Prisma · Zod · Firebase Auth ·
 claims-based authorization, RBAC, multi-tenant
 Integrations: Teltonika telematics data · Mapbox · SendGrid · Slack alerting · retry logic
@@ -17,15 +17,13 @@ Tooling: Vercel · GCP (Cloud Logging) · Figma · Jira · Confluence · Miro
 WORK EXPERIENCE
 Frontend Developer · Sono Solar GmbH · Remote (Munich, Germany) Jul 2024 – Aug 2026
 •
-Frontend performance: Reduced the initial JavaScript bundle by 65% through code splitting and by removing unnecessary dependencies, improving mobile LCP from 17.2 s to
-8.9 s and Lighthouse Accessibility from 88 to 100.
+Frontend performance: Initiated and led a performance overhaul of the React/Vite fleet dashboard: desktop LCP from 8.2 s to 1.7 s, mobile LCP from 17.2 s to 8.9 s, Lighthouse Performance from orange to green. Analysed the bundle with rollup-plugin-visualizer, split a 518 kB JavaScript file into separate chunks and lazy-loaded Recharts, cutting JavaScript by 65% on pages without charts; replaced Axios with native fetch, split the CSS per route and moved images to WebP. Raised Lighthouse Accessibility from 88 to 100.
 •
-API performance: Reduced a production fleet-analytics endpoint from 6.91 s to 1.17 s by profiling the full request path and
-identifying Node-side time-series processing as the main bottleneck.
+Data loading: Cut the dashboard’s full load time (Network “Finish”) from 6.91 s to 1.17 s and its total transfer size from about 765 kB to under 300 kB by splitting one combined data request into three, adding server-side pagination and rendering tiles ahead of their data with Zustand selectors.
 •
 Component development: Built and maintained ~25 reusable React/TypeScript components (forms, modals, tables, charts, map
 markers, loading and error states) against the team’s design system and Figma specs, reused across dashboard features and shared
-with the Installation Tool. Migrated CSS to Sass and adopted a layer-based frontend architecture.
+with the Installation Tool. Migrated CSS to Sass, then from @import to @use/@forward and from one global index.scss to route-level CSS Modules, which let Vite split the CSS per route. Adopted a layer-based frontend architecture.
 •
 Multi-tenant authorization: Integrated a claims-based authorization model (OEM, fleet and user roles: viewer, admin, fleet admin)
 into a B2B React platform, controlling access to two products (Solar Analytics Dashboard, Installation Tool) and scoping data
@@ -39,7 +37,7 @@ distinguishing “no data” from “stale data”
 . Added bounded retries (temporary vs. permanent errors) and Slack alerting for missing
 telemetry and failed jobs. Integrated SendGrid for login codes.
 •
-Dashboards and live map: Built fleet-analytics dashboards with Chart.js and a Mapbox vehicle map with periodic data refresh,
+Dashboards and live map: Built fleet-analytics dashboards with Recharts and a Mapbox vehicle map with periodic data refresh,
 isolating map state to avoid unnecessary re-renders.
 •
 Backend, testing and CI/CD: Built and maintained Node.js, TypeORM and PostgreSQL functionality (data models, migrations, REST

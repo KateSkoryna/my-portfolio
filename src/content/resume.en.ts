@@ -24,7 +24,7 @@ export const resumeEn: ResumeContent = {
         'Zustand',
         'Axios',
         'Vite',
-        'Chart.js',
+        'Recharts',
         'Sass',
         'Tailwind CSS',
         'HTML',
@@ -91,15 +91,15 @@ export const resumeEn: ResumeContent = {
       bullets: [
         {
           label: 'Frontend performance',
-          text: 'Reduced the initial JavaScript bundle by 65% through code splitting and by removing unnecessary dependencies, improving mobile LCP from 17.2 s to 8.9 s and Lighthouse Accessibility from 88 to 100.',
+          text: 'Initiated and led a performance overhaul of the React/Vite fleet dashboard: desktop LCP from 8.2 s to 1.7 s, mobile LCP from 17.2 s to 8.9 s, Lighthouse Performance from orange to green. Analysed the bundle with rollup-plugin-visualizer, split a 518 kB JavaScript file into separate chunks and lazy-loaded Recharts, cutting JavaScript by 65% on pages without charts; replaced Axios with native fetch, split the CSS per route and moved images to WebP. Raised Lighthouse Accessibility from 88 to 100.',
         },
         {
-          label: 'API performance',
-          text: 'Reduced a production fleet-analytics endpoint from 6.91 s to 1.17 s by profiling the full request path and identifying Node-side time-series processing as the main bottleneck.',
+          label: 'Data loading',
+          text: 'Cut the dashboard’s full load time (Network “Finish”) from 6.91 s to 1.17 s and its total transfer size from about 765 kB to under 300 kB by splitting one combined data request into three, adding server-side pagination and rendering tiles ahead of their data with Zustand selectors.',
         },
         {
           label: 'Component development',
-          text: 'Built and maintained ~25 reusable React/TypeScript components (forms, modals, tables, charts, map markers, loading and error states) against the team’s design system and Figma specs, reused across dashboard features and shared with the Installation Tool. Migrated CSS to Sass and adopted a layer-based frontend architecture.',
+          text: 'Built and maintained ~25 reusable React/TypeScript components (forms, modals, tables, charts, map markers, loading and error states) against the team’s design system and Figma specs, reused across dashboard features and shared with the Installation Tool. Migrated CSS to Sass, then from @import to @use/@forward and from one global index.scss to route-level CSS Modules, which let Vite split the CSS per route. Adopted a layer-based frontend architecture.',
         },
         {
           label: 'Multi-tenant authorization',
@@ -115,7 +115,7 @@ export const resumeEn: ResumeContent = {
         },
         {
           label: 'Dashboards and live map',
-          text: 'Built fleet-analytics dashboards with Chart.js and a Mapbox vehicle map with periodic data refresh, isolating map state to avoid unnecessary re-renders.',
+          text: 'Built fleet-analytics dashboards with Recharts and a Mapbox vehicle map with periodic data refresh, isolating map state to avoid unnecessary re-renders.',
         },
         {
           label: 'Backend, testing and CI/CD',
