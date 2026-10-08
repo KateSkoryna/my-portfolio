@@ -5,6 +5,7 @@
       "date": "2026-10-07",
       "category": "myexperience",
       "related": ["load-time-17-to-9-seconds", "one-css-file-for-everything"],
+      "headingGap": "line",
       "en": {
         "title": "A faster dashboard: not every image should be lazy",
         "excerpt": "Part 3 of 3. I made the images lazy and the page got slower. What an image on the first screen needs, plus WebP and one version per device.",
@@ -21,6 +22,7 @@
       "date": "2026-09-30",
       "category": "myexperience",
       "related": ["not-every-image-should-be-lazy", "load-time-17-to-9-seconds"],
+      "headingGap": "line",
       "en": {
         "title": "A faster dashboard: one CSS file for everything",
         "excerpt": "Part 2 of 3. One wrong word in Sass, and every page downloaded the styles of every other page.",
@@ -37,6 +39,7 @@
       "date": "2026-09-23",
       "category": "myexperience",
       "related": ["one-css-file-for-everything", "not-every-image-should-be-lazy"],
+      "headingGap": "small",
       "en": {
         "title": "A faster dashboard: packages, data and state",
         "excerpt": "Part 1 of 3. Where to look and what to check when an app is slow: the bundle, the libraries, the requests and the state of the dashboard at Sono Solar.",

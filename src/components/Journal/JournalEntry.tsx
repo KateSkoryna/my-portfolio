@@ -53,7 +53,17 @@ export function JournalEntry({ entry, children }: { entry: Entry; children: Reac
           </ul>
         )}
       </header>
-      <div className={styles.prose}>{children}</div>
+      <div
+        className={
+          entry.headingGap === 'line'
+            ? `${styles.prose} ${styles.gapLine}`
+            : entry.headingGap === 'small'
+              ? `${styles.prose} ${styles.gapSmall}`
+              : styles.prose
+        }
+      >
+        {children}
+      </div>
       <section className={styles.related} aria-labelledby="journal-related">
         <h2 id="journal-related" className={styles.relatedLabel}>
           {t('related')}

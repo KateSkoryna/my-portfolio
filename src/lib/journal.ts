@@ -10,6 +10,8 @@ import { routing } from '@/i18n/routing';
 export const CATEGORIES = ['mylearning', 'myexperience', 'justtalkoutloud'] as const;
 export type Category = (typeof CATEGORIES)[number];
 
+export type HeadingGap = 'small' | 'line';
+
 /** What `posts.json` holds for one post in one language. */
 interface Translation {
   title: string;
@@ -29,6 +31,12 @@ interface Post {
   draft?: boolean;
   /** What to read next: another post's slug, or `handbook`. At least one. */
   related: string[];
+  /**
+   * Room under each sub-heading, in whole lines so the text stays on the ruling:
+   * `small` gives the heading two lines to sit in (a little air above and below it),
+   * `line` adds one empty line under it. Without it a heading sits directly on its text.
+   */
+  headingGap?: HeadingGap;
   en: Translation;
   de?: Translation;
 }
@@ -41,6 +49,7 @@ export interface Entry extends Translation {
   date: string;
   category: Category;
   related: Related[];
+  headingGap?: HeadingGap;
 }
 
 const ROOT = join(process.cwd(), 'src', 'content', 'journal');
@@ -111,6 +120,7 @@ function toEntry(post: Post, locale: string): Entry {
     date: post.date,
     category: post.category,
     related,
+    headingGap: post.headingGap,
     ...post[languageOf(post, locale)]!,
   };
 }
