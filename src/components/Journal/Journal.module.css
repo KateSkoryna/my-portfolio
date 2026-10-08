@@ -140,6 +140,17 @@
   font-size: 16px;
 }
 
+/* Phones: smaller sub-headings, still one ruled line per row. */
+@media (max-width: 899px) {
+  .prose h3 {
+    font-size: 16px;
+  }
+
+  .prose h4 {
+    font-size: 14px;
+  }
+}
+
 .prose li,
 .prose p {
   orphans: 2;

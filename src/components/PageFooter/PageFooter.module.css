@@ -55,10 +55,9 @@
   text-align: left;
 }
 
-/* Phones: more air above the footer, and everything in it centred. */
+/* Phones: everything in the footer centred; the air above it is the same as below. */
 @media (max-width: 800px) {
   .footer {
-    padding-top: 40px;
     align-items: center;
   }
 
