@@ -12,6 +12,9 @@
   flex-wrap: wrap;
   align-items: baseline;
   gap: 0 8px;
+  /* Four pixels short of a ruled line; the title's top padding makes them up,
+     so there is a small space above the title and the text stays on the ruling. */
+  line-height: 16px;
   font-weight: 800;
   font-size: 11px;
   letter-spacing: 0.16em;
@@ -33,6 +36,7 @@
 }
 
 .title {
+  padding-top: 4px;
   font-family: var(--font-display), system-ui, sans-serif;
   font-weight: 800;
   font-size: clamp(24px, 3vw, 30px);
@@ -42,13 +46,51 @@
   overflow-wrap: anywhere;
 }
 
+/* Phones: the kind of post and the date stay on one row, so their capitals
+   are set less wide. */
+@media (max-width: 899px) {
+  .meta {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+
+  .meta,
+  .date {
+    letter-spacing: 0.04em;
+  }
+}
+
+/* Phones: a smaller title that takes one ruled line per row of text, not two
+   (a display title at line-height 1.0, DESIGN.md §1.3). */
+@media (max-width: 899px) {
+  .title {
+    font-size: 20px;
+    line-height: var(--line, 20px);
+  }
+}
+
 .tags {
   list-style: none;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  margin-top: 4px;
+  /* One ruled line and the old 4px: a clear space under the title. */
+  margin-top: 24px;
+}
+
+/* Phones: smaller tags, 16px tall with 4px between rows, so every row is one
+   ruled line and the text below stays on the ruling. The text keeps 11px
+   (DESIGN.md §5.4); the pill just has less padding. */
+@media (max-width: 899px) {
+  .tags li {
+    display: flex;
+  }
+
+  .tags li > span {
+    padding: 2px 6px;
+    line-height: 12px;
+  }
 }
 
 .prose {
