@@ -1,6 +1,40 @@
 {
   "posts": [
     {
+      "slug": "load-time-17-to-9-seconds",
+      "date": "2026-09-23",
+      "category": "myexperience",
+      "related": ["no-longer-a-junior"],
+      "en": {
+        "title": "A faster dashboard: packages, data and state",
+        "excerpt": "Part 1 of 3. Where to look and what to check when an app is slow: the bundle, the libraries, the requests and the state of the dashboard at Sono Solar.",
+        "tags": [
+          "My experience",
+          "Performance",
+          "Bundle size",
+          "Code splitting",
+          "Dependencies",
+          "Zustand",
+          "React",
+          "Frontend"
+        ]
+      },
+      "de": {
+        "title": "Ein schnelleres Dashboard: Pakete, Daten und State",
+        "excerpt": "Teil 1 von 3. Wo man hinschaut und was man prüft, wenn eine App langsam ist: das Bundle, die Bibliotheken, die Anfragen und der State des Dashboards bei Sono Solar.",
+        "tags": [
+          "Meine Erfahrung",
+          "Performance",
+          "Bundle-Größe",
+          "Code-Splitting",
+          "Abhängigkeiten",
+          "Zustand",
+          "React",
+          "Frontend"
+        ]
+      }
+    },
+    {
       "slug": "no-longer-a-junior",
       "date": "2026-09-27",
       "category": "myexperience",

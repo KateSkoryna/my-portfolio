@@ -1,0 +1,114 @@
+Your app is slow. Or fast? How do you know? **Gut feeling, or real numbers?**
+
+<MarginNote>part 1 of 3</MarginNote>
+
+Let's make it clear where to look and what to check. In this post I will share a story about **packages and data**, from the dashboard at **Sono Solar**.
+
+## Two weeks, out of curiosity
+
+Six months before this story starts, I tried to make that dashboard faster. Without AI, for fun, just to understand and experiment. (Yes, this is my idea of a good time.) It took **2 weeks**, and it was not perfect.
+
+Then the task finally came into the backlog. I had started it, so I led it. This time I had a plan, the understanding, the tools, and my team to discuss them with.
+
+## The number on the report
+
+Lighthouse did not like our dashboard: the page was slow to render. On desktop, where most of our clients worked, the LCP was **8.2 seconds**.
+
+All files together were about **765 kB**, and the main JavaScript file alone was **518 kB**. Is that big? I did not know. So I wanted to try to make it smaller, if I could.
+
+## What the numbers mean
+
+Numbers are the key. **LCP, transferred files, load time and bundle size**: these are the key points to check.
+
+For people who struggle with Google's documentation, like I do, here it is in simple words:
+
+- **LCP** (Largest Contentful Paint, in the Lighthouse tab): the time until the biggest thing on the screen is visible. It is the moment when the page feels loaded. Google counts up to 2.5 seconds as good and more than 4 seconds as poor.
+- **Transferred files** (the bottom bar of the Network tab): how many files the browser downloads, and how many kilobytes they are together.
+- **Load time** ("Finish", in the same bar): how long it takes until the page has finished loading.
+- **Bundle size** (a bundle visualizer): how much JavaScript the browser has to download, parse and run before the first screen works.
+
+Now look at our desktop number again. It is more than **three times** the limit for "good", and twice the limit for "poor". We were not just outside the green zone, we could not see it from where we stood.
+
+## I felt quite safe
+
+I already used common and well-known techniques like `React.lazy`, so I felt quite safe.
+
+I was not. The problem was somewhere else: in **the libraries we used and how we used them**.
+
+## So, is it big?
+
+I started by checking the Network tab and the bundles of the application. I got **one CSS file** and **one JavaScript file** of 518 kB. Is that big? Vite, which built our dashboard, warns about every file above 500 kB. So: yes.
+
+**A big file that is fully used is fine. A big file that is mostly unused is carrying code for other pages.**
+
+<Callout label="Tip" title="A fast way to check">
+
+The Coverage panel in Chrome DevTools shows, for every file, how much of it ran on the first screen. It is the quickest way to see whether a big file is used or only carried along.
+
+</Callout>
+
+Which one was ours? It was not clear to me what was inside it.
+
+So I found a package that draws the bundle as a map of boxes, the bigger the box, the more kilobytes: `rollup-plugin-visualizer`. Vite tells you that a file is too big. The visualizer shows you why.
+
+*"Kate, your solution to a big bundle is to add a new package to the project? Are you mad?"*
+
+No. Because I did this on a **lab branch**. I did not want to add packages to the whole project only to measure performance, so the visualizer never reached the project's packages: it lived and died on that branch. I tested and fixed everything there, and merged **only the changes that were needed** into production.
+
+And the map showed the problem at once: **React, Recharts and Axios were all in one bundle**. One file, everything inside, for every page. The FAQ section, the admin pages and the fleet page all downloaded Recharts, a chart library that they did not need at all. An FAQ page that arrives with a chart library is very well prepared for a question nobody asks.
+
+We discussed it in my team and split the bundle, in two ways. With `manualChunks` in the build config, the libraries went into their own files: one for React, one for Recharts. And the chart is now imported lazily, so Recharts is downloaded only where a chart is shown.
+
+Now **each page downloads only what it uses**. On the fleet page, the FAQ and the admin pages, that is only **35% of the previous bundle**.
+
+## The package we did not need
+
+Splitting moves weight around. Removing makes it disappear.
+
+We knew that some packages we could not remove, like Recharts. But some we could: **Axios**, for instance. It is a great library, but we did not use its features. We only made simple requests, and native `fetch` does that without adding anything to the bundle. Axios is about 51 kB before compression, and we were using all of that as a longer way to write `fetch`.
+
+## The whole menu, to taste the soup
+
+A smaller bundle was only part of the wait. The rest was the data. In the Network tab, the **Finish** time of the first screen was **6.91 seconds**, and it was one big request: the numbers for the tiles, the data for the chart and the vehicles for the table all came together. Nothing could appear until everything had arrived.
+
+So we **split the big request into three**: one for the tiles, one for the chart, one for the table. And the table got **server-side pagination**. It shows only a few rows, and we used to ask the server for all of them, which is like ordering the whole menu to taste the soup.
+
+Together, these changes brought the Finish time down to **1.17 seconds**, almost **six times faster**.
+
+## Tiles first, numbers later
+
+With three requests instead of one, each part of the screen can appear as soon as its own data arrives. So we moved the numbers of the five tiles **down the component tree**, into the tiles themselves. Now the tiles render first, and each number appears inside its tile when it arrives.
+
+**Zustand** helped us with it: when a number arrives, only the small `<p>` component that shows it is updated, instead of the whole page or the whole tile.
+
+## From orange to green
+
+<Callout label="In numbers" icon="star">
+
+- Desktop LCP: **8.2 s to 1.7 s**, almost five times faster
+- JavaScript on the fleet, FAQ and admin pages: **65% less**, from 518 kB to about 180 kB
+- All files of the first screen together: **from about 765 kB to under 300 kB**
+- Finish time in the Network tab: **6.91 s to 1.17 s**
+- Lighthouse on desktop: the orange circle turned **green**
+
+</Callout>
+
+The desktop number was the key one, because that is where our clients were. **1.7 seconds** is inside what Google counts as good. After months of looking at an orange circle, a green one is a small holiday.
+
+But my favourite result is not a number. It is what my team lead said:
+
+*"The dashboard is so fast! Kate did it."*
+
+## What I learned
+
+Tools change. Vite, Recharts, Zustand: in two years this list will look different. What I would tattoo on the inside of my head are the principles under them.
+
+<Callout label="What stays" icon="star">
+
+- **Rely on numbers, not feelings.** "The app is slow" is a feeling. 8.2 seconds is a fact, and only a fact can be fixed.
+- **Look inside before you fix.** I could not make 518 kB smaller until I saw what it was made of.
+- **A best practice is a guess until you measure it.** Everyone says images should be lazy. I made them lazy, and the page got slower. ([Part 3](/en/journal/not-every-image-should-be-lazy) tells that story.)
+- **Pay only for what the page uses.** In code, in CSS and in data. If you can handle something with a browser API or simple code, use it: a library should benefit the code, not increase your bundle without value.
+- **Never make everything wait for the slowest thing.** One big request held back the whole screen. Split it, and ask only for what you show: pagination is key.
+
+</Callout>
