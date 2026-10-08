@@ -32,6 +32,7 @@ Two places, because the properties and the text change for different reasons:
 | `date`            | `YYYY-MM-DD`. Sort order (newest first) and the year group in the menu. |
 | `category`        | `mylearning`, `myexperience` or `justtalkoutloud`: "My learning", "My experience" (at work, in projects), or "Just talk out loud". Shown above the date. |
 | `draft`           | Optional. `true` hides the post everywhere without deleting it.         |
+| `headingGap`      | Optional. `line` adds one empty line under each `##` sub-heading; `small` gives the heading two lines to sit in, so it has a little air above and below. Without it a heading sits directly on its text. `line` for the CSS and image posts of the faster-dashboard series, `small` for the packages-and-state one. |
 | `related`         | At least one: another post's `slug`, or `handbook`. Shown at the end of the post as "If you found this interesting, have a look at…". |
 | `title`           | Page heading, index, browser tab, share.                                |
 | `excerpt`         | One line for the menu and the page description.                         |
@@ -629,3 +630,30 @@ Notebook layout, 2026-10-08: the box label and title are back on two rows (her c
 Part 2, 2026-10-08, at her request ("add in the end: how to check if a bundle big or not? - some hook in the end Check my posts.."): a closing hook after the "My rules now" box, pointing to part 1, where the 500 kB Vite warning and the Coverage tip are. Claude assumed part 2 (the post she had just been talking about) and part 1 as the target.
 
 Part 2, 2026-10-08, at her request ("add also a thought block, that now pure css evolve so much and add features such as... so next time when staring app from scratch I would use pure css and avoid edding sass package it all"): a "A thought" box, "Next time: pure CSS", before the closing hook. The decision is hers. The list of features (native nesting, custom properties, container queries, `:has()`) is Claude's, the same four the older post `no-longer-a-junior` names; "and more" is left open. "One dependency less, and no @import or @use to get wrong" is Claude's wording.
+
+2026-10-08, her two corrections:
+
+- "I told to add space between title only to posts about css and images, for state keep minimal": the empty line under sub-headings is now a per-post property, `spacedHeadings: true`, set on `one-css-file-for-everything` and `not-every-image-should-be-lazy` only. The global margin added in `f5f5c74` is gone; everything else, including part 1 and the older posts, has one-line headings with no gap. (`journal.ts`, `JournalEntry.tsx`, `Journal.module.css`.)
+- "reduce space between" the "have a look at" links: the links are 24px tall (new token `--a11y-min-target-compact`), chosen by her from three options, instead of 44px. This is below the 44px in DESIGN.md §5.3 and is noted there as her exception; 24px is the WCAG 2.2 AA minimum.
+
+Part 1, 2026-10-08: the team lead's quote ("But my favourite result is not a number… The dashboard is so fast! Kate did it.") removed at her request, in both languages. "After months of looking at an orange circle, a green one is a small holiday." stays.
+
+2026-10-08, her words "add small space between title to state post": `spacedHeadings` replaced by `headingGap`, `line` (CSS and image posts, as before) or `small` (the state post). A small gap that keeps the text on the ruling has to be whole lines, so `small` is a heading in two lines, with the air split above and below it; that costs one more line per heading than no gap, the same page cost as `line`.
+
+2026-10-08, her report that in the "have a look at" list the arrow sits away from the title "Ein schnelleres Dashboard: nicht jedes Bild sollte lazy sein": the link is a flex box, so a title that wraps to two lines and its arrow were two flex items and the arrow was pushed to the side. Title and arrow are now inside one span (`JournalEntry.tsx`), so the arrow follows the last word.
+
+Notebook on phones, 2026-10-08, her words "on mobile add hight to book and reduce font size for all posts": below 900px the notebook text is 13px (was 14px) on the same 20px ruling, the book is at least 80dvh tall, and the one-viewport body lock is lifted for the notebook only, so the page may scroll a little (`Resume.module.css`, `docs/DESIGN.md` §4.3b). Not checked on a device or in a browser; 80dvh and 13px are first guesses.
+
+Notebook on phones, correction 2026-10-08, her words "screen should not scroll, book should take enough space till footer, but not cause scroll": the 80dvh minimum and the lifted one-viewport lock are removed again (`Resume.module.css`). Instead the footer's extra 40px of air above it on phones is dropped for the notebook only (`PageFooter` `compact`, used in `JournalView.tsx`), which gives the book about 28px (one ruled line) more. The 13px text stays. Not seen on a device.
+
+Footer on phones, 2026-10-08, her words "reduce top pading for foter on mobile, make same as bottom pading": replaces the `compact` footer for the notebook only (removed again). The footer's extra `padding-top: 40px` below 800px is deleted for every page, so the air above the footer equals the air below it (`PageFooter.module.css`). This also tightens the other routes' footers on phones; the notebook is where it was meant to show.
+
+Notebook on phones, 2026-10-08, her words "reduce Resume-module__VDSJBq__viewport padding for mobile": she chose top and right. Below 900px the notebook's text area has 20px of padding at the top and on the right (was 36px); left stays 36px for the coil and holes, bottom 36px for the page number. New variables `--pad-top` and `--pad-right` (fallback `--pad`, so the resume and handbook are unchanged); the ruling, the coil run and the column gap follow them (`Resume.module.css`). Not seen on a device.
+
+Notebook on phones, 2026-10-08, her words "reduce title fintsize and hight" (taken as the post title, below 900px only): 20px on a one-line-per-row height (was 24–30px on two lines per row), so the title takes half the height and the text below stays on the ruling (`Journal.module.css`). Desktop unchanged. Not seen on a device.
+
+Notebook on phones, 2026-10-08, her words "sections title oin pist also": below 900px the sub-headings in a post are 16px (was 20px) and `###` ones 14px (was 16px), still one ruled line per row. The extra room under them still comes from `headingGap`. Desktop unchanged. Not seen on a device.
+
+Post header, 2026-10-08, her words "meine erfarung and date should be in 1 row and small space betwen it and title": below 900px the kind of post and the date no longer wrap (no wrapping, letter-spacing .04em instead of .16em); on every screen there is a 4px space between them and the title: the row is 16px high and the title has 4px of padding on top, which adds up to one ruled line, so the text below stays on the ruling (`Journal.module.css`). Risk: if the longest German date ("23. September 2026") does not fit a very narrow phone, the row is clipped, not wrapped. Not seen on a device.
+
+Post header, 2026-10-08, her words "add space between title and tags, make tags amaller on mobile": the tags start 24px under the title (was 4px; one ruled line more, so the text below stays on the ruling) on every screen; below 900px the tags are 16px tall (was about 24px) with 2px 6px padding and 4px between rows, so each row is one ruled line. The tag text stays 11px, the floor in DESIGN.md §5.4. (`Journal.module.css`.) Not seen on a device.
