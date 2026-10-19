@@ -212,16 +212,16 @@ export const motion = {
   /** Typing effect on the landing counter row: time per character. */
   typeChar: 55,
   /** Same effect on the description (150–220 characters), so much faster. */
-  typeCharFast: 5,
-  introRise: 600,
-  introDrop: 720,
-  introLift: 760,
-  introDraw: 520,
-  introStagger: 90,
-  introPileAt: 200,
-  introFloatAt: 1000,
+  typeCharFast: 3,
+  introRise: 400,
+  introDrop: 480,
+  introLift: 500,
+  introDraw: 350,
+  introStagger: 60,
+  introPileAt: 130,
+  introFloatAt: 670,
   /** When all the text starts typing: once the books have mostly landed. */
-  introTextAt: 1300,
+  introTextAt: 870,
 } as const;
 
 /**

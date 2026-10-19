@@ -66,15 +66,15 @@
   --motion-hover-scale:    1.08;
   --motion-swap:           600ms;
   --motion-type-char:      55ms;
-  --motion-type-char-fast: 5ms;
-  --motion-intro-rise:     600ms;
-  --motion-intro-drop:     720ms;
-  --motion-intro-lift:     760ms;
-  --motion-intro-draw:     520ms;
-  --motion-intro-stagger:  90ms;
-  --motion-intro-pile-at:  200ms;
-  --motion-intro-float-at: 1000ms;
-  --motion-intro-text-at:  1300ms;
+  --motion-type-char-fast: 3ms;
+  --motion-intro-rise:     400ms;
+  --motion-intro-drop:     480ms;
+  --motion-intro-lift:     500ms;
+  --motion-intro-draw:     350ms;
+  --motion-intro-stagger:  60ms;
+  --motion-intro-pile-at:  130ms;
+  --motion-intro-float-at: 670ms;
+  --motion-intro-text-at:  870ms;
 
   /* Accessibility — DESIGN.md §5 */
   --a11y-min-target:         44px;
