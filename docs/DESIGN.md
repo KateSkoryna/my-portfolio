@@ -310,6 +310,8 @@ Every route is now designed on the canvas, desktop **and** mobile. "Designed"
 - Paged books (`/resume`, `/journal`, `/handbook`) — where the arrows are not shown
   (under 1200px) a line over the dots says "Swipe to turn the pages"; swiping was
   not obvious *(Kateryna's call)*.
+- `/projects` — a row of plain pill tabs above the feature card, one accent only; the
+  filled one is the project the card shows *(Kateryna's call)*.
 - `/resume`, `/handbook` — desktop is a two-page spread; mobile is one page at
   a time, so the indicator counts pages ("Page 2 of 5"), not spreads.
 - `/about` — desktop is multi-column with a centre fold; mobile is single

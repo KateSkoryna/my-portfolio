@@ -135,6 +135,7 @@
   "projects": {
     "title": "My Projects",
     "rebuilt": "Rebuilt from the GitHub API {ago} · revalidates hourly",
+    "tabsLabel": "Projects",
     "featureProject": "Feature project",
     "screenshot": "[SCREENSHOT]",
     "lastCommit": "Last commit",

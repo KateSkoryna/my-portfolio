@@ -80,6 +80,59 @@
   flex: none;
 }
 
+/* One tab per project, above the feature card: the filled one is the project
+   the card shows. Plain pills in the site's one accent. */
+.tabs {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 var(--gutter) clamp(12px, 2vh, 20px);
+}
+
+.tabButton {
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1px solid var(--color-emerald);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.1;
+  color: var(--color-emerald-deep);
+  cursor: pointer;
+  transition:
+    background var(--motion-select) var(--motion-ease),
+    color var(--motion-select) var(--motion-ease);
+}
+
+.tabButton:hover {
+  background: var(--color-sage);
+}
+
+.tabButton[aria-pressed='true'] {
+  background: var(--color-emerald);
+  color: var(--color-cream);
+  cursor: default;
+}
+
+.tabButton:focus-visible {
+  outline: 3px solid var(--color-mustard);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabButton {
+    transition: none;
+  }
+}
+
+.tabs + .feature {
+  margin-top: 0;
+}
+
 .feature {
   position: relative;
   display: grid;

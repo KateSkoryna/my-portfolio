@@ -146,6 +146,7 @@
   "projects": {
     "title": "Meine Projekte",
     "rebuilt": "Neu erstellt aus der GitHub-API {ago} · stündlich aktualisiert",
+    "tabsLabel": "Projekte",
     "featureProject": "Hauptprojekt",
     "screenshot": "[SCREENSHOT]",
     "lastCommit": "Letzter Commit",
