@@ -26,11 +26,11 @@ describe('About — DESIGN.md §5 accessibility contract', () => {
     expect(results.violations).toEqual([]);
   });
 
-  it('has one h1, one h2, and a level-3 heading for each of the thirteen facts', () => {
+  it('has one h1, one h2, and a level-3 heading for each of the fourteen facts', () => {
     renderAbout();
     expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
     expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(1);
-    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(13);
+    expect(screen.getAllByRole('heading', { level: 3 })).toHaveLength(14);
   });
 
   it('never leaves a fact half-filled: title and body are both placeholders or both written', () => {
@@ -42,10 +42,10 @@ describe('About — DESIGN.md §5 accessibility contract', () => {
     }
   });
 
-  it('gives each of the four photos a description and a caption', () => {
+  it('gives each of the five photos a description and a caption', () => {
     const { container } = renderAbout();
     const figures = container.querySelectorAll('figure');
-    expect(figures).toHaveLength(4);
+    expect(figures).toHaveLength(5);
     for (const figure of figures) {
       expect(figure.querySelector('img')?.getAttribute('alt')).toBeTruthy();
       expect(figure.querySelector('figcaption')?.textContent).toBeTruthy();

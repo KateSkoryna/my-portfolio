@@ -98,7 +98,7 @@
       "title": "Feierabend",
       "coverKicker": "Wochenendausgabe · Berlin, Deutschland",
       "coverTitle": "Feierabend",
-      "coverFoot": "Dreizehn Dinge, die auf keinen Lebenslauf passen",
+      "coverFoot": "Vierzehn Dinge, die auf keinen Lebenslauf passen",
       "blurb": "Die menschliche Kolumne — woher ich komme, was ich abseits der Tastatur mache, und die Fakten, die auf keinem Lebenslauf etwas verloren haben, aber der Grund sind, warum man sich an dich erinnert.",
       "shortBlurb": "Die menschliche Kolumne — alles, was auf keinem Lebenslauf etwas verloren hat.",
       "chips": ["Über mich", "Hobbys", "Persönliches"],
@@ -253,28 +253,28 @@
     "marginNote": "aber gern würden",
     "facts": [
       {
-        "title": "Die Leute halten mich für sehr selbstbewusst.",
-        "body": "Ich versuche es zu sein, mit kleinen Schritten jeden Tag: neue Technologien lernen, neue Fragen stellen, scheitern, kleine Erfolge sammeln und mit gutem Gewissen einschlafen."
+        "title": "Meine Favoriten in einer Zeile.",
+        "body": "Gericht: Ramen. Getränk: Kaffee. Lied: „Dancing in the Moonlight“. Film: La La Land. Sport: Fußball. Aktiver Sport: Snowboarden. Jahreszeit: Frühling."
       },
       {
-        "title": "Meine Favoriten in einer Zeile.",
-        "body": "Gericht: Ramen. Getränk: Kaffee. Lied: „Sex on Fire“. Film: La La Land. Sport: Fußball. Aktiver Sport: Snowboarden. Jahreszeit: Frühling."
+        "title": "Was ich aus Neugier gelernt habe: Softwareentwicklung.",
+        "body": "Ich war Managerin in der Beauty-Branche. Ich war schon immer nah an der Softwareentwicklung, aber nie mittendrin. Dann habe ich es aus Neugier ausprobiert, und es wurde meine Leidenschaft."
+      },
+      {
+        "title": "Mein Lieblingszitat.",
+        "body": "„Denk daran: Manchmal ist es ein großes Glück, nicht zu bekommen, was man will.“ — dem Dalai Lama zugeschrieben"
       },
       {
         "title": "Die neueste Technologie, die mir Spaß macht: n8n.",
-        "body": "Ich genieße alles daran: die Oberfläche, die flüssigen Übergänge, die Logik. Alles ist klar und offensichtlich, leicht zu lernen und leicht zu bedienen. Ich hoste es lokal, und es automatisiert meine Jobsuche, meine Nachrichtensammlung, Projektverbesserungen und mehr."
+        "body": "Ich genieße alles daran: die Oberfläche, die flüssigen Übergänge, die Logik. Alles ist klar und offensichtlich, leicht zu lernen und leicht zu bedienen. Ich hoste es lokal, und es automatisiert meine Nachrichtensammlung, Projektverbesserungen und mehr."
       },
       {
-        "title": "Worin ich peinlich schlecht bin: Spiele, bei denen man lügen muss.",
-        "body": "Poker, Mafia. Mir fällt es schwer, ein Pokerface zu behalten und nicht zu erröten. Meine Freunde sagen, ich bin ein offenes Buch. Ich weiß nicht, ob das gut oder schlecht für mich ist, aber sie finden es erfrischend."
+        "title": "Was meine Freunde meine beste Angewohnheit nennen würden.",
+        "body": "Ich verurteile niemanden."
       },
       {
-        "title": "Das Seltsamste, was ich aus Neugier gelernt habe: Softwareentwicklung.",
-        "body": "Ich war Managerin in der Beauty-Branche. Mein ganzes Leben war ich nah an der Softwareentwicklung, aber nie mittendrin. Dann habe ich es zum Spaß ausprobiert, und es wurde meine Leidenschaft."
-      },
-      {
-        "title": "Mit 16 dachte ich, Arbeit sei langweilig.",
-        "body": "Ich glaubte, sie könne mir nie gute Gefühle geben. Ich lag so falsch."
+        "title": "Der Tag, an dem unser Boot havarierte.",
+        "body": "Bei einem Firmen-Rafting-Event havarierte unser Boot. Ich blieb ruhig, prüfte, ob alle an Bord in Sicherheit waren, und wechselte schnell die Position, um niemanden zu verletzen. Dann habe ich geholfen, das Boot ans Ufer zu steuern, und gemeinsam haben wir das Loch repariert. Niemand stritt darüber, wer schuld war, und wir fuhren die Strecke gut gelaunt zu Ende."
       },
       {
         "title": "Was ich zuletzt gelesen habe.",
@@ -285,24 +285,28 @@
         "body": "Ich koche, gehe spazieren und lese Liebesromane oder Science-Fiction."
       },
       {
-        "title": "Mein heimliches Vergnügen: Liebesromane.",
-        "body": "Ich lese sie zum Spaß, und kein Lebenslauf wird das je erwähnen. Sie haben immer ein Happy End."
+        "title": "Ein neues Land, eine neue Sprache, ein neuer Beruf.",
+        "body": "Vor viereinhalb Jahren bin ich nach Deutschland gezogen und habe drei Dinge gleichzeitig angefangen: Deutsch, Softwareentwicklung und Englisch, und nebenbei meine Tochter großgezogen. Dann kamen ein Pet-Projekt, meine B2-Prüfung, eine Englischstunde und die Krankheit meiner Tochter zusammen. Die Familie steht an erster Stelle. Bei allem anderen habe ich gefragt, wofür es gut ist: Deutsch für das Zertifikat, Englisch für klare Kommunikation, das Pet-Projekt für meinen Lebenslauf. Ich habe mir jeweils ein kleines, messbares Ziel gesetzt. Ich habe mein B2-Zertifikat bekommen, einen Job auf Englisch gefunden und baue meine Fähigkeiten weiter in Pet-Projekten aus."
+      },
+      {
+        "title": "Bevor ich Rat gebe, höre ich zu.",
+        "body": "Wenn eine Freundin oder ein Freund zu mir kommt, braucht er oder sie als Erstes, gehört zu werden, ohne unterbrochen zu werden, und verstanden zu werden. Deshalb höre ich zuerst zu und finde heraus, worum es wirklich geht: um Rat, um Unterstützung oder um beides. Es ging nie darum, mit meinem Wissen oder meinen Erfahrungen zu glänzen. Es geht darum, ihnen zu geben, was sie brauchen."
       },
       {
         "title": "Mein Lieblingsort auf der Welt.",
         "body": "Eine Kreuzfahrt mit meiner Familie."
       },
       {
-        "title": "Was meine Freunde meine beste Angewohnheit nennen würden.",
-        "body": "Ich verurteile niemanden."
+        "title": "Ich schaue nicht zurück.",
+        "body": "Der Berufswechsel war leicht zu beginnen und schwer durchzuhalten. Am schwierigsten war es, den Blick nach vorn zu richten und nicht aufzugeben. Ich verschwende keine Zeit mit Bedauern. Ich bleibe diszipliniert und lerne, lerne, lerne."
       },
       {
-        "title": "Mein Lieblingszitat.",
-        "body": "„Denk daran: Manchmal ist es ein großes Glück, nicht zu bekommen, was man will.“ — dem Dalai Lama zugeschrieben"
+        "title": "Was ist an Menschen das Wichtigste?",
+        "body": "Ein Sinn für Humor."
       },
       {
-        "title": "Ich wünschte, ich…",
-        "body": "…hätte früher mit dem Programmieren angefangen."
+        "title": "Ich nutze KI jeden Tag. Blind vertraue ich ihr nie.",
+        "body": "KI ist ein schneller, selbstsicherer Kollege, der manchmal danebenliegt. Darum habe ich eine Regel: immer nach der Quelle fragen. Dann prüfe ich sie selbst, denn in der Softwareentwicklung ist eine gute Antwort eine, die man belegen kann."
       }
     ],
     "photos": {
@@ -321,6 +325,10 @@
       "cruise": {
         "alt": "Meine Familie steht zusammen auf einer Steinmole, dahinter eine Küstenstadt mit Kirchturm.",
         "caption": "Mit meiner Familie."
+      },
+      "rafting": {
+        "alt": "Menschen am Flussufer neben zwei Schlauchbooten, orangefarbene Schwimmwesten liegen am Boden.",
+        "caption": "Rafting."
       }
     }
   },
