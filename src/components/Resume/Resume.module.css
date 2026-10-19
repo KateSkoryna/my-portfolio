@@ -150,8 +150,20 @@
 .dots {
   grid-area: dots;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   min-width: 0;
+}
+
+/* Where the arrows are not shown the book is turned by swiping, which nothing
+   on the page says. Hidden once the arrows appear (1200px, below). */
+.swipeHint {
+  margin: 0;
+  font-weight: 700;
+  font-size: 11.5px;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
 }
 
 .dotsSpread {
@@ -226,6 +238,10 @@
   .prev,
   .next {
     display: block;
+  }
+
+  .swipeHint {
+    display: none;
   }
 }
 
