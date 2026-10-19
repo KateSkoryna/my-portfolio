@@ -11,3 +11,6 @@ export const routing = defineRouting({
 });
 
 export type Locale = (typeof routing.locales)[number];
+
+/** Remembers the language a visitor switched to; read by the redirects in `next.config.ts`. */
+export const LOCALE_COOKIE = 'NEXT_LOCALE';
