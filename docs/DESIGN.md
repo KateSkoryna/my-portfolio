@@ -83,18 +83,28 @@ radius.card      9–12px
 radius.book      2px 9px 9px 2px    (spine edge sharp, fore-edge rounded)
 radius.closed    4px 2px 2px 4px
 
-shadow.rest      0 18px 32px -22px rgba(20,40,30,.45)
-shadow.raised    0 30px 46px -20px rgba(20,40,30,.60)
+shadow.rest      0 20px 28px -12px rgba(20,40,30,.55)
+shadow.raised    0 32px 40px -12px rgba(20,40,30,.65)
 shadow.closed    0 10px 18px -14px rgba(20,40,30,.60)
 shadow.button    0 10px 20px -10px rgba(31,111,95,.70)
 
 ease             cubic-bezier(.2,.72,.18,1)
-duration.turn    420ms   carousel advance, page turn
+duration.turn    420ms   carousel advance
+duration.pageTurn 900ms  the /resume leaf
 duration.select  320ms   selection change
 duration.hover   300ms   hover scale
 ```
 
 Every one of these is disabled under `prefers-reduced-motion: reduce`.
+
+- `shadow.rest`/`raised` were widened from the original `-22px` spread, which
+  shrank the shadow against the card so it read flat. *(Kateryna's call.)*
+- The two dark covers get their own `restDark`/`raisedDark`: the same shadow
+  loses contrast where it meets an already-dark card edge.
+- Chip-scale controls use `shadow.chip`; `rest` is too wide to lift a 30px pill.
+- The `/resume` leaf turns in 900ms, slower than `turn`: a whole leaf swinging
+  across the spread reads as rushed at 420ms. *(Kateryna's call.)*
+- `tokens.ts` carries values only; this document carries the reasons.
 
 ---
 
