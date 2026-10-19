@@ -442,10 +442,12 @@ number of coils tall so none is cut. CSS gradients — no canvas, no images.
   CV: columns, one per page, nothing scrolls. Arrows and dots turn the pages of
   *that post*; arrows disable at its first and last page.
 - **Post navigation lives outside the book**, so the number of posts never
-  changes the layout (100 posts cost the same as 2): an **"All posts" menu** in
-  the header's centre cell — a button opening a panel of real links grouped by
-  year, newest first, the open post `aria-current`; the list scrolls inside the
-  panel only. There are no newer / older links: the menu is the way between posts.
+  changes the layout (100 posts cost the same as 2): from 1280px a **list of
+  every post beside the book** (232px, links grouped by year, newest first, the
+  open post `aria-current`, scrolls on its own); below that, where there is no
+  room, the **"All posts" menu** in the header's centre cell — a button opening
+  the same list as a panel. There are no newer / older links *(Kateryna's call:
+  the button is gone on desktop for better UX)*.
   `/journal` is the newest post; every post also has `/journal/<slug>`.
 - **Mobile:** one page at a time, coil down the left edge. The text is 13px
   (14px on desktop), on the same 20px ruling, the post title 20px and its sub-headings 16px, each on one ruled line per row, with 20px of padding at the top and
