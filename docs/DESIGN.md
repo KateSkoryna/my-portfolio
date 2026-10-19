@@ -489,7 +489,10 @@ One header and footer structure on all 15 route boards, desktop and mobile.
   drop shadow and a 1px inner top highlight, holding the **selected** language
   as a filled emerald **circle** (30px desktop / 26px mobile) with the
   nav-button shadow, and the other language as plain muted text beside it. Both
-  are real `<button>`s with `aria-label`.
+  are real `<button>`s with `aria-label`. Each language is named in itself
+  ("Deutsch") by `Intl.DisplayNames`, so adding a locale needs no new message
+  key in every existing file. A switch is remembered in the `NEXT_LOCALE`
+  cookie, which the redirects in `next.config.ts` read.
 - **Buttons carry volume.** The circular nav arrows and the CTA pills already
   had shadows; the language toggle and its selected knob match, and the
   "Go to shelf" pill now carries the nav-button shadow + inner top
