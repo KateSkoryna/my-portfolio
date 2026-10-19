@@ -307,6 +307,9 @@ Every route is now designed on the canvas, desktop **and** mobile. "Designed"
   each cover scaled to fill its column (measured, not a fixed size) with the
   caption running the full column width, and the odd fifth cover left-aligned
   on its own row *(Kateryna's call)*.
+- Paged books (`/resume`, `/journal`, `/handbook`) — where the arrows are not shown
+  (under 1200px) a line over the dots says "Swipe to turn the pages"; swiping was
+  not obvious *(Kateryna's call)*.
 - `/resume`, `/handbook` — desktop is a two-page spread; mobile is one page at
   a time, so the indicator counts pages ("Page 2 of 5"), not spreads.
 - `/about` — desktop is multi-column with a centre fold; mobile is single
@@ -325,7 +328,7 @@ floating item centred (x 596, y 150, 268 × 340), the description panel right
 - `→` advances to the next item, `←` reverses. **The new book is set
   down on top of the old one** (drops in, bounces once, settles; the old one
   stays underneath and is removed when it lands; `motion.swap`), and
-  the counter number, type label, title and description are **typed out a character at a time** (the description much faster than the title), then the coral squiggle under the title is drawn (and at the start of a session the identity block on the left and the pile note are typed the same way; on phones the session start is one wave instead: everything rises with the same long, gentle swell, each element starting while the one before is still moving, from the photo down to the dots); the leader line and the "/ 05" stay put. The pile is a queue in
+  the counter number, type label, title and description are **typed out a character at a time** (the description much faster than the title), then the coral squiggle under the title is drawn (and at the start of a session the identity block on the left and the pile note are typed the same way; on phones the session start is one wave instead: everything rises with the same long, gentle swell, each element starting while the one before is still moving, from the photo down to the pile note); the leader line and the "/ 05" stay put. The pile is a queue in
   the stack's own order (the book after the selection on top, the one before
   it at the bottom): every pile book slides up one place, and the book that
   was floating **drops straight down into the bottom slot**, in front of the
@@ -342,6 +345,7 @@ floating item centred (x 596, y 150, 268 × 340), the description panel right
 - A leader line runs from the floating item's top-right corner to the
   description panel: `M7 50 L56 50 C78 50 76 12 98 12 L178 12`, emerald
   1.4px, with a 3.6px coral dot at the book end.
+- **No dots on the landing page** *(Kateryna's call)*: the pile's books, the arrows and `←` `→` already reach every item, and a dot row was a fourth way to do the same thing.
 - Keyboard: `←` `→` bound to the carousel. Not advertised in the UI — an
   earlier version drew keycap hints next to the visible arrow buttons and it
   read as a second, broken set of controls.

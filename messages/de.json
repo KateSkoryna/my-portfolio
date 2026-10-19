@@ -10,7 +10,9 @@
     "closingNote": "↳ Schreib mir. Prompt-Engineering ist nicht nötig.",
     "getInTouch": "Kontakt aufnehmen",
     "linkedin": "LinkedIn",
-    "github": "GitHub"
+    "github": "GitHub",
+    "swipeHintBooks": "Zum Durchblättern wischen",
+    "swipeHint": "Zum Blättern wischen"
   },
   "chrome": {
     "skipToContent": "Zum Inhalt springen",

@@ -223,6 +223,7 @@ export async function Landing() {
         slides={slides}
         pileBooks={pileBooks}
         prevLabel={tCommon('prevItem')}
+        swipeHint={tCommon('swipeHintBooks')}
         nextLabel={tCommon('nextItem')}
         defaultIndex={DEFAULT_INDEX}
         goToShelfLabel={tCommon('goToShelf')}
