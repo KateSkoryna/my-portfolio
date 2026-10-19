@@ -110,6 +110,24 @@ export function Projects({
         </p>
       </div>
 
+      <ul className={styles.tabs} aria-label={t('tabsLabel')}>
+        {issues.map((issue, issueIndex) => {
+          const selected = slots[0] === issueIndex;
+          return (
+            <li key={issue.repo}>
+              <button
+                type="button"
+                className={styles.tabButton}
+                aria-pressed={selected}
+                onClick={() => !selected && promote(slots.indexOf(issueIndex))}
+              >
+                {issue.title}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+
       <article ref={featureRef} className={styles.feature} data-accent={featureAccent}>
         <FeatureContent feature={feature} locale={locale} sizers={issues} />
         {sweep && (
