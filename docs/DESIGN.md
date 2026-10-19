@@ -493,6 +493,7 @@ One header and footer structure on all 15 route boards, desktop and mobile.
   nor fill until `/shelf` (the first route to actually render the back row)
   exposed it. Underlined text links stay flat by intent — a shadow on a
   text link looks wrong.
+- **One box for both links.** "Back to the stack" and "Go to shelf" are always the same `HeaderLink` pill, on every route except `/` (no back row) and `/shelf` (it is the shelf), and the landing page's "Go to shelf" under the pile is that same pill *(Kateryna's call)*.
 - **Footer** on every route: `© 2026 Kateryna Skoryna · All rights reserved`,
   centred, Manrope 700 / 10px / `quiet`. Sequential prev/next links (where a
   page has them) sit on the row above it. The top back-arrow is the escape
