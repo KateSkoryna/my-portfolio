@@ -113,7 +113,11 @@ export function PageHeader({
               t('back')
             )}
           </HeaderLink>
-          {center ?? <p className={styles.routeLabel}>{routeLabel}</p>}
+          {/* Always a cell of its own: if the content is hidden (the blog's post
+              menu on wide screens), the action must still stay in the right column. */}
+          <div className={styles.center}>
+            {center ?? <p className={styles.routeLabel}>{routeLabel}</p>}
+          </div>
           <div className={styles.action}>{action}</div>
         </div>
       )}
