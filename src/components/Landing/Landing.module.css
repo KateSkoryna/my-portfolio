@@ -2,7 +2,7 @@
  * DESIGN.md §4.1 — three columns at the 1440 reference: identity (x80 w340),
  * the floating stage centred, description (x1040 w320). Fluid via grid +
  * clamp() rather than the literal px, per PLAN.md rule 3. `Carousel.module.css`
- * owns the stage/description/dots columns; this file owns the grid shell and
+ * owns the stage/description columns; this file owns the grid shell and
  * the identity block, which never changes with the selection.
  */
 

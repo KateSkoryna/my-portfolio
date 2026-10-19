@@ -11,7 +11,6 @@ import {
 } from 'react';
 
 import { ArrowButton } from '@/components/ArrowButton/ArrowButton';
-import { DotIndicator } from '@/components/DotIndicator/DotIndicator';
 import { MarginNote } from '@/components/MarginNote/MarginNote';
 import { Link } from '@/i18n/navigation';
 
@@ -149,8 +148,8 @@ export function Carousel({
 
   /*
    * Touch swipe on the book: left → next, right → previous. The arrows are
-   * hidden on phones and tablets (`Carousel.module.css`), and the dots below
-   * remain the non-gesture way to move (WCAG 2.5.1). A swipe also fires a
+   * hidden on phones and tablets (`Carousel.module.css`); the pile's books remain
+   * the non-gesture way to another item (WCAG 2.5.1). A swipe also fires a
    * `click` on release — which would flip the book on a phone or open its page
    * on a tablet — so `swiped` swallows that one. A mouse never swipes.
    */
@@ -302,9 +301,6 @@ export function Carousel({
             </div>
           </div>
           <div className={styles.pileShadow} aria-hidden="true" />
-          <div className={styles.dots}>
-            <DotIndicator count={slides.length} activeIndex={index} onSelect={select} />
-          </div>
         </div>
         <ArrowButton direction="next" label={nextLabel} onClick={() => advance(1)} />
       </div>

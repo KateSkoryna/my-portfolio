@@ -1,6 +1,5 @@
-/* Grid columns 2 and 3 (stage, description) plus the full-width dots row —
-   the parts that change with the selected index. See `Landing.module.css`
-   for the shell and identity block. */
+/* Grid columns 2 and 3 (stage, description): the parts that change with the
+   selected index. See `Landing.module.css` for the shell and identity block. */
 
 .stage {
   display: flex;
@@ -177,16 +176,6 @@
   line-height: 1;
 }
 
-/* Now a `.stack` child, right under `.pileShadow` — `.stack`'s own
-   `align-items: center` centers it against the stack's widest element (the
-   380px pile/shadow), so it lands on the shadow's own horizontal center
-   rather than the full grid row's. */
-.dots {
-  display: flex;
-  justify-content: center;
-  margin-top: 14px;
-}
-
 /* The "four more waiting" annotation beside the pile — Design canvas
    reference, not previously in DESIGN.md. Caveat note + dotted arrow +
    the "Go to shelf" CTA, moved here from the identity column. Positioned
@@ -267,8 +256,8 @@
 @media (max-width: 800px) {
   /*
    * The pile (300px, fixed-px art like BookCover/ClosedBook throughout)
-   * plus two flanking 56px arrows overflows a 390px viewport. The dots
-   * already give one-tap access to any item, so the arrows — a browsing
+   * plus two flanking 56px arrows overflows a 390px viewport. Swipe and
+   * the pile's books already reach any item, so the arrows — a browsing
    * convenience, not the only way in — step out of the stage on mobile
    * rather than force the object art to rescale (`←`/`→` still work).
    */
@@ -431,12 +420,6 @@
     order: 1;
   }
 
-  /* The dots are part of the flow now — between the pile's shadow and the
-     note — not a fixed bar along the bottom of the screen. */
-  .dots {
-    order: 2;
-  }
-
   /* No room to the right of the pile below 800px — back to flowing under
      the pile and its shadow, centered, like the rest of the mobile stack. */
   .pileNote {
@@ -559,8 +542,7 @@
 }
 
 /* Controls arrive as the text starts. */
-:global([data-intro='play']) .stage > button,
-:global([data-intro='play']) .dots {
+:global([data-intro='play']) .stage > button {
   animation: introFade var(--motion-intro-rise) linear backwards;
   animation-delay: var(--motion-intro-text-at);
 }
@@ -657,7 +639,7 @@
 }
 
 /*
- * Changing book (arrows, dots, swipe, pile click). The new book is set down
+ * Changing book (arrows, swipe, pile click). The new book is set down
  * on top of the old one: it drops in from just above, tilted a few degrees
  * toward the side it came from (`--swap-dir`: +1 forward, -1 back), lands,
  * bounces once and settles. The old book stays put underneath, fully covered
@@ -816,7 +798,7 @@
  * Intro on phones (see `Landing.module.css`): no typing, drawing or lifting —
  * the text is simply there, and the rest of the page is the tail of the wave:
  * the book's shadow and button with the book, the pile's shadow with the pile,
- * then the note and the dots.
+ * then the note.
  */
 @media (max-width: 800px) {
   :global([data-intro='play']) .typed[data-type='intro'] .char {
@@ -826,8 +808,7 @@
   :global([data-intro='play']) .suspensionShadow,
   :global([data-intro='play']) .mobileCta,
   :global([data-intro='play']) .pileShadow,
-  :global([data-intro='play']) .pileNote,
-  :global([data-intro='play']) .dots {
+  :global([data-intro='play']) .pileNote {
     animation: waveIn calc(var(--motion-intro-lift) * 1.2) linear backwards;
     animation-delay: calc(var(--wave-i) * var(--motion-intro-stagger) * 0.7);
   }
@@ -843,10 +824,6 @@
 
   :global([data-intro='play']) .pileNote {
     --wave-i: 14;
-  }
-
-  :global([data-intro='play']) .dots {
-    --wave-i: 15;
   }
 
   /* The note's button comes with the note, not on its own later timer. */
