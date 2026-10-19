@@ -85,6 +85,7 @@ describe.each([
           goToShelfLabel={messages.common.goToShelf}
           pileNote={messages.landing.pileNote}
           pileNoteCaption={messages.landing.pileNoteCaption}
+          swipeHint={messages.common.swipeHintBooks}
           flipLabel={messages.landing.flipBook}
         />
       </NextIntlClientProvider>,

@@ -10,6 +10,8 @@ import {
   type ReactNode,
 } from 'react';
 
+import { useTranslations } from 'next-intl';
+
 import { ArrowButton } from '@/components/ArrowButton/ArrowButton';
 import { DotIndicator } from '@/components/DotIndicator/DotIndicator';
 import { motion } from '@/lib/design/tokens';
@@ -136,6 +138,7 @@ export function PagedBook({
   /** Language of the CV text, for the `lang` attribute on the book. */
   lang: string;
 }) {
+  const tCommon = useTranslations('common');
   const flowRef = useRef<HTMLDivElement>(null);
   const [page, setPage] = useState(0);
   const [pageCount, setPageCount] = useState(1);
@@ -377,6 +380,12 @@ export function PagedBook({
         />
       </div>
       <div className={styles.dots}>
+        {lastView > 0 && (
+          <p className={styles.swipeHint}>
+            <span aria-hidden="true">←</span> {tCommon('swipeHint')}{' '}
+            <span aria-hidden="true">→</span>
+          </p>
+        )}
         <div className={styles.dotsSpread}>
           <DotIndicator count={spreadCount} activeIndex={spread} onSelect={(i) => goTo(i * 2)} />
         </div>

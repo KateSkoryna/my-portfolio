@@ -307,6 +307,9 @@ Every route is now designed on the canvas, desktop **and** mobile. "Designed"
   each cover scaled to fill its column (measured, not a fixed size) with the
   caption running the full column width, and the odd fifth cover left-aligned
   on its own row *(Kateryna's call)*.
+- Paged books (`/resume`, `/journal`, `/handbook`) — where the arrows are not shown
+  (under 1200px) a line over the dots says "Swipe to turn the pages"; swiping was
+  not obvious *(Kateryna's call)*.
 - `/resume`, `/handbook` — desktop is a two-page spread; mobile is one page at
   a time, so the indicator counts pages ("Page 2 of 5"), not spreads.
 - `/about` — desktop is multi-column with a centre fold; mobile is single

@@ -67,6 +67,7 @@ export function Carousel({
   pileNote,
   pileNoteCaption,
   flipLabel,
+  swipeHint,
 }: {
   slides: readonly Slide[];
   /** Every item as a closed book, in stack order — the pile shows four of them. */
@@ -77,6 +78,8 @@ export function Carousel({
   goToShelfLabel: string;
   pileNote: string;
   pileNoteCaption: string;
+  /** Phones only: says the books can be swiped. */
+  swipeHint: string;
   /** Accessible name of the mobile flip button. */
   flipLabel: string;
 }) {
@@ -184,6 +187,9 @@ export function Carousel({
           data-ready={fitReady}
           style={{ '--fit': fit } as CSSProperties}
         >
+          <p className={styles.swipeHint}>
+            <span aria-hidden="true">←</span> {swipeHint} <span aria-hidden="true">→</span>
+          </p>
           <div className={styles.floatingStage} style={{ '--swap-dir': swapDir } as CSSProperties}>
             {leaving !== null && (
               /* The book being replaced, kept just long enough to slide out. */

@@ -142,6 +142,12 @@
   display: none;
 }
 
+/* Phones hide the arrows and move between books by swiping, which nothing
+   says; shown in the 800px block below. */
+.swipeHint {
+  display: none;
+}
+
 /* The panel's own buttons: the item's download, then its main button on a
    row of its own below. */
 .descriptionCta {
@@ -398,6 +404,17 @@
     .floatingWrap[data-flipped='true'] .back {
       opacity: 1;
     }
+  }
+
+  .swipeHint {
+    display: block;
+    margin: 0 0 20px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 11.5px;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    color: var(--color-muted);
   }
 
   .mobileCta {
