@@ -8,13 +8,14 @@ import styles from './About.module.css';
 /**
  * The photo essay: each picture sits after the fact numbered `after`. The
  * files are in `public/`; `position` keeps the face in frame when a portrait
- * photo is cropped to the 4:3 block.
+ * photo is cropped to the 16:9 block.
  */
 const PHOTOS = [
-  { id: 'snow', after: 2, src: '/snow.jpg', position: '50% 50%' },
-  { id: 'walk', after: 6, src: '/walk.webp', position: '50% 25%' },
+  { id: 'snow', after: 1, src: '/snow.jpg', position: '50% 50%' },
+  { id: 'rafting', after: 6, src: '/rafting.webp', position: '50% 40%' },
+  { id: 'walk', after: 9, src: '/walk.webp', position: '50% 25%' },
   { id: 'book', after: 7, src: '/book.webp', position: '50% 50%' },
-  { id: 'cruise', after: 10, src: '/cruise.webp', position: '50% 55%' },
+  { id: 'cruise', after: 11, src: '/cruise.webp', position: '50% 55%' },
 ] as const;
 
 interface Fact {
