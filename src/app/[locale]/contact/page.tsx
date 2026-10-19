@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
 import { Contact } from '@/components/Contact/Contact';
-import { PageHeader } from '@/components/PageHeader/PageHeader';
+import { HeaderLink, PageHeader } from '@/components/PageHeader/PageHeader';
 import { PageFooter } from '@/components/PageFooter/PageFooter';
 import { pageMetadata } from '@/lib/seo';
 
@@ -19,9 +19,17 @@ export async function generateMetadata({
 /** The contact form, linked from the legal notice. Static page; the form posts to a server action. */
 export default async function ContactPage() {
   const tCommon = await getTranslations('common');
+  const tChrome = await getTranslations('chrome');
   return (
     <>
-      <PageHeader backLabel={tCommon('backToStack')} />
+      <PageHeader
+        backLabel={tCommon('backToStack')}
+        action={
+          <HeaderLink href="/shelf" arrow="forward" shortLabel={tChrome('shelfShort')}>
+            {tCommon('goToShelf')}
+          </HeaderLink>
+        }
+      />
       <main id="main">
         <Contact />
       </main>
