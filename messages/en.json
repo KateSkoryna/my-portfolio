@@ -72,7 +72,7 @@
     "noteEu": "EU citizen",
     "languages": "English C1 · German: progressing toward C1",
     "workModel": "Berlin: onsite, hybrid or remote · Germany: remote",
-    "bio": "I’m a frontend-focused full-stack developer who makes B2B products fast, secure and easy to use. I made the Solar Analytics Dashboard, used by 10+ fleets, 5 times faster (JavaScript down 65%, accessibility score 100), built the multi-tenant access control that keeps each fleet’s data separate, and delivered the frontend of the Installation Tool, now running on three OEM production lines. Three years of React and TypeScript, Node.js and PostgreSQL on the backend, and AI features with validated LLM output. I take a feature from user interview to production."
+    "bio": "I’m a frontend-focused full-stack developer who owns the full product cycle, from user interviews to production. I specialize in web performance optimization and accessibility, and I design multi-tenant systems with OAuth 2 and JWT-based access control. My stack is React, TypeScript, Node.js and PostgreSQL with CI/CD, and I integrate LLM-powered features with validated output. Product-minded and independent, I’m passionate about deep-tech products that advance sustainability and the energy transition."
   },
   "items": {
     "resume": {

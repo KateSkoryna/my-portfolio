@@ -1,7 +1,7 @@
 Kateryna Skoryna
 Frontend-Focused Full-Stack Developer · React · TypeScript · Node.js · AI-Powered Products
 Berlin, Germany · k.skoryna@gmail.com · +49 160 998 14 255 · LinkedIn · GitHub
-Frontend-Focused Full-Stack Developer who makes B2B products fast, secure and easy to use. Made the Solar Analytics Dashboard, used by 10+ fleets, 5 times faster (JavaScript down 65%, accessibility score 100), built the multi-tenant access control that keeps each fleet’s data separate, and delivered the frontend of the Installation Tool, now running on three OEM production lines. Three years of React and TypeScript, Node.js and PostgreSQL on the backend, and AI features with validated LLM output. Takes a feature from user interview to production.
+I’m a frontend-focused full-stack developer who owns the full product cycle, from user interviews to production. I specialize in web performance optimization and accessibility, and I design multi-tenant systems with OAuth 2 and JWT-based access control. My stack is React, TypeScript, Node.js and PostgreSQL with CI/CD, and I integrate LLM-powered features with validated output. Product-minded and independent, I’m passionate about deep-tech products that advance sustainability and the energy transition.
 SKILLS
 Frontend: React · TypeScript · JavaScript · Next.js · Material UI · Zustand · Vite · Recharts · Sass · Tailwind CSS · Mapbox · Responsive Design · Accessibility · Core Web Vitals · State Management
 Backend & Data: Node.js · NestJS · PostgreSQL · TypeORM · REST APIs · MongoDB · Prisma · Zod · Firebase Auth ·
