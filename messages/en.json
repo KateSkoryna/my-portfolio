@@ -291,7 +291,7 @@
       {
         "title": "Cookies and storage in your browser",
         "body": [
-          "The site sets one cookie, called NEXT_LOCALE. It stores the language you are using (English or German). It contains no personal data and is deleted when you close your browser. It is needed to show the site in your language (§ 25 (2) no. 2 TDDDG).",
+          "When you switch the language, the site sets one cookie, called NEXT_LOCALE. It stores the language you chose (English or German). It contains no personal data and is deleted when you close your browser. It is needed to show the site in your language (§ 25 (2) no. 2 TDDDG).",
           "The start page remembers within one browser session that its short intro has already been shown. This stays in your browser and is never sent to me."
         ]
       },

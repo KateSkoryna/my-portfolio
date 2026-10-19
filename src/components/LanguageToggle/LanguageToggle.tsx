@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 
-import { routing } from '@/i18n/routing';
+import { LOCALE_COOKIE, routing } from '@/i18n/routing';
 import { usePathname, useRouter } from '@/i18n/navigation';
 
 import styles from './LanguageToggle.module.css';
@@ -60,6 +60,8 @@ export function LanguageToggle() {
             aria-label={t('switchTo', { language: endonym })}
             onClick={() => {
               setPendingLocale(code);
+              // A session cookie, so the next visit to `/` opens in this language.
+              document.cookie = `${LOCALE_COOKIE}=${code}; path=/; SameSite=Lax`;
               router.replace(pathname, { locale: code });
             }}
           >

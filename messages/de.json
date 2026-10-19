@@ -355,7 +355,7 @@
       {
         "title": "Cookies und Speicher im Browser",
         "body": [
-          "Die Seite setzt ein Cookie namens NEXT_LOCALE. Es speichert die Sprache, die du nutzt (Englisch oder Deutsch). Es enthält keine personenbezogenen Daten und wird gelöscht, wenn du den Browser schließt. Es ist nötig, um die Seite in deiner Sprache anzuzeigen (§ 25 Abs. 2 Nr. 2 TDDDG).",
+          "Wenn du die Sprache wechselst, setzt die Seite ein Cookie namens NEXT_LOCALE. Es speichert die gewählte Sprache (Englisch oder Deutsch). Es enthält keine personenbezogenen Daten und wird gelöscht, wenn du den Browser schließt. Es ist nötig, um die Seite in deiner Sprache anzuzeigen (§ 25 Abs. 2 Nr. 2 TDDDG).",
           "Die Startseite merkt sich innerhalb einer Browsersitzung, dass ihr kurzes Intro schon gezeigt wurde. Das bleibt in deinem Browser und wird nie an mich gesendet."
         ]
       },
