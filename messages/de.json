@@ -56,7 +56,7 @@
     "noteEu": "EU-Bürgerin",
     "languages": "Englisch C1 · Deutsch: auf dem Weg zu C1",
     "workModel": "Berlin: vor Ort, hybrid oder remote · Deutschland: remote",
-    "bio": "Ich bin Frontend-fokussierte Full-Stack-Entwicklerin und mache B2B-Produkte schnell, sicher und einfach bedienbar. Ich habe das Solar Analytics Dashboard, das 10+ Flotten nutzen, 5-mal schneller gemacht (JavaScript um 65 % reduziert, Barrierefreiheits-Wert 100), die mandantenfähige Zugriffskontrolle gebaut, die die Daten jeder Flotte trennt, und das Frontend des Installation Tools geliefert, das heute an drei OEM-Produktionslinien läuft. Drei Jahre React und TypeScript, Node.js und PostgreSQL im Backend sowie KI-Features mit validierter LLM-Ausgabe. Ich bringe ein Feature vom Nutzerinterview bis in die Produktion."
+    "bio": "Ich bin Frontend-fokussierte Full-Stack-Entwicklerin und verantworte den gesamten Produktzyklus, von Nutzerinterviews bis zur Produktion. Ich spezialisiere mich auf Web-Performance-Optimierung und Barrierefreiheit und entwerfe mandantenfähige Systeme mit OAuth 2 und JWT-basierter Zugriffskontrolle. Mein Stack ist React, TypeScript, Node.js und PostgreSQL mit CI/CD, und ich integriere LLM-gestützte Features mit validierter Ausgabe. Produktdenkend und eigenständig begeistere ich mich für Deep-Tech-Produkte, die Nachhaltigkeit und die Energiewende voranbringen."
   },
   "items": {
     "resume": {
